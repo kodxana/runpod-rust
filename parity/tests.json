@@ -779,8 +779,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::test_retries_transport_errors",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -789,8 +789,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::test_exhausted_retries_raise",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -799,8 +799,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::test_graphql_errors_propagate_immediately",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -919,8 +919,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [rest_cpu_update]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -929,8 +929,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [routing_change]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -949,8 +949,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, response",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [empty_endpoint_*]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1009,8 +1009,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [get_app_by_name]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1019,8 +1019,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [create_app]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1029,8 +1029,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [create_environment]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1039,8 +1039,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [list_apps]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1059,8 +1059,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [delete_app]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1069,8 +1069,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [delete_environment]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1079,8 +1079,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [get_environment_by_name]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1089,8 +1089,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [not_found_get_environment_by_name]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1099,8 +1099,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [environment_not_found]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1159,8 +1159,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::test_create_auth_request_is_anonymous",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1169,8 +1169,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [get_auth_request_status]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1179,8 +1179,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [prepare_artifact_upload]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1189,8 +1189,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [finalize_artifact_upload]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1199,8 +1199,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_api::python_apps_api_fixtures [deploy_build]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -3469,8 +3469,8 @@
       "kind": "function",
       "public": true,
       "signature": "catalog, malformed, caplog",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_catalog::test_failed_catalog_retries_after_cooldown",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_gpu_catalog.py",

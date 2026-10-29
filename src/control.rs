@@ -406,24 +406,7 @@ impl Client {
             let id = nonempty(&o.instance_id).ok_or_else(|| {
                 Error::InvalidInput("instance_id must be provided for CPU pods".into())
             })?;
-            let parts: Vec<_> = id.split('-').collect();
-            let positive = |v: &str| {
-                !v.starts_with('0') && !v.is_empty() && v.bytes().all(|c| c.is_ascii_digit())
-            };
-            if parts.len() != 3
-                || parts[0].is_empty()
-                || parts[0].chars().any(char::is_whitespace)
-                || !positive(parts[1])
-                || !positive(parts[2])
-            {
-                return Err(Error::InvalidInput(
-                    "instance_id must use the format <cpu-flavor>-<vcpu-count>-<memory>".into(),
-                ));
-            }
-            let count = parts[1]
-                .parse::<u64>()
-                .map_err(|_| Error::InvalidInput("CPU count exceeds u64".into()))?;
-            body["cpu"] = json!({"id":parts[0],"vcpuCount":count});
+            body["cpu"] = cpu_config(id)?;
         }
         self.run_rest_request("POST", "/v2/pods", Some(&body), &[])
             .await
@@ -633,4 +616,24 @@ impl Client {
         .await?;
         Ok(true)
     }
+}
+
+pub(crate) fn cpu_config(id: &str) -> Result<Value> {
+    let parts: Vec<_> = id.split('-').collect();
+    let positive =
+        |v: &str| !v.starts_with('0') && !v.is_empty() && v.bytes().all(|c| c.is_ascii_digit());
+    if parts.len() != 3
+        || parts[0].is_empty()
+        || parts[0].chars().any(char::is_whitespace)
+        || !positive(parts[1])
+        || !positive(parts[2])
+    {
+        return Err(Error::InvalidInput(
+            "instance_id must use the format <cpu-flavor>-<vcpu-count>-<memory>".into(),
+        ));
+    }
+    let count = parts[1]
+        .parse::<u64>()
+        .map_err(|_| Error::InvalidInput("CPU count exceeds u64".into()))?;
+    Ok(json!({"id":parts[0],"vcpuCount":count}))
 }

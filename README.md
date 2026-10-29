@@ -10,8 +10,11 @@ and a synchronous endpoint facade. The native worker now supports single/streami
 concurrent intake, startup hooks, heartbeats, stop signals, and progress updates. Credential
 profiles, validation, cleanup, CUDA probing, and model-cache helpers are also available.
 Apps resource specifications, GPU/CPU/datacenter selection, model/secret references, and
-volume mount definitions are available. Advanced worker utilities, Apps remote execution
-and deployment, and CLI remain in progress.
+volume mount definitions are available. `apps::AppsApiClient` implements endpoint saves,
+task pod provisioning, volumes, secrets, registries, application/environment lifecycle,
+browser-auth requests, artifact uploads, and build deployment. GPU catalog caching is
+scoped to client clones. Higher-level Apps execution/build/deployment workflows,
+advanced worker utilities, and CLI remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run

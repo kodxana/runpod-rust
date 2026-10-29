@@ -1039,8 +1039,8 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::endpoint_input::rest_endpoint_input",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1049,8 +1049,8 @@
       "kind": "function",
       "public": false,
       "signature": "data: Dict[str, Any], data_center_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::api::stock_in_datacenter",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1059,8 +1059,8 @@
       "kind": "function",
       "public": true,
       "signature": "exc: Exception",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::api::is_capacity_error",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1069,8 +1069,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1079,8 +1079,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, api_key: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1089,8 +1089,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::gpu_pool_members",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1099,8 +1099,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, query: str, variables: Optional[Dict[str, Any]]=None, *, anonymous: bool=False, retry: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::execute",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1109,8 +1109,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, endpoint_input: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::save_endpoint",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1119,8 +1119,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, endpoint_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::delete_endpoint",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1129,8 +1129,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::list_my_endpoints",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1139,8 +1139,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, endpoint_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::endpoint_workers",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1149,8 +1149,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, pod_input: Dict[str, Any], *, is_cpu: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::deploy_task_pod",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1159,8 +1159,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, pod_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::terminate_pod",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1169,8 +1169,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::get_app_by_name",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1179,8 +1179,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::create_app",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1189,8 +1189,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, app_id: str, name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::create_environment",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1199,8 +1199,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, gpu_id: str, data_center_id: str, gpu_count: int=1, pods: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::gpu_stock_status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1209,8 +1209,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, instance_id: str, data_center_id: str, *, pods: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::cpu_stock_status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1219,8 +1219,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::network_volume_datacenters",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1229,8 +1229,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::list_global_volumes",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1239,8 +1239,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::create_global_volume",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1249,8 +1249,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::list_network_volumes",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1259,8 +1259,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str, size: int, data_center_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::create_network_volume",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1269,8 +1269,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::list_registry_auths",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1279,8 +1279,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str, username: str, password: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::create_registry_auth",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1289,8 +1289,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, auth_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::delete_registry_auth",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1299,8 +1299,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::list_secrets",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1309,8 +1309,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str, value: str, description: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::create_secret",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1319,8 +1319,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, secret_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::delete_secret",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1329,8 +1329,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::list_apps",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1339,8 +1339,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, app_name: str, env_name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::get_environment_by_name",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1349,8 +1349,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, app_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::delete_app",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1359,8 +1359,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, environment_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::delete_environment",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1369,8 +1369,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::create_auth_request",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1379,8 +1379,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, request_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::get_auth_request_status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1389,8 +1389,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, app_id: str, tarball_size: int",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::prepare_artifact_upload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1399,8 +1399,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, app_id: str, object_key: str, manifest: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::finalize_artifact_upload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1409,8 +1409,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, environment_id: str, build_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::deploy_build",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1419,8 +1419,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, upload_url: str, tar_path: str, progress: Optional[Any]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::upload_tarball",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/api.py",
@@ -1429,8 +1429,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, upload_url, reader, total, timeout",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppsApiClient::put_tarball",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/app.py",
@@ -2699,8 +2699,8 @@
       "kind": "function",
       "public": true,
       "signature": "api_key: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::gpu::GpuCatalog::live_pool_members",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",

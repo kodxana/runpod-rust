@@ -13,7 +13,7 @@ for relative in ["runpod/api/queries/apps.py", "runpod/api/mutations/apps.py"]:
         if isinstance(node, ast.Assign) and isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
             name = node.targets[0].id
             filename = name.lower() + ".graphql"
-            (destination / filename).write_text(node.value.value, encoding="utf-8")
+            (destination / filename).write_text(node.value.value, encoding="utf-8", newline="\n")
             declarations.append(f'/// Upstream {name.lower().replace("_", " ")} operation.\npub const {name}: &str = include_str!("graphql/{filename}");\n')
 (destination.parent / "graphql.rs").write_text("\n".join(declarations), encoding="utf-8")
 print(f"Extracted {len(declarations) - 1} GraphQL documents")

@@ -104,6 +104,24 @@ impl Client {
         if config.api_key.is_empty() {
             return Err(Error::Authentication("No API key provided".into()));
         }
+        Self::build(config, true)
+    }
+
+    /// Creates a separate connection pool that never attaches an API token.
+    ///
+    /// # Errors
+    /// Fails for invalid service URLs or TLS initialization errors.
+    pub fn anonymous(api_base_url: impl Into<String>) -> Result<Self> {
+        Self::build(
+            ClientConfig {
+                api_base_url: api_base_url.into(),
+                ..ClientConfig::new("")
+            },
+            false,
+        )
+    }
+
+    fn build(config: ClientConfig, authenticated: bool) -> Result<Self> {
         for value in [&config.api_base_url, &config.endpoint_base_url] {
             let url = reqwest::Url::parse(value).map_err(|e| Error::InvalidInput(e.to_string()))?;
             if !matches!(url.scheme(), "http" | "https")
@@ -119,10 +137,12 @@ impl Client {
             }
         }
         let mut headers = HeaderMap::new();
-        let mut token = HeaderValue::from_str(&format!("Bearer {}", config.api_key))
-            .map_err(|_| Error::InvalidInput("invalid API key header".into()))?;
-        token.set_sensitive(true);
-        headers.insert(AUTHORIZATION, token);
+        if authenticated {
+            let mut token = HeaderValue::from_str(&format!("Bearer {}", config.api_key))
+                .map_err(|_| Error::InvalidInput("invalid API key header".into()))?;
+            token.set_sensitive(true);
+            headers.insert(AUTHORIZATION, token);
+        }
         headers.insert("Accept", HeaderValue::from_static("application/json"));
         headers.insert("Content-Type", HeaderValue::from_static("application/json"));
         let http = reqwest::Client::builder()
@@ -311,13 +331,38 @@ impl Client {
     /// # Errors
     /// Returns transport, authentication, JSON, or GraphQL query errors.
     pub async fn run_graphql_query(&self, query: &str, variables: Option<&Value>) -> Result<Value> {
+        self.graphql_query(query, variables, self.config.timeout)
+            .await
+    }
+
+    pub(crate) async fn graphql_query(
+        &self,
+        query: &str,
+        variables: Option<&Value>,
+        timeout: Duration,
+    ) -> Result<Value> {
         let mut payload = json!({"query":query});
         if let Some(variables) = variables.filter(|v| truthy(v)) {
             payload["variables"] = variables.clone();
         }
         let response = self
-            .run_rest_request("POST", "/graphql", Some(&payload), &[])
+            .http
+            .post(format!(
+                "{}/graphql",
+                self.config.api_base_url.trim_end_matches('/')
+            ))
+            .json(&payload)
+            .timeout(timeout)
+            .send()
             .await?;
+        if response.status() == reqwest::StatusCode::UNAUTHORIZED {
+            return Err(Error::Authentication(
+                "Unauthorized request, please check your API key.".into(),
+            ));
+        }
+        // Upstream GraphQL checks the envelope on every status except 401.
+        // REST's problem-details handling would hide GraphQL validation errors.
+        let response: Value = serde_json::from_slice(&response.bytes().await?)?;
         if let Some(errors) = response.get("errors") {
             return Err(Error::Query {
                 message: errors

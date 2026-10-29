@@ -194,3 +194,22 @@ async fn test_graphql_error_and_variables() {
         "invalid query"
     );
 }
+
+#[tokio::test]
+async fn test_graphql_checks_envelope_even_on_non_success_http_status() {
+    let (server, client) = setup().await;
+    Mock::given(path("/prefix/graphql"))
+        .respond_with(
+            ResponseTemplate::new(400)
+                .set_body_json(json!({"errors":[{"message":"invalid query"}]})),
+        )
+        .expect(1)
+        .mount(&server)
+        .await;
+    let error = client
+        .run_graphql_query("query Bad", None)
+        .await
+        .unwrap_err();
+    assert_eq!(error.to_string(), "invalid query");
+    assert_eq!(error.status_code(), None);
+}

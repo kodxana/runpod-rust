@@ -48,6 +48,21 @@ for entry in api["entries"]:
         "runpod/apps/markers.py": {"validate_route":"apps::spec::validate_route"},
     }
     target = app_symbols.get(file, {}).get(name, target)
+    if file == "runpod/apps/api.py":
+        if name == "AppsApiClient":
+            target = "apps::AppsApiClient"
+        elif name.startswith("AppsApiClient."):
+            method = name.split(".")[-1]
+            method = {"__init__":"new", "_execute":"execute", "_put_tarball":"put_tarball"}.get(method, method)
+            target = "apps::AppsApiClient::" + method
+        elif name == "is_capacity_error":
+            target = "apps::api::is_capacity_error"
+        elif name == "_rest_endpoint_input":
+            target = "apps::endpoint_input::rest_endpoint_input"
+        elif name == "_stock_in_datacenter":
+            target = "apps::api::stock_in_datacenter"
+    if file == "runpod/apps/gpu.py" and name == "live_pool_members_async":
+        target = "apps::gpu::GpuCatalog::live_pool_members"
     if file == "runpod/serverless/modules/rp_prestart.py" and name in ("register_prestart_hook", "get_prestart_hooks", "has_prestart_hooks", "clear_prestart_hooks", "run_prestart_phase"):
         target = f"serverless::PrestartHooks::{name}"
     if file == "runpod/serverless/modules/worker_state.py" and name.startswith("JobsProgress.") and name.split(".")[-1] in ("clear", "add", "remove", "get", "get_job_list", "get_job_count"):
@@ -79,6 +94,28 @@ for entry in tests["entries"]:
         leaf = entry["name"].split(".")[-1]
         if leaf in ("test_endpoint_run", "test_endpoint_run_sync", "test_run_sync_with_timeout", "test_job_status", "test_output_with_sleep", "test_job_stream"):
             target = "endpoint::" + leaf
+    if entry["file"] == "tests/test_apps/test_api_client.py":
+        leaf = entry["name"].split(".")[-1]
+        if leaf in ("test_retries_transport_errors", "test_exhausted_retries_raise", "test_graphql_errors_propagate_immediately", "test_create_auth_request_is_anonymous"):
+            target = "apps_api::" + leaf
+        lifecycle = {
+            "test_get_app_by_name":"get_app_by_name", "test_create_app":"create_app",
+            "test_create_environment":"create_environment", "test_list_apps":"list_apps",
+            "test_delete_app":"delete_app", "test_delete_environment":"delete_environment",
+            "test_get_environment_by_name":"get_environment_by_name",
+            "test_get_environment_missing_app":"not_found_get_environment_by_name",
+            "test_get_environment_not_found":"environment_not_found",
+            "test_prepare_artifact_upload":"prepare_artifact_upload",
+            "test_finalize_artifact_upload":"finalize_artifact_upload", "test_deploy_build":"deploy_build",
+            "test_status_poll_is_anonymous":"get_auth_request_status",
+            "test_empty_endpoint_read_prevents_mutation":"empty_endpoint_*",
+            "test_routing_change_remains_atomic_graphql_operation":"routing_change",
+            "test_rest_update_preserves_cpu_alternatives_and_load_balancer_idle_timeout":"rest_cpu_update",
+        }
+        if leaf in lifecycle:
+            target = "apps_api::python_apps_api_fixtures [" + lifecycle[leaf] + "]"
+    if entry["file"] == "tests/test_apps/test_gpu_catalog.py" and entry["name"] == "test_failed_catalog_retries_after_cooldown":
+        target = "apps_catalog::test_failed_catalog_retries_after_cooldown"
     if target:
         entry.update(rust=target, status="ported")
 path.write_text(json.dumps(tests, indent=2) + "\n")

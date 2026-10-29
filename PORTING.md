@@ -64,6 +64,7 @@ Regenerate with the upstream SDK installed in an isolated environment:
 ```sh
 python tools/inventory.py ../runpod-python
 python tools/control_fixtures.py
+python tools/apps_api_fixtures.py
 ```
 
 ## Preserved quirks
@@ -87,10 +88,12 @@ python tools/control_fixtures.py
   structs. Timeouts use Duration; sizes/counts use bounded unsigned integers.
 - Job wait deadlines use monotonic time including HTTP time, instead of Python's
   decrementing integer counter. Network errors are returned through Result.
-- Transport errors for non-401 GraphQL HTTP failures are reported before JSON parsing.
+- GraphQL reads the response envelope even on non-401 HTTP failures, as Python does.
   Malformed responses return errors rather than Python KeyError/IndexError.
-- Redirects are disabled, and mutations are never implicitly replayed after ambiguous
-  failures. Pagination alone retries transport failures, matching upstream.
+- Redirects are disabled, and resource mutations are never implicitly replayed after
+  ambiguous failures. Pagination and selected Apps GraphQL reads retry transport errors.
+  Presigned artifact PUTs retry up to four times and reopen the file for every attempt;
+  like upstream, HTTP client errors as well as server errors trigger upload retries.
 - Environment scalar coercion preserves Python True/False/None. Complex nested values
   currently use JSON formatting rather than Python repr; this remains tracked work.
 - Blocking clients own a Tokio runtime and must be constructed/used outside async tasks.
@@ -107,7 +110,9 @@ python tools/control_fixtures.py
   closures, so malformed Python schema objects are outside the Rust input domain.
 - Apps mount definitions use an ordered Vec of Mount values; bindings are owned snapshots.
   Exact GPU device exclusions accept an explicit live catalog; None uses the pinned static
-  fallback. Automatic live-catalog caching and provisioning are still pending.
+  fallback. GpuCatalog caches success and delays retries for sixty seconds after failure.
+  Cache ownership follows client clones instead of a process-global credential map;
+  independently constructed clients fetch independently. Cancellation does not cache failure.
 - Apps use Rust enum/FromStr validation; some malformed-input error text differs from
   Python repr-based messages. The pinned 24 resource fixtures preserve exact messages.
 
@@ -127,13 +132,16 @@ python tools/control_fixtures.py
 - Apps definition milestone: **49 integration tests and one doctest passed** (90 captured
   Python cases across control-plane, worker-output, and resource-manifest fixtures).
   Clippy with warnings denied and documentation generation also passed.
+- Apps control-plane milestone: **61 integration tests and one doctest passed**, including
+  161 Python differential cases. Build, formatting, Clippy with warnings denied, and docs passed.
+  Actual truncated TCP responses verify read retry exhaustion and non-replayed mutations.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
-The Apps definitions milestone does not implement remote Apps invocation, deployment,
-task provisioning/cleanup, build artifacts, discovery, development sessions, auth flows,
+The Apps control-plane milestone does not implement remote Apps invocation, deployment
+orchestration, task execution/cleanup, artifact construction, discovery, development sessions, browser auth flows,
 management/logging/monitoring, or the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

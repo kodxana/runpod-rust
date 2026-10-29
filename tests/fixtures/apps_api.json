@@ -1,0 +1,4943 @@
+[
+  {
+    "name": "delete_endpoint",
+    "operation": "delete_endpoint",
+    "kwargs": {
+      "endpoint_id": "ep/id"
+    },
+    "output": true,
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "list_my_endpoints",
+    "operation": "list_my_endpoints",
+    "kwargs": {},
+    "output": [
+      {
+        "id": "ep"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "endpoint_workers",
+    "operation": "endpoint_workers",
+    "kwargs": {
+      "endpoint_id": "ep/id"
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless/ep%2Fid/workers",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "terminate_pod",
+    "operation": "terminate_pod",
+    "kwargs": {
+      "pod_id": "pod/id"
+    },
+    "output": null,
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/pods/pod%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "get_app_by_name",
+    "operation": "get_app_by_name",
+    "kwargs": {
+      "name": "app"
+    },
+    "output": {
+      "id": "flashAppByName"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "app"
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "create_app",
+    "operation": "create_app",
+    "kwargs": {
+      "name": "app"
+    },
+    "output": {
+      "id": "createFlashApp"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation createFlashApp($input: CreateFlashAppInput!) {\n    createFlashApp(input: $input) { id name }\n}\n",
+          "variables": {
+            "input": {
+              "name": "app"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "create_environment",
+    "operation": "create_environment",
+    "kwargs": {
+      "app_id": "app1",
+      "name": "prod"
+    },
+    "output": {
+      "id": "createFlashEnvironment"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation createFlashEnvironment($input: CreateFlashEnvironmentInput!) {\n    createFlashEnvironment(input: $input) { id name }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "list_global_volumes",
+    "operation": "list_global_volumes",
+    "kwargs": {},
+    "output": [
+      {
+        "id": "v1"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/global-volumes",
+        "body": null,
+        "params": {},
+        "response": {
+          "globalVolumes": [
+            {
+              "id": "v1"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "create_global_volume",
+    "operation": "create_global_volume",
+    "kwargs": {
+      "name": "data"
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/global-volumes",
+        "body": {
+          "name": "data"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "list_network_volumes",
+    "operation": "list_network_volumes",
+    "kwargs": {},
+    "output": [
+      {
+        "id": "v1"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "body": null,
+        "params": {},
+        "response": {
+          "networkVolumes": [
+            {
+              "id": "v1"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "create_network_volume",
+    "operation": "create_network_volume",
+    "kwargs": {
+      "name": "data",
+      "size": 50,
+      "data_center_id": "US-CA-2"
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/network-volumes",
+        "body": {
+          "name": "data",
+          "size": 50,
+          "dataCenter": "US-CA-2"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "list_registry_auths",
+    "operation": "list_registry_auths",
+    "kwargs": {},
+    "output": [
+      {
+        "id": "reg"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/registries",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "create_registry_auth",
+    "operation": "create_registry_auth",
+    "kwargs": {
+      "name": "reg",
+      "username": "user",
+      "password": "dummy"
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/registries",
+        "body": {
+          "name": "reg",
+          "username": "user",
+          "password": "dummy"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "delete_registry_auth",
+    "operation": "delete_registry_auth",
+    "kwargs": {
+      "auth_id": "reg/id"
+    },
+    "output": true,
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/registries/reg%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "list_secrets",
+    "operation": "list_secrets",
+    "kwargs": {},
+    "output": [
+      {
+        "id": "s"
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery mySecrets {\n    myself {\n        secrets { id name description createdAt }\n    }\n}\n"
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "create_secret",
+    "operation": "create_secret",
+    "kwargs": {
+      "name": "token",
+      "value": "dummy",
+      "description": "desc"
+    },
+    "output": {
+      "id": "secretCreate"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation secretCreate($input: SecretCreateInput!) {\n    secretCreate(input: $input) { id name }\n}\n",
+          "variables": {
+            "input": {
+              "name": "token",
+              "value": "dummy",
+              "description": "desc"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "delete_secret",
+    "operation": "delete_secret",
+    "kwargs": {
+      "secret_id": "secret1"
+    },
+    "output": true,
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation secretDelete($id: ID!) {\n    secretDelete(id: $id)\n}\n",
+          "variables": {
+            "id": "secret1"
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "list_apps",
+    "operation": "list_apps",
+    "kwargs": {},
+    "output": [
+      {
+        "id": "a"
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashApps {\n    myself {\n        flashApps {\n            id\n            name\n            flashEnvironments {\n                id\n                name\n                state\n                createdAt\n                activeBuildId\n            }\n            flashBuilds { id createdAt }\n        }\n    }\n}\n"
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "get_environment_by_name",
+    "operation": "get_environment_by_name",
+    "kwargs": {
+      "app_name": "app",
+      "env_name": "prod"
+    },
+    "output": {
+      "id": "flashEnvironmentByName"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "app"
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "flashAppByName",
+              "name": "prod"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "delete_app",
+    "operation": "delete_app",
+    "kwargs": {
+      "app_id": "app1"
+    },
+    "output": true,
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashApp($flashAppId: String!) {\n    deleteFlashApp(flashAppId: $flashAppId)\n}\n",
+          "variables": {
+            "flashAppId": "app1"
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "delete_environment",
+    "operation": "delete_environment",
+    "kwargs": {
+      "environment_id": "env1"
+    },
+    "output": true,
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashEnvironment($flashEnvironmentId: String!) {\n    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)\n}\n",
+          "variables": {
+            "flashEnvironmentId": "env1"
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "create_auth_request",
+    "operation": "create_auth_request",
+    "kwargs": {},
+    "output": {
+      "id": "createFlashAuthRequest"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation createFlashAuthRequest {\n    createFlashAuthRequest {\n        id\n        status\n        expiresAt\n    }\n}\n"
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": true
+      }
+    ]
+  },
+  {
+    "name": "get_auth_request_status",
+    "operation": "get_auth_request_status",
+    "kwargs": {
+      "request_id": "request1"
+    },
+    "output": {
+      "id": "flashAuthRequestStatus"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery flashAuthRequestStatus($flashAuthRequestId: String!) {\n    flashAuthRequestStatus(flashAuthRequestId: $flashAuthRequestId) {\n        id\n        status\n        expiresAt\n        apiKey\n    }\n}\n",
+          "variables": {
+            "flashAuthRequestId": "request1"
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": true
+      }
+    ]
+  },
+  {
+    "name": "prepare_artifact_upload",
+    "operation": "prepare_artifact_upload",
+    "kwargs": {
+      "app_id": "app1",
+      "tarball_size": 12345
+    },
+    "output": {
+      "id": "prepareFlashArtifactUpload"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation PrepareArtifactUpload($input: PrepareFlashArtifactUploadInput!) {\n    prepareFlashArtifactUpload(input: $input) {\n        uploadUrl\n        objectKey\n        expiresAt\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "tarballSize": 12345
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "finalize_artifact_upload",
+    "operation": "finalize_artifact_upload",
+    "kwargs": {
+      "app_id": "app1",
+      "object_key": "key",
+      "manifest": {
+        "resources": []
+      }
+    },
+    "output": {
+      "id": "finalizeFlashArtifactUpload"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation FinalizeArtifactUpload($input: FinalizeFlashArtifactUploadInput!) {\n    finalizeFlashArtifactUpload(input: $input) { id manifest }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "objectKey": "key",
+              "manifest": {
+                "resources": []
+              }
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "deploy_build",
+    "operation": "deploy_build",
+    "kwargs": {
+      "environment_id": "env1",
+      "build_id": "build1"
+    },
+    "output": {
+      "id": "deployBuildToEnvironment"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deployBuildToEnvironment($input: DeployBuildToEnvironmentInput!) {\n    deployBuildToEnvironment(input: $input) { id name }\n}\n",
+          "variables": {
+            "input": {
+              "flashEnvironmentId": "env1",
+              "flashBuildId": "build1"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "network_volume_datacenters",
+    "operation": "network_volume_datacenters",
+    "kwargs": {},
+    "output": [
+      "US-CA-2"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "dev_endpoint_preserves_runtime_and_placement",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image",
+          "containerDiskInGb": 50,
+          "dockerArgs": "serve",
+          "containerRegistryAuthId": "reg",
+          "env": [
+            {
+              "key": "A",
+              "value": "B"
+            }
+          ],
+          "ports": "80/http, 22/tcp"
+        },
+        "scalerType": "QUEUE_DELAY",
+        "scalerValue": 4,
+        "gpuIds": "ADA_48_PRO,-NVIDIA L40",
+        "gpuCount": 2,
+        "locations": "US-CA-2, EU-RO-1",
+        "minCudaVersion": "12.8",
+        "allowedCudaVersions": [
+          "12.8",
+          "13.0"
+        ],
+        "networkVolumeIds": [
+          {
+            "networkVolumeId": "volume1"
+          }
+        ],
+        "workersMin": 0,
+        "workersMax": 2,
+        "idleTimeout": 60,
+        "executionTimeoutMs": 90000,
+        "flashBootType": true
+      }
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/serverless",
+        "body": {
+          "image": "image",
+          "disk": 50,
+          "args": "serve",
+          "registry": "reg",
+          "env": {
+            "A": "B"
+          },
+          "ports": [
+            "80/http",
+            "22/tcp"
+          ],
+          "name": "chat",
+          "timeout": 90000,
+          "flashboot": true,
+          "networkVolumes": [
+            "volume1"
+          ],
+          "type": "QUEUE",
+          "dataCenterIds": [
+            "US-CA-2",
+            "EU-RO-1"
+          ],
+          "gpu": {
+            "pools": [
+              "ADA_48_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA L40"
+            ],
+            "count": 2,
+            "minCudaVersion": "12.8",
+            "allowedCudaVersions": [
+              "12.8",
+              "13.0"
+            ]
+          },
+          "workers": {
+            "min": 0,
+            "max": 2,
+            "idleTimeout": 60
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "request_count_QB",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image"
+        },
+        "scalerType": "REQUEST_COUNT",
+        "scalerValue": 7,
+        "type": "QB",
+        "idleTimeout": 60
+      }
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/serverless",
+        "body": {
+          "image": "image",
+          "name": "chat",
+          "type": "QUEUE",
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 7
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "request_count_LB",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image"
+        },
+        "scalerType": "REQUEST_COUNT",
+        "scalerValue": 7,
+        "type": "LB",
+        "idleTimeout": 60
+      }
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/serverless",
+        "body": {
+          "image": "image",
+          "name": "chat",
+          "type": "LOAD_BALANCER",
+          "workers": {
+            "idleTimeout": 60
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 7
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "atomic_gql_30",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image"
+        },
+        "scalerType": "QUEUE_DELAY",
+        "scalerValue": 4,
+        "flashEnvironmentId": "env1"
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "name": "chat",
+              "template": {
+                "name": "chat",
+                "imageName": "image"
+              },
+              "scalerType": "QUEUE_DELAY",
+              "scalerValue": 4,
+              "flashEnvironmentId": "env1"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "atomic_gql_31",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image"
+        },
+        "scalerType": "QUEUE_DELAY",
+        "scalerValue": 4,
+        "model": "owner/model"
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "name": "chat",
+              "template": {
+                "name": "chat",
+                "imageName": "image"
+              },
+              "scalerType": "QUEUE_DELAY",
+              "scalerValue": 4,
+              "model": "owner/model"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "atomic_gql_32",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image"
+        },
+        "scalerType": "QUEUE_DELAY",
+        "scalerValue": 4,
+        "instanceIds": [
+          "cpu3c-1-2"
+        ]
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "name": "chat",
+              "template": {
+                "name": "chat",
+                "imageName": "image"
+              },
+              "scalerType": "QUEUE_DELAY",
+              "scalerValue": 4,
+              "instanceIds": [
+                "cpu3c-1-2"
+              ]
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "atomic_gql_33",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image"
+        },
+        "scalerType": "QUEUE_DELAY",
+        "scalerValue": 4,
+        "networkVolumeIds": [
+          {
+            "networkVolumeId": "v",
+            "dataCenterId": "dc"
+          }
+        ]
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "name": "chat",
+              "template": {
+                "name": "chat",
+                "imageName": "image"
+              },
+              "scalerType": "QUEUE_DELAY",
+              "scalerValue": 4,
+              "networkVolumeIds": [
+                {
+                  "networkVolumeId": "v",
+                  "dataCenterId": "dc"
+                }
+              ]
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "atomic_gql_34",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image"
+        },
+        "scalerType": "OTHER",
+        "scalerValue": 4
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "name": "chat",
+              "template": {
+                "name": "chat",
+                "imageName": "image"
+              },
+              "scalerType": "OTHER",
+              "scalerValue": 4
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "atomic_gql_35",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "name": "chat",
+        "template": {
+          "imageName": "image",
+          "name": "named"
+        },
+        "scalerType": "QUEUE_DELAY",
+        "scalerValue": 4
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "name": "chat",
+              "template": {
+                "imageName": "image",
+                "name": "named"
+              },
+              "scalerType": "QUEUE_DELAY",
+              "scalerValue": 4
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "rest_cpu_update",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "id": "ep/id",
+        "type": "LB",
+        "instanceIds": [
+          "cpu5c-2-4",
+          "cpu5g-4-16"
+        ],
+        "scalerType": "REQUEST_COUNT",
+        "scalerValue": 7,
+        "idleTimeout": 60
+      }
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "type": "LOAD_BALANCER",
+          "cpu": [
+            {
+              "id": "cpu5c"
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": {
+          "cpu": [
+            {
+              "id": "cpu5c",
+              "vcpuCount": 2
+            },
+            {
+              "id": "cpu5g",
+              "vcpuCount": 4
+            }
+          ],
+          "workers": {
+            "idleTimeout": 60
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 7
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "routing_change",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "id": "ep/id",
+        "type": "LB"
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "type": "QUEUE"
+        },
+        "status": 200,
+        "anonymous": false
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "id": "ep/id",
+              "type": "LB"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "compute_change",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "id": "ep/id",
+        "instanceIds": [
+          "cpu3c-2-4"
+        ]
+      }
+    },
+    "output": {
+      "id": "saveEndpoint"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "type": "QUEUE",
+          "gpu": {}
+        },
+        "status": 200,
+        "anonymous": false
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation saveEndpoint($input: EndpointInput!) {\n    saveEndpoint(input: $input) {\n        id\n        name\n        templateId\n        gpuIds\n        instanceIds\n        workersMin\n        workersMax\n        idleTimeout\n        aiKey\n    }\n}\n",
+          "variables": {
+            "input": {
+              "id": "ep/id",
+              "instanceIds": [
+                "cpu3c-2-4"
+              ]
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "current_request_scaling",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "id": "ep/id",
+        "idleTimeout": 60
+      }
+    },
+    "output": {
+      "id": "result",
+      "endpoints": [
+        {
+          "id": "ep"
+        }
+      ],
+      "registries": [
+        {
+          "id": "reg"
+        }
+      ],
+      "dataCenters": [
+        {
+          "id": "US-CA-2",
+          "availability": "HIGH",
+          "networkVolumeTypes": [
+            "STANDARD"
+          ]
+        },
+        {
+          "id": "EU-RO-1",
+          "networkVolumeTypes": []
+        }
+      ]
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "type": "QUEUE",
+          "scaling": {
+            "type": "REQUEST_COUNT"
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": {
+          "workers": {}
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "empty_endpoint_40",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "id": "ep1",
+        "name": "chat"
+      }
+    },
+    "error": "endpoint 'ep1' returned an empty response",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "params": {},
+        "response": null,
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "empty_endpoint_41",
+    "operation": "save_endpoint",
+    "kwargs": {
+      "endpoint_input": {
+        "id": "ep1",
+        "name": "chat"
+      }
+    },
+    "error": "endpoint 'ep1' returned an empty response",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "params": {},
+        "response": {},
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "gpu_pod",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "gpuTypeIdList": [
+          "NVIDIA GeForce RTX 4090"
+        ],
+        "supportPublicIp": true,
+        "terminateAfter": "2026-09-15T12:30:00Z"
+      },
+      "is_cpu": false
+    },
+    "output": {
+      "id": "podFindAndDeployOnDemand"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deployPod($input: PodFindAndDeployOnDemandInput) {\n    podFindAndDeployOnDemand(input: $input) { id desiredStatus }\n}\n",
+          "variables": {
+            "input": {
+              "gpuTypeIdList": [
+                "NVIDIA GeForce RTX 4090"
+              ],
+              "supportPublicIp": true,
+              "terminateAfter": "2026-09-15T12:30:00Z"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_alternatives_43",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": [
+          "cpu3c-2-4",
+          "cpu3g-2-8"
+        ],
+        "dataCenterIds": [
+          "US-CA-2"
+        ],
+        "networkVolumeId": "v"
+      },
+      "is_cpu": true
+    },
+    "output": {
+      "id": "deployCpuPod"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deployCpuPod($input: deployCpuPodInput!) {\n    deployCpuPod(input: $input) { id desiredStatus }\n}\n",
+          "variables": {
+            "input": {
+              "dataCenterIds": [
+                "US-CA-2"
+              ],
+              "networkVolumeId": "v",
+              "instanceId": "cpu3c-2-4"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_alternatives_44",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": [
+          "cpu3c-2-4",
+          "cpu3g-2-8"
+        ],
+        "dataCenterIds": [
+          "US-CA-2"
+        ],
+        "networkVolumeId": "v"
+      },
+      "is_cpu": true
+    },
+    "output": {
+      "id": "deployCpuPod"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deployCpuPod($input: deployCpuPodInput!) {\n    deployCpuPod(input: $input) { id desiredStatus }\n}\n",
+          "variables": {
+            "input": {
+              "dataCenterIds": [
+                "US-CA-2"
+              ],
+              "networkVolumeId": "v",
+              "instanceId": "cpu3c-2-4"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "errors": [
+            {
+              "message": "insufficient capacity"
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deployCpuPod($input: deployCpuPodInput!) {\n    deployCpuPod(input: $input) { id desiredStatus }\n}\n",
+          "variables": {
+            "input": {
+              "dataCenterIds": [
+                "US-CA-2"
+              ],
+              "networkVolumeId": "v",
+              "instanceId": "cpu3g-2-8"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_alternatives_45",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": [
+          "cpu3c-2-4",
+          "cpu3g-2-8"
+        ],
+        "dataCenterIds": [
+          "US-CA-2"
+        ],
+        "networkVolumeId": "v"
+      },
+      "is_cpu": true
+    },
+    "error": "ambiguous failure",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deployCpuPod($input: deployCpuPodInput!) {\n    deployCpuPod(input: $input) { id desiredStatus }\n}\n",
+          "variables": {
+            "input": {
+              "dataCenterIds": [
+                "US-CA-2"
+              ],
+              "networkVolumeId": "v",
+              "instanceId": "cpu3c-2-4"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "errors": [
+            {
+              "message": "ambiguous failure"
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_cpu_46",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": null
+      },
+      "is_cpu": true
+    },
+    "error": "cpu tasks require non-empty instance ids",
+    "requests": []
+  },
+  {
+    "name": "invalid_cpu_47",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": []
+      },
+      "is_cpu": true
+    },
+    "error": "cpu tasks require non-empty instance ids",
+    "requests": []
+  },
+  {
+    "name": "invalid_cpu_48",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": "cpu3c-2-4"
+      },
+      "is_cpu": true
+    },
+    "error": "cpu tasks require non-empty instance ids",
+    "requests": []
+  },
+  {
+    "name": "invalid_cpu_49",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": [
+          null
+        ]
+      },
+      "is_cpu": true
+    },
+    "error": "cpu tasks require non-empty instance ids",
+    "requests": []
+  },
+  {
+    "name": "invalid_cpu_50",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": [
+          " "
+        ]
+      },
+      "is_cpu": true
+    },
+    "error": "cpu tasks require non-empty instance ids",
+    "requests": []
+  },
+  {
+    "name": "invalid_cpu_51",
+    "operation": "deploy_task_pod",
+    "kwargs": {
+      "pod_input": {
+        "instanceIds": [
+          42
+        ]
+      },
+      "is_cpu": true
+    },
+    "error": "cpu tasks require non-empty instance ids",
+    "requests": []
+  },
+  {
+    "name": "gpu_stock_False",
+    "operation": "gpu_stock_status",
+    "kwargs": {
+      "gpu_id": "NVIDIA H100",
+      "data_center_id": "US-CA-2",
+      "gpu_count": 2,
+      "pods": false
+    },
+    "output": "HIGH",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus/NVIDIA%20H100",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS",
+          "count": 2,
+          "cloud": "SECURE"
+        },
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_stock_cpu3c-4-8False",
+    "operation": "cpu_stock_status",
+    "kwargs": {
+      "instance_id": "cpu3c-4-8",
+      "data_center_id": "US-CA-2",
+      "pods": false
+    },
+    "output": "HIGH",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/cpus/cpu3c",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS",
+          "vcpuCount": 4
+        },
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_stock_cpu3c-1-2False",
+    "operation": "cpu_stock_status",
+    "kwargs": {
+      "instance_id": "cpu3c-1-2",
+      "data_center_id": "US-CA-2",
+      "pods": false
+    },
+    "output": "High",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery CpuStock($cpuFlavorInput: CpuFlavorInput, $specificsInput: SpecificsInput) {\n    cpuFlavors(input: $cpuFlavorInput) {\n        specifics(input: $specificsInput) { stockStatus }\n    }\n}\n",
+          "variables": {
+            "cpuFlavorInput": {
+              "id": "cpu3c",
+              "isSls": true
+            },
+            "specificsInput": {
+              "dataCenterId": "US-CA-2",
+              "instanceId": "cpu3c-1-2",
+              "isSls": true
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_stock_cpu3c-3-6False",
+    "operation": "cpu_stock_status",
+    "kwargs": {
+      "instance_id": "cpu3c-3-6",
+      "data_center_id": "US-CA-2",
+      "pods": false
+    },
+    "output": "High",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery CpuStock($cpuFlavorInput: CpuFlavorInput, $specificsInput: SpecificsInput) {\n    cpuFlavors(input: $cpuFlavorInput) {\n        specifics(input: $specificsInput) { stockStatus }\n    }\n}\n",
+          "variables": {
+            "cpuFlavorInput": {
+              "id": "cpu3c",
+              "isSls": true
+            },
+            "specificsInput": {
+              "dataCenterId": "US-CA-2",
+              "instanceId": "cpu3c-3-6",
+              "isSls": true
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "gpu_stock_True",
+    "operation": "gpu_stock_status",
+    "kwargs": {
+      "gpu_id": "NVIDIA H100",
+      "data_center_id": "US-CA-2",
+      "gpu_count": 2,
+      "pods": true
+    },
+    "output": "HIGH",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus/NVIDIA%20H100",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "POD",
+          "count": 2,
+          "cloud": "SECURE"
+        },
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_stock_cpu3c-4-8True",
+    "operation": "cpu_stock_status",
+    "kwargs": {
+      "instance_id": "cpu3c-4-8",
+      "data_center_id": "US-CA-2",
+      "pods": true
+    },
+    "output": "HIGH",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/cpus/cpu3c",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "POD",
+          "vcpuCount": 4
+        },
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_stock_cpu3c-1-2True",
+    "operation": "cpu_stock_status",
+    "kwargs": {
+      "instance_id": "cpu3c-1-2",
+      "data_center_id": "US-CA-2",
+      "pods": true
+    },
+    "output": "High",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery CpuStock($cpuFlavorInput: CpuFlavorInput, $specificsInput: SpecificsInput) {\n    cpuFlavors(input: $cpuFlavorInput) {\n        specifics(input: $specificsInput) { stockStatus }\n    }\n}\n",
+          "variables": {
+            "cpuFlavorInput": {
+              "id": "cpu3c",
+              "isSls": false
+            },
+            "specificsInput": {
+              "dataCenterId": "US-CA-2",
+              "instanceId": "cpu3c-1-2",
+              "isSls": false
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "cpu_stock_cpu3c-3-6True",
+    "operation": "cpu_stock_status",
+    "kwargs": {
+      "instance_id": "cpu3c-3-6",
+      "data_center_id": "US-CA-2",
+      "pods": true
+    },
+    "output": "High",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery CpuStock($cpuFlavorInput: CpuFlavorInput, $specificsInput: SpecificsInput) {\n    cpuFlavors(input: $cpuFlavorInput) {\n        specifics(input: $specificsInput) { stockStatus }\n    }\n}\n",
+          "variables": {
+            "cpuFlavorInput": {
+              "id": "cpu3c",
+              "isSls": false
+            },
+            "specificsInput": {
+              "dataCenterId": "US-CA-2",
+              "instanceId": "cpu3c-3-6",
+              "isSls": false
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "missing_stock",
+    "operation": "gpu_stock_status",
+    "kwargs": {
+      "gpu_id": "gpu",
+      "data_center_id": "missing"
+    },
+    "output": "NONE",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus/gpu",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS",
+          "count": 1,
+          "cloud": "SECURE"
+        },
+        "response": {
+          "id": "result",
+          "endpoints": [
+            {
+              "id": "ep"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "US-CA-2",
+              "availability": "HIGH",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-RO-1",
+              "networkVolumeTypes": []
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "not_found_get_app_by_name",
+    "operation": "get_app_by_name",
+    "kwargs": {
+      "name": "app"
+    },
+    "output": null,
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "app"
+          }
+        },
+        "params": {},
+        "response": {
+          "errors": [
+            {
+              "message": "not found"
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "not_found_get_environment_by_name",
+    "operation": "get_environment_by_name",
+    "kwargs": {
+      "app_name": "app",
+      "env_name": "prod"
+    },
+    "output": null,
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "app"
+          }
+        },
+        "params": {},
+        "response": {
+          "errors": [
+            {
+              "message": "not found"
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "environment_not_found",
+    "operation": "get_environment_by_name",
+    "kwargs": {
+      "app_name": "app",
+      "env_name": "prod"
+    },
+    "output": null,
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "app"
+          }
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "saveEndpoint": {
+              "id": "saveEndpoint"
+            },
+            "deployCpuPod": {
+              "id": "deployCpuPod"
+            },
+            "podFindAndDeployOnDemand": {
+              "id": "podFindAndDeployOnDemand"
+            },
+            "flashAppByName": {
+              "id": "flashAppByName"
+            },
+            "createFlashApp": {
+              "id": "createFlashApp"
+            },
+            "createFlashEnvironment": {
+              "id": "createFlashEnvironment"
+            },
+            "secretCreate": {
+              "id": "secretCreate"
+            },
+            "flashEnvironmentByName": {
+              "id": "flashEnvironmentByName"
+            },
+            "createFlashAuthRequest": {
+              "id": "createFlashAuthRequest"
+            },
+            "flashAuthRequestStatus": {
+              "id": "flashAuthRequestStatus"
+            },
+            "prepareFlashArtifactUpload": {
+              "id": "prepareFlashArtifactUpload"
+            },
+            "finalizeFlashArtifactUpload": {
+              "id": "finalizeFlashArtifactUpload"
+            },
+            "deployBuildToEnvironment": {
+              "id": "deployBuildToEnvironment"
+            },
+            "myself": {
+              "secrets": [
+                {
+                  "id": "s"
+                }
+              ],
+              "flashApps": [
+                {
+                  "id": "a"
+                }
+              ]
+            },
+            "secretDelete": true,
+            "deleteFlashApp": true,
+            "deleteFlashEnvironment": true,
+            "cpuFlavors": [
+              {
+                "specifics": {
+                  "stockStatus": "High"
+                }
+              }
+            ]
+          }
+        },
+        "status": 200,
+        "anonymous": false
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "flashAppByName",
+              "name": "prod"
+            }
+          }
+        },
+        "params": {},
+        "response": {
+          "errors": [
+            {
+              "message": "not found"
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_global_volume_64",
+    "operation": "create_global_volume",
+    "kwargs": {
+      "name": "data"
+    },
+    "error": "global volume creation returned an invalid response; the volume may have been created, check existing volumes before retrying",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/global-volumes",
+        "body": {
+          "name": "data"
+        },
+        "params": {},
+        "response": null,
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_global_volume_65",
+    "operation": "create_global_volume",
+    "kwargs": {
+      "name": "data"
+    },
+    "error": "global volume creation returned an invalid response; the volume may have been created, check existing volumes before retrying",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/global-volumes",
+        "body": {
+          "name": "data"
+        },
+        "params": {},
+        "response": {},
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_global_volume_66",
+    "operation": "create_global_volume",
+    "kwargs": {
+      "name": "data"
+    },
+    "error": "global volume creation returned an invalid response; the volume may have been created, check existing volumes before retrying",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/global-volumes",
+        "body": {
+          "name": "data"
+        },
+        "params": {},
+        "response": {
+          "id": ""
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_global_volume_67",
+    "operation": "create_global_volume",
+    "kwargs": {
+      "name": "data"
+    },
+    "error": "global volume creation returned an invalid response; the volume may have been created, check existing volumes before retrying",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/global-volumes",
+        "body": {
+          "name": "data"
+        },
+        "params": {},
+        "response": {
+          "id": 42
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_datacenter_68",
+    "operation": "network_volume_datacenters",
+    "kwargs": {},
+    "error": "datacenter catalog is missing dataCenters",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "body": null,
+        "params": {},
+        "response": {},
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_datacenter_69",
+    "operation": "network_volume_datacenters",
+    "kwargs": {},
+    "error": "datacenter catalog has invalid networkVolumeTypes",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "body": null,
+        "params": {},
+        "response": {
+          "dataCenters": [
+            {}
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  },
+  {
+    "name": "invalid_datacenter_70",
+    "operation": "network_volume_datacenters",
+    "kwargs": {},
+    "error": "datacenter catalog has invalid networkVolumeTypes",
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "body": null,
+        "params": {},
+        "response": {
+          "dataCenters": [
+            {
+              "id": "dc",
+              "networkVolumeTypes": [
+                null
+              ]
+            }
+          ]
+        },
+        "status": 200,
+        "anonymous": false
+      }
+    ]
+  }
+]
