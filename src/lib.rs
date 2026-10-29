@@ -16,6 +16,7 @@
 //! # }
 //! ```
 
+pub mod apps;
 pub mod blocking;
 pub mod client;
 pub mod control;

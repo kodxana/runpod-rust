@@ -1,0 +1,14 @@
+
+query getFlashAppByName($flashAppName: String!) {
+    flashAppByName(flashAppName: $flashAppName) {
+        id
+        name
+        flashEnvironments {
+            id
+            name
+            state
+            activeBuildId
+            endpoints { id name }
+        }
+    }
+}

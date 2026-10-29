@@ -1,0 +1,4 @@
+
+mutation deleteFlashEnvironment($flashEnvironmentId: String!) {
+    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)
+}

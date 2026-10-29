@@ -1,0 +1,14 @@
+
+mutation saveEndpoint($input: EndpointInput!) {
+    saveEndpoint(input: $input) {
+        id
+        name
+        templateId
+        gpuIds
+        instanceIds
+        workersMin
+        workersMax
+        idleTimeout
+        aiKey
+    }
+}

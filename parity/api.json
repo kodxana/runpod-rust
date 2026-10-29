@@ -1999,8 +1999,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::DataCenter",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/datacenter.py",
@@ -2009,8 +2009,8 @@
       "kind": "function",
       "public": true,
       "signature": "cls, value: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::DataCenter::from_str",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/datacenter.py",
@@ -2019,8 +2019,8 @@
       "kind": "function",
       "public": true,
       "signature": "cls",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::DataCenter::all",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/deploy.py",
@@ -2549,8 +2549,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::GpuGroup",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2559,8 +2559,8 @@
       "kind": "function",
       "public": true,
       "signature": "cls",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::GpuGroup::all",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2569,8 +2569,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::GpuGroup::device_names",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2579,8 +2579,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::GpuType",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2589,8 +2589,8 @@
       "kind": "function",
       "public": true,
       "signature": "cls",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::GpuType::all",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2599,8 +2599,8 @@
       "kind": "function",
       "public": true,
       "signature": "gpu_type: GpuType",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::catalog::pool_for_gpu_type",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2609,8 +2609,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::CpuInstanceType",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2619,8 +2619,8 @@
       "kind": "function",
       "public": true,
       "signature": "value: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::gpu::resolve_gpu_string",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2729,8 +2729,8 @@
       "kind": "function",
       "public": true,
       "signature": "gpu: Optional[List[str]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::gpu::needs_gpu_catalog",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -2739,8 +2739,8 @@
       "kind": "function",
       "public": true,
       "signature": "gpu: Optional[List[str]], *, pool_members: Optional[Dict[str, Set[str]]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::gpu::gpu_ids_value",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/handles.py",
@@ -3399,8 +3399,8 @@
       "kind": "function",
       "public": true,
       "signature": "method: str, path: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::spec::validate_route",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3509,8 +3509,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Model",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/model.py",
@@ -3529,8 +3529,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Model::path",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/model.py",
@@ -3539,8 +3539,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Model::hf_cache_path",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/model.py",
@@ -3959,8 +3959,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Secret",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/secret.py",
@@ -3979,8 +3979,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Secret::reference",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/secret.py",
@@ -3999,8 +3999,8 @@
       "kind": "function",
       "public": true,
       "signature": "env: Optional[Dict[str, Any]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::render_env",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/secret.py",
@@ -4009,8 +4009,8 @@
       "kind": "function",
       "public": true,
       "signature": "env: Optional[Dict[str, Any]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::secret_names",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/secret.py",
@@ -4109,8 +4109,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::ResourceKind",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -4119,8 +4119,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::RouteSpec",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -4129,8 +4129,8 @@
       "kind": "function",
       "public": true,
       "signature": "workers: Union[int, Tuple[int, int], None]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::spec::normalize_workers",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -4189,8 +4189,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::ResourceSpec",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -4209,8 +4209,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::ResourceSpec::validate",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -4219,8 +4219,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::ResourceSpec::is_cpu",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -4229,8 +4229,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::ResourceSpec::effective_scaler_type",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -4239,8 +4239,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::ResourceSpec::to_manifest",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -5439,8 +5439,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Volume",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5459,8 +5459,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Volume::kind",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5469,8 +5469,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Volume::reference",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5479,8 +5479,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Volume::path",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5489,8 +5489,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::NetworkVolume",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5529,8 +5529,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::GlobalVolume",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5579,8 +5579,8 @@
       "kind": "function",
       "public": true,
       "signature": "mounts: Optional[Mapping[str, Volume]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::normalize_mounts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5659,8 +5659,8 @@
       "kind": "function",
       "public": true,
       "signature": "mounts: Mapping[str, Volume], kind: str, is_cpu: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::validate_mounts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",

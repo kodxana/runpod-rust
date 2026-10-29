@@ -38,6 +38,16 @@ for entry in api["entries"]:
         ("runpod/serverless/modules/rp_progress.py", "progress_update"): "serverless::WorkerTransport::progress_update",
     }
     target = specific.get((file, name), target)
+    app_symbols = {
+        "runpod/apps/model.py": {"Model":"apps::Model", "Model.path":"apps::Model::path", "Model.hf_cache_path":"apps::Model::hf_cache_path"},
+        "runpod/apps/secret.py": {"Secret":"apps::Secret", "Secret.reference":"apps::Secret::reference", "render_env":"apps::render_env", "secret_names":"apps::secret_names"},
+        "runpod/apps/spec.py": {"ResourceKind":"apps::ResourceKind", "RouteSpec":"apps::RouteSpec", "ResourceSpec":"apps::ResourceSpec", "normalize_workers":"apps::spec::normalize_workers", "ResourceSpec.validate":"apps::ResourceSpec::validate", "ResourceSpec.is_cpu":"apps::ResourceSpec::is_cpu", "ResourceSpec.effective_scaler_type":"apps::ResourceSpec::effective_scaler_type", "ResourceSpec.to_manifest":"apps::ResourceSpec::to_manifest"},
+        "runpod/apps/gpu.py": {"GpuGroup":"apps::GpuGroup", "GpuType":"apps::GpuType", "CpuInstanceType":"apps::CpuInstanceType", "GpuGroup.all":"apps::GpuGroup::all", "GpuGroup.device_names":"apps::GpuGroup::device_names", "GpuType.all":"apps::GpuType::all", "pool_for_gpu_type":"apps::catalog::pool_for_gpu_type", "resolve_gpu_string":"apps::gpu::resolve_gpu_string", "needs_gpu_catalog":"apps::gpu::needs_gpu_catalog", "gpu_ids_value":"apps::gpu::gpu_ids_value"},
+        "runpod/apps/datacenter.py": {"DataCenter":"apps::DataCenter", "DataCenter.from_string":"apps::DataCenter::from_str", "DataCenter.all":"apps::DataCenter::all"},
+        "runpod/apps/volume.py": {"Volume":"apps::Volume", "NetworkVolume":"apps::NetworkVolume", "GlobalVolume":"apps::GlobalVolume", "Volume.kind":"apps::Volume::kind", "Volume.reference":"apps::Volume::reference", "Volume.path":"apps::Volume::path", "normalize_mounts":"apps::volume::normalize_mounts", "validate_mounts":"apps::volume::validate_mounts"},
+        "runpod/apps/markers.py": {"validate_route":"apps::spec::validate_route"},
+    }
+    target = app_symbols.get(file, {}).get(name, target)
     if file == "runpod/serverless/modules/rp_prestart.py" and name in ("register_prestart_hook", "get_prestart_hooks", "has_prestart_hooks", "clear_prestart_hooks", "run_prestart_phase"):
         target = f"serverless::PrestartHooks::{name}"
     if file == "runpod/serverless/modules/worker_state.py" and name.startswith("JobsProgress.") and name.split(".")[-1] in ("clear", "add", "remove", "get", "get_job_list", "get_job_count"):

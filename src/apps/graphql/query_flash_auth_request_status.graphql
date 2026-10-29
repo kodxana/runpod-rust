@@ -1,0 +1,9 @@
+
+query flashAuthRequestStatus($flashAuthRequestId: String!) {
+    flashAuthRequestStatus(flashAuthRequestId: $flashAuthRequestId) {
+        id
+        status
+        expiresAt
+        apiKey
+    }
+}

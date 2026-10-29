@@ -1,0 +1,8 @@
+
+mutation createFlashAuthRequest {
+    createFlashAuthRequest {
+        id
+        status
+        expiresAt
+    }
+}

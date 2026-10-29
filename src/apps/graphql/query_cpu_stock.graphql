@@ -1,0 +1,6 @@
+
+query CpuStock($cpuFlavorInput: CpuFlavorInput, $specificsInput: SpecificsInput) {
+    cpuFlavors(input: $cpuFlavorInput) {
+        specifics(input: $specificsInput) { stockStatus }
+    }
+}

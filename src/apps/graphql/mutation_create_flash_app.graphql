@@ -1,0 +1,4 @@
+
+mutation createFlashApp($input: CreateFlashAppInput!) {
+    createFlashApp(input: $input) { id name }
+}

@@ -1,0 +1,4 @@
+
+mutation createFlashEnvironment($input: CreateFlashEnvironmentInput!) {
+    createFlashEnvironment(input: $input) { id name }
+}

@@ -1,0 +1,8 @@
+
+mutation PrepareArtifactUpload($input: PrepareFlashArtifactUploadInput!) {
+    prepareFlashArtifactUpload(input: $input) {
+        uploadUrl
+        objectKey
+        expiresAt
+    }
+}

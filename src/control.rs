@@ -189,7 +189,7 @@ fn split_values(value: &str) -> Vec<&str> {
 fn nonempty(value: &Option<String>) -> Option<&str> {
     value.as_deref().filter(|v| !v.is_empty())
 }
-fn environment(env: &serde_json::Map<String, Value>) -> Value {
+pub(crate) fn environment(env: &serde_json::Map<String, Value>) -> Value {
     Value::Object(
         env.iter()
             .map(|(k, v)| (k.clone(), Value::String(python_string(v))))

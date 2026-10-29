@@ -9,7 +9,9 @@ cursor pagination, serverless endpoint clients, job polling, cancellation, strea
 and a synchronous endpoint facade. The native worker now supports single/streaming handlers,
 concurrent intake, startup hooks, heartbeats, stop signals, and progress updates. Credential
 profiles, validation, cleanup, CUDA probing, and model-cache helpers are also available.
-Advanced worker utilities, Apps, and CLI remain in progress.
+Apps resource specifications, GPU/CPU/datacenter selection, model/secret references, and
+volume mount definitions are available. Advanced worker utilities, Apps remote execution
+and deployment, and CLI remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run

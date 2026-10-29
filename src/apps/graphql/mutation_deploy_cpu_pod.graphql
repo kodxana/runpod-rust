@@ -1,0 +1,4 @@
+
+mutation deployCpuPod($input: deployCpuPodInput!) {
+    deployCpuPod(input: $input) { id desiredStatus }
+}

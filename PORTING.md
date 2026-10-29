@@ -26,6 +26,10 @@ by Python; the complete port remains in progress.
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
 | `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
+| `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
+| `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
+| GPU/CPU/datacenter enums and GPU selection | `apps::catalog`, `apps::gpu` |
+| Volume references and mount validation | `apps::Volume`, `NetworkVolume`, `GlobalVolume`, `MountBindings`, `apps::volume` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
@@ -50,6 +54,10 @@ CPU parsing, and rejected legacy parameters.
 stream aggregation, and cancellation isolation against actual local HTTP servers.
 Credential tests verify atomic replacement, comment preservation, and refusal to overwrite
 invalid files. Utility tests cover typed validation and Python's default/constraint quirk.
+`tests/apps_spec.rs` checks 24 Python manifest/validation fixtures. Apps value and volume
+tests check model references, secret expansion, GPU exclusions, mount restrictions, and
+worker binding lookup. Static catalog enums and GraphQL documents are extracted directly
+from pinned source by reproducible tools; no Python runs inside the Rust library.
 
 Regenerate with the upstream SDK installed in an isolated environment:
 
@@ -97,6 +105,11 @@ python tools/control_fixtures.py
   `test_input.json` locally and Ctrl-C for platform shutdown; SIGTERM handling is pending.
 - Credential profiles require a string API key. Validator schemas use Rust types and
   closures, so malformed Python schema objects are outside the Rust input domain.
+- Apps mount definitions use an ordered Vec of Mount values; bindings are owned snapshots.
+  Exact GPU device exclusions accept an explicit live catalog; None uses the pinned static
+  fallback. Automatic live-catalog caching and provisioning are still pending.
+- Apps use Rust enum/FromStr validation; some malformed-input error text differs from
+  Python repr-based messages. The pinned 24 resource fixtures preserve exact messages.
 
 ## Verification log
 
@@ -111,5 +124,16 @@ python tools/control_fixtures.py
   **2,132 passed, 37 failed, 10 skipped, 6 subtests passed**. The initial run's 322 fixture
   errors were caused by Windows permissions on the default pytest temporary directory.
   Remaining upstream failures are retained in local test logs for classification.
+- Apps definition milestone: **49 integration tests and one doctest passed** (90 captured
+  Python cases across control-plane, worker-output, and resource-manifest fixtures).
+  Clippy with warnings denied and documentation generation also passed.
 
 This file will be updated as each remaining component and test is ported.
+
+## Remaining work
+
+The Apps definitions milestone does not implement remote Apps invocation, deployment,
+task provisioning/cleanup, build artifacts, discovery, development sessions, auth flows,
+management/logging/monitoring, or the CLI. Worker fitness, dynamic scaling, hosted API,
+capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
+All remain part of the requested full port, not exclusions from its scope.

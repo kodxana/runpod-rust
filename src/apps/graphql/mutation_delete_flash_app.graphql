@@ -1,0 +1,4 @@
+
+mutation deleteFlashApp($flashAppId: String!) {
+    deleteFlashApp(flashAppId: $flashAppId)
+}

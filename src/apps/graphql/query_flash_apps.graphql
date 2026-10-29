@@ -1,0 +1,17 @@
+
+query getFlashApps {
+    myself {
+        flashApps {
+            id
+            name
+            flashEnvironments {
+                id
+                name
+                state
+                createdAt
+                activeBuildId
+            }
+            flashBuilds { id createdAt }
+        }
+    }
+}

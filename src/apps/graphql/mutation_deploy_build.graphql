@@ -1,0 +1,4 @@
+
+mutation deployBuildToEnvironment($input: DeployBuildToEnvironmentInput!) {
+    deployBuildToEnvironment(input: $input) { id name }
+}

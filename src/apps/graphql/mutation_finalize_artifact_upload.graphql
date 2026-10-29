@@ -1,0 +1,4 @@
+
+mutation FinalizeArtifactUpload($input: FinalizeFlashArtifactUploadInput!) {
+    finalizeFlashArtifactUpload(input: $input) { id manifest }
+}

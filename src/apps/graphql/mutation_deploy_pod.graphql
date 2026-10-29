@@ -1,0 +1,4 @@
+
+mutation deployPod($input: PodFindAndDeployOnDemandInput) {
+    podFindAndDeployOnDemand(input: $input) { id desiredStatus }
+}
