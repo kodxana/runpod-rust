@@ -1,0 +1,1238 @@
+[
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": false,
+      "version": "3.10"
+    },
+    "output": "runpod/queue:py3.10-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": false,
+      "version": "3.11"
+    },
+    "output": "runpod/queue:py3.11-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": false,
+      "version": "3.12"
+    },
+    "output": "runpod/queue:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": false,
+      "version": "3.13"
+    },
+    "output": "runpod/queue:py3.13-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": false,
+      "version": "3.14"
+    },
+    "output": "runpod/queue:py3.14-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": false,
+      "version": ""
+    },
+    "output": "runpod/queue:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": false,
+      "version": "3.9"
+    },
+    "error": "python 3.9 is not supported by the runtime images (supported: 3.10, 3.11, 3.12, 3.13, 3.14)"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": true,
+      "version": "3.10"
+    },
+    "output": "runpod/queue-gpu:py3.10-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": true,
+      "version": "3.11"
+    },
+    "output": "runpod/queue-gpu:py3.11-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": true,
+      "version": "3.12"
+    },
+    "output": "runpod/queue-gpu:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": true,
+      "version": "3.13"
+    },
+    "output": "runpod/queue-gpu:py3.13-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": true,
+      "version": "3.14"
+    },
+    "output": "runpod/queue-gpu:py3.14-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": true,
+      "version": ""
+    },
+    "output": "runpod/queue-gpu:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "queue",
+      "gpu": true,
+      "version": "3.9"
+    },
+    "error": "python 3.9 is not supported by the runtime images (supported: 3.10, 3.11, 3.12, 3.13, 3.14)"
+  },
+  {
+    "operation": "launcher",
+    "input": "queue",
+    "output": "sh -c 'PY=\"\"; for c in python3 python /usr/local/bin/python3 /usr/bin/python3 /opt/conda/bin/python /opt/venv/bin/python /venv/bin/python /root/.venv/bin/python /app/.venv/bin/python /usr/local/bin/python; do if command -v \"$c\" >/dev/null 2>&1; then PY=\"$c\"; break; fi; done; if [ -z \"$PY\" ]; then echo \"[shim] FATAL: no python interpreter found in this image. \"\"custom images must include python3.\" >&2; exit 1; fi; export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD=\"${SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD:-0.0.0.dev0}\"; RUNTIME_SPEC=\"${RUNPOD_RUNTIME_PACKAGE_SPEC:-runpod-sdk-runtime}\"; if [ -n \"${RUNPOD_RUNTIME_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod_sdk_runtime\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$RUNTIME_SPEC\" || exit 1; fi; SDK_SPEC=\"${RUNPOD_PACKAGE_SPEC:-runpod}\"; if [ -n \"${RUNPOD_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$SDK_SPEC\" || exit 1; fi; exec \"$PY\" -m runpod_sdk_runtime.bootstrap'"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": false,
+      "version": "3.10"
+    },
+    "output": "runpod/api:py3.10-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": false,
+      "version": "3.11"
+    },
+    "output": "runpod/api:py3.11-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": false,
+      "version": "3.12"
+    },
+    "output": "runpod/api:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": false,
+      "version": "3.13"
+    },
+    "output": "runpod/api:py3.13-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": false,
+      "version": "3.14"
+    },
+    "output": "runpod/api:py3.14-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": false,
+      "version": ""
+    },
+    "output": "runpod/api:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": false,
+      "version": "3.9"
+    },
+    "error": "python 3.9 is not supported by the runtime images (supported: 3.10, 3.11, 3.12, 3.13, 3.14)"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": true,
+      "version": "3.10"
+    },
+    "output": "runpod/api-gpu:py3.10-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": true,
+      "version": "3.11"
+    },
+    "output": "runpod/api-gpu:py3.11-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": true,
+      "version": "3.12"
+    },
+    "output": "runpod/api-gpu:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": true,
+      "version": "3.13"
+    },
+    "output": "runpod/api-gpu:py3.13-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": true,
+      "version": "3.14"
+    },
+    "output": "runpod/api-gpu:py3.14-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": true,
+      "version": ""
+    },
+    "output": "runpod/api-gpu:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "api",
+      "gpu": true,
+      "version": "3.9"
+    },
+    "error": "python 3.9 is not supported by the runtime images (supported: 3.10, 3.11, 3.12, 3.13, 3.14)"
+  },
+  {
+    "operation": "launcher",
+    "input": "api",
+    "output": "sh -c 'PY=\"\"; for c in python3 python /usr/local/bin/python3 /usr/bin/python3 /opt/conda/bin/python /opt/venv/bin/python /venv/bin/python /root/.venv/bin/python /app/.venv/bin/python /usr/local/bin/python; do if command -v \"$c\" >/dev/null 2>&1; then PY=\"$c\"; break; fi; done; if [ -z \"$PY\" ]; then echo \"[shim] FATAL: no python interpreter found in this image. \"\"custom images must include python3.\" >&2; exit 1; fi; export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD=\"${SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD:-0.0.0.dev0}\"; RUNTIME_SPEC=\"${RUNPOD_RUNTIME_PACKAGE_SPEC:-runpod-sdk-runtime}\"; if [ -n \"${RUNPOD_RUNTIME_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod_sdk_runtime\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$RUNTIME_SPEC\" || exit 1; fi; SDK_SPEC=\"${RUNPOD_PACKAGE_SPEC:-runpod}\"; if [ -n \"${RUNPOD_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$SDK_SPEC\" || exit 1; fi; exec \"$PY\" -m runpod_sdk_runtime.bootstrap'"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": false,
+      "version": "3.10"
+    },
+    "output": "runpod/task:py3.10-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": false,
+      "version": "3.11"
+    },
+    "output": "runpod/task:py3.11-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": false,
+      "version": "3.12"
+    },
+    "output": "runpod/task:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": false,
+      "version": "3.13"
+    },
+    "output": "runpod/task:py3.13-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": false,
+      "version": "3.14"
+    },
+    "output": "runpod/task:py3.14-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": false,
+      "version": ""
+    },
+    "output": "runpod/task:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": false,
+      "version": "3.9"
+    },
+    "error": "python 3.9 is not supported by the runtime images (supported: 3.10, 3.11, 3.12, 3.13, 3.14)"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": true,
+      "version": "3.10"
+    },
+    "output": "runpod/task-gpu:py3.10-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": true,
+      "version": "3.11"
+    },
+    "output": "runpod/task-gpu:py3.11-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": true,
+      "version": "3.12"
+    },
+    "output": "runpod/task-gpu:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": true,
+      "version": "3.13"
+    },
+    "output": "runpod/task-gpu:py3.13-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": true,
+      "version": "3.14"
+    },
+    "output": "runpod/task-gpu:py3.14-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": true,
+      "version": ""
+    },
+    "output": "runpod/task-gpu:py3.12-test"
+  },
+  {
+    "operation": "image",
+    "input": {
+      "kind": "task",
+      "gpu": true,
+      "version": "3.9"
+    },
+    "error": "python 3.9 is not supported by the runtime images (supported: 3.10, 3.11, 3.12, 3.13, 3.14)"
+  },
+  {
+    "operation": "launcher",
+    "input": "task",
+    "output": "sh -c 'PY=\"\"; for c in python3 python /usr/local/bin/python3 /usr/bin/python3 /opt/conda/bin/python /opt/venv/bin/python /venv/bin/python /root/.venv/bin/python /app/.venv/bin/python /usr/local/bin/python; do if command -v \"$c\" >/dev/null 2>&1; then PY=\"$c\"; break; fi; done; if [ -z \"$PY\" ]; then echo \"[shim] FATAL: no python interpreter found in this image. \"\"custom images must include python3.\" >&2; exit 1; fi; export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD=\"${SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD:-0.0.0.dev0}\"; RUNTIME_SPEC=\"${RUNPOD_RUNTIME_PACKAGE_SPEC:-runpod-sdk-runtime}\"; if [ -n \"${RUNPOD_RUNTIME_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod_sdk_runtime\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$RUNTIME_SPEC\" || exit 1; fi; SDK_SPEC=\"${RUNPOD_PACKAGE_SPEC:-runpod}\"; if [ -n \"${RUNPOD_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$SDK_SPEC\" || exit 1; fi; exec \"$PY\" -m runpod_sdk_runtime.task.runner'"
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate"
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA A100 80GB PCIe",
+        "NVIDIA A100-SXM4-80GB",
+        "NVIDIA A40",
+        "NVIDIA B200",
+        "NVIDIA GeForce RTX 3090",
+        "NVIDIA GeForce RTX 4090",
+        "NVIDIA GeForce RTX 5090",
+        "NVIDIA H100 80GB HBM3",
+        "NVIDIA H100 NVL",
+        "NVIDIA H100 PCIe",
+        "NVIDIA H200",
+        "NVIDIA L4",
+        "NVIDIA RTX 2000 Ada Generation",
+        "NVIDIA RTX 4000 Ada Generation",
+        "NVIDIA RTX 6000 Ada Generation",
+        "NVIDIA RTX A4000",
+        "NVIDIA RTX A4500",
+        "NVIDIA RTX A5000",
+        "NVIDIA RTX A6000",
+        "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Workstation Edition"
+      ],
+      "gpuCount": 1
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "gpu": "4090"
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA GeForce RTX 4090"
+      ],
+      "gpuCount": 1
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "gpu": [
+        "H100",
+        "4090"
+      ],
+      "gpu_count": 2
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA H100 80GB HBM3",
+        "NVIDIA H100 PCIe",
+        "NVIDIA H100 NVL",
+        "NVIDIA GeForce RTX 4090"
+      ],
+      "gpuCount": 2
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "gpu": "any"
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA A100 80GB PCIe",
+        "NVIDIA A100-SXM4-80GB",
+        "NVIDIA A40",
+        "NVIDIA B200",
+        "NVIDIA GeForce RTX 3090",
+        "NVIDIA GeForce RTX 4090",
+        "NVIDIA GeForce RTX 5090",
+        "NVIDIA H100 80GB HBM3",
+        "NVIDIA H100 NVL",
+        "NVIDIA H100 PCIe",
+        "NVIDIA H200",
+        "NVIDIA L4",
+        "NVIDIA RTX 2000 Ada Generation",
+        "NVIDIA RTX 4000 Ada Generation",
+        "NVIDIA RTX 6000 Ada Generation",
+        "NVIDIA RTX A4000",
+        "NVIDIA RTX A4500",
+        "NVIDIA RTX A5000",
+        "NVIDIA RTX A6000",
+        "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Workstation Edition"
+      ],
+      "gpuCount": 1
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "gpu": "NVIDIA H100 PCIe",
+      "min_cuda_version": "12.4"
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA H100 PCIe"
+      ],
+      "gpuCount": 1,
+      "allowedCudaVersions": [
+        "12.4",
+        "12.5",
+        "12.6",
+        "12.7",
+        "12.8",
+        "12.9",
+        "13.0"
+      ]
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "gpu": "4090",
+      "min_cuda_version": " 12.4 "
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA GeForce RTX 4090"
+      ],
+      "gpuCount": 1,
+      "allowedCudaVersions": [
+        "12.4",
+        "12.5",
+        "12.6",
+        "12.7",
+        "12.8",
+        "12.9",
+        "13.0"
+      ]
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "cpu": "cpu3c-2-4"
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 10,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "EU-CZ-1",
+        "EU-RO-1",
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1"
+      ],
+      "instanceIds": [
+        "cpu3c-2-4"
+      ]
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "cpu": "cpu5c-2-4"
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 10,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "EU-RO-1"
+      ],
+      "instanceIds": [
+        "cpu5c-2-4"
+      ]
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "cpu": [
+        "cpu5c-2-4",
+        "cpu3c-2-4"
+      ]
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 10,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "EU-RO-1",
+        "EU-CZ-1",
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1"
+      ],
+      "instanceIds": [
+        "cpu5c-2-4",
+        "cpu3c-2-4"
+      ]
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "cpu": [
+        "cpu3c-2-4",
+        "cpu5c-2-4"
+      ]
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 10,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "EU-CZ-1",
+        "EU-RO-1",
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1"
+      ],
+      "instanceIds": [
+        "cpu3c-2-4",
+        "cpu5c-2-4"
+      ]
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "gpu": "4090",
+      "datacenter": " eu_ro_1 ",
+      "container_disk_gb": 80
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 80,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "EU-RO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA GeForce RTX 4090"
+      ],
+      "gpuCount": 1
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "cpu": "cpu3c-2-4",
+      "datacenter": [
+        "us_ks_2",
+        "EU-CZ-1"
+      ]
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 10,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        }
+      ],
+      "dataCenterIds": [
+        "US-KS-2",
+        "EU-CZ-1"
+      ],
+      "instanceIds": [
+        "cpu3c-2-4"
+      ]
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "env": {
+        "RUNPOD_TASK_TOKEN": "user-override",
+        "RUNPOD_TASK_PORT": 99,
+        "BOOL": true,
+        "NULL": null,
+        "N": 2.5
+      }
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "runpod/task-gpu:py3.12-test",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "user-override"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "99"
+        },
+        {
+          "key": "BOOL",
+          "value": "True"
+        },
+        {
+          "key": "NULL",
+          "value": "None"
+        },
+        {
+          "key": "N",
+          "value": "2.5"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA A100 80GB PCIe",
+        "NVIDIA A100-SXM4-80GB",
+        "NVIDIA A40",
+        "NVIDIA B200",
+        "NVIDIA GeForce RTX 3090",
+        "NVIDIA GeForce RTX 4090",
+        "NVIDIA GeForce RTX 5090",
+        "NVIDIA H100 80GB HBM3",
+        "NVIDIA H100 NVL",
+        "NVIDIA H100 PCIe",
+        "NVIDIA H200",
+        "NVIDIA L4",
+        "NVIDIA RTX 2000 Ada Generation",
+        "NVIDIA RTX 4000 Ada Generation",
+        "NVIDIA RTX 6000 Ada Generation",
+        "NVIDIA RTX A4000",
+        "NVIDIA RTX A4500",
+        "NVIDIA RTX A5000",
+        "NVIDIA RTX A6000",
+        "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Workstation Edition"
+      ],
+      "gpuCount": 1
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "image": "custom/image:latest",
+      "env": {
+        "RUNPOD_PACKAGE_SPEC": "user-sdk"
+      }
+    },
+    "output": {
+      "name": "task-calculate-deadbeef",
+      "imageName": "custom/image:latest",
+      "ports": "8080/http",
+      "containerDiskInGb": 30,
+      "supportPublicIp": true,
+      "dockerArgs": "sh -c 'PY=\"\"; for c in python3 python /usr/local/bin/python3 /usr/bin/python3 /opt/conda/bin/python /opt/venv/bin/python /venv/bin/python /root/.venv/bin/python /app/.venv/bin/python /usr/local/bin/python; do if command -v \"$c\" >/dev/null 2>&1; then PY=\"$c\"; break; fi; done; if [ -z \"$PY\" ]; then echo \"[shim] FATAL: no python interpreter found in this image. \"\"custom images must include python3.\" >&2; exit 1; fi; export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD=\"${SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD:-0.0.0.dev0}\"; RUNTIME_SPEC=\"${RUNPOD_RUNTIME_PACKAGE_SPEC:-runpod-sdk-runtime}\"; if [ -n \"${RUNPOD_RUNTIME_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod_sdk_runtime\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$RUNTIME_SPEC\" || exit 1; fi; SDK_SPEC=\"${RUNPOD_PACKAGE_SPEC:-runpod}\"; if [ -n \"${RUNPOD_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$SDK_SPEC\" || exit 1; fi; exec \"$PY\" -m runpod_sdk_runtime.task.runner'",
+      "env": [
+        {
+          "key": "RUNPOD_TASK_TOKEN",
+          "value": "test-token"
+        },
+        {
+          "key": "RUNPOD_TASK_PORT",
+          "value": "8080"
+        },
+        {
+          "key": "RUNPOD_PACKAGE_SPEC",
+          "value": "sdk==3"
+        },
+        {
+          "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+          "value": "runtime==2"
+        }
+      ],
+      "dataCenterIds": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "gpuTypeIdList": [
+        "NVIDIA A100 80GB PCIe",
+        "NVIDIA A100-SXM4-80GB",
+        "NVIDIA A40",
+        "NVIDIA B200",
+        "NVIDIA GeForce RTX 3090",
+        "NVIDIA GeForce RTX 4090",
+        "NVIDIA GeForce RTX 5090",
+        "NVIDIA H100 80GB HBM3",
+        "NVIDIA H100 NVL",
+        "NVIDIA H100 PCIe",
+        "NVIDIA H200",
+        "NVIDIA L4",
+        "NVIDIA RTX 2000 Ada Generation",
+        "NVIDIA RTX 4000 Ada Generation",
+        "NVIDIA RTX 6000 Ada Generation",
+        "NVIDIA RTX A4000",
+        "NVIDIA RTX A4500",
+        "NVIDIA RTX A5000",
+        "NVIDIA RTX A6000",
+        "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "NVIDIA RTX PRO 6000 Blackwell Workstation Edition"
+      ],
+      "gpuCount": 1
+    }
+  },
+  {
+    "operation": "pod",
+    "input": {
+      "kind": "task",
+      "name": "calculate",
+      "image": "",
+      "container_disk_gb": 0
+    },
+    "error": "resource 'calculate': container_disk_gb must be >= 1"
+  },
+  {
+    "operation": "cuda",
+    "input": "11.8",
+    "output": [
+      "11.8",
+      "12.0",
+      "12.1",
+      "12.2",
+      "12.3",
+      "12.4",
+      "12.5",
+      "12.6",
+      "12.7",
+      "12.8",
+      "12.9",
+      "13.0"
+    ]
+  },
+  {
+    "operation": "cuda",
+    "input": "12.5",
+    "output": [
+      "12.5",
+      "12.6",
+      "12.7",
+      "12.8",
+      "12.9",
+      "13.0"
+    ]
+  },
+  {
+    "operation": "cuda",
+    "input": "13.0",
+    "output": [
+      "13.0"
+    ]
+  },
+  {
+    "operation": "cuda",
+    "input": "14.0",
+    "output": []
+  },
+  {
+    "operation": "cuda",
+    "input": "12.99",
+    "output": [
+      "13.0"
+    ]
+  },
+  {
+    "operation": "cuda",
+    "input": "broken",
+    "error": "not enough values to unpack (expected 2, got 1)"
+  },
+  {
+    "operation": "unwrap",
+    "input": {
+      "success": true,
+      "json_result": {
+        "answer": 42
+      }
+    },
+    "output": {
+      "answer": 42
+    }
+  },
+  {
+    "operation": "unwrap",
+    "input": {
+      "success": true
+    },
+    "output": null
+  },
+  {
+    "operation": "unwrap",
+    "input": {
+      "success": true,
+      "result": "gAWVDQAAAAAAAABdlChLAYwCb2uUTmUu",
+      "json_result": "ignored"
+    },
+    "output": [
+      1,
+      "ok",
+      null
+    ]
+  },
+  {
+    "operation": "unwrap",
+    "input": {
+      "success": false,
+      "error": "failed"
+    },
+    "error": "task execution failed: failed"
+  },
+  {
+    "operation": "unwrap",
+    "input": {
+      "success": false,
+      "error": null
+    },
+    "error": "task execution failed: None"
+  },
+  {
+    "operation": "unwrap",
+    "input": {
+      "success": false,
+      "error": ""
+    },
+    "error": "task execution failed: "
+  },
+  {
+    "operation": "unwrap",
+    "input": {},
+    "error": "task execution failed: unknown"
+  },
+  {
+    "operation": "unwrap",
+    "input": {
+      "success": 1,
+      "json_result": 4
+    },
+    "output": 4
+  },
+  {
+    "operation": "custom_image",
+    "input": "3.9",
+    "output": "custom:1"
+  }
+]

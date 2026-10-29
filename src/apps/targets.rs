@@ -2,6 +2,7 @@
 pub use super::queue::{
     DEFAULT_TIMEOUT, FINAL_STATUSES, QueueClient, ResourceAddress, SENTINEL_ID, StatusObserver,
 };
+pub use super::tasks::PodTarget;
 use super::{AppError, protocol::FunctionResponse, serialization};
 use super::{AppsApiClient, logs::LogsClient, monitor::WorkerMonitor};
 use super::{

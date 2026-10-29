@@ -86,6 +86,15 @@ for entry in api["entries"]:
         "runpod/apps/targets.py": {"LiveTarget":"apps::targets::Target::live", "LiveTarget.__init__":"apps::targets::Target::live / set_events / set_monitor_clients", "LiveTarget._monitor":"apps::targets::Target::monitor", "LiveTarget.invoke":"apps::targets::Target::invoke"},
     }
     target = log_symbols.get(file, {}).get(name, target)
+    task_symbols = {
+        "runpod/apps/images.py": {"runtime_tag":"apps::images::runtime_tag", "runtime_image":"apps::images::RuntimeImages::runtime_image", "image_for_spec":"apps::images::RuntimeImages::image_for_spec"},
+        "runpod/apps/shim.py": {"runtime_launcher":"apps::shim::runtime_launcher"},
+        "runpod/apps/targets.py": {"PodTarget":"apps::targets::PodTarget", "PodTarget.__init__":"apps::targets::PodTarget::with_config", "PodTarget.build_payload":"apps::targets::PodTarget::build_payload", "PodTarget.invoke":"apps::targets::PodTarget::invoke", "PodTarget.submit":"apps::targets::PodTarget::submit"},
+        "runpod/apps/tasks.py": {"_runtime_command":"apps::shim::runtime_launcher", "cuda_versions_at_least":"apps::tasks::cuda_versions_at_least", "_device_names":"apps::tasks::device_names", "_proxy_url":"apps::tasks::TaskExecution::proxy_url", "_pod_input":"apps::tasks::pod_input", "TaskExecution":"apps::tasks::TaskExecution", "TaskExecution.__init__":"apps::tasks::TaskExecution::with_config", "TaskExecution._headers":"apps::tasks::TaskExecution::runner_request", "TaskExecution._deploy_and_record":"apps::tasks::TaskExecution::start owned deployment task", "TaskExecution._deploy_pod":"apps::tasks::TaskExecution::deploy_pod", "TaskExecution._attach_mounts":"apps::volume::attach_pod_mounts", "TaskExecution._post":"apps::tasks::TaskExecution::post", "unwrap_task_response":"apps::tasks::unwrap_task_response", "TaskJob":"apps::tasks::TaskJob", "TaskJob.__init__":"apps::tasks::TaskJob::new"},
+    }
+    target = task_symbols.get(file, {}).get(name, target)
+    if file == "runpod/apps/tasks.py" and name in ("TaskExecution.start", "TaskExecution.wait_ready", "TaskExecution.execute", "TaskExecution.submit", "TaskExecution.set_timeout", "TaskExecution.poll_result", "TaskExecution.terminate", "TaskJob.pod_id", "TaskJob.wait", "TaskJob.cancel"):
+        target = "apps::tasks::" + name.replace(".", "::")
     if file == "runpod/apps/targets.py" and "." in name:
         owner, method = name.split(".", 1)
         if owner == "QueueClient" and method in ("base_url", "run", "invoke", "status", "cancel", "retry", "stream", "wait", "http"):
@@ -101,6 +110,10 @@ for entry in api["entries"]:
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    if file == "runpod/apps/images.py" and name == "local_python_version":
+        entry.update(rust="apps::images::RuntimeImages::python_version", status="adapted", note="Explicit remote interpreter version, default 3.12, replaces local Python introspection. Native Rust serialization never launches Python; see PORTING.md.")
+    if file == "runpod/apps/tasks.py" and name in ("finish_cleanup", "_cleanup_finished"):
+        entry.update(rust="apps::tasks::finish_cleanup / CleanupGuard", status="adapted", note="Tokio owns detached cleanup tasks. Future cancellation starts cleanup without blocking Drop; the runtime must remain alive. The 30-second foreground cleanup deadline and original error precedence are preserved.")
     if file == "runpod/apps/serialization.py" and name in ("serialize_arg", "serialize_args", "serialize_kwargs", "deserialize_result", "get_function_source", "require_json_args"):
         entry.update(rust="apps::serialization::" + name if name != "require_json_args" else "serde_json::Value argument boundary", status="adapted",
                      note="Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions.")
@@ -215,6 +228,48 @@ for entry in tests["entries"]:
         covered = {"TestOnStatus.test_worker_id_triggers_ready_and_stream":"monitor_reports_counts_attaches_each_worker_once_and_stops_pool_updates", "TestPodLogStream.test_follow_emits_and_dedups":"follow_emits_deduplicates_and_attach_is_idempotent", "TestPodLogStream.test_stop_snapshots_when_stream_never_attached":"stop_snapshots_without_a_stream_and_filters_old_and_runtime_lines", "TestPodLogStream.test_snapshot_skips_lines_before_since":"stop_snapshots_without_a_stream_and_filters_old_and_runtime_lines", "TestPodLogStream.test_attach_idempotent":"follow_emits_deduplicates_and_attach_is_idempotent", "TestMonitorLifecycle.test_metrics_polling_reports_counts":"monitor_reports_counts_attaches_each_worker_once_and_stops_pool_updates"}
         if name in covered:
             target = "apps_monitor::" + covered[name]
+    if entry["file"] == "tests/test_apps/test_images.py":
+        name = entry["name"]
+        if name in ("TestRuntimeImage.test_full_matrix_resolves", "TestRuntimeImage.test_unsupported_python_rejected", "TestImageForSpec.test_custom_image_wins", "TestImageForSpec.test_cpu_spec_gets_cpu_image", "TestImageForSpec.test_gpu_spec_gets_gpu_image", "TestLocalPythonVersion.test_supported_range_policy"):
+            target = "apps_tasks::python_task_payload_and_runtime_fixtures"
+        if name in ("TestRuntimeImage.test_tag_channel_from_env", "TestRuntimeImage.test_default_channel_is_latest"):
+            target = "apps_tasks::runtime_image_channel_environment_is_captured_without_global_mutation"
+    if entry["file"] == "tests/test_apps/test_shim.py" and entry["name"] in ("test_starts_an_installed_runtime", "test_installs_missing_packages_and_honors_overrides"):
+        target = "apps_shim::launcher_starts_installed_runtimes_installs_missing_packages_and_honors_overrides [Unix] / apps_tasks::python_task_payload_and_runtime_fixtures [all platforms]"
+    if entry["file"] == "tests/test_apps/test_tasks.py":
+        name = entry["name"]
+        if name.startswith(("TestPodInput.", "TestUnwrapTaskResponse.", "TestGpuPoolExpansion.")):
+            target = "apps_tasks::python_task_payload_and_runtime_fixtures"
+        covered = {
+            "TestPodTargetPayload.test_payload_carries_source_and_args":"pod_target_payload_and_completion_events_follow_cleanup",
+            "TestPodTargetPayload.test_task_spawn_returns_job":"canceled_target_creation_and_wait_continue_cleanup_in_the_background",
+            "TestPollResult.test_retries_transient_404_then_returns_result":"runner_404_retries_are_bounded_and_other_errors_are_not_replayed",
+            "TestPollResult.test_persistent_404_raises":"runner_404_retries_are_bounded_and_other_errors_are_not_replayed",
+            "TestPollResult.test_running_returns_none":"running_task_then_cancel_caches_null_and_unlimited_execute_submits_null_timeout",
+            "TestTaskExecutionLifecycle.test_start_deploys_pod":"task_job_reads_caches_and_cleans_up_with_separate_runner_authentication",
+            "TestTaskExecutionLifecycle.test_start_retries_datacenters_after_capacity_error":"capacity_fallback_tries_datacenters_and_preserves_the_initial_error",
+            "TestTaskExecutionLifecycle.test_start_does_not_retry_non_capacity_error":"setup_failures_clean_up_and_non_capacity_creation_is_never_retried",
+            "TestTaskExecutionLifecycle.test_shared_volume_placement_accounts_for_siblings":"shared_volume_placement_accounts_for_siblings_and_ignores_unrelated_resources",
+            "TestTaskExecutionLifecycle.test_start_resolves_registry_auth":"task_start_resolves_registry_and_attaches_existing_network_storage",
+            "TestTaskExecutionLifecycle.test_failed_termination_retains_id_for_retry":"failed_delete_retains_the_pod_id_for_manual_retry_and_not_found_is_success",
+            "TestTaskExecutionLifecycle.test_terminate_noop_without_pod":"failed_delete_retains_the_pod_id_for_manual_retry_and_not_found_is_success",
+            "TestTaskExecutionLifecycle.test_execute_polls_to_done":"running_task_then_cancel_caches_null_and_unlimited_execute_submits_null_timeout",
+            "TestTaskTimeoutTransport.test_runtime_must_acknowledge_timeout":"task_timeout_validation_and_acknowledgement_prevent_silent_runtime_mismatch",
+            "TestTaskTimeoutTransport.test_invalid_timeouts_fail_before_http":"task_timeout_validation_and_acknowledgement_prevent_silent_runtime_mismatch",
+            "TestTaskJob.test_wait_returns_result_and_terminates":"task_job_reads_caches_and_cleans_up_with_separate_runner_authentication",
+            "TestTaskJob.test_wait_sends_timeout_to_runtime":"job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+            "TestTaskJob.test_timeout_configuration_failure_terminates_pod":"job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+            "TestTaskJob.test_wait_timeout_terminates_pod":"job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+            "TestTaskJob.test_poll_failure_terminates_pod":"job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+            "TestTaskJob.test_failed_result_terminates_pod":"job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+            "TestTaskJob.test_wait_after_done_returns_cached":"task_job_reads_caches_and_cleans_up_with_separate_runner_authentication",
+            "TestTaskJob.test_cancel_terminates":"running_task_then_cancel_caches_null_and_unlimited_execute_submits_null_timeout",
+            "TestSpawnCleanup.test_setup_failure_terminates_pod":"setup_failures_clean_up_and_non_capacity_creation_is_never_retried",
+            "TestCancellationCleanup.test_cancel_during_creation_recovers_and_deletes_pod":"canceled_target_creation_and_wait_continue_cleanup_in_the_background / canceling_creation_still_records_the_late_pod_for_cleanup",
+            "TestCancellationCleanup.test_failed_cleanup_preserves_error_and_recoverable_pod":"job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+        }
+        if name in covered:
+            target = "apps_tasks::" + covered[name]
     if target:
         entry.update(rust=target, status="ported")
 path.write_text(json.dumps(tests, indent=2) + "\n")

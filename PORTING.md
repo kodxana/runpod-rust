@@ -36,13 +36,17 @@ by Python; the complete port remains in progress.
 | Live target payloads, decoding, source synchronization, monitoring | `Target::live`, `FunctionDefinition`, `FunctionSource`, `set_events`, `set_monitor_clients` |
 | `apps.logs` snapshots, SSE streams, tail summaries | `apps::logs::LogsClient`, `LogStreamOptions`, `tail_summary` |
 | `apps.monitor` worker state/log observation and filtering | `apps::monitor::WorkerMonitor`, `PodLogStream`, and helper functions |
+| Runtime image/version selection and custom-image shell launcher | `apps::images::RuntimeImages`, `runtime_tag`, `apps::shim::runtime_launcher` |
+| Ephemeral task pod lifecycle and runner transport | `apps::tasks::TaskExecution`, `TaskConfig`, `pod_input` |
+| `apps.tasks.TaskJob`, task result decoding and cleanup | `apps::tasks::TaskJob`, `unwrap_task_response`, `finish_cleanup` |
+| `apps.targets.PodTarget` | `apps::targets::PodTarget`, explicit function metadata and async invoke/submit |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
-The ledger also labels six serialization/reflection functions as `adapted` to make
-their native Rust input domain explicit. This milestone maps 279 implemented symbols,
-six adapted symbols, and 159 upstream test functions; other entries remain pending.
+The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
+This milestone maps 313 implemented symbols, nine adapted symbols, and 209 upstream
+test functions; other entries remain pending.
 
 ## Test mapping and reproduction
 
@@ -77,11 +81,23 @@ python tools/apps_api_fixtures.py
 python tools/placement_fixtures.py
 python tools/invocation_fixtures.py
 python tools/monitor_fixtures.py
+python tools/task_fixtures.py
 cargo test --test apps_protocol
 python tools/verify_pickle.py
 ```
 
 ## Preserved quirks
+
+- Task jobs clean up on every exit from wait, including remote failure and cancellation.
+  A successful result (including null) is cached. Dropping an unused job alone leaves its
+  pod running; explicit cancel terminates it. An execution timeout of None is unlimited.
+- Task submit/result requests retry only proxy 404 propagation errors, for six attempts.
+  Finite timeouts must be acknowledged by the runner before execution continues.
+- Task env values can override the reserved token and port keys. Nonempty package
+  environment overrides win over user env values only for custom images.
+- Pod capacity fallback tries individual datacenters in order, then returns the initial
+  capacity error if all fail. Other creation failures are not replayed. Termination
+  retries only transient failures and keeps the pod ID when cleanup fails.
 
 - `Endpoint.run` wraps requests whose `input` field is absent or false-like, including
   empty objects. `AsyncioEndpoint.run` always wraps its argument.
@@ -190,6 +206,18 @@ python tools/verify_pickle.py
   recovery. Callbacks can run on background Tokio tasks and are never called under state locks.
 - Timestamp helpers accept RFC3339 or extended ISO timestamps without a timezone. Python's
   additional fromisoformat variants (such as week-date forms) are outside that native domain.
+- Task runtime images use an explicit `RuntimeImages::python_version`, default 3.12.
+  Rust does not inspect or start a local Python interpreter. Custom-image launchers run
+  only inside the remote container. Local closures/classes are not serialized as executable
+  Python objects; explicit source and the existing built-in-value pickle codec are used.
+- A task creation runs in an owned Tokio task so cancellation cannot lose the returned ID.
+  Scoped cancellation cleanup runs asynchronously after the dropped caller has returned;
+  unlike Python's cancellation handling, Rust Drop cannot wait for it. Keep the runtime alive
+  until cleanup finishes. Explicit cleanup waits thirty seconds, then leaves its owned task
+  active. Errors are logged, and a prior execution failure takes precedence over cleanup.
+- TaskExecution is single-use and rejects a second start. Task timeouts use nonnegative
+  Duration values; raw submit payloads still reject booleans, strings, and negative numbers.
+  Cleanup state uses watch channels and serialized termination, with no process-global task set.
 
 ## Verification log
 
@@ -233,13 +261,24 @@ python tools/verify_pickle.py
 - The previous invocation commit 4cdb636 passed all three remote stable jobs on Linux,
   Windows, and macOS: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/40943317560).
   The new log/monitor commit's remote checks are not covered by that earlier result.
+- The first monitoring CI run exposed an ambiguous order between test mocks. Commit
+  8f61681 makes their priorities explicit; all three stable platforms and the Linux MSRV
+  job then passed: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/40948839568).
+- Ephemeral task milestone: **138 integration tests and one doctest passed** on Windows
+  with stable Rust 1.99.1 and MSRV 1.88.0, with **339 captured Python cases** overall.
+  The task/image/launcher Python subset reported **98 passed, five failed** on Windows:
+  four tests require POSIX `sh`, and one formats an endpoint mount as a Windows Path.
+  The Rust sibling-placement equivalent passes. Unix CI additionally executes the real
+  launcher against a shell stub, without installing packages or invoking Python.
+  Build, formatting, Clippy with warnings denied, and documentation generation passed.
+  [Task review](reviews/apps-tasks.md) records lifecycle guarantees and native adaptations.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement deployment orchestration, native function
-registration/deployment, task execution/cleanup, artifact construction, discovery, development sessions, browser auth flows,
+registration/deployment, artifact construction, discovery, development sessions, browser auth flows,
 management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

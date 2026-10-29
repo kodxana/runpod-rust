@@ -17,8 +17,9 @@ scoped to client clones. Shared-volume placement, storage attachment, and secret
 reference validation are implemented. Apps Queue/Api clients support async and blocking
 calls, per-job options, reconnectable jobs, and streaming. Live targets support request
 envelopes, result decoding, coordinated source synchronization, and worker metrics/logs.
-Pod logs support snapshots, SSE cursors, and reconnect deduplication. Task execution,
-application registration/build/deployment workflows, advanced worker
+Pod logs support snapshots, SSE cursors, and reconnect deduplication. Ephemeral tasks
+support runtime image selection, pod creation, runner requests, result polling, and
+cleanup after failure or cancellation. Application registration/build/deployment workflows, advanced worker
 utilities, and CLI remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
@@ -62,6 +63,14 @@ Ok(())
 `StubConfig::environment` overrides `FLASH_ENVIRONMENT` (otherwise `default`).
 For synchronous applications, `blocking::Client::queue` and `::api` return clients
 with the same operations. Their job handles and iterators retain the owned runtime.
+
+For an ephemeral task, `apps::targets::PodTarget` accepts a task `ResourceSpec` and
+explicit `FunctionDefinition` source metadata. `build_payload` encodes arguments;
+`invoke` runs and cleans up the pod, while `submit` returns a `TaskJob` whose `wait`
+and `cancel` clean up. An execution timeout of `None` is unlimited. `TaskConfig::images`
+selects the remote interpreter (default Python 3.12); no local Python is started.
+Keep the Tokio runtime alive until cancellation cleanup finishes. Dropping a submitted
+job without calling `wait` or `cancel` leaves it running, matching the Python lifecycle.
 
 ```sh
 cargo build --locked

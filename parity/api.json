@@ -3009,8 +3009,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::images::runtime_tag",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/images.py",
@@ -3019,8 +3019,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::images::RuntimeImages::python_version",
+      "status": "adapted",
+      "note": "Explicit remote interpreter version, default 3.12, replaces local Python introspection. Native Rust serialization never launches Python; see PORTING.md."
     },
     {
       "file": "runpod/apps/images.py",
@@ -3029,8 +3030,8 @@
       "kind": "function",
       "public": true,
       "signature": "kind: ResourceKind, *, gpu: bool, python_version: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::images::RuntimeImages::runtime_image",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/images.py",
@@ -3039,8 +3040,8 @@
       "kind": "function",
       "public": true,
       "signature": "spec: ResourceSpec, *, python_version: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::images::RuntimeImages::image_for_spec",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/init.py",
@@ -4105,8 +4106,8 @@
       "kind": "function",
       "public": true,
       "signature": "kind: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::shim::runtime_launcher",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/spec.py",
@@ -5045,8 +5046,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::PodTarget",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -5055,8 +5056,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, spec: ResourceSpec, fn: Callable, events: Optional[object]=None, *, specs: Optional[List[ResourceSpec]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::PodTarget::with_config",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -5065,8 +5066,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, fn: Callable, spec: ResourceSpec, args: tuple, kwargs: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::PodTarget::build_payload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -5075,8 +5076,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any], *, timeout: Optional[float]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::PodTarget::invoke",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -5085,8 +5086,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::PodTarget::submit",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5095,8 +5096,9 @@
       "kind": "function",
       "public": true,
       "signature": "coro",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::finish_cleanup / CleanupGuard",
+      "status": "adapted",
+      "note": "Tokio owns detached cleanup tasks. Future cancellation starts cleanup without blocking Drop; the runtime must remain alive. The 30-second foreground cleanup deadline and original error precedence are preserved."
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5105,8 +5107,9 @@
       "kind": "function",
       "public": false,
       "signature": "task",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::finish_cleanup / CleanupGuard",
+      "status": "adapted",
+      "note": "Tokio owns detached cleanup tasks. Future cancellation starts cleanup without blocking Drop; the runtime must remain alive. The 30-second foreground cleanup deadline and original error precedence are preserved."
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5115,8 +5118,8 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::shim::runtime_launcher",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5125,8 +5128,8 @@
       "kind": "function",
       "public": true,
       "signature": "minimum: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::cuda_versions_at_least",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5135,8 +5138,8 @@
       "kind": "function",
       "public": false,
       "signature": "gpu: Optional[List[str]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::device_names",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5145,8 +5148,8 @@
       "kind": "function",
       "public": false,
       "signature": "pod_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::proxy_url",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5155,8 +5158,8 @@
       "kind": "function",
       "public": false,
       "signature": "spec: ResourceSpec, token: str, task_name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::pod_input",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5165,8 +5168,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5175,8 +5178,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, spec: ResourceSpec, api: Optional[AppsApiClient]=None, *, specs: Optional[List[ResourceSpec]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::with_config",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5185,8 +5188,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::runner_request",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5195,8 +5198,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::start",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5205,8 +5208,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, pod: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::start owned deployment task",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5215,8 +5218,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, pod: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::deploy_pod",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5225,8 +5228,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, pod: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::attach_pod_mounts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5235,8 +5238,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, timeout: float=READY_TIMEOUT",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::wait_ready",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5245,8 +5248,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, request: Dict[str, Any], timeout: Optional[float]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::execute",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5255,8 +5258,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, request: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::submit",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5265,8 +5268,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, timeout: float",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::set_timeout",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5275,8 +5278,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, path: str, request: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::post",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5285,8 +5288,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::poll_result",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5295,8 +5298,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskExecution::terminate",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5305,8 +5308,8 @@
       "kind": "function",
       "public": true,
       "signature": "response: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::unwrap_task_response",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5315,8 +5318,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskJob",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5325,8 +5328,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, execution: TaskExecution",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskJob::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5335,8 +5338,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskJob::pod_id",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5345,8 +5348,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, timeout: Optional[float]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskJob::wait",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/tasks.py",
@@ -5355,8 +5358,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::tasks::TaskJob::cancel",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/utils/client.py",

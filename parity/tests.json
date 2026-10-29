@@ -3539,8 +3539,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, kind, gpu, version",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_images.py",
@@ -3549,8 +3549,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_images.py",
@@ -3559,8 +3559,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::runtime_image_channel_environment_is_captured_without_global_mutation",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_images.py",
@@ -3569,8 +3569,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::runtime_image_channel_environment_is_captured_without_global_mutation",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_images.py",
@@ -3579,8 +3579,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_images.py",
@@ -3589,8 +3589,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_images.py",
@@ -3599,8 +3599,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_images.py",
@@ -3629,8 +3629,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -4689,8 +4689,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_shim::launcher_starts_installed_runtimes_installs_missing_packages_and_honors_overrides [Unix] / apps_tasks::python_task_payload_and_runtime_fixtures [all platforms]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_shim.py",
@@ -4709,8 +4709,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, installed, runtime_override, sdk_override, expected_installs",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_shim::launcher_starts_installed_runtimes_installs_missing_packages_and_honors_overrides [Unix] / apps_tasks::python_task_payload_and_runtime_fixtures [all platforms]",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5109,8 +5109,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5119,8 +5119,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5129,8 +5129,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5139,8 +5139,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, gpu",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5149,8 +5149,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5159,8 +5159,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5169,8 +5169,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5179,8 +5179,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5189,8 +5189,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5199,8 +5199,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5209,8 +5209,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::pod_target_payload_and_completion_events_follow_cleanup",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5239,8 +5239,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::canceled_target_creation_and_wait_continue_cleanup_in_the_background",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5249,8 +5249,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::runner_404_retries_are_bounded_and_other_errors_are_not_replayed",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5259,8 +5259,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::runner_404_retries_are_bounded_and_other_errors_are_not_replayed",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5269,8 +5269,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::running_task_then_cancel_caches_null_and_unlimited_execute_submits_null_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5279,8 +5279,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5289,8 +5289,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5299,8 +5299,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5309,8 +5309,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::python_task_payload_and_runtime_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5319,8 +5319,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::task_job_reads_caches_and_cleans_up_with_separate_runner_authentication",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5329,8 +5329,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mounts",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::capacity_fallback_tries_datacenters_and_preserves_the_initial_error",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5339,8 +5339,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::setup_failures_clean_up_and_non_capacity_creation_is_never_retried",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5349,8 +5349,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::shared_volume_placement_accounts_for_siblings_and_ignores_unrelated_resources",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5359,8 +5359,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::task_start_resolves_registry_and_attaches_existing_network_storage",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5369,8 +5369,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::failed_delete_retains_the_pod_id_for_manual_retry_and_not_found_is_success",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5379,8 +5379,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::failed_delete_retains_the_pod_id_for_manual_retry_and_not_found_is_success",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5389,8 +5389,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::running_task_then_cancel_caches_null_and_unlimited_execute_submits_null_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5409,8 +5409,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, method, acknowledged",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::task_timeout_validation_and_acknowledgement_prevent_silent_runtime_mismatch",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5419,8 +5419,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, timeout",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::task_timeout_validation_and_acknowledgement_prevent_silent_runtime_mismatch",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5429,8 +5429,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::task_job_reads_caches_and_cleans_up_with_separate_runner_authentication",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5439,8 +5439,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5449,8 +5449,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5459,8 +5459,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5469,8 +5469,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, failure",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5479,8 +5479,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5489,8 +5489,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::task_job_reads_caches_and_cleans_up_with_separate_runner_authentication",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5499,8 +5499,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::running_task_then_cancel_caches_null_and_unlimited_execute_submits_null_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5509,8 +5509,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, stage, cancelled",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::setup_failures_clean_up_and_non_capacity_creation_is_never_retried",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5519,8 +5519,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, method",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::canceled_target_creation_and_wait_continue_cleanup_in_the_background / canceling_creation_still_records_the_late_pod_for_cleanup",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",
@@ -5529,8 +5529,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_tasks::job_errors_and_zero_timeout_always_clean_up_and_preserve_original_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
