@@ -1,0 +1,1866 @@
+[
+  {
+    "name": "test_get_user_uses_graphql",
+    "operation": "get_user",
+    "kwargs": {},
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery myself {\n    myself {\n        id\n        pubKey\n        networkVolumes {\n            id\n            name\n            size\n            dataCenterId\n        }\n    }\n}\n"
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "myself": {
+              "id": "user"
+            },
+            "updateRegistryAuth": {
+              "id": "registry"
+            }
+          }
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "user"
+    }
+  },
+  {
+    "name": "test_update_user_settings_replaces_ssh_keys",
+    "operation": "update_user_settings",
+    "kwargs": {
+      "pubkey": "\n ssh-ed25519 key user \n\nssh-rsa second\n"
+    },
+    "requests": [
+      {
+        "method": "PUT",
+        "path": "/v2/account/ssh-keys",
+        "body": {
+          "keys": [
+            "ssh-ed25519 key user",
+            "ssh-rsa second"
+          ]
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery myself {\n    myself {\n        id\n        pubKey\n        networkVolumes {\n            id\n            name\n            size\n            dataCenterId\n        }\n    }\n}\n"
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "myself": {
+              "id": "user"
+            },
+            "updateRegistryAuth": {
+              "id": "registry"
+            }
+          }
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "user"
+    }
+  },
+  {
+    "name": "test_get_gpus_unwraps_response",
+    "operation": "get_gpus",
+    "kwargs": {},
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": [
+      {
+        "id": "g"
+      }
+    ]
+  },
+  {
+    "name": "test_get_gpu_requests_pod_availability",
+    "operation": "get_gpu",
+    "kwargs": {
+      "gpu_id": "NVIDIA A100",
+      "gpu_quantity": 2
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus/NVIDIA%20A100",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "POD",
+          "count": 2
+        },
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "test_get_gpu_converts_not_found_to_value_error",
+    "operation": "get_gpu",
+    "kwargs": {
+      "gpu_id": "missing"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus/missing",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "POD",
+          "count": 1
+        },
+        "response": {
+          "detail": "not found"
+        },
+        "status": 404
+      }
+    ],
+    "error": "No GPU found with the specified ID, run runpod.get_gpus() to get a list of all GPUs"
+  },
+  {
+    "name": "test_get_gpu_propagates_other_api_errors",
+    "operation": "get_gpu",
+    "kwargs": {
+      "gpu_id": "forbidden"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus/forbidden",
+        "body": null,
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "POD",
+          "count": 1
+        },
+        "response": {
+          "detail": "forbidden"
+        },
+        "status": 403
+      }
+    ],
+    "error": "forbidden"
+  },
+  {
+    "name": "test_get_pods_unwraps_response",
+    "operation": "get_pods",
+    "kwargs": {},
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/pods",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": [
+      {
+        "id": "p"
+      }
+    ]
+  },
+  {
+    "name": "test_get_pod_escapes_id",
+    "operation": "get_pod",
+    "kwargs": {
+      "pod_id": "pod/id"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/pods/pod%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "test_get_pod_returns_none_when_not_found",
+    "operation": "get_pod",
+    "kwargs": {
+      "pod_id": "missing"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/pods/missing",
+        "body": null,
+        "params": {},
+        "response": {
+          "detail": "not found"
+        },
+        "status": 404
+      }
+    ],
+    "output": null
+  },
+  {
+    "name": "test_get_pod_propagates_other_api_errors",
+    "operation": "get_pod",
+    "kwargs": {
+      "pod_id": "forbidden"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/pods/forbidden",
+        "body": null,
+        "params": {},
+        "response": {
+          "detail": "forbidden"
+        },
+        "status": 403
+      }
+    ],
+    "error": "forbidden"
+  },
+  {
+    "name": "test_create_cpu_pod_requires_instance_id",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "cpu-pod",
+      "image_name": "python:3.11"
+    },
+    "requests": [],
+    "error": "instance_id must be provided for CPU pods"
+  },
+  {
+    "name": "test_create_pod_validates_image_and_cloud",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "pod",
+      "gpu_type_id": "NVIDIA A100"
+    },
+    "requests": [],
+    "error": "Either image_name or template_id must be provided"
+  },
+  {
+    "name": "invalid_cloud",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "pod",
+      "image_name": "image",
+      "gpu_type_id": "NVIDIA A100",
+      "cloud_type": "INVALID"
+    },
+    "requests": [],
+    "error": "cloud_type must be one of ALL, COMMUNITY or SECURE"
+  },
+  {
+    "name": "test_create_gpu_pod_enforces_per_gpu_host_minima",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "training",
+      "image_name": "image",
+      "gpu_type_id": "NVIDIA A100",
+      "gpu_count": 2,
+      "min_memory_in_gb": 32,
+      "min_vcpu_count": 8
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "training",
+          "startSsh": true,
+          "image": "image",
+          "disk": 10,
+          "gpu": {
+            "id": "NVIDIA A100",
+            "count": 2,
+            "minRamPerGpu": 32,
+            "minVcpuCountPerGpu": 8
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "full_gpu_pod",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "gpu",
+      "image_name": "image",
+      "gpu_type_id": "NVIDIA A100",
+      "cloud_type": "SECURE",
+      "start_ssh": false,
+      "data_center_id": "US-KS-2",
+      "container_disk_in_gb": 50,
+      "docker_args": "echo ok",
+      "ports": "80/http, 22/tcp, ",
+      "env": {
+        "NUMBER": 1,
+        "BOOL": true
+      },
+      "volume_in_gb": 20,
+      "allowed_cuda_versions": [
+        "12.8",
+        " 13.0 "
+      ]
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "gpu",
+          "startSsh": false,
+          "args": "echo ok",
+          "image": "image",
+          "cloud": "SECURE",
+          "dataCenterIds": [
+            "US-KS-2"
+          ],
+          "disk": 50,
+          "ports": [
+            "80/http",
+            "22/tcp"
+          ],
+          "env": {
+            "NUMBER": "1",
+            "BOOL": "True"
+          },
+          "mounts": {
+            "persistent": {
+              "size": 20,
+              "path": "/runpod-volume"
+            }
+          },
+          "gpu": {
+            "id": "NVIDIA A100",
+            "count": 1,
+            "allowedCudaVersions": [
+              "12.8",
+              "13.0"
+            ]
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "cpu_pod",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "cpu",
+      "image_name": "image",
+      "instance_id": "cpu3c-4-8"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "cpu",
+          "startSsh": true,
+          "image": "image",
+          "disk": 10,
+          "cpu": {
+            "id": "cpu3c",
+            "vcpuCount": 4
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "test_create_cpu_pod_rejects_unrepresentable_template_mount_path",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "training",
+      "template_id": "template/id",
+      "instance_id": "cpu3c-4-8",
+      "volume_mount_path": "/custom"
+    },
+    "requests": [],
+    "error": "REST API v2 does not support: volume_mount_path on CPU pods without network_volume_id"
+  },
+  {
+    "name": "test_resume_pod_rejects_gpu_count",
+    "operation": "resume_pod",
+    "kwargs": {
+      "pod_id": "pod",
+      "gpu_count": 8
+    },
+    "requests": [],
+    "error": "REST API v2 does not support gpu_count when resuming a pod"
+  },
+  {
+    "name": "stop_pod",
+    "operation": "stop_pod",
+    "kwargs": {
+      "pod_id": "pod/id"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods/pod%2Fid/action",
+        "body": {
+          "action": "stop"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "resume_pod",
+    "operation": "resume_pod",
+    "kwargs": {
+      "pod_id": "pod/id"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods/pod%2Fid/action",
+        "body": {
+          "action": "start"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "test_terminate_pod_deletes_resource",
+    "operation": "terminate_pod",
+    "kwargs": {
+      "pod_id": "pod/id"
+    },
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/pods/pod%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": null
+  },
+  {
+    "name": "test_get_endpoints_unwraps_response",
+    "operation": "get_endpoints",
+    "kwargs": {},
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/serverless",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": [
+      {
+        "id": "e"
+      }
+    ]
+  },
+  {
+    "name": "create_endpoint_defaults",
+    "operation": "create_endpoint",
+    "kwargs": {
+      "name": "ep",
+      "template_id": "t"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/serverless",
+        "body": {
+          "name": "ep",
+          "templateId": "t",
+          "type": "QUEUE",
+          "gpu": {
+            "pools": [
+              "AMPERE_16"
+            ],
+            "count": 1
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "flashboot": "OFF"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "endpoint_request_scaling",
+    "operation": "create_endpoint",
+    "kwargs": {
+      "name": "ep",
+      "template_id": "t",
+      "scaler_type": "REQUEST_COUNT",
+      "scaler_value": 10
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/serverless",
+        "body": {
+          "name": "ep",
+          "templateId": "t",
+          "type": "QUEUE",
+          "gpu": {
+            "pools": [
+              "AMPERE_16"
+            ],
+            "count": 1
+          },
+          "workers": {
+            "min": 0,
+            "max": 3
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 10
+          },
+          "flashboot": "OFF"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "endpoint_invalid_idle",
+    "operation": "create_endpoint",
+    "kwargs": {
+      "name": "ep",
+      "template_id": "t",
+      "scaler_type": "REQUEST_COUNT",
+      "idle_timeout": 5
+    },
+    "requests": [],
+    "error": "idle_timeout is only supported with QUEUE_DELAY scaling"
+  },
+  {
+    "name": "endpoint_invalid_scaler",
+    "operation": "create_endpoint",
+    "kwargs": {
+      "name": "ep",
+      "template_id": "t",
+      "scaler_type": "OTHER"
+    },
+    "requests": [],
+    "error": "scaler_type must be QUEUE_DELAY or REQUEST_COUNT"
+  },
+  {
+    "name": "test_create_endpoint_filters_gpu_pools_and_datacenters",
+    "operation": "create_endpoint",
+    "kwargs": {
+      "name": "ep",
+      "template_id": "t",
+      "gpu_ids": "ADA_48_PRO,-NVIDIA L40,-NVIDIA L40",
+      "locations": "EU-RO-1, US-KS-2",
+      "network_volume_id": "volume",
+      "flashboot": true,
+      "allowed_cuda_versions": "12.8, 13.0"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/serverless",
+        "body": {
+          "name": "ep",
+          "templateId": "t",
+          "type": "QUEUE",
+          "gpu": {
+            "pools": [
+              "ADA_48_PRO"
+            ],
+            "count": 1,
+            "excludedTypes": [
+              "NVIDIA L40"
+            ],
+            "allowedCudaVersions": [
+              "12.8",
+              "13.0"
+            ]
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "flashboot": "FLASHBOOT",
+          "networkVolumes": [
+            "volume"
+          ],
+          "dataCenterIds": [
+            "EU-RO-1",
+            "US-KS-2"
+          ]
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "update_endpoint_template",
+    "operation": "update_endpoint_template",
+    "kwargs": {
+      "endpoint_id": "ep/id",
+      "template_id": "template"
+    },
+    "requests": [
+      {
+        "method": "PATCH",
+        "path": "/v2/serverless/ep%2Fid",
+        "body": {
+          "templateId": "template"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "create_template_defaults",
+    "operation": "create_template",
+    "kwargs": {
+      "name": "t",
+      "image_name": "image"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/templates",
+        "body": {
+          "name": "t",
+          "image": "image",
+          "disk": 10,
+          "serverless": false
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "full_template",
+    "operation": "create_template",
+    "kwargs": {
+      "name": "t",
+      "image_name": "image",
+      "docker_start_cmd": "",
+      "volume_in_gb": 10,
+      "ports": "80/http,22/tcp",
+      "env": {
+        "BOOL": false,
+        "NUMBER": 42
+      },
+      "registry_auth_id": "registry",
+      "is_serverless": true
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/templates",
+        "body": {
+          "name": "t",
+          "image": "image",
+          "disk": 10,
+          "serverless": true,
+          "args": "",
+          "mounts": {
+            "persistent": {
+              "size": 10,
+              "path": "/workspace"
+            }
+          },
+          "ports": [
+            "80/http",
+            "22/tcp"
+          ],
+          "env": {
+            "BOOL": "False",
+            "NUMBER": "42"
+          },
+          "registry": "registry"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "create_container_registry_auth",
+    "operation": "create_container_registry_auth",
+    "kwargs": {
+      "name": "r",
+      "username": "u",
+      "password": "p\"\\\n"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/registries",
+        "body": {
+          "name": "r",
+          "username": "u",
+          "password": "p\"\\\n"
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "update_container_registry_auth",
+    "operation": "update_container_registry_auth",
+    "kwargs": {
+      "registry_auth_id": "r",
+      "username": "u",
+      "password": "p\"\\\n"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\n    mutation UpdateRegistryAuth {\n        updateRegistryAuth(input: {id: \"r\", username: \"u\", password: \"p\\\"\\\\\\n\"}) {\n            id\n            name\n        }\n    }\n    "
+        },
+        "params": {},
+        "response": {
+          "data": {
+            "myself": {
+              "id": "user"
+            },
+            "updateRegistryAuth": {
+              "id": "registry"
+            }
+          }
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "registry"
+    }
+  },
+  {
+    "name": "test_delete_container_registry_auth_uses_rest",
+    "operation": "delete_container_registry_auth",
+    "kwargs": {
+      "registry_auth_id": "registry/id"
+    },
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/registries/registry%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": true
+  },
+  {
+    "name": "template_precedence_33",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "training",
+      "template_id": "template/id",
+      "gpu_type_id": "NVIDIA A100"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "training",
+          "startSsh": true,
+          "templateId": "template/id",
+          "gpu": {
+            "id": "NVIDIA A100",
+            "count": 1
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "template_precedence_34",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "training",
+      "template_id": "template/id",
+      "gpu_type_id": "NVIDIA A100",
+      "docker_args": ""
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "training",
+          "startSsh": true,
+          "args": "",
+          "templateId": "template/id",
+          "gpu": {
+            "id": "NVIDIA A100",
+            "count": 1
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "template_precedence_35",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "training",
+      "template_id": "template/id",
+      "gpu_type_id": "NVIDIA A100",
+      "volume_mount_path": "/custom"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/templates/template%2Fid",
+        "body": null,
+        "params": {},
+        "response": {
+          "mounts": {
+            "persistent": {
+              "size": 30,
+              "path": "/training"
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "training",
+          "startSsh": true,
+          "templateId": "template/id",
+          "mounts": {
+            "persistent": {
+              "size": 30,
+              "path": "/custom"
+            }
+          },
+          "gpu": {
+            "id": "NVIDIA A100",
+            "count": 1
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "template_precedence_36",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "training",
+      "template_id": "template/id",
+      "gpu_type_id": "NVIDIA A100",
+      "network_volume_id": "volume"
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "training",
+          "startSsh": true,
+          "templateId": "template/id",
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "volume",
+                "path": "/runpod-volume"
+              }
+            ]
+          },
+          "gpu": {
+            "id": "NVIDIA A100",
+            "count": 1
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "template_precedence_37",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "training",
+      "template_id": "template/id",
+      "gpu_type_id": "NVIDIA A100",
+      "volume_in_gb": 20
+    },
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/pods",
+        "body": {
+          "name": "training",
+          "startSsh": true,
+          "templateId": "template/id",
+          "mounts": {
+            "persistent": {
+              "size": 20,
+              "path": "/runpod-volume"
+            }
+          },
+          "gpu": {
+            "id": "NVIDIA A100",
+            "count": 1
+          }
+        },
+        "params": {},
+        "response": {
+          "id": "result",
+          "pods": [
+            {
+              "id": "p"
+            }
+          ],
+          "gpus": [
+            {
+              "id": "g"
+            }
+          ],
+          "endpoints": [
+            {
+              "id": "e"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ],
+    "output": {
+      "id": "result",
+      "pods": [
+        {
+          "id": "p"
+        }
+      ],
+      "gpus": [
+        {
+          "id": "g"
+        }
+      ],
+      "endpoints": [
+        {
+          "id": "e"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid_cpu_cpu3c-invalid",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "cpu",
+      "image_name": "image",
+      "instance_id": "cpu3c-invalid"
+    },
+    "requests": [],
+    "error": "instance_id must use the format <cpu-flavor>-<vcpu-count>-<memory>"
+  },
+  {
+    "name": "invalid_cpu_cpu3c",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "cpu",
+      "image_name": "image",
+      "instance_id": "cpu3c"
+    },
+    "requests": [],
+    "error": "instance_id must use the format <cpu-flavor>-<vcpu-count>-<memory>"
+  },
+  {
+    "name": "invalid_cpu_cpu3c-4-not-a-number",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "cpu",
+      "image_name": "image",
+      "instance_id": "cpu3c-4-not-a-number"
+    },
+    "requests": [],
+    "error": "instance_id must use the format <cpu-flavor>-<vcpu-count>-<memory>"
+  },
+  {
+    "name": "invalid_cpu_cpu3c-0-4",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "cpu",
+      "image_name": "image",
+      "instance_id": "cpu3c-0-4"
+    },
+    "requests": [],
+    "error": "instance_id must use the format <cpu-flavor>-<vcpu-count>-<memory>"
+  },
+  {
+    "name": "invalid_cpu_cpu3c-01-4",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "cpu",
+      "image_name": "image",
+      "instance_id": "cpu3c-01-4"
+    },
+    "requests": [],
+    "error": "instance_id must use the format <cpu-flavor>-<vcpu-count>-<memory>"
+  },
+  {
+    "name": "unsupported_support_public_ip",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "pod",
+      "image_name": "image",
+      "gpu_type_id": "NVIDIA A100",
+      "support_public_ip": true
+    },
+    "requests": [],
+    "error": "REST API v2 does not support: support_public_ip"
+  },
+  {
+    "name": "unsupported_country_code",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "pod",
+      "image_name": "image",
+      "gpu_type_id": "NVIDIA A100",
+      "country_code": "US"
+    },
+    "requests": [],
+    "error": "REST API v2 does not support: country_code"
+  },
+  {
+    "name": "unsupported_min_download",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "pod",
+      "image_name": "image",
+      "gpu_type_id": "NVIDIA A100",
+      "min_download": 100
+    },
+    "requests": [],
+    "error": "REST API v2 does not support: min_download"
+  },
+  {
+    "name": "unsupported_min_upload",
+    "operation": "create_pod",
+    "kwargs": {
+      "name": "pod",
+      "image_name": "image",
+      "gpu_type_id": "NVIDIA A100",
+      "min_upload": 100
+    },
+    "requests": [],
+    "error": "REST API v2 does not support: min_upload"
+  }
+]
