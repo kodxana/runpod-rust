@@ -1,0 +1,582 @@
+[
+  {
+    "operation": "args_to_input",
+    "input": {
+      "args": [
+        1,
+        2
+      ],
+      "kwargs": {}
+    },
+    "output": {
+      "a": 1,
+      "b": 2
+    }
+  },
+  {
+    "operation": "args_to_input",
+    "input": {
+      "args": [
+        1
+      ],
+      "kwargs": {
+        "b": 2
+      }
+    },
+    "output": {
+      "a": 1,
+      "b": 2
+    }
+  },
+  {
+    "operation": "args_to_input",
+    "input": {
+      "args": [],
+      "kwargs": {
+        "other": true
+      }
+    },
+    "output": {
+      "other": true
+    }
+  },
+  {
+    "operation": "args_to_input",
+    "input": {
+      "args": [],
+      "kwargs": {}
+    },
+    "output": {
+      "__empty": true
+    }
+  },
+  {
+    "operation": "args_to_input",
+    "input": {
+      "args": [
+        1
+      ],
+      "kwargs": {
+        "a": 2
+      }
+    },
+    "error": "fn() got multiple values for argument 'a'"
+  },
+  {
+    "operation": "args_to_input",
+    "input": {
+      "args": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "kwargs": {}
+    },
+    "error": "fn() got 4 positional args, expected at most 3"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "COMPLETED",
+      "output": {
+        "x": 1
+      }
+    },
+    "output": {
+      "x": 1
+    }
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "error": "boom"
+    },
+    "error": "remote execution failed: boom"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "output": [
+        {
+          "error": "first"
+        },
+        {
+          "success": true
+        },
+        {
+          "error": "last"
+        }
+      ]
+    },
+    "error": "remote execution failed: last"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "COMPLETED",
+      "output": {
+        "error": null
+      }
+    },
+    "error": "remote execution failed: None"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "COMPLETED",
+      "value": 7
+    },
+    "output": {
+      "status": "COMPLETED",
+      "value": 7
+    }
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "output": null
+    },
+    "error": "remote execution failed: unknown"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "output": []
+    },
+    "error": "remote execution failed: unknown"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "output": "partial"
+    },
+    "error": "remote execution failed: unknown"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "output": 3
+    },
+    "error": "remote execution failed: unknown"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "output": false
+    },
+    "error": "remote execution failed: unknown"
+  },
+  {
+    "operation": "unwrap_job_output",
+    "input": {
+      "status": "FAILED",
+      "output": {}
+    },
+    "error": "remote execution failed: unknown"
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": null
+    },
+    "output": null
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": false
+    },
+    "output": false
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": 0
+    },
+    "output": 0
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": ""
+    },
+    "output": ""
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": []
+    },
+    "output": []
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": {}
+    },
+    "output": {}
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": {
+        "success": true,
+        "json_result": {
+          "x": 1
+        }
+      }
+    },
+    "output": {
+      "x": 1
+    }
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": {
+        "success": false,
+        "error": "worker exploded"
+      }
+    },
+    "error": "remote execution failed: worker exploded"
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": [
+        {
+          "success": true,
+          "json_result": 42
+        }
+      ]
+    },
+    "output": 42
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": [
+        {
+          "success": true,
+          "__stream__": true,
+          "json_result": "one"
+        }
+      ]
+    },
+    "output": [
+      "one"
+    ]
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": [
+        {
+          "success": true,
+          "json_result": "one"
+        },
+        {
+          "success": true,
+          "json_result": "two"
+        }
+      ]
+    },
+    "output": [
+      "one",
+      "two"
+    ]
+  },
+  {
+    "operation": "live_unwrap",
+    "input": {
+      "status": "COMPLETED",
+      "output": {
+        "success": true,
+        "result": "gAWVGQAAAAAAAAB9lIwKdHVwbGVfbGlrZZRdlChLAUsCZXMu"
+      }
+    },
+    "output": {
+      "tuple_like": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "operation": "build_job_options",
+    "input": {},
+    "output": {}
+  },
+  {
+    "operation": "build_job_options",
+    "input": {
+      "webhook": "",
+      "execution_timeout": 0,
+      "ttl": 0,
+      "low_priority": false,
+      "s3_config": {}
+    },
+    "output": {
+      "webhook": "",
+      "policy": {
+        "executionTimeout": 0,
+        "ttl": 0,
+        "lowPriority": false
+      },
+      "s3Config": {}
+    }
+  },
+  {
+    "operation": "build_job_options",
+    "input": {
+      "webhook": "https://example.com",
+      "execution_timeout": 1000,
+      "ttl": 2000,
+      "low_priority": true,
+      "s3_config": {
+        "bucket": "test"
+      }
+    },
+    "output": {
+      "webhook": "https://example.com",
+      "policy": {
+        "executionTimeout": 1000,
+        "ttl": 2000,
+        "lowPriority": true
+      },
+      "s3Config": {
+        "bucket": "test"
+      }
+    }
+  },
+  {
+    "operation": "merge_job_options",
+    "input": {
+      "base": {
+        "policy": {
+          "executionTimeout": 10
+        },
+        "webhook": "old"
+      },
+      "new": {
+        "policy": {
+          "ttl": 20,
+          "executionTimeout": 30
+        },
+        "webhook": "new"
+      }
+    },
+    "output": {
+      "policy": {
+        "executionTimeout": 30,
+        "ttl": 20
+      },
+      "webhook": "new"
+    }
+  },
+  {
+    "operation": "merge_job_options",
+    "input": {
+      "base": {},
+      "new": {}
+    },
+    "output": {}
+  },
+  {
+    "operation": "merge_job_options",
+    "input": {
+      "base": {
+        "policy": null
+      },
+      "new": {
+        "policy": {
+          "lowPriority": false
+        }
+      }
+    },
+    "output": {
+      "policy": {
+        "lowPriority": false
+      }
+    }
+  },
+  {
+    "operation": "function_request",
+    "input": {
+      "function_name": "fn"
+    },
+    "output": {
+      "function_name": "fn",
+      "args": [],
+      "kwargs": {},
+      "execution_type": "function",
+      "accelerate_downloads": true,
+      "serialization_format": "cloudpickle"
+    }
+  },
+  {
+    "operation": "function_request",
+    "input": {
+      "function_name": "fn",
+      "function_code": "source",
+      "args": [
+        1
+      ],
+      "kwargs": {
+        "b": 2
+      },
+      "dependencies": [],
+      "system_dependencies": [
+        "curl"
+      ],
+      "accelerate_downloads": false,
+      "serialization_format": "json"
+    },
+    "output": {
+      "function_name": "fn",
+      "function_code": "source",
+      "args": [
+        1
+      ],
+      "kwargs": {
+        "b": 2
+      },
+      "dependencies": [],
+      "system_dependencies": [
+        "curl"
+      ],
+      "execution_type": "function",
+      "accelerate_downloads": false,
+      "serialization_format": "json"
+    }
+  },
+  {
+    "operation": "pickle",
+    "input": null,
+    "encoded": "gAVOLg==",
+    "output": null
+  },
+  {
+    "operation": "pickle",
+    "input": true,
+    "encoded": "gAWILg==",
+    "output": true
+  },
+  {
+    "operation": "pickle",
+    "input": false,
+    "encoded": "gAWJLg==",
+    "output": false
+  },
+  {
+    "operation": "pickle",
+    "input": 0,
+    "encoded": "gAVLAC4=",
+    "output": 0
+  },
+  {
+    "operation": "pickle",
+    "input": -1,
+    "encoded": "gAWVBgAAAAAAAABK/////y4=",
+    "output": -1
+  },
+  {
+    "operation": "pickle",
+    "input": 256,
+    "encoded": "gAWVBAAAAAAAAABNAAEu",
+    "output": 256
+  },
+  {
+    "operation": "pickle",
+    "input": 281474976710656,
+    "encoded": "gAWVCgAAAAAAAACKBwAAAAAAAAEu",
+    "output": 281474976710656
+  },
+  {
+    "operation": "pickle",
+    "input": 1.25,
+    "encoded": "gAWVCgAAAAAAAABHP/QAAAAAAAAu",
+    "output": 1.25
+  },
+  {
+    "operation": "pickle",
+    "input": "",
+    "encoded": "gAWVBAAAAAAAAACMAJQu",
+    "output": ""
+  },
+  {
+    "operation": "pickle",
+    "input": "Za\u017c\u00f3\u0142\u0107 \ud83e\udd80",
+    "encoded": "gAWVEwAAAAAAAACMD1phxbzDs8WCxIcg8J+mgJQu",
+    "output": "Za\u017c\u00f3\u0142\u0107 \ud83e\udd80"
+  },
+  {
+    "operation": "pickle",
+    "input": [],
+    "encoded": "gAVdlC4=",
+    "output": []
+  },
+  {
+    "operation": "pickle",
+    "input": [
+      1,
+      "x",
+      null
+    ],
+    "encoded": "gAWVDAAAAAAAAABdlChLAYwBeJROZS4=",
+    "output": [
+      1,
+      "x",
+      null
+    ]
+  },
+  {
+    "operation": "pickle",
+    "input": {},
+    "encoded": "gAV9lC4=",
+    "output": {}
+  },
+  {
+    "operation": "pickle",
+    "input": {
+      "a": 1,
+      "b": [
+        true,
+        "x"
+      ],
+      "c": {
+        "nested": null
+      }
+    },
+    "encoded": "gAWVKQAAAAAAAAB9lCiMAWGUSwGMAWKUXZQoiIwBeJRljAFjlH2UjAZuZXN0ZWSUTnN1Lg==",
+    "output": {
+      "a": 1,
+      "b": [
+        true,
+        "x"
+      ],
+      "c": {
+        "nested": null
+      }
+    }
+  }
+]

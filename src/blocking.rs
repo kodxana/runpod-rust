@@ -4,6 +4,7 @@
 //! the crate-root client instead; creating a nested runtime is rejected.
 use crate::{ClientConfig, Error, Result, Value};
 use std::{sync::Arc, time::Duration};
+pub mod apps;
 
 /// An owned Tokio runtime and shared asynchronous client for blocking applications.
 #[derive(Debug, Clone)]
@@ -62,6 +63,26 @@ impl Client {
             inner: self.inner.endpoint(id),
             runtime: self.runtime.clone(),
         }
+    }
+    /// Creates a synchronous Apps queue client sharing this client's runtime.
+    ///
+    /// # Errors
+    /// Returns invalid routing configuration errors.
+    pub fn queue(&self, config: crate::apps::StubConfig) -> Result<apps::Queue> {
+        Ok(apps::Queue {
+            inner: crate::apps::Queue::new(self.inner.clone(), config)?,
+            runtime: self.runtime.clone(),
+        })
+    }
+    /// Creates a synchronous Apps HTTP route client sharing this client's runtime.
+    ///
+    /// # Errors
+    /// Returns invalid routing configuration errors.
+    pub fn api(&self, config: crate::apps::StubConfig) -> Result<apps::Api> {
+        Ok(apps::Api {
+            inner: crate::apps::Api::new(self.inner.clone(), config)?,
+            runtime: self.runtime.clone(),
+        })
     }
 }
 

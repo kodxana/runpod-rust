@@ -2479,8 +2479,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/errors.py",
@@ -2489,8 +2489,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::EndpointNotFound",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/errors.py",
@@ -2499,8 +2499,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, app_name: str, resource_name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::EndpointNotFound",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/errors.py",
@@ -2509,8 +2509,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::RemoteExecution",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/errors.py",
@@ -2519,8 +2519,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::ScheduleNotSupported",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/errors.py",
@@ -2529,8 +2529,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::ScheduleNotSupported",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/errors.py",
@@ -2539,8 +2539,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::InvalidResource",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/gpu.py",
@@ -3149,8 +3149,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job / blocking::apps::Job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3159,8 +3159,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, data: Dict[str, Any], target: 'InvocationTarget'",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3169,8 +3169,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::id",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3179,8 +3179,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::done",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3189,8 +3189,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, data: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::update",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3199,8 +3199,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3209,8 +3209,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::result",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3219,8 +3219,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::cancel",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3229,8 +3229,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::retry",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3239,8 +3239,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::stream",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/job.py",
@@ -3249,8 +3249,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Job::fmt",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/logs.py",
@@ -3879,8 +3879,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::protocol::FunctionRequest",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/protocol.py",
@@ -3889,8 +3889,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::protocol::FunctionRequest::to_input",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/protocol.py",
@@ -3899,8 +3899,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::protocol::FunctionResponse",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/protocol.py",
@@ -3909,8 +3909,8 @@
       "kind": "function",
       "public": true,
       "signature": "cls, output: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::protocol::FunctionResponse::from_output",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/registry.py",
@@ -4029,8 +4029,9 @@
       "kind": "function",
       "public": true,
       "signature": "arg: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::serialization::serialize_arg",
+      "status": "adapted",
+      "note": "Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions."
     },
     {
       "file": "runpod/apps/serialization.py",
@@ -4039,8 +4040,9 @@
       "kind": "function",
       "public": true,
       "signature": "args: tuple",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::serialization::serialize_args",
+      "status": "adapted",
+      "note": "Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions."
     },
     {
       "file": "runpod/apps/serialization.py",
@@ -4049,8 +4051,9 @@
       "kind": "function",
       "public": true,
       "signature": "kwargs: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::serialization::serialize_kwargs",
+      "status": "adapted",
+      "note": "Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions."
     },
     {
       "file": "runpod/apps/serialization.py",
@@ -4059,8 +4062,9 @@
       "kind": "function",
       "public": true,
       "signature": "result_b64: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::serialization::deserialize_result",
+      "status": "adapted",
+      "note": "Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions."
     },
     {
       "file": "runpod/apps/serialization.py",
@@ -4069,8 +4073,9 @@
       "kind": "function",
       "public": true,
       "signature": "fn: Callable, args: tuple, kwargs: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "serde_json::Value argument boundary",
+      "status": "adapted",
+      "note": "Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions."
     },
     {
       "file": "runpod/apps/serialization.py",
@@ -4079,8 +4084,9 @@
       "kind": "function",
       "public": true,
       "signature": "fn: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::serialization::get_function_source",
+      "status": "adapted",
+      "note": "Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions."
     },
     {
       "file": "runpod/apps/serialization.py",
@@ -4249,8 +4255,8 @@
       "kind": "class",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::StubConfig",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4259,8 +4265,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, *, app: str, name: Optional[str]=None, id: Optional[str]=None, env: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::StubConfig::new / ResourceRef",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4269,8 +4275,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::sentinel",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4279,8 +4285,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue / blocking::apps::Queue",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4289,8 +4295,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, *, app: str, name: Optional[str]=None, id: Optional[str]=None, env: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4299,8 +4305,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, *, webhook: Optional[str]=None, execution_timeout: Optional[int]=None, ttl: Optional[int]=None, low_priority: Optional[bool]=None, s3_config: Optional[dict]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::with_options",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4309,8 +4315,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, kwargs: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::payload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4319,8 +4325,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::remote",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4329,8 +4335,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::spawn",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4339,8 +4345,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::stream",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4349,8 +4355,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4359,8 +4365,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Queue::fmt",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4369,8 +4375,8 @@
       "kind": "class",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Api HTTP methods / blocking::apps::Api HTTP methods",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4379,8 +4385,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, stub: 'Api', method: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Api::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4389,8 +4395,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, path: str, body: Any=None, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "blocking::apps::Api::request",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4399,8 +4405,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, path: str, body: Any=None, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Api::request",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4409,8 +4415,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Api / blocking::apps::Api",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4419,8 +4425,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, *, app: str, name: Optional[str]=None, id: Optional[str]=None, env: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Api::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/stubs.py",
@@ -4429,8 +4435,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::Api::fmt",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4459,8 +4465,8 @@
       "kind": "function",
       "public": true,
       "signature": "fn: Callable, args: tuple, kwargs: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::args_to_input",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4469,8 +4475,8 @@
       "kind": "function",
       "public": true,
       "signature": "webhook: Optional[str]=None, execution_timeout: Optional[int]=None, ttl: Optional[int]=None, low_priority: Optional[bool]=None, s3_config: Optional[Dict[str, Any]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::JobOptions::to_payload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4479,8 +4485,8 @@
       "kind": "function",
       "public": true,
       "signature": "base: Dict[str, Any], new: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::merge_job_options",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4489,8 +4495,8 @@
       "kind": "function",
       "public": true,
       "signature": "data: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::unwrap_job_output",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4609,8 +4615,8 @@
       "kind": "function",
       "public": false,
       "signature": "method: str, url: str, headers: Dict[str, str], timeout: float, *, payload: Any=None, app_name: str='', resource_name: str='', retry_not_found: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::queue::QueueClient::request_json",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4619,8 +4625,8 @@
       "kind": "function",
       "public": false,
       "signature": "url: str, payload: Any, headers: Dict[str, str], timeout: float, *, app_name: str='', resource_name: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::queue::QueueClient::request_json",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4629,8 +4635,8 @@
       "kind": "function",
       "public": false,
       "signature": "url: str, headers: Dict[str, str], timeout: float, *, app_name: str='', resource_name: str='', retry_not_found: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::queue::QueueClient::request_json",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4639,8 +4645,8 @@
       "kind": "function",
       "public": false,
       "signature": "base_url: str, data: Dict[str, Any], headers: Dict[str, str], timeout: float, on_status: Optional[Callable[[Dict[str, Any]], None]]=None, *, app_name: str='', resource_name: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::wait",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4649,8 +4655,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4659,8 +4665,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, endpoint_id: str, headers: Callable[[], Dict[str, str]], *, app_name: str='', resource_name: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4669,8 +4675,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::base_url",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4679,8 +4685,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, method: str, path: str, payload: Any=None, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::queue::QueueClient::call",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4689,8 +4695,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any], *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::run",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4699,8 +4705,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any], *, timeout: float, on_status: Optional[Callable[[Dict[str, Any]], None]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::invoke",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4709,8 +4715,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4719,8 +4725,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::cancel",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4729,8 +4735,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::retry",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4739,8 +4745,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str, *, timeout: float",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::stream",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4749,8 +4755,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, data: Dict[str, Any], *, timeout: float, on_status: Optional[Callable[[Dict[str, Any]], None]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::wait",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4759,8 +4765,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, method: str, path: str, body: Any=None, *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::QueueClient::http",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4769,8 +4775,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::sentinel",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4779,8 +4785,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, app_name: str, env_name: str, resource_name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::sentinel",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4789,8 +4795,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::queue::QueueClient::set_address",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4799,8 +4805,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any], *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::invoke",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4809,8 +4815,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::submit",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4819,8 +4825,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::job_status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4829,8 +4835,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::cancel_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4839,8 +4845,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::retry_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4849,8 +4855,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str, *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::stream_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4859,8 +4865,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_data: Dict[str, Any], *, timeout: float=DEFAULT_TIMEOUT_SECONDS, on_status: Optional[Callable[[Dict[str, Any]], None]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::wait",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4869,8 +4875,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, method: str, path: str, body: Any=None, *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::request",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4899,8 +4905,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, target: Any, resource: str, spec: Optional[ResourceSpec]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::attach_source",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4909,8 +4915,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, timeout: float",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::sync_source",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4919,8 +4925,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, fn: Callable, spec: ResourceSpec, args: tuple, kwargs: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::build_payload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4929,8 +4935,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, data: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::unwrap_live_output",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4939,8 +4945,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, output: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::unwrap_function_response",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4969,8 +4975,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::submit",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4979,8 +4985,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::job_status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4989,8 +4995,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::cancel_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4999,8 +5005,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::retry_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -5009,8 +5015,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str, *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::stream_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -5019,8 +5025,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_data: Dict[str, Any], *, timeout: float=DEFAULT_TIMEOUT_SECONDS, on_status: Optional[Callable[[Dict[str, Any]], None]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::wait",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -5029,8 +5035,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, method: str, path: str, body: Any=None, *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::request",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",

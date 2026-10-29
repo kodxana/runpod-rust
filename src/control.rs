@@ -196,7 +196,7 @@ pub(crate) fn environment(env: &serde_json::Map<String, Value>) -> Value {
             .collect(),
     )
 }
-fn python_string(v: &Value) -> String {
+pub(crate) fn python_string(v: &Value) -> String {
     match v {
         Value::String(s) => s.clone(),
         Value::Bool(true) => "True".into(),

@@ -150,7 +150,8 @@ impl Client {
             .user_agent(concat!("runpod-rust/", env!("CARGO_PKG_VERSION")))
             .redirect(reqwest::redirect::Policy::none())
             .retry(reqwest::retry::never())
-            .timeout(config.timeout)
+            // Request methods apply their own timeout. Apps use zero to disable
+            // the HTTP deadline, which must not inherit a pool-level default.
             .build()?;
         Ok(Self {
             http,

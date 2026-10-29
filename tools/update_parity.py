@@ -72,12 +72,32 @@ for entry in api["entries"]:
         "runpod/apps/secret.py": {"validate_secrets":"apps::validate_secrets"},
     }
     target = more_app_symbols.get(file, {}).get(name, target)
+    invocation_symbols = {
+        "runpod/apps/errors.py": {"AppError":"apps::AppError", "EndpointNotFound":"apps::AppError::EndpointNotFound", "EndpointNotFound.__init__":"apps::AppError::EndpointNotFound", "RemoteExecutionError":"apps::AppError::RemoteExecution", "ScheduleNotSupported":"apps::AppError::ScheduleNotSupported", "ScheduleNotSupported.__init__":"apps::AppError::ScheduleNotSupported", "InvalidResourceError":"apps::AppError::InvalidResource"},
+        "runpod/apps/protocol.py": {"FunctionRequest":"apps::protocol::FunctionRequest", "FunctionRequest.to_input":"apps::protocol::FunctionRequest::to_input", "FunctionResponse":"apps::protocol::FunctionResponse", "FunctionResponse.from_output":"apps::protocol::FunctionResponse::from_output"},
+        "runpod/apps/job.py": {"Job":"apps::Job / blocking::apps::Job", "Job.__init__":"apps::Job::new", "Job.id":"apps::Job::id", "Job.done":"apps::Job::done", "Job._update":"apps::Job::update", "Job._status_async":"apps::Job::status", "Job._result_async":"apps::Job::result", "Job._cancel_async":"apps::Job::cancel", "Job._retry_async":"apps::Job::retry", "Job._stream_async":"apps::Job::stream", "Job.__repr__":"apps::Job::fmt"},
+        "runpod/apps/stubs.py": {"_StubBase":"apps::StubConfig", "_StubBase.__init__":"apps::StubConfig::new / ResourceRef", "_StubBase._target":"apps::targets::Target::sentinel", "Queue":"apps::Queue / blocking::apps::Queue", "Queue.__init__":"apps::Queue::new", "Queue.with_options":"apps::Queue::with_options", "Queue._payload":"apps::Queue::payload", "Queue._remote_async":"apps::Queue::remote", "Queue._spawn_async":"apps::Queue::spawn", "Queue._stream_async":"apps::Queue::stream", "Queue._job_async":"apps::Queue::job", "Queue.__repr__":"apps::Queue::fmt", "_StubRouteCaller":"apps::Api HTTP methods / blocking::apps::Api HTTP methods", "_StubRouteCaller.__init__":"apps::Api::new", "_StubRouteCaller.__call__":"blocking::apps::Api::request", "_StubRouteCaller.aio":"apps::Api::request", "Api":"apps::Api / blocking::apps::Api", "Api.__init__":"apps::Api::new", "Api.__repr__":"apps::Api::fmt"},
+        "runpod/apps/targets.py": {"args_to_input":"apps::targets::args_to_input", "build_job_options":"apps::targets::JobOptions::to_payload", "merge_job_options":"apps::targets::merge_job_options", "unwrap_job_output":"apps::targets::unwrap_job_output", "_request_json":"apps::queue::QueueClient::request_json", "_post_json":"apps::queue::QueueClient::request_json", "_get_json":"apps::queue::QueueClient::request_json", "_wait_terminal":"apps::targets::QueueClient::wait", "QueueClient":"apps::targets::QueueClient", "QueueClient.__init__":"apps::targets::QueueClient::new", "QueueClient._call":"apps::queue::QueueClient::call", "SentinelTarget":"apps::targets::Target::sentinel", "SentinelTarget.__init__":"apps::targets::Target::sentinel", "SentinelTarget._sentinel_headers":"apps::queue::QueueClient::set_address", "LiveTarget.attach_source":"apps::targets::Target::attach_source", "LiveTarget._sync_source":"apps::targets::Target::sync_source", "LiveTarget.build_payload":"apps::targets::Target::build_payload", "LiveTarget.unwrap":"apps::targets::unwrap_live_output", "LiveTarget._unwrap_response":"apps::targets::unwrap_function_response"},
+    }
+    target = invocation_symbols.get(file, {}).get(name, target)
+    if file == "runpod/apps/targets.py" and "." in name:
+        owner, method = name.split(".", 1)
+        if owner == "QueueClient" and method in ("base_url", "run", "invoke", "status", "cancel", "retry", "stream", "wait", "http"):
+            target = "apps::targets::QueueClient::" + method
+        if owner == "SentinelTarget" and method in ("invoke", "submit", "job_status", "cancel_job", "retry_job", "stream_job", "wait", "request"):
+            target = "apps::targets::Target::" + method
+        # Live invocation monitoring remains pending; do not mark the whole class complete.
+        if owner == "LiveTarget" and method in ("submit", "job_status", "cancel_job", "retry_job", "stream_job", "wait", "request"):
+            target = "apps::targets::Target::" + method
     if file == "runpod/serverless/modules/rp_prestart.py" and name in ("register_prestart_hook", "get_prestart_hooks", "has_prestart_hooks", "clear_prestart_hooks", "run_prestart_phase"):
         target = f"serverless::PrestartHooks::{name}"
     if file == "runpod/serverless/modules/worker_state.py" and name.startswith("JobsProgress.") and name.split(".")[-1] in ("clear", "add", "remove", "get", "get_job_list", "get_job_count"):
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    if file == "runpod/apps/serialization.py" and name in ("serialize_arg", "serialize_args", "serialize_kwargs", "deserialize_result", "get_function_source", "require_json_args"):
+        entry.update(rust="apps::serialization::" + name if name != "require_json_args" else "serde_json::Value argument boundary", status="adapted",
+                     note="Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions.")
 path.write_text(json.dumps(api, indent=2) + "\n")
 
 path = root / "parity/tests.json"
@@ -137,7 +157,43 @@ for entry in tests["entries"]:
             target = "apps_credentials::test_existing_pass_and_missing_raises_with_hint"
         elif entry["name"] == "TestValidateSecrets.test_no_references_no_api_call":
             target = "apps_credentials::test_no_references_no_api_call"
+    if entry["file"] == "tests/test_apps/test_targets.py":
+        name = entry["name"]
+        if name.startswith(("TestArgsToInput.", "TestUnwrapJobOutput.", "TestLiveTarget.test_unwrap_")):
+            target = "apps_protocol::python_invocation_helpers_and_pickle_values"
+        covered = {
+            "test_fast_invocation_returns_without_polling":"test_fast_invocation_returns_without_polling",
+            "test_sync_wait_hands_off_the_same_job":"test_sync_wait_hands_off_the_same_job",
+            "TestWaitTerminal.test_immediate_terminal":"test_fast_invocation_returns_without_polling",
+            "TestWaitTerminal.test_polls_to_completion":"test_sync_wait_hands_off_the_same_job",
+            "TestWaitTerminal.test_no_job_id_raises":"test_stream_failed_and_wait_missing_id_or_timeout",
+            "TestWaitTerminal.test_timeout":"test_stream_failed_and_wait_missing_id_or_timeout",
+            "TestSentinelTarget.test_job_operations":"test_job_cancel_and_retry_update_state",
+            "TestSentinelTarget.test_stream_job":"test_stream_job_unwraps_chunks_and_stops_on_terminal_page",
+            "TestSentinelTarget.test_stream_job_failed":"test_stream_failed_and_wait_missing_id_or_timeout",
+            "TestLiveTarget.test_payload_carries_source":"test_live_payload_and_concurrent_requests_share_completed_source_sync",
+            "TestLiveTarget.test_payload_args_are_plain_json":"test_live_payload_and_concurrent_requests_share_completed_source_sync",
+            "TestLiveTarget.test_stream_job_unwraps_chunks":"test_stream_job_unwraps_chunks_and_stops_on_terminal_page",
+            "TestLiveTarget.test_concurrent_requests_share_completed_source_sync":"test_live_payload_and_concurrent_requests_share_completed_source_sync",
+            "TestLiveTarget.test_failed_source_sync_prevents_execution_and_can_retry":"test_failed_source_sync_prevents_execution_and_can_retry",
+        }
+        if name in covered:
+            target = "apps_invocation::" + covered[name]
+    if entry["file"] == "tests/test_apps/test_job.py":
+        covered = {"test_job_status_polls_target":"test_job_cancel_and_retry_update_state", "test_job_status_skips_poll_once_terminal":"test_job_cancel_and_retry_update_state", "test_job_result_reaches_terminal_state":"test_job_result_reaches_terminal_state_and_output_alias", "test_job_output_aliases_result":"test_job_result_reaches_terminal_state_and_output_alias", "test_job_cancel_and_retry_update_state":"test_job_cancel_and_retry_update_state", "test_job_stream_async":"test_stream_job_unwraps_chunks_and_stops_on_terminal_page"}
+        if entry["name"] in covered:
+            target = "apps_invocation::" + covered[entry["name"]]
+        if entry["name"] == "test_job_stream_sync":
+            target = "apps_stubs::blocking_stubs_and_jobs_share_runtime_after_client_is_dropped"
+    if entry["file"] == "tests/test_apps/test_retry.py":
+        covered = {"test_retries_transient_5xx_then_succeeds":"transient_reads_retry_but_client_errors_and_invalid_json_do_not", "test_404_not_retried_maps_to_endpoint_not_found":"test_404_not_retried_maps_to_endpoint_not_found", "test_job_404_retried_during_propagation":"test_job_404_retried_during_propagation", "test_persistent_job_404_exhausts_retries":"persistent_job_failures_exhaust_seven_attempts", "test_client_4xx_not_retried":"transient_reads_retry_but_client_errors_and_invalid_json_do_not", "test_submission_is_not_repeated_after_ambiguous_failure":"test_submission_is_not_repeated_after_ambiguous_failure / disconnected_submissions_are_not_replayed", "test_sync_transport_timeout_does_not_resubmit":"sync_transport_timeout_does_not_resubmit"}
+        if entry["name"] in covered:
+            target = "apps_invocation::" + covered[entry["name"]]
+    if entry["file"] == "tests/test_apps/test_dispatch.py":
+        covered = {"TestStubs.test_queue_stub_remote":"stub_options_accumulate_without_changing_original", "TestStubs.test_queue_stub_with_options":"stub_options_accumulate_without_changing_original", "TestStubs.test_queue_stub_spawn_returns_job":"stub_spawn_reconnect_and_lazy_stream_use_sentinel", "TestStubs.test_queue_stub_stream":"stub_spawn_reconnect_and_lazy_stream_use_sentinel", "TestStubs.test_queue_stub_reconnects_to_job":"stub_spawn_reconnect_and_lazy_stream_use_sentinel", "TestStubs.test_api_stub_http":"api_stub_routes_all_verbs_with_headers_and_json_or_text"}
+        if entry["name"] in covered:
+            target = "apps_stubs::" + covered[entry["name"]]
     if target:
         entry.update(rust=target, status="ported")
 path.write_text(json.dumps(tests, indent=2) + "\n")
-print(f"Mapped {sum(e['status']=='implemented' for e in api['entries'])} symbols and {sum(e['status']=='ported' for e in tests['entries'])} tests; remaining entries retained as pending")
+print(f"Mapped {sum(e['status']=='implemented' for e in api['entries'])} implemented and {sum(e['status']=='adapted' for e in api['entries'])} adapted symbols, and {sum(e['status']=='ported' for e in tests['entries'])} tests; remaining entries retained as pending")

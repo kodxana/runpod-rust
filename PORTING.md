@@ -30,10 +30,17 @@ by Python; the complete port remains in progress.
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
 | GPU/CPU/datacenter enums and GPU selection | `apps::catalog`, `apps::gpu` |
 | Volume references and mount validation | `apps::Volume`, `NetworkVolume`, `GlobalVolume`, `MountBindings`, `apps::volume` |
+| `apps.targets.QueueClient`, `SentinelTarget` | `apps::targets::QueueClient`, `Target::sentinel` |
+| `apps.Job`, queue/API stubs | `apps::Job`, `Queue`, `Api`, plus `blocking::apps` equivalents |
+| `apps.protocol`, serialization | typed wire envelopes and native Serde/pickle functions; language adaptations below |
+| Live target payloads, decoding, source synchronization | `Target::live`, `FunctionDefinition`, `FunctionSource`; monitoring pending |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
+The ledger also labels six serialization/reflection functions as `adapted` to make
+their native Rust input domain explicit. This milestone maps 253 implemented symbols,
+six adapted symbols, and 130 upstream test functions; other entries remain pending.
 
 ## Test mapping and reproduction
 
@@ -66,6 +73,9 @@ python tools/inventory.py ../runpod-python
 python tools/control_fixtures.py
 python tools/apps_api_fixtures.py
 python tools/placement_fixtures.py
+python tools/invocation_fixtures.py
+cargo test --test apps_protocol
+python tools/verify_pickle.py
 ```
 
 ## Preserved quirks
@@ -86,6 +96,19 @@ python tools/placement_fixtures.py
   leaves its configurations marked fetched for that provisioning run.
 - Existing volumes keep their datacenter regardless of new-volume capability catalogs.
   Resolving a cached reference does not reconsider changed placement options.
+- Apps queue submission is not replayed after timeouts, disconnects, or server failures.
+  Safe reads retry transient failures; job propagation routes allow seven attempts,
+  while cancel/retry mutations repeat only explicit 404 propagation responses.
+- Apps streaming yields all chunks on its first terminal page, including CANCELLED.
+  This differs from the older endpoint runner's terminal list described above.
+- Apps status observers receive admission and completion, and result failures still
+  cache terminal job state. Polling retains the upstream check-before-sleep behavior,
+  so an in-flight status request can finish beyond the wait deadline.
+- Apps HTTP timeout zero disables the transport deadline. A zero polling/streaming
+  deadline still prevents another poll, while already-terminal output is returned.
+- Live HTTP source sync uses a SHA-256 hash, coalesces concurrent callers, and records
+  success only after upload completes. A canceled or failed upload remains retryable.
+  Changing only dependencies without changing source does not invalidate that hash.
 
 ## Deliberate language/runtime differences
 
@@ -125,6 +148,25 @@ python tools/placement_fixtures.py
 - Mount-binding JSON uses compact encoding instead of Python's spaced encoding; decoded
   values and ordering are preserved. Event callbacks return Result; returned errors are
   logged and ignored, while Rust panics retain their normal behavior.
+- Queue/API stubs use `ResourceRef::Name` or `::Id`, making the exactly-one reference
+  requirement structural. Environment defaults resolve once at construction.
+- Python's Invoker/StreamInvoker wrappers become native async methods and explicit
+  blocking clients/iterators. Dropping an async future or stream cancels its local work.
+- Native serialization reads Python protocol-5 fixtures and writes protocol-3 pickle
+  values that Python/cloudpickle can decode. Wire bytes differ while decoded values match.
+  Serde types and JSON represent native data; executable Python classes, closures,
+  imports, and object identity are not reconstructed. Raw serialized response strings
+  remain available in FunctionResponse. No Python runtime bridge is used.
+- Rust has no runtime function signature/source reflection. FunctionDefinition supplies
+  parameter names, and FunctionSource supplies complete module text or a file to re-read.
+  Source passed to an existing Python worker must be source that worker understands;
+  this does not yet provide native Rust function deployment. Native build/worker
+  registration remains pending. JSON argument types enforce the queue boundary.
+- FunctionResponse fields enforce their declared types; malformed non-boolean success
+  or non-string error/result fields return decoding errors. Load-balancer endpoint IDs
+  must contain only ASCII letters, digits, hyphens, or underscores to keep routing within
+  the configured service host. Sensitive job options and attached source/environment
+  are omitted from client Debug output.
 
 ## Verification log
 
@@ -150,13 +192,21 @@ python tools/placement_fixtures.py
   The matching upstream Apps API/placement/catalog/secret/registry subset passed **145 tests**.
   [Rust review notes](reviews/apps-placement.md) record the fixed deserialization invariant,
   retained error causes, and remaining advisory review limitations.
+- Apps invocation milestone: **106 integration tests and one doctest passed**, including
+  **231 captured Python cases**. The new upstream target/retry/job subset passed 69 tests,
+  and all seven upstream stub tests passed. Python/cloudpickle 3.1.2 decoded all 14
+  Rust-generated pickle values, including Unicode. Actual disconnects and delayed HTTP
+  responses test non-replayed submissions; tests also cover retry exhaustion, source
+  changes/cancellation, failed-result caching, and blocking runtime ownership.
+  Build, formatting, Clippy with warnings denied, and documentation generation passed.
+  [Invocation review](reviews/apps-invocation.md) records fixes and remaining limitations.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
-The Apps control-plane milestone does not implement remote Apps invocation, deployment
-orchestration, task execution/cleanup, artifact construction, discovery, development sessions, browser auth flows,
+The current milestone does not implement deployment orchestration, native function
+registration/deployment, task execution/cleanup, artifact construction, discovery, development sessions, browser auth flows,
 management/logging/monitoring, or the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

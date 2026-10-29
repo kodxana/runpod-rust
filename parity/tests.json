@@ -3309,8 +3309,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_stubs::stub_options_accumulate_without_changing_original",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3319,8 +3319,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_stubs::stub_options_accumulate_without_changing_original",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3329,8 +3329,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_stubs::stub_spawn_reconnect_and_lazy_stream_use_sentinel",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3339,8 +3339,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_stubs::stub_spawn_reconnect_and_lazy_stream_use_sentinel",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3349,8 +3349,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_stubs::stub_spawn_reconnect_and_lazy_stream_use_sentinel",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3359,8 +3359,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_stubs::api_stub_routes_all_verbs_with_headers_and_json_or_text",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3639,8 +3639,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_job_cancel_and_retry_update_state",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -3649,8 +3649,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_job_cancel_and_retry_update_state",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -3659,8 +3659,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_job_result_reaches_terminal_state_and_output_alias",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -3669,8 +3669,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_job_result_reaches_terminal_state_and_output_alias",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -3679,8 +3679,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_job_cancel_and_retry_update_state",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -3699,8 +3699,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_stubs::blocking_stubs_and_jobs_share_runtime_after_client_is_dropped",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -3709,8 +3709,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_stream_job_unwraps_chunks_and_stops_on_terminal_page",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_job.py",
@@ -4499,8 +4499,8 @@
       "kind": "function",
       "public": true,
       "signature": "flaky_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::transient_reads_retry_but_client_errors_and_invalid_json_do_not",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_retry.py",
@@ -4519,8 +4519,8 @@
       "kind": "function",
       "public": true,
       "signature": "flaky_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_404_not_retried_maps_to_endpoint_not_found",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_retry.py",
@@ -4529,8 +4529,8 @@
       "kind": "function",
       "public": true,
       "signature": "flaky_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_job_404_retried_during_propagation",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_retry.py",
@@ -4539,8 +4539,8 @@
       "kind": "function",
       "public": true,
       "signature": "flaky_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::persistent_job_failures_exhaust_seven_attempts",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_retry.py",
@@ -4549,8 +4549,8 @@
       "kind": "function",
       "public": true,
       "signature": "flaky_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::transient_reads_retry_but_client_errors_and_invalid_json_do_not",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_retry.py",
@@ -4569,8 +4569,8 @@
       "kind": "function",
       "public": true,
       "signature": "flaky_server, monkeypatch, operation, failure",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_submission_is_not_repeated_after_ambiguous_failure / disconnected_submissions_are_not_replayed",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_retry.py",
@@ -4579,8 +4579,8 @@
       "kind": "function",
       "public": true,
       "signature": "flaky_server, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::sync_transport_timeout_does_not_resubmit",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_secret.py",
@@ -4769,8 +4769,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4779,8 +4779,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4789,8 +4789,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4799,8 +4799,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4809,8 +4809,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4819,8 +4819,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4829,8 +4829,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4839,8 +4839,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4849,8 +4849,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4859,8 +4859,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, output",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4869,8 +4869,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4879,8 +4879,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_fast_invocation_returns_without_polling",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4889,8 +4889,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_sync_wait_hands_off_the_same_job",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4899,8 +4899,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_stream_failed_and_wait_missing_id_or_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4909,8 +4909,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_stream_failed_and_wait_missing_id_or_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4919,8 +4919,8 @@
       "kind": "function",
       "public": true,
       "signature": "local_endpoint, invocation_target",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_fast_invocation_returns_without_polling",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4929,8 +4929,8 @@
       "kind": "function",
       "public": true,
       "signature": "local_endpoint, invocation_target",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_sync_wait_hands_off_the_same_job",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4949,8 +4949,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, local_endpoint",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_job_cancel_and_retry_update_state",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4959,8 +4959,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, local_endpoint",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_stream_job_unwraps_chunks_and_stops_on_terminal_page",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4969,8 +4969,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, local_endpoint",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_stream_failed_and_wait_missing_id_or_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4989,8 +4989,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_live_payload_and_concurrent_requests_share_completed_source_sync",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -4999,8 +4999,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_live_payload_and_concurrent_requests_share_completed_source_sync",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5019,8 +5019,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5029,8 +5029,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5039,8 +5039,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5049,8 +5049,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5059,8 +5059,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_protocol::python_invocation_helpers_and_pickle_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5069,8 +5069,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, local_endpoint",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_stream_job_unwraps_chunks_and_stops_on_terminal_page",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5089,8 +5089,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, live_api_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_live_payload_and_concurrent_requests_share_completed_source_sync",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_targets.py",
@@ -5099,8 +5099,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, live_api_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_invocation::test_failed_source_sync_prevents_execution_and_can_retry",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_tasks.py",

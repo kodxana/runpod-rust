@@ -14,8 +14,11 @@ volume mount definitions are available. `apps::AppsApiClient` implements endpoin
 task pod provisioning, volumes, secrets, registries, application/environment lifecycle,
 browser-auth requests, artifact uploads, and build deployment. GPU catalog caching is
 scoped to client clones. Shared-volume placement, storage attachment, and secret/registry
-reference validation are implemented. Higher-level Apps execution/build/deployment workflows,
-advanced worker utilities, and CLI remain in progress.
+reference validation are implemented. Apps Queue/Api clients support async and blocking
+calls, per-job options, reconnectable jobs, and streaming. Live targets support request
+envelopes, result decoding, and coordinated source synchronization. Task execution,
+application registration/build/deployment workflows, live monitoring, advanced worker
+utilities, and CLI remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -37,6 +40,28 @@ Use `runpod::blocking::Client` outside an async runtime for synchronous code.
 Use `runpod::AsyncioEndpoint` when migrating code that depends on the Python async
 client's unconditional input wrapping and zero-timeout behavior.
 
+To call an application deployed from another codebase:
+
+```rust,no_run
+use runpod::{Client, apps::{Queue, ResourceRef, StubConfig}};
+use std::time::Duration;
+
+#[tokio::main]
+async fn main() -> runpod::Result<()> {
+let config = StubConfig::new("my-app", ResourceRef::Name("transcribe".into()));
+let queue = Queue::new(Client::from_env()?, config)?;
+let input = serde_json::from_value(runpod::json!({"audio_url":"https://example.com/audio.wav"}))?;
+let mut job = queue.spawn(&input).await?;
+let result = job.result(Duration::from_secs(300)).await?;
+println!("{result}");
+Ok(())
+}
+```
+
+`StubConfig::environment` overrides `FLASH_ENVIRONMENT` (otherwise `default`).
+For synchronous applications, `blocking::Client::queue` and `::api` return clients
+with the same operations. Their job handles and iterators retain the owned runtime.
+
 ```sh
 cargo build --locked
 cargo test --locked
@@ -46,6 +71,7 @@ cargo doc --locked --no-deps
 
 Tests use local mock HTTP services; they do not create billable cloud resources.
 Python is used only to regenerate differential fixtures, never at Rust runtime.
+CI also uses Python to verify that it can decode pickle values produced by Rust.
 
 The destination project's Apache-2.0 license is retained. Upstream-derived code and
 fixtures retain the original MIT notice in [LICENSE-UPSTREAM](LICENSE-UPSTREAM).

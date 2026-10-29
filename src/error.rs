@@ -8,6 +8,15 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// Application routing, configuration, or remote execution failed.
+    #[error(transparent)]
+    App(#[from] crate::apps::AppError),
+    /// A Python-compatible built-in value could not be serialized or decoded.
+    #[error(transparent)]
+    Pickle(#[from] serde_pickle::Error),
+    /// A serialized result contained invalid base64.
+    #[error(transparent)]
+    Base64(#[from] base64::DecodeError),
     /// An operation failed with additional context while retaining its original cause.
     #[error("{message}: {source}")]
     Context {
@@ -49,6 +58,9 @@ pub enum Error {
     /// A job exceeded the caller's waiting deadline.
     #[error("Job timed out.")]
     Timeout,
+    /// An Apps operation exceeded its deadline, including operation-specific context.
+    #[error("{0}")]
+    DeadlineExceeded(String),
 }
 
 impl Error {
