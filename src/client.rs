@@ -122,6 +122,23 @@ impl Client {
     }
 
     fn build(config: ClientConfig, authenticated: bool) -> Result<Self> {
+        Self::build_with_read_timeout(config, authenticated, None)
+    }
+
+    pub(crate) fn http_with_read_timeout(&self, timeout: Duration) -> Result<reqwest::Client> {
+        Ok(Self::build_with_read_timeout(
+            self.config.clone(),
+            !self.config.api_key.is_empty(),
+            Some(timeout),
+        )?
+        .http)
+    }
+
+    fn build_with_read_timeout(
+        config: ClientConfig,
+        authenticated: bool,
+        read_timeout: Option<Duration>,
+    ) -> Result<Self> {
         for value in [&config.api_base_url, &config.endpoint_base_url] {
             let url = reqwest::Url::parse(value).map_err(|e| Error::InvalidInput(e.to_string()))?;
             if !matches!(url.scheme(), "http" | "https")
@@ -145,14 +162,17 @@ impl Client {
         }
         headers.insert("Accept", HeaderValue::from_static("application/json"));
         headers.insert("Content-Type", HeaderValue::from_static("application/json"));
-        let http = reqwest::Client::builder()
+        let mut builder = reqwest::Client::builder()
             .default_headers(headers)
             .user_agent(concat!("runpod-rust/", env!("CARGO_PKG_VERSION")))
             .redirect(reqwest::redirect::Policy::none())
-            .retry(reqwest::retry::never())
-            // Request methods apply their own timeout. Apps use zero to disable
-            // the HTTP deadline, which must not inherit a pool-level default.
-            .build()?;
+            .retry(reqwest::retry::never());
+        // Request methods apply their own timeout. Apps use zero to disable
+        // the HTTP deadline, which must not inherit a pool-level default.
+        if let Some(timeout) = read_timeout {
+            builder = builder.read_timeout(timeout);
+        }
+        let http = builder.build()?;
         Ok(Self {
             http,
             config,

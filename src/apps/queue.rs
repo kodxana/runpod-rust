@@ -58,6 +58,9 @@ pub struct QueueClient {
     address: Option<ResourceAddress>,
 }
 impl QueueClient {
+    pub(super) fn client(&self) -> &Client {
+        &self.client
+    }
     /// Uses a client connection pool and an explicit endpoint identifier.
     ///
     /// # Errors

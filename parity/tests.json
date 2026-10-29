@@ -3749,8 +3749,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures / apps_logs::snapshot_normalizes_nulls_and_tail_preserves_order_and_zero_quirk",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3759,8 +3759,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures / apps_logs::snapshot_normalizes_nulls_and_tail_preserves_order_and_zero_quirk",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3769,8 +3769,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures / apps_logs::snapshot_normalizes_nulls_and_tail_preserves_order_and_zero_quirk",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3779,8 +3779,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures / apps_logs::snapshot_normalizes_nulls_and_tail_preserves_order_and_zero_quirk",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3789,8 +3789,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::snapshot_normalizes_nulls_and_tail_preserves_order_and_zero_quirk",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3799,8 +3799,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch, endpoint_id",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3809,8 +3809,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3819,8 +3819,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch, id_first",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3829,8 +3829,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3839,8 +3839,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch, status",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::idle_timeout_starts_after_headers_and_http_errors_propagate",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3849,8 +3849,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::fragmented_utf8_and_idle_shutdown_close_the_connection",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3859,8 +3859,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::socket_timeout_before_headers_propagates_even_with_idle_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_logs.py",
@@ -3869,8 +3869,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch, endpoint_id, log_type, owner",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_logs::stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_manage.py",
@@ -4119,8 +4119,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4129,8 +4129,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4139,8 +4139,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::monitor_reports_counts_attaches_each_worker_once_and_stops_pool_updates",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4159,8 +4159,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4169,8 +4169,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4179,8 +4179,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4189,8 +4189,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4199,8 +4199,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4209,8 +4209,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4219,8 +4219,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4229,8 +4229,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::python_monitor_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4239,8 +4239,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::follow_emits_deduplicates_and_attach_is_idempotent",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4249,8 +4249,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::stop_snapshots_without_a_stream_and_filters_old_and_runtime_lines",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4259,8 +4259,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::stop_snapshots_without_a_stream_and_filters_old_and_runtime_lines",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4269,8 +4269,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::follow_emits_deduplicates_and_attach_is_idempotent",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_monitor.py",
@@ -4279,8 +4279,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_monitor::monitor_reports_counts_attaches_each_worker_once_and_stops_pool_updates",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",

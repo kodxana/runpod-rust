@@ -3,6 +3,7 @@ pub use super::queue::{
     DEFAULT_TIMEOUT, FINAL_STATUSES, QueueClient, ResourceAddress, SENTINEL_ID, StatusObserver,
 };
 use super::{AppError, protocol::FunctionResponse, serialization};
+use super::{AppsApiClient, logs::LogsClient, monitor::WorkerMonitor};
 use super::{
     ResourceSpec,
     events::{EventSink, emit},
@@ -41,6 +42,7 @@ enum TargetMode {
         source: Option<Arc<SourceAttachment>>,
         synced_hash: Arc<tokio::sync::Mutex<Option<[u8; 32]>>>,
         events: Option<EventSink>,
+        monitor_clients: Option<Arc<(AppsApiClient, LogsClient)>>,
     },
 }
 
@@ -96,6 +98,7 @@ impl Target {
                 source: None,
                 synced_hash: Arc::new(tokio::sync::Mutex::new(None)),
                 events: None,
+                monitor_clients: None,
             },
             resource_name: resource_name.into(),
         })
@@ -155,6 +158,48 @@ impl Target {
             TargetMode::Live { events, .. } => events.as_ref(),
         }
     }
+    /// Selects explicit control-plane and log clients for live invocation monitoring.
+    /// Defaults otherwise share this target's credentials and configured service roots.
+    ///
+    /// # Errors
+    /// Returns invalid input for deployed targets.
+    pub fn set_monitor_clients(&mut self, api: AppsApiClient, logs: LogsClient) -> Result<()> {
+        let TargetMode::Live {
+            monitor_clients, ..
+        } = &mut self.mode
+        else {
+            return Err(Error::InvalidInput(
+                "worker monitoring requires a live target".into(),
+            ));
+        };
+        *monitor_clients = Some(Arc::new((api, logs)));
+        Ok(())
+    }
+    fn monitor(&self) -> Result<Option<WorkerMonitor>> {
+        let TargetMode::Live {
+            events: Some(events),
+            monitor_clients,
+            ..
+        } = &self.mode
+        else {
+            return Ok(None);
+        };
+        let (api, logs) = if let Some(clients) = monitor_clients {
+            clients.as_ref().clone()
+        } else {
+            (
+                AppsApiClient::new(self.queue.client().clone())?,
+                LogsClient::new(self.queue.client().clone())?,
+            )
+        };
+        Ok(Some(WorkerMonitor::new(
+            self.endpoint_id(),
+            &self.resource_name,
+            events.clone(),
+            api,
+            logs,
+        )))
+    }
 
     /// Builds named deployed input or a source-bearing live FunctionRequest.
     ///
@@ -208,11 +253,19 @@ impl Target {
     /// # Errors
     /// Returns request, deadline, or remote execution errors.
     pub async fn invoke(&self, payload: &Value, timeout: Duration) -> Result<Value> {
+        let mut monitor = self.monitor()?;
         emit(self.events(), "dispatch", &[json!(self.resource_name)]);
         let start = tokio::time::Instant::now();
+        if let Some(monitor) = &mut monitor {
+            monitor.start()?;
+        }
         let result = async {
-            let mut observe = |_: &Value| Ok(());
-            let observer = if self.events().is_some() {
+            let observed = monitor.is_some();
+            let mut observe = |data: &Value| match &mut monitor {
+                Some(monitor) => monitor.on_status(data),
+                None => Ok(()),
+            };
+            let observer = if observed {
                 Some(&mut observe as &mut StatusObserver<'_>)
             } else {
                 None
@@ -221,18 +274,29 @@ impl Target {
             self.unwrap(&data)
         }
         .await;
-        emit(
-            self.events(),
-            if result.is_ok() {
-                "request_completed"
-            } else {
-                "request_failed"
-            },
-            &[
-                json!(self.resource_name),
-                json!(start.elapsed().as_secs_f64()),
-            ],
-        );
+        if result.is_err() {
+            emit(
+                self.events(),
+                "request_failed",
+                &[
+                    json!(self.resource_name),
+                    json!(start.elapsed().as_secs_f64()),
+                ],
+            );
+        }
+        if let Some(monitor) = &mut monitor {
+            monitor.stop().await;
+        }
+        if result.is_ok() {
+            emit(
+                self.events(),
+                "request_completed",
+                &[
+                    json!(self.resource_name),
+                    json!(start.elapsed().as_secs_f64()),
+                ],
+            );
+        }
         result
     }
     /// Submits without waiting for output.

@@ -1,0 +1,335 @@
+[
+  {
+    "operation": "filter",
+    "input": "hello",
+    "output": "hello"
+  },
+  {
+    "operation": "filter",
+    "input": "",
+    "output": ""
+  },
+  {
+    "operation": "filter",
+    "input": "42",
+    "output": "42"
+  },
+  {
+    "operation": "filter",
+    "input": "--- Starting Serverless Worker v1 ---",
+    "output": null
+  },
+  {
+    "operation": "filter",
+    "input": "{\"result\":5}",
+    "output": "{\"result\":5}"
+  },
+  {
+    "operation": "filter",
+    "input": "{broken",
+    "output": "{broken"
+  },
+  {
+    "operation": "filter",
+    "input": " {\"message\":\"kept\",\"level\":\"INFO\"}",
+    "output": " {\"message\":\"kept\",\"level\":\"INFO\"}"
+  },
+  {
+    "operation": "filter",
+    "input": "{\"message\":\"hidden\",\"level\":\"INFO\"}",
+    "output": null
+  },
+  {
+    "operation": "filter",
+    "input": "{\"message\":\"boom\",\"level\":\"ERROR\"}",
+    "output": "boom"
+  },
+  {
+    "operation": "filter",
+    "input": "{\"message\":\"warning\",\"level\":\"warn\"}",
+    "output": "warning"
+  },
+  {
+    "operation": "filter",
+    "input": "{\"message\":null,\"level\":\"WARNING\"}",
+    "output": "None"
+  },
+  {
+    "operation": "filter",
+    "input": "{\"message\":false,\"level\":\"ERROR\"}",
+    "output": "False"
+  },
+  {
+    "operation": "format",
+    "input": {},
+    "output": "no workers"
+  },
+  {
+    "operation": "format",
+    "input": {
+      "ready": 0
+    },
+    "output": "no workers"
+  },
+  {
+    "operation": "format",
+    "input": {
+      "initializing": 1,
+      "ready": 2,
+      "running": 0
+    },
+    "output": "1 initializing, 2 ready"
+  },
+  {
+    "operation": "format",
+    "input": {
+      "unhealthy": -1,
+      "ready": null
+    },
+    "output": "-1 unhealthy"
+  },
+  {
+    "operation": "tail",
+    "input": {
+      "logs": {},
+      "lines": 20
+    },
+    "output": "(no logs available)"
+  },
+  {
+    "operation": "tail",
+    "input": {
+      "logs": {
+        "system": [
+          "s"
+        ],
+        "container": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "lines": 2
+    },
+    "output": "--- system (last 1) ---\ns\n--- container (last 2) ---\nb\nc"
+  },
+  {
+    "operation": "tail",
+    "input": {
+      "logs": {
+        "container": [
+          "a",
+          "b"
+        ]
+      },
+      "lines": 0
+    },
+    "output": "--- container (last 0) ---\na\nb"
+  },
+  {
+    "operation": "tail",
+    "input": {
+      "logs": {
+        "container": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "lines": -1
+    },
+    "output": "--- container (last -1) ---\nb\nc"
+  },
+  {
+    "operation": "tail",
+    "input": {
+      "logs": {
+        "container": [
+          "a"
+        ]
+      },
+      "lines": -5
+    },
+    "output": "--- container (last -5) ---"
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "no timestamp",
+      "since": "2026-01-01T00:00:00Z"
+    },
+    "output": false
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "2026-01-01T00:00:00Z same",
+      "since": "2026-01-01T00:00:00Z"
+    },
+    "output": true
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "2026-01-01T00:00:00.123456789Z same micro",
+      "since": "2026-01-01T00:00:00.123456Z"
+    },
+    "output": true
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "2026-01-01T01:00:00+01:00 same",
+      "since": "2026-01-01T00:00:00Z"
+    },
+    "output": true
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "2026-01-01T00:00:01Z later",
+      "since": "2026-01-01T00:00:00Z"
+    },
+    "output": false
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "2026-99-01T00:00:00Z invalid",
+      "since": "2026-01-01T00:00:00Z"
+    },
+    "output": false
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "2026-01-01T00:00:00 naive",
+      "since": "2026-01-01T00:00:00"
+    },
+    "output": true
+  },
+  {
+    "operation": "before",
+    "input": {
+      "line": "2026-01-01T00:00:00Z valid",
+      "since": "invalid"
+    },
+    "output": false
+  },
+  {
+    "operation": "counts",
+    "input": [
+      {
+        "summary": {
+          "idle": 2,
+          "running": 1
+        }
+      }
+    ],
+    "output": []
+  },
+  {
+    "operation": "counts",
+    "input": [
+      {
+        "summary": {
+          "initializing": 1
+        }
+      },
+      {
+        "summary": {
+          "initializing": 1
+        }
+      },
+      {
+        "summary": {
+          "idle": 1
+        }
+      }
+    ],
+    "output": [
+      [
+        "resource",
+        {
+          "initializing": 1,
+          "ready": 0,
+          "running": 0,
+          "throttled": 0,
+          "unhealthy": 0
+        }
+      ],
+      [
+        "resource",
+        {
+          "initializing": 0,
+          "ready": 1,
+          "running": 0,
+          "throttled": 0,
+          "unhealthy": 0
+        }
+      ]
+    ]
+  },
+  {
+    "operation": "counts",
+    "input": [
+      {},
+      {
+        "summary": null
+      }
+    ],
+    "output": []
+  },
+  {
+    "operation": "counts",
+    "input": [
+      {
+        "summary": {
+          "throttled": 1
+        }
+      },
+      {
+        "summary": {
+          "unhealthy": 1
+        }
+      },
+      {
+        "summary": {
+          "idle": null
+        }
+      }
+    ],
+    "output": [
+      [
+        "resource",
+        {
+          "initializing": 0,
+          "ready": 0,
+          "running": 0,
+          "throttled": 1,
+          "unhealthy": 0
+        }
+      ],
+      [
+        "resource",
+        {
+          "initializing": 0,
+          "ready": 0,
+          "running": 0,
+          "throttled": 0,
+          "unhealthy": 1
+        }
+      ],
+      [
+        "resource",
+        {
+          "initializing": 0,
+          "ready": 0,
+          "running": 0,
+          "throttled": 0,
+          "unhealthy": 0
+        }
+      ]
+    ]
+  }
+]

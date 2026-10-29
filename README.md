@@ -16,8 +16,9 @@ browser-auth requests, artifact uploads, and build deployment. GPU catalog cachi
 scoped to client clones. Shared-volume placement, storage attachment, and secret/registry
 reference validation are implemented. Apps Queue/Api clients support async and blocking
 calls, per-job options, reconnectable jobs, and streaming. Live targets support request
-envelopes, result decoding, and coordinated source synchronization. Task execution,
-application registration/build/deployment workflows, live monitoring, advanced worker
+envelopes, result decoding, coordinated source synchronization, and worker metrics/logs.
+Pod logs support snapshots, SSE cursors, and reconnect deduplication. Task execution,
+application registration/build/deployment workflows, advanced worker
 utilities, and CLI remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 

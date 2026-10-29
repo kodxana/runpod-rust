@@ -80,13 +80,19 @@ for entry in api["entries"]:
         "runpod/apps/targets.py": {"args_to_input":"apps::targets::args_to_input", "build_job_options":"apps::targets::JobOptions::to_payload", "merge_job_options":"apps::targets::merge_job_options", "unwrap_job_output":"apps::targets::unwrap_job_output", "_request_json":"apps::queue::QueueClient::request_json", "_post_json":"apps::queue::QueueClient::request_json", "_get_json":"apps::queue::QueueClient::request_json", "_wait_terminal":"apps::targets::QueueClient::wait", "QueueClient":"apps::targets::QueueClient", "QueueClient.__init__":"apps::targets::QueueClient::new", "QueueClient._call":"apps::queue::QueueClient::call", "SentinelTarget":"apps::targets::Target::sentinel", "SentinelTarget.__init__":"apps::targets::Target::sentinel", "SentinelTarget._sentinel_headers":"apps::queue::QueueClient::set_address", "LiveTarget.attach_source":"apps::targets::Target::attach_source", "LiveTarget._sync_source":"apps::targets::Target::sync_source", "LiveTarget.build_payload":"apps::targets::Target::build_payload", "LiveTarget.unwrap":"apps::targets::unwrap_live_output", "LiveTarget._unwrap_response":"apps::targets::unwrap_function_response"},
     }
     target = invocation_symbols.get(file, {}).get(name, target)
+    log_symbols = {
+        "runpod/apps/logs.py": {"_headers":"Client::build authentication headers", "pod_logs":"apps::logs::LogsClient::pod_logs", "stream_pod_logs":"apps::logs::LogsClient::stream_pod_logs", "tail_summary":"apps::logs::tail_summary"},
+        "runpod/apps/monitor.py": {"_worker_frame":"apps::monitor::worker_frame", "_filter_line":"apps::monitor::filter_line", "_line_before":"apps::monitor::line_before", "format_worker_counts":"apps::monitor::format_worker_counts", "PodLogStream":"apps::monitor::PodLogStream", "PodLogStream.__init__":"apps::monitor::PodLogStream::new", "PodLogStream.attach":"apps::monitor::PodLogStream::attach", "PodLogStream.stop":"apps::monitor::PodLogStream::stop", "PodLogStream._emit_line":"apps::monitor::LogContext::emit_line", "PodLogStream._snapshot":"apps::monitor::LogContext::snapshot", "PodLogStream._follow":"apps::monitor::LogContext::follow", "WorkerMonitor":"apps::monitor::WorkerMonitor", "WorkerMonitor.__init__":"apps::monitor::WorkerMonitor::new", "WorkerMonitor.start":"apps::monitor::WorkerMonitor::start", "WorkerMonitor.on_status":"apps::monitor::WorkerMonitor::on_status", "WorkerMonitor.stop":"apps::monitor::WorkerMonitor::stop", "WorkerMonitor._poll_metrics":"apps::monitor::MonitorContext::poll_metrics", "WorkerMonitor._report_counts":"apps::monitor::WorkerMonitor::report_counts"},
+        "runpod/apps/targets.py": {"LiveTarget":"apps::targets::Target::live", "LiveTarget.__init__":"apps::targets::Target::live / set_events / set_monitor_clients", "LiveTarget._monitor":"apps::targets::Target::monitor", "LiveTarget.invoke":"apps::targets::Target::invoke"},
+    }
+    target = log_symbols.get(file, {}).get(name, target)
     if file == "runpod/apps/targets.py" and "." in name:
         owner, method = name.split(".", 1)
         if owner == "QueueClient" and method in ("base_url", "run", "invoke", "status", "cancel", "retry", "stream", "wait", "http"):
             target = "apps::targets::QueueClient::" + method
         if owner == "SentinelTarget" and method in ("invoke", "submit", "job_status", "cancel_job", "retry_job", "stream_job", "wait", "request"):
             target = "apps::targets::Target::" + method
-        # Live invocation monitoring remains pending; do not mark the whole class complete.
+        # Resolve the concrete queue operations separately from abstract/Pod targets.
         if owner == "LiveTarget" and method in ("submit", "job_status", "cancel_job", "retry_job", "stream_job", "wait", "request"):
             target = "apps::targets::Target::" + method
     if file == "runpod/serverless/modules/rp_prestart.py" and name in ("register_prestart_hook", "get_prestart_hooks", "has_prestart_hooks", "clear_prestart_hooks", "run_prestart_phase"):
@@ -193,6 +199,22 @@ for entry in tests["entries"]:
         covered = {"TestStubs.test_queue_stub_remote":"stub_options_accumulate_without_changing_original", "TestStubs.test_queue_stub_with_options":"stub_options_accumulate_without_changing_original", "TestStubs.test_queue_stub_spawn_returns_job":"stub_spawn_reconnect_and_lazy_stream_use_sentinel", "TestStubs.test_queue_stub_stream":"stub_spawn_reconnect_and_lazy_stream_use_sentinel", "TestStubs.test_queue_stub_reconnects_to_job":"stub_spawn_reconnect_and_lazy_stream_use_sentinel", "TestStubs.test_api_stub_http":"api_stub_routes_all_verbs_with_headers_and_json_or_text"}
         if entry["name"] in covered:
             target = "apps_stubs::" + covered[entry["name"]]
+    if entry["file"] == "tests/test_apps/test_logs.py":
+        name = entry["name"]
+        if name == "TestStreamPodLogs.test_connection_timeout_propagates":
+            target = "apps_logs::socket_timeout_before_headers_propagates_even_with_idle_timeout"
+        if name.startswith("TestTailSummary."):
+            target = "apps_monitor::python_monitor_fixtures / apps_logs::snapshot_normalizes_nulls_and_tail_preserves_order_and_zero_quirk"
+        covered = {"TestPodLogs.test_snapshot_normalizes_nulls":"snapshot_normalizes_nulls_and_tail_preserves_order_and_zero_quirk", "TestStreamPodLogs.test_combined_rest_stream_resumes_delivered_events":"stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery", "TestStreamPodLogs.test_parses_sse_frames":"stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery", "TestStreamPodLogs.test_cursor_matches_each_complete_frame":"stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery", "TestStreamPodLogs.test_multiline_data_and_incomplete_frames":"stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery", "TestStreamPodLogs.test_idle_timeout_starts_after_response_headers":"idle_timeout_starts_after_headers_and_http_errors_propagate", "TestStreamPodLogs.test_idle_timeout_closes_established_stream":"fragmented_utf8_and_idle_shutdown_close_the_connection", "TestStreamPodLogs.test_rest_stream_selects_resource_source_and_window":"stream_selects_hapi_pod_or_worker_and_preserves_cursor_delivery"}
+        if name in covered:
+            target = "apps_logs::" + covered[name]
+    if entry["file"] == "tests/test_apps/test_monitor.py":
+        name = entry["name"]
+        if name.startswith(("TestFormatWorkerCounts.", "TestReportCounts.", "TestLineFiltering.")):
+            target = "apps_monitor::python_monitor_fixtures"
+        covered = {"TestOnStatus.test_worker_id_triggers_ready_and_stream":"monitor_reports_counts_attaches_each_worker_once_and_stops_pool_updates", "TestPodLogStream.test_follow_emits_and_dedups":"follow_emits_deduplicates_and_attach_is_idempotent", "TestPodLogStream.test_stop_snapshots_when_stream_never_attached":"stop_snapshots_without_a_stream_and_filters_old_and_runtime_lines", "TestPodLogStream.test_snapshot_skips_lines_before_since":"stop_snapshots_without_a_stream_and_filters_old_and_runtime_lines", "TestPodLogStream.test_attach_idempotent":"follow_emits_deduplicates_and_attach_is_idempotent", "TestMonitorLifecycle.test_metrics_polling_reports_counts":"monitor_reports_counts_attaches_each_worker_once_and_stops_pool_updates"}
+        if name in covered:
+            target = "apps_monitor::" + covered[name]
     if target:
         entry.update(rust=target, status="ported")
 path.write_text(json.dumps(tests, indent=2) + "\n")

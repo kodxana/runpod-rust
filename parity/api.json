@@ -3259,8 +3259,8 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "Client::build authentication headers",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/logs.py",
@@ -3269,8 +3269,8 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id: str, *, log_type: str='all', timeout: float=30.0",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::logs::LogsClient::pod_logs",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/logs.py",
@@ -3279,8 +3279,8 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id: str, *, endpoint_id: Optional[str]=None, log_type: Optional[str]='all', tail: int=100, since: Optional[str]=None, last_event_id: Optional[str]=None, on_event_id: Optional[Callable[[str], None]]=None, idle_timeout: Optional[float]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::logs::LogsClient::stream_pod_logs",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/logs.py",
@@ -3289,8 +3289,8 @@
       "kind": "function",
       "public": true,
       "signature": "logs: Dict[str, List[str]], lines: int=20",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::logs::tail_summary",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3569,8 +3569,8 @@
       "kind": "function",
       "public": false,
       "signature": "line: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::worker_frame",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3579,8 +3579,8 @@
       "kind": "function",
       "public": false,
       "signature": "line: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::filter_line",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3589,8 +3589,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::PodLogStream",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3599,8 +3599,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, pod_id: str, resource_name: str, events: object, *, endpoint_id: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::PodLogStream::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3609,8 +3609,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::PodLogStream::attach",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3619,8 +3619,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::PodLogStream::stop",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3629,8 +3629,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, key: tuple, line: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::LogContext::emit_line",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3639,8 +3639,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::LogContext::snapshot",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3649,8 +3649,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::LogContext::follow",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3659,8 +3659,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::WorkerMonitor",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3669,8 +3669,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, endpoint_id: str, resource_name: str, events: object, api=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::WorkerMonitor::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3679,8 +3679,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::WorkerMonitor::start",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3689,8 +3689,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, data: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::WorkerMonitor::on_status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3699,8 +3699,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::WorkerMonitor::stop",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3709,8 +3709,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::MonitorContext::poll_metrics",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3719,8 +3719,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, data: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::WorkerMonitor::report_counts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3729,8 +3729,8 @@
       "kind": "function",
       "public": false,
       "signature": "raw: str, since_iso: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::line_before",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/monitor.py",
@@ -3739,8 +3739,8 @@
       "kind": "function",
       "public": true,
       "signature": "counts: Dict[str, int]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::monitor::format_worker_counts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -4885,8 +4885,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::live",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4895,8 +4895,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, endpoint_id: str, resource_name: str='', events: Optional[object]=None, api=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::live / set_events / set_monitor_clients",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4955,8 +4955,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::monitor",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",
@@ -4965,8 +4965,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, payload: Dict[str, Any], *, timeout: float=DEFAULT_TIMEOUT_SECONDS",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::targets::Target::invoke",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/targets.py",

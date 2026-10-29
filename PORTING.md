@@ -33,14 +33,16 @@ by Python; the complete port remains in progress.
 | `apps.targets.QueueClient`, `SentinelTarget` | `apps::targets::QueueClient`, `Target::sentinel` |
 | `apps.Job`, queue/API stubs | `apps::Job`, `Queue`, `Api`, plus `blocking::apps` equivalents |
 | `apps.protocol`, serialization | typed wire envelopes and native Serde/pickle functions; language adaptations below |
-| Live target payloads, decoding, source synchronization | `Target::live`, `FunctionDefinition`, `FunctionSource`; monitoring pending |
+| Live target payloads, decoding, source synchronization, monitoring | `Target::live`, `FunctionDefinition`, `FunctionSource`, `set_events`, `set_monitor_clients` |
+| `apps.logs` snapshots, SSE streams, tail summaries | `apps::logs::LogsClient`, `LogStreamOptions`, `tail_summary` |
+| `apps.monitor` worker state/log observation and filtering | `apps::monitor::WorkerMonitor`, `PodLogStream`, and helper functions |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger also labels six serialization/reflection functions as `adapted` to make
-their native Rust input domain explicit. This milestone maps 253 implemented symbols,
-six adapted symbols, and 130 upstream test functions; other entries remain pending.
+their native Rust input domain explicit. This milestone maps 279 implemented symbols,
+six adapted symbols, and 159 upstream test functions; other entries remain pending.
 
 ## Test mapping and reproduction
 
@@ -74,6 +76,7 @@ python tools/control_fixtures.py
 python tools/apps_api_fixtures.py
 python tools/placement_fixtures.py
 python tools/invocation_fixtures.py
+python tools/monitor_fixtures.py
 cargo test --test apps_protocol
 python tools/verify_pickle.py
 ```
@@ -109,6 +112,17 @@ python tools/verify_pickle.py
 - Live HTTP source sync uses a SHA-256 hash, coalesces concurrent callers, and records
   success only after upload completes. A canceled or failed upload remains retryable.
   Changing only dependencies without changing source does not invalidate that hash.
+- Log streams retain event IDs across frames, deliver a cursor only with valid JSON,
+  and ignore incomplete final events. Idle timeout begins after response headers;
+  the independent socket-read timeout also applies while awaiting those headers.
+- Worker logs deduplicate by timestamp/text across reconnects. Timestamp comparisons
+  truncate nanoseconds to microseconds and exclude lines equal to the start time.
+  Routine SDK frames are hidden, but even a hidden nonempty raw line suppresses the
+  final snapshot fallback. A tail length of zero preserves Python's full-list slice.
+- Metrics suppress the first steady ready/running pool, report subsequent changes,
+  and stop reporting pool changes once a job has a worker. Worker snapshot recovery
+  follows assignment order. Failed requests emit failure before recovering logs;
+  successful requests emit completion after recovery.
 
 ## Deliberate language/runtime differences
 
@@ -167,6 +181,15 @@ python tools/verify_pickle.py
   must contain only ASCII letters, digits, hyphens, or underscores to keep routing within
   the configured service host. Sensitive job options and attached source/environment
   are omitted from client Debug output.
+- Log clients own their HAPI configuration rather than a module global. Streams use a
+  separate authenticated connection pool with a 60-second socket-read timeout, a
+  one-hour total timeout, and optional idle completion. Snapshot timeouts remain separate.
+  Log sources and SSE payloads retain unknown JSON fields; malformed source arrays return errors.
+- Monitor tasks are owned and aborted on drop. Explicit async stop performs final snapshot
+  recovery; dropping a canceled invocation stops background I/O without awaiting snapshot
+  recovery. Callbacks can run on background Tokio tasks and are never called under state locks.
+- Timestamp helpers accept RFC3339 or extended ISO timestamps without a timezone. Python's
+  additional fromisoformat variants (such as week-date forms) are outside that native domain.
 
 ## Verification log
 
@@ -200,6 +223,16 @@ python tools/verify_pickle.py
   changes/cancellation, failed-result caching, and blocking runtime ownership.
   Build, formatting, Clippy with warnings denied, and documentation generation passed.
   [Invocation review](reviews/apps-invocation.md) records fixes and remaining limitations.
+- Logs and monitoring milestone: **121 integration tests and one doctest passed** on
+  Windows with both stable Rust 1.99.1 and the declared **Rust 1.88.0 MSRV**. There are
+  **264 captured Python cases**. All **38 upstream log/monitor tests** passed. Added tests
+  cover fragmented UTF-8, SSE cursor/frame boundaries, idle/socket deadlines, reconnect
+  deduplication, snapshot ordering/failures, and cancellation closing active connections.
+  Build, formatting, Clippy with warnings denied, and documentation generation passed.
+  [Monitoring review](reviews/apps-monitor.md) describes lifecycle and timeout fixes.
+- The previous invocation commit 4cdb636 passed all three remote stable jobs on Linux,
+  Windows, and macOS: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/40943317560).
+  The new log/monitor commit's remote checks are not covered by that earlier result.
 
 This file will be updated as each remaining component and test is ported.
 
@@ -207,6 +240,6 @@ This file will be updated as each remaining component and test is ported.
 
 The current milestone does not implement deployment orchestration, native function
 registration/deployment, task execution/cleanup, artifact construction, discovery, development sessions, browser auth flows,
-management/logging/monitoring, or the CLI. Worker fitness, dynamic scaling, hosted API,
+management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.
