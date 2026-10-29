@@ -94,17 +94,19 @@ async fn follow_emits_deduplicates_and_attach_is_idempotent() {
     let frames = "data: {\"ts\":\"t1\",\"line\":\"hello\"}\n\ndata: {\"ts\":\"t1\",\"line\":\"hello\"}\n\ndata: {\"ts\":\"t2\",\"line\":\"\"}\n\n";
     Mock::given(path("/v2/serverless/ep/workers/pod/logs"))
         .respond_with(ResponseTemplate::new(200).set_body_raw("data: {\"ts\":\"t1\",\"line\":\"hello\"}\n\ndata: {\"ts\":\"t3\",\"line\":\"world\"}\n\n","text/event-stream"))
-        .up_to_n_times(1).expect(1).mount(&server).await;
+        .with_priority(2).up_to_n_times(1).expect(1).mount(&server).await;
     Mock::given(path("/v2/serverless/ep/workers/pod/logs"))
         .and(query_param("tail", "1000"))
         .and(query_param("source", "container"))
         .respond_with(ResponseTemplate::new(200).set_body_raw(frames, "text/event-stream"))
+        .with_priority(1)
         .up_to_n_times(1)
         .expect(1)
         .mount(&server)
         .await;
     Mock::given(path("/v2/serverless/ep/workers/pod/logs"))
         .respond_with(ResponseTemplate::new(200).set_delay(Duration::from_secs(60)))
+        .with_priority(3)
         .mount(&server)
         .await;
     let (_, logs) = clients(&server);
