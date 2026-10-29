@@ -93,6 +93,8 @@ for entry in api["entries"]:
         "runpod/apps/tasks.py": {"_runtime_command":"apps::shim::runtime_launcher", "cuda_versions_at_least":"apps::tasks::cuda_versions_at_least", "_device_names":"apps::tasks::device_names", "_proxy_url":"apps::tasks::TaskExecution::proxy_url", "_pod_input":"apps::tasks::pod_input", "TaskExecution":"apps::tasks::TaskExecution", "TaskExecution.__init__":"apps::tasks::TaskExecution::with_config", "TaskExecution._headers":"apps::tasks::TaskExecution::runner_request", "TaskExecution._deploy_and_record":"apps::tasks::TaskExecution::start owned deployment task", "TaskExecution._deploy_pod":"apps::tasks::TaskExecution::deploy_pod", "TaskExecution._attach_mounts":"apps::volume::attach_pod_mounts", "TaskExecution._post":"apps::tasks::TaskExecution::post", "unwrap_task_response":"apps::tasks::unwrap_task_response", "TaskJob":"apps::tasks::TaskJob", "TaskJob.__init__":"apps::tasks::TaskJob::new"},
     }
     target = task_symbols.get(file, {}).get(name, target)
+    if file == "runpod/apps/deploy.py" and name in ("DeployResult", "build_manifest", "_deployed_endpoint_input", "reconcile_endpoints", "_container_disk_gb"):
+        target = "apps::deploy::" + {"_deployed_endpoint_input":"deployed_endpoint_input", "_container_disk_gb":"deployed_endpoint_input container disk selection"}.get(name, name)
     if file == "runpod/apps/tasks.py" and name in ("TaskExecution.start", "TaskExecution.wait_ready", "TaskExecution.execute", "TaskExecution.submit", "TaskExecution.set_timeout", "TaskExecution.poll_result", "TaskExecution.terminate", "TaskJob.pod_id", "TaskJob.wait", "TaskJob.cancel"):
         target = "apps::tasks::" + name.replace(".", "::")
     if file == "runpod/apps/targets.py" and "." in name:
@@ -234,6 +236,10 @@ for entry in tests["entries"]:
             target = "apps_tasks::python_task_payload_and_runtime_fixtures"
         if name in ("TestRuntimeImage.test_tag_channel_from_env", "TestRuntimeImage.test_default_channel_is_latest"):
             target = "apps_tasks::runtime_image_channel_environment_is_captured_without_global_mutation"
+    if entry["file"] == "tests/test_apps/test_deploy.py" and entry["name"] in ("TestManifest.test_manifest_shape", "TestManifest.test_schedule_blocked_until_backend_support", "TestEndpointInput.test_custom_api_declares_runtime_port"):
+        target = "apps_deploy::python_deployment_manifest_and_endpoint_fixtures"
+    if entry["file"] == "tests/test_apps/test_config_params.py" and entry["name"] in ("TestDeployPayload.test_config_params_reach_payload", "TestDeployPayload.test_flashboot_default_present", "TestDeployPayload.test_flashboot_disabled_omitted"):
+        target = "apps_deploy::python_deployment_manifest_and_endpoint_fixtures"
     if entry["file"] == "tests/test_apps/test_shim.py" and entry["name"] in ("test_starts_an_installed_runtime", "test_installs_missing_packages_and_honors_overrides"):
         target = "apps_shim::launcher_starts_installed_runtimes_installs_missing_packages_and_honors_overrides [Unix] / apps_tasks::python_task_payload_and_runtime_fixtures [all platforms]"
     if entry["file"] == "tests/test_apps/test_tasks.py":

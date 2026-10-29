@@ -1,6 +1,7 @@
 //! Application resource definitions and provisioning operations.
 pub mod api;
 pub mod catalog;
+pub mod deploy;
 mod endpoint_input;
 mod errors;
 pub mod events;

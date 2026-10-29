@@ -21,6 +21,9 @@ Pod logs support snapshots, SSE cursors, and reconnect deduplication. Ephemeral 
 support runtime image selection, pod creation, runner requests, result polling, and
 cleanup after failure or cancellation. Application registration/build/deployment workflows, advanced worker
 utilities, and CLI remain in progress.
+`apps::deploy` provides explicit application definitions, manifest generation, deployed
+endpoint payloads, and endpoint reconciliation. Artifact construction and the complete
+deployment pipeline are still pending.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run

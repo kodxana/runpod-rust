@@ -40,12 +40,13 @@ by Python; the complete port remains in progress.
 | Ephemeral task pod lifecycle and runner transport | `apps::tasks::TaskExecution`, `TaskConfig`, `pod_input` |
 | `apps.tasks.TaskJob`, task result decoding and cleanup | `apps::tasks::TaskJob`, `unwrap_task_response`, `finish_cleanup` |
 | `apps.targets.PodTarget` | `apps::targets::PodTarget`, explicit function metadata and async invoke/submit |
+| `apps.deploy` manifests, deployed endpoint payloads, reconciliation, result type | `apps::deploy::{build_manifest, deployed_endpoint_input, reconcile_endpoints, DeployResult}` with `AppDefinition` metadata |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 313 implemented symbols, nine adapted symbols, and 209 upstream
+This milestone maps 318 implemented symbols, nine adapted symbols, and 215 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -82,6 +83,7 @@ python tools/placement_fixtures.py
 python tools/invocation_fixtures.py
 python tools/monitor_fixtures.py
 python tools/task_fixtures.py
+python tools/deploy_fixtures.py
 cargo test --test apps_protocol
 python tools/verify_pickle.py
 ```
@@ -98,6 +100,14 @@ python tools/verify_pickle.py
 - Pod capacity fallback tries individual datacenters in order, then returns the initial
   capacity error if all fail. Other creation failures are not replayed. Termination
   retries only transient failures and keeps the pod ID when cleanup fails.
+- Deployed endpoint names equal resource names for sentinel routing. Reconciliation
+  saves provisionable resources in name order and only then deletes removed endpoints
+  in their original environment order. Tasks do not provision persistent endpoints.
+  A failed save prevents deletion but does not roll back earlier successful saves.
+- Deployed worker env forces the selected environment after user env values, while
+  API credentials and runtime package/channel overrides fill only missing keys. Custom
+  images append their runtime-kind entry even when the user already supplied that key.
+  Mixed CPU3/CPU5 endpoints use CPU5 locations; task placement instead uses their union.
 
 - `Endpoint.run` wraps requests whose `input` field is absent or false-like, including
   empty objects. `AsyncioEndpoint.run` always wraps its argument.
@@ -218,6 +228,10 @@ python tools/verify_pickle.py
 - TaskExecution is single-use and rejects a second start. Task timeouts use nonnegative
   Duration values; raw submit payloads still reject booleans, strings, and negative numbers.
   Cleanup state uses watch channels and serialized termination, with no process-global task set.
+- Deployment helpers take an owned `AppDefinition` snapshot with explicit `SymbolReference`
+  module/qualified-name metadata. This does not yet implement App registration or source
+  discovery. `DeploymentConfig::from_client` supplies worker credentials from the owned
+  client instead of Python globals; its Debug output hides credentials and override values.
 
 ## Verification log
 
@@ -272,6 +286,15 @@ python tools/verify_pickle.py
   launcher against a shell stub, without installing packages or invoking Python.
   Build, formatting, Clippy with warnings denied, and documentation generation passed.
   [Task review](reviews/apps-tasks.md) records lifecycle guarantees and native adaptations.
+- Commit 5c3a42b passed all three stable platforms and the Linux MSRV job, including
+  Unix shell launcher execution: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/40951799258).
+- Deployment contract milestone: **143 integration tests and one doctest passed** on
+  Windows stable Rust. All five new deployment tests also passed on Rust 1.88.0.
+  There are **382 captured Python cases** overall; the six matching upstream manifest
+  and endpoint-configuration tests passed. The HTTP tests cover save/delete ordering,
+  existing IDs, model and registry references, shared volume caching/placement, live GPU
+  membership, task-only apps, and failure boundaries. Build, formatting, Clippy with
+  warnings denied, and documentation generation passed. See [deployment review](reviews/apps-deploy.md).
 
 This file will be updated as each remaining component and test is ported.
 

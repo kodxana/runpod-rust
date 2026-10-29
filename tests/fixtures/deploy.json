@@ -1,0 +1,2914 @@
+[
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": []
+      },
+      "python_version": "3.13",
+      "excluded_packages": []
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": []
+    }
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": []
+      },
+      "python_version": "3.13",
+      "excluded_packages": [
+        "torch",
+        "triton"
+      ]
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": [],
+      "excludedPackages": [
+        "torch",
+        "triton"
+      ]
+    }
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "queue",
+              "name": "queue",
+              "cpu": "cpu5c-2-4",
+              "dependencies": [
+                "numpy"
+              ]
+            },
+            "symbol": {
+              "module": "pkg.worker",
+              "qualname": "Worker.run"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": []
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": [
+        {
+          "kind": "queue",
+          "name": "queue",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60,
+          "instanceIds": [
+            "cpu5c-2-4"
+          ],
+          "dependencies": [
+            "numpy"
+          ],
+          "module": "pkg.worker",
+          "qualname": "Worker.run"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "queue",
+              "name": "queue",
+              "cpu": "cpu5c-2-4",
+              "dependencies": [
+                "numpy"
+              ]
+            },
+            "symbol": {
+              "module": "pkg.worker",
+              "qualname": "Worker.run"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": [
+        "torch",
+        "triton"
+      ]
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": [
+        {
+          "kind": "queue",
+          "name": "queue",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60,
+          "instanceIds": [
+            "cpu5c-2-4"
+          ],
+          "dependencies": [
+            "numpy"
+          ],
+          "module": "pkg.worker",
+          "qualname": "Worker.run"
+        }
+      ],
+      "excludedPackages": [
+        "torch",
+        "triton"
+      ]
+    }
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "api",
+              "name": "api",
+              "gpu": "H100",
+              "routes": [
+                {
+                  "method": "GET",
+                  "path": "/value",
+                  "handler_name": "value"
+                }
+              ]
+            },
+            "symbol": {
+              "module": "pkg.worker",
+              "qualname": "Worker.run"
+            }
+          },
+          {
+            "spec": {
+              "kind": "task",
+              "name": "t"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": []
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": [
+        {
+          "kind": "api",
+          "name": "api",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60,
+          "gpus": [
+            "NVIDIA H100 80GB HBM3",
+            "NVIDIA H100 PCIe",
+            "NVIDIA H100 NVL"
+          ],
+          "routes": [
+            {
+              "method": "GET",
+              "path": "/value",
+              "handler": "value"
+            }
+          ],
+          "module": "pkg.worker",
+          "qualname": "Worker.run"
+        },
+        {
+          "kind": "task",
+          "name": "t",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60
+        }
+      ]
+    }
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "api",
+              "name": "api",
+              "gpu": "H100",
+              "routes": [
+                {
+                  "method": "GET",
+                  "path": "/value",
+                  "handler_name": "value"
+                }
+              ]
+            },
+            "symbol": {
+              "module": "pkg.worker",
+              "qualname": "Worker.run"
+            }
+          },
+          {
+            "spec": {
+              "kind": "task",
+              "name": "t"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": [
+        "torch",
+        "triton"
+      ]
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": [
+        {
+          "kind": "api",
+          "name": "api",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60,
+          "gpus": [
+            "NVIDIA H100 80GB HBM3",
+            "NVIDIA H100 PCIe",
+            "NVIDIA H100 NVL"
+          ],
+          "routes": [
+            {
+              "method": "GET",
+              "path": "/value",
+              "handler": "value"
+            }
+          ],
+          "module": "pkg.worker",
+          "qualname": "Worker.run"
+        },
+        {
+          "kind": "task",
+          "name": "t",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60
+        }
+      ],
+      "excludedPackages": [
+        "torch",
+        "triton"
+      ]
+    }
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "queue",
+              "name": "q"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": []
+    },
+    "error": "resource name 'q' is too short to deploy; queue and api names must be at least 3 characters"
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "queue",
+              "name": "q"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": [
+        "torch",
+        "triton"
+      ]
+    },
+    "error": "resource name 'q' is too short to deploy; queue and api names must be at least 3 characters"
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "task",
+              "name": "t",
+              "schedule": "0 * * * *"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": []
+    },
+    "error": "recurring schedules are not yet supported by the runpod api. the @schedule decorator records intent but cannot be deployed."
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "task",
+              "name": "t",
+              "schedule": "0 * * * *"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": [
+        "torch",
+        "triton"
+      ]
+    },
+    "error": "recurring schedules are not yet supported by the runpod api. the @schedule decorator records intent but cannot be deployed."
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "queue",
+              "name": "queue",
+              "image": "custom",
+              "env": {
+                "X": 1
+              },
+              "min_cuda_version": " 12.4 "
+            },
+            "symbol": {
+              "module": "pkg.worker",
+              "qualname": "Worker.run"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": []
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": [
+        {
+          "kind": "queue",
+          "name": "queue",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60,
+          "env": {
+            "X": "1"
+          },
+          "imageName": "custom",
+          "minCudaVersion": "12.4",
+          "module": "pkg.worker",
+          "qualname": "Worker.run"
+        }
+      ]
+    }
+  },
+  {
+    "operation": "manifest",
+    "input": {
+      "app": {
+        "name": "demo",
+        "environment": "staging",
+        "resources": [
+          {
+            "spec": {
+              "kind": "queue",
+              "name": "queue",
+              "image": "custom",
+              "env": {
+                "X": 1
+              },
+              "min_cuda_version": " 12.4 "
+            },
+            "symbol": {
+              "module": "pkg.worker",
+              "qualname": "Worker.run"
+            }
+          }
+        ]
+      },
+      "python_version": "3.13",
+      "excluded_packages": [
+        "torch",
+        "triton"
+      ]
+    },
+    "output": {
+      "version": 1,
+      "app": "demo",
+      "pythonVersion": "3.13",
+      "resources": [
+        {
+          "kind": "queue",
+          "name": "queue",
+          "gpuCount": 1,
+          "workersMin": 0,
+          "workersMax": 3,
+          "idleTimeout": 60,
+          "env": {
+            "X": "1"
+          },
+          "imageName": "custom",
+          "minCudaVersion": "12.4",
+          "module": "pkg.worker",
+          "qualname": "Worker.run"
+        }
+      ],
+      "excludedPackages": [
+        "torch",
+        "triton"
+      ]
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "cpu": "cpu3c-2-4"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "instanceIds": [
+        "cpu3c-2-4"
+      ],
+      "locations": "EU-CZ-1,EU-RO-1,US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "cpu": "cpu5c-2-4"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "instanceIds": [
+        "cpu5c-2-4"
+      ],
+      "locations": "EU-RO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "cpu": [
+          "cpu3c-2-4",
+          "cpu5c-2-4"
+        ]
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "instanceIds": [
+        "cpu3c-2-4",
+        "cpu5c-2-4"
+      ],
+      "locations": "EU-RO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "gpu": "4090"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_24",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "gpu": "H100"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_80_PRO",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "gpu": "NVIDIA H100 PCIe"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_80_PRO,-NVIDIA H100 80GB HBM3,-NVIDIA H100 NVL",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "gpu": [
+          "AMPERE_48",
+          "NVIDIA L40S"
+        ]
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "error": "unknown gpu 'NVIDIA L40S'. use a pool id (ADA_24, ADA_32_PRO, ADA_48_PRO, ADA_80_PRO, AMPERE_16, AMPERE_24, AMPERE_48, AMPERE_80, HOPPER_141, BLACKWELL_96, BLACKWELL_180), a device name (NVIDIA GeForce RTX 4090, NVIDIA GeForce RTX 5090, NVIDIA RTX 6000 Ada Generation, NVIDIA RTX PRO 6000 Blackwell Server Edition, NVIDIA RTX PRO 6000 Blackwell Workstation Edition, NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition, NVIDIA H100 80GB HBM3, NVIDIA H100 PCIe, NVIDIA H100 NVL, NVIDIA RTX A4000, NVIDIA RTX A4500, NVIDIA RTX 4000 Ada Generation, NVIDIA RTX 2000 Ada Generation, NVIDIA RTX A5000, NVIDIA L4, NVIDIA GeForce RTX 3090, NVIDIA A40, NVIDIA RTX A6000, NVIDIA A100 80GB PCIe, NVIDIA A100-SXM4-80GB, NVIDIA H200, NVIDIA B200), or a fragment like '4090' or 'H100'"
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "cpu": "cpu3c-2-4",
+        "datacenter": [
+          "us_il_1",
+          " eu_ro_1 "
+        ]
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "locations": "US-IL-1,EU-RO-1",
+      "instanceIds": [
+        "cpu3c-2-4"
+      ]
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "gpu": "4090",
+        "min_cuda_version": " 12.4 "
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_24",
+      "gpuCount": 1,
+      "minCudaVersion": "12.4",
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "cpu": "cpu3c-2-4",
+        "workers": [
+          2,
+          5
+        ],
+        "idle_timeout": 12,
+        "flashboot": false,
+        "scaler_type": " request_count ",
+        "scaler_value": 8,
+        "execution_timeout_ms": 123
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 2,
+      "workersMax": 5,
+      "idleTimeout": 12,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 8,
+      "executionTimeoutMs": 123,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "instanceIds": [
+        "cpu3c-2-4"
+      ],
+      "locations": "EU-CZ-1,EU-RO-1,US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "image": "custom:tag",
+        "env": {
+          "RUNPOD_RUNTIME_KIND": "user-value",
+          "RUNPOD_RUNTIME_TAG": "user-channel",
+          "RUNPOD_PACKAGE_SPEC": "user-sdk"
+        }
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "custom:tag",
+        "containerDiskInGb": 30,
+        "dockerArgs": "sh -c 'PY=\"\"; for c in python3 python /usr/local/bin/python3 /usr/bin/python3 /opt/conda/bin/python /opt/venv/bin/python /venv/bin/python /root/.venv/bin/python /app/.venv/bin/python /usr/local/bin/python; do if command -v \"$c\" >/dev/null 2>&1; then PY=\"$c\"; break; fi; done; if [ -z \"$PY\" ]; then echo \"[shim] FATAL: no python interpreter found in this image. \"\"custom images must include python3.\" >&2; exit 1; fi; export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD=\"${SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD:-0.0.0.dev0}\"; RUNTIME_SPEC=\"${RUNPOD_RUNTIME_PACKAGE_SPEC:-runpod-sdk-runtime}\"; if [ -n \"${RUNPOD_RUNTIME_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod_sdk_runtime\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$RUNTIME_SPEC\" || exit 1; fi; SDK_SPEC=\"${RUNPOD_PACKAGE_SPEC:-runpod}\"; if [ -n \"${RUNPOD_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$SDK_SPEC\" || exit 1; fi; exec \"$PY\" -m runpod_sdk_runtime.bootstrap'",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_KIND",
+            "value": "user-value"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "user-channel"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "user-sdk"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_KIND",
+            "value": "queue"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "max_concurrency": 4,
+        "env": {
+          "FLASH_RESOURCE_NAME": "user-name",
+          "RUNPOD_BUILD_ID": "user-build",
+          "FLASH_ENVIRONMENT": "ignored",
+          "RUNPOD_API_KEY": "user-key",
+          "RUNPOD_MAX_CONCURRENCY": "ignored",
+          "PORT": 90,
+          "PORT_HEALTH": 91
+        }
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "user-name"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "user-build"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "user-key"
+          },
+          {
+            "key": "RUNPOD_MAX_CONCURRENCY",
+            "value": "4"
+          },
+          {
+            "key": "PORT",
+            "value": "90"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "91"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "resource",
+        "image": "",
+        "container_disk_gb": 75,
+        "env": {
+          "BOOL": false,
+          "NULL": null,
+          "NUMBER": 5
+        }
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/queue-gpu:py3.12-dev",
+        "containerDiskInGb": 75,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "BOOL",
+            "value": "False"
+          },
+          {
+            "key": "NULL",
+            "value": "None"
+          },
+          {
+            "key": "NUMBER",
+            "value": "5"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "cpu": "cpu3c-2-4"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "instanceIds": [
+        "cpu3c-2-4"
+      ],
+      "locations": "EU-CZ-1,EU-RO-1,US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "cpu": "cpu5c-2-4"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "instanceIds": [
+        "cpu5c-2-4"
+      ],
+      "locations": "EU-RO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "cpu": [
+          "cpu3c-2-4",
+          "cpu5c-2-4"
+        ]
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "instanceIds": [
+        "cpu3c-2-4",
+        "cpu5c-2-4"
+      ],
+      "locations": "EU-RO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "gpu": "4090"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_24",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "gpu": "H100"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_80_PRO",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "gpu": "NVIDIA H100 PCIe"
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_80_PRO,-NVIDIA H100 80GB HBM3,-NVIDIA H100 NVL",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "gpu": [
+          "AMPERE_48",
+          "NVIDIA L40S"
+        ]
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "error": "unknown gpu 'NVIDIA L40S'. use a pool id (ADA_24, ADA_32_PRO, ADA_48_PRO, ADA_80_PRO, AMPERE_16, AMPERE_24, AMPERE_48, AMPERE_80, HOPPER_141, BLACKWELL_96, BLACKWELL_180), a device name (NVIDIA GeForce RTX 4090, NVIDIA GeForce RTX 5090, NVIDIA RTX 6000 Ada Generation, NVIDIA RTX PRO 6000 Blackwell Server Edition, NVIDIA RTX PRO 6000 Blackwell Workstation Edition, NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition, NVIDIA H100 80GB HBM3, NVIDIA H100 PCIe, NVIDIA H100 NVL, NVIDIA RTX A4000, NVIDIA RTX A4500, NVIDIA RTX 4000 Ada Generation, NVIDIA RTX 2000 Ada Generation, NVIDIA RTX A5000, NVIDIA L4, NVIDIA GeForce RTX 3090, NVIDIA A40, NVIDIA RTX A6000, NVIDIA A100 80GB PCIe, NVIDIA A100-SXM4-80GB, NVIDIA H200, NVIDIA B200), or a fragment like '4090' or 'H100'"
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "cpu": "cpu3c-2-4",
+        "datacenter": [
+          "us_il_1",
+          " eu_ro_1 "
+        ]
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "locations": "US-IL-1,EU-RO-1",
+      "instanceIds": [
+        "cpu3c-2-4"
+      ]
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "gpu": "4090",
+        "min_cuda_version": " 12.4 "
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_24",
+      "gpuCount": 1,
+      "minCudaVersion": "12.4",
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "cpu": "cpu3c-2-4",
+        "workers": [
+          2,
+          5
+        ],
+        "idle_timeout": 12,
+        "flashboot": false,
+        "scaler_type": " request_count ",
+        "scaler_value": 8,
+        "execution_timeout_ms": 123
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 2,
+      "workersMax": 5,
+      "idleTimeout": 12,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 8,
+      "executionTimeoutMs": 123,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api:py3.12-dev",
+        "containerDiskInGb": 10,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "type": "LB",
+      "instanceIds": [
+        "cpu3c-2-4"
+      ],
+      "locations": "EU-CZ-1,EU-RO-1,US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "image": "custom:tag",
+        "env": {
+          "RUNPOD_RUNTIME_KIND": "user-value",
+          "RUNPOD_RUNTIME_TAG": "user-channel",
+          "RUNPOD_PACKAGE_SPEC": "user-sdk"
+        }
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "custom:tag",
+        "containerDiskInGb": 30,
+        "dockerArgs": "sh -c 'PY=\"\"; for c in python3 python /usr/local/bin/python3 /usr/bin/python3 /opt/conda/bin/python /opt/venv/bin/python /venv/bin/python /root/.venv/bin/python /app/.venv/bin/python /usr/local/bin/python; do if command -v \"$c\" >/dev/null 2>&1; then PY=\"$c\"; break; fi; done; if [ -z \"$PY\" ]; then echo \"[shim] FATAL: no python interpreter found in this image. \"\"custom images must include python3.\" >&2; exit 1; fi; export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD=\"${SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RUNPOD:-0.0.0.dev0}\"; RUNTIME_SPEC=\"${RUNPOD_RUNTIME_PACKAGE_SPEC:-runpod-sdk-runtime}\"; if [ -n \"${RUNPOD_RUNTIME_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod_sdk_runtime\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$RUNTIME_SPEC\" || exit 1; fi; SDK_SPEC=\"${RUNPOD_PACKAGE_SPEC:-runpod}\"; if [ -n \"${RUNPOD_PACKAGE_SPEC:-}\" ] || ! \"$PY\" -c \"import runpod\" >/dev/null 2>&1; then \"$PY\" -m pip install -q --upgrade \"$SDK_SPEC\" || exit 1; fi; exec \"$PY\" -m runpod_sdk_runtime.bootstrap'",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_KIND",
+            "value": "user-value"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "user-channel"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "user-sdk"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_KIND",
+            "value": "api"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "max_concurrency": 4,
+        "env": {
+          "FLASH_RESOURCE_NAME": "user-name",
+          "RUNPOD_BUILD_ID": "user-build",
+          "FLASH_ENVIRONMENT": "ignored",
+          "RUNPOD_API_KEY": "user-key",
+          "RUNPOD_MAX_CONCURRENCY": "ignored",
+          "PORT": 90,
+          "PORT_HEALTH": 91
+        }
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api-gpu:py3.12-dev",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "user-name"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "user-build"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "user-key"
+          },
+          {
+            "key": "RUNPOD_MAX_CONCURRENCY",
+            "value": "4"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "api",
+        "name": "resource",
+        "image": "",
+        "container_disk_gb": 75,
+        "env": {
+          "BOOL": false,
+          "NULL": null,
+          "NUMBER": 5
+        }
+      },
+      "environment_id": "env-1",
+      "build_id": "build-2",
+      "environment_name": "production",
+      "python_version": "3.12",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "dev",
+        "RUNPOD_PACKAGE_SPEC": "sdk==3",
+        "RUNPOD_RUNTIME_PACKAGE_SPEC": "runtime==2"
+      },
+      "api_key": "fixture-worker-key",
+      "pool_members": {}
+    },
+    "output": {
+      "name": "resource",
+      "flashEnvironmentId": "env-1",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "REQUEST_COUNT",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-resource-template",
+        "imageName": "runpod/api-gpu:py3.12-dev",
+        "containerDiskInGb": 75,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "resource"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build-2"
+          },
+          {
+            "key": "BOOL",
+            "value": "False"
+          },
+          {
+            "key": "NULL",
+            "value": "None"
+          },
+          {
+            "key": "NUMBER",
+            "value": "5"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "production"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "fixture-worker-key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "dev"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_PACKAGE_SPEC",
+            "value": "runtime==2"
+          },
+          {
+            "key": "RUNPOD_PACKAGE_SPEC",
+            "value": "sdk==3"
+          },
+          {
+            "key": "PORT",
+            "value": "80"
+          },
+          {
+            "key": "PORT_HEALTH",
+            "value": "80"
+          }
+        ],
+        "ports": "80/http"
+      },
+      "flashBootType": "FLASHBOOT",
+      "type": "LB",
+      "gpuIds": "ADA_24,ADA_32_PRO,ADA_48_PRO,ADA_80_PRO,AMPERE_16,AMPERE_24,AMPERE_48,AMPERE_80,HOPPER_141,BLACKWELL_96,BLACKWELL_180",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "pin",
+        "gpu": "NVIDIA H100 PCIe"
+      },
+      "environment_id": "env",
+      "build_id": "build",
+      "environment_name": null,
+      "python_version": "3.14",
+      "runtime_overrides": {},
+      "api_key": "",
+      "pool_members": {
+        "ADA_80_PRO": [
+          "NVIDIA H100 PCIe",
+          "New Device"
+        ]
+      }
+    },
+    "output": {
+      "name": "pin",
+      "flashEnvironmentId": "env",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-pin-template",
+        "imageName": "runpod/queue-gpu:py3.14-latest",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "pin"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "staging"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_80_PRO,-New Device",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "pin",
+        "gpu": "NVIDIA H100 PCIe"
+      },
+      "environment_id": "env",
+      "build_id": "build",
+      "environment_name": "",
+      "python_version": "3.14",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": ""
+      },
+      "api_key": "key",
+      "pool_members": {
+        "ADA_80_PRO": [
+          "NVIDIA H100 PCIe",
+          "New Device"
+        ]
+      }
+    },
+    "output": {
+      "name": "pin",
+      "flashEnvironmentId": "env",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-pin-template",
+        "imageName": "runpod/queue-gpu:py3.14-",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "pin"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "staging"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "key"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_80_PRO,-New Device",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  },
+  {
+    "operation": "endpoint",
+    "input": {
+      "app_name": "demo",
+      "app_environment": "staging",
+      "spec": {
+        "kind": "queue",
+        "name": "pin",
+        "gpu": "NVIDIA H100 PCIe"
+      },
+      "environment_id": "env",
+      "build_id": "build",
+      "environment_name": "custom",
+      "python_version": "3.14",
+      "runtime_overrides": {
+        "RUNPOD_RUNTIME_TAG": "latest"
+      },
+      "api_key": "key",
+      "pool_members": {
+        "ADA_80_PRO": [
+          "NVIDIA H100 PCIe",
+          "New Device"
+        ]
+      }
+    },
+    "output": {
+      "name": "pin",
+      "flashEnvironmentId": "env",
+      "workersMin": 0,
+      "workersMax": 3,
+      "idleTimeout": 60,
+      "scalerType": "QUEUE_DELAY",
+      "scalerValue": 4,
+      "executionTimeoutMs": 0,
+      "template": {
+        "name": "demo-pin-template",
+        "imageName": "runpod/queue-gpu:py3.14-latest",
+        "containerDiskInGb": 30,
+        "dockerArgs": "",
+        "env": [
+          {
+            "key": "FLASH_RESOURCE_NAME",
+            "value": "pin"
+          },
+          {
+            "key": "RUNPOD_BUILD_ID",
+            "value": "build"
+          },
+          {
+            "key": "FLASH_ENVIRONMENT",
+            "value": "custom"
+          },
+          {
+            "key": "RUNPOD_API_KEY",
+            "value": "key"
+          },
+          {
+            "key": "RUNPOD_RUNTIME_TAG",
+            "value": "latest"
+          }
+        ]
+      },
+      "flashBootType": "FLASHBOOT",
+      "gpuIds": "ADA_80_PRO,-New Device",
+      "gpuCount": 1,
+      "locations": "US-CA-2,US-IL-1,US-KS-2,US-MO-1,US-MO-2,US-NC-2,US-NE-1,US-WA-1,EU-CZ-1,EU-RO-1,EUR-NO-1"
+    }
+  }
+]
