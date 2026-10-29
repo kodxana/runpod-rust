@@ -6,7 +6,10 @@ The checked-in API and test inventories track the remaining work explicitly.
 
 Implemented so far: all `api.ctl_commands` operations, REST and GraphQL transports,
 cursor pagination, serverless endpoint clients, job polling, cancellation, streaming,
-and a synchronous endpoint facade. Worker utilities/runtime, Apps, and CLI are being ported.
+and a synchronous endpoint facade. The native worker now supports single/streaming handlers,
+concurrent intake, startup hooks, heartbeats, stop signals, and progress updates. Credential
+profiles, validation, cleanup, CUDA probing, and model-cache helpers are also available.
+Advanced worker utilities, Apps, and CLI remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run

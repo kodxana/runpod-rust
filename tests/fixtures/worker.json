@@ -1,0 +1,148 @@
+[
+  {
+    "handler_output": null,
+    "result": {
+      "output": null
+    }
+  },
+  {
+    "handler_output": true,
+    "result": {
+      "output": true
+    }
+  },
+  {
+    "handler_output": false,
+    "result": {
+      "output": false
+    }
+  },
+  {
+    "handler_output": 0,
+    "result": {
+      "output": 0
+    }
+  },
+  {
+    "handler_output": 42,
+    "result": {
+      "output": 42
+    }
+  },
+  {
+    "handler_output": 1.25,
+    "result": {
+      "output": 1.25
+    }
+  },
+  {
+    "handler_output": "",
+    "result": {
+      "output": ""
+    }
+  },
+  {
+    "handler_output": "hello",
+    "result": {
+      "output": "hello"
+    }
+  },
+  {
+    "handler_output": [],
+    "result": {
+      "output": []
+    }
+  },
+  {
+    "handler_output": [
+      1,
+      2
+    ],
+    "result": {
+      "output": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "handler_output": {},
+    "result": {}
+  },
+  {
+    "handler_output": {
+      "answer": 42
+    },
+    "result": {
+      "output": {
+        "answer": 42
+      }
+    }
+  },
+  {
+    "handler_output": {
+      "error": "failed"
+    },
+    "result": {
+      "error": "failed"
+    }
+  },
+  {
+    "handler_output": {
+      "error": "failed",
+      "answer": 1
+    },
+    "result": {
+      "output": {
+        "answer": 1
+      },
+      "error": "failed"
+    }
+  },
+  {
+    "handler_output": {
+      "error": ""
+    },
+    "result": {}
+  },
+  {
+    "handler_output": {
+      "refresh_worker": true
+    },
+    "result": {
+      "stopPod": true
+    }
+  },
+  {
+    "handler_output": {
+      "refresh_worker": false,
+      "answer": 42
+    },
+    "result": {
+      "output": {
+        "answer": 42
+      }
+    }
+  },
+  {
+    "handler_output": {
+      "refresh_worker": true,
+      "answer": 42
+    },
+    "result": {
+      "output": {
+        "answer": 42
+      },
+      "stopPod": true
+    }
+  },
+  {
+    "handler_output": {
+      "error": false,
+      "refresh_worker": true
+    },
+    "result": {
+      "stopPod": true
+    }
+  }
+]

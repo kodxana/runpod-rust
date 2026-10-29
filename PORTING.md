@@ -19,6 +19,13 @@ by Python; the complete port remains in progress.
 | `endpoint.asyncio.Endpoint`, `Job` | `AsyncioEndpoint`, `AsyncioJob` |
 | `endpoint.helpers.is_completed`, `FINAL_STATES` | `endpoint::is_completed`, `endpoint::FINAL_STATES` |
 | AuthenticationError / QueryError | `Error::Authentication` / `Error::Query` |
+| `cli.groups.config.functions` | `credentials::CredentialStore` methods |
+| `rp_job.run_job`, `handle_job`, `get_job`, `get_stop_signals` | `serverless::run_job`, `Worker::handle_job`, `WorkerTransport` methods |
+| `rp_http.send_result`, `stream_result`; `rp_progress.progress_update` | `WorkerTransport` methods |
+| `rp_prestart` registration, enumeration, clearing, execution | owned `PrestartHooks` registry |
+| `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
+| `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
+| `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
@@ -36,6 +43,13 @@ Each fixture records its upstream test name where applicable, inputs, HTTP reque
 server replies, and returned output or error. They cover every ctl_commands operation,
 template precedence, per-GPU host minima, storage, registry credentials, GPU exclusions,
 CPU parsing, and rejected legacy parameters.
+
+`tests/worker.rs` replays 19 Python result envelopes captured by
+`tools/worker_fixtures.py`. Worker transport tests check job intake and result webhooks.
+`tests/worker_runtime.rs` exercises startup/intake interleaving, startup failure reporting,
+stream aggregation, and cancellation isolation against actual local HTTP servers.
+Credential tests verify atomic replacement, comment preservation, and refusal to overwrite
+invalid files. Utility tests cover typed validation and Python's default/constraint quirk.
 
 Regenerate with the upstream SDK installed in an isolated environment:
 
@@ -72,13 +86,30 @@ python tools/control_fixtures.py
 - Environment scalar coercion preserves Python True/False/None. Complex nested values
   currently use JSON formatting rather than Python repr; this remains tracked work.
 - Blocking clients own a Tokio runtime and must be constructed/used outside async tasks.
+- Worker state and startup registries are owned values instead of Python singletons.
+  Async handlers and heartbeats share the caller's executor; no multiprocessing mirror
+  or Python GIL is needed. Synchronous CPU work must be scheduled by the caller.
+- Worker handler failures carry Rust error type/backtrace information. Rust panics are
+  not converted into Python exceptions. Output delivery failures propagate to callers.
+- The worker loop currently has a fixed concurrency limit. Dynamic scaling, full fitness
+  checks, stdout capture/debugging, hosted HTTP API, CLI arguments, and the advanced
+  volume/download/upload helpers remain pending. The `start` convenience function uses
+  `test_input.json` locally and Ctrl-C for platform shutdown; SIGTERM handling is pending.
+- Credential profiles require a string API key. Validator schemas use Rust types and
+  closures, so malformed Python schema objects are outside the Rust input domain.
 
 ## Verification log
 
-- Windows x86_64, Rust 1.99.1: initial transport/control tests and Clippy passed.
+- Windows x86_64, Rust 1.99.1: **42 integration tests and one doctest passed**, including
+  47 control-plane and 19 worker differential cases. Cargo build, rustfmt, Clippy with
+  warnings denied, and documentation generation passed for the first two milestones.
 - Python 3.13.15: API/endpoint/error subset reported **157 passed**. The command's
   exit status was nonzero because upstream enforces 90% whole-repository coverage even
   for this subset (5% overall). The broader offline suite is being evaluated separately.
 - Live Runpod deployment and GPU execution have not been performed.
+- Broader offline Python baseline, with a fresh workspace-local pytest temporary directory:
+  **2,132 passed, 37 failed, 10 skipped, 6 subtests passed**. The initial run's 322 fixture
+  errors were caused by Windows permissions on the default pytest temporary directory.
+  Remaining upstream failures are retained in local test logs for classification.
 
 This file will be updated as each remaining component and test is ported.

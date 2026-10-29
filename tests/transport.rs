@@ -98,7 +98,7 @@ async fn test_problem_json_preserves_validation_error() {
             assert_eq!(message, "request validation failed");
             assert_eq!(query, "POST /v2/pods");
             assert_eq!(status_code, Some(422));
-            assert_eq!(errors, json!(["$.name is required"]));
+            assert_eq!(*errors, json!(["$.name is required"]));
         }
         other => panic!("expected query error, got {other:?}"),
     }

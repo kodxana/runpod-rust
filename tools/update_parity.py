@@ -22,6 +22,26 @@ for entry in api["entries"]:
                 target = prefix + parts[0] + ("::" + ("new" if parts[1] == "__init__" else parts[1]) if len(parts) > 1 else "")
     if file == "runpod/error.py" and name in ("RunPodError", "AuthenticationError", "QueryError"):
         target = {"RunPodError":"Error", "AuthenticationError":"Error::Authentication", "QueryError":"Error::Query"}[name]
+    if file == "runpod/cli/groups/config/functions.py" and entry["public"]:
+        target = f"credentials::CredentialStore::{name}"
+    specific = {
+        ("runpod/serverless/utils/rp_validator.py", "validate"): "utils::validator::validate",
+        ("runpod/serverless/utils/rp_cleanup.py", "clean"): "utils::clean",
+        ("runpod/serverless/utils/rp_model_cache.py", "resolve_model_cache_path_from_hugginface_repository"): "utils::resolve_model_cache_path_from_hugginface_repository",
+        ("runpod/_health/cuda.py", "is_available"): "utils::is_cuda_available",
+        ("runpod/serverless/modules/rp_job.py", "run_job"): "serverless::run_job",
+        ("runpod/serverless/modules/rp_job.py", "get_job"): "serverless::WorkerTransport::get_job",
+        ("runpod/serverless/modules/rp_job.py", "get_stop_signals"): "serverless::WorkerTransport::get_stop_signals",
+        ("runpod/serverless/modules/rp_job.py", "handle_job"): "serverless::Worker::handle_job",
+        ("runpod/serverless/modules/rp_http.py", "send_result"): "serverless::WorkerTransport::send_result",
+        ("runpod/serverless/modules/rp_http.py", "stream_result"): "serverless::WorkerTransport::stream_result",
+        ("runpod/serverless/modules/rp_progress.py", "progress_update"): "serverless::WorkerTransport::progress_update",
+    }
+    target = specific.get((file, name), target)
+    if file == "runpod/serverless/modules/rp_prestart.py" and name in ("register_prestart_hook", "get_prestart_hooks", "has_prestart_hooks", "clear_prestart_hooks", "run_prestart_phase"):
+        target = f"serverless::PrestartHooks::{name}"
+    if file == "runpod/serverless/modules/worker_state.py" and name.startswith("JobsProgress.") and name.split(".")[-1] in ("clear", "add", "remove", "get", "get_job_list", "get_job_count"):
+        target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
 path.write_text(json.dumps(api, indent=2) + "\n")

@@ -47,13 +47,21 @@ impl ClientConfig {
     /// Resolves credentials and base URL overrides from the environment.
     ///
     /// # Errors
-    /// Returns an authentication error when `RUNPOD_API_KEY` is absent or empty.
+    /// Returns an authentication error when neither the environment nor default profile has a key.
     pub fn from_env() -> Result<Self> {
         let key = std::env::var("RUNPOD_API_KEY")
-            .map_err(|_| Error::Authentication("No API key provided".into()))?;
-        if key.is_empty() {
-            return Err(Error::Authentication("No API key provided".into()));
-        }
+            .ok()
+            .filter(|v| !v.is_empty())
+            .or_else(|| {
+                crate::credentials::CredentialStore::user_default()
+                    .ok()?
+                    .get_credentials("default")
+                    .ok()??
+                    .api_key
+                    .into()
+            })
+            .filter(|v| !v.is_empty())
+            .ok_or_else(|| Error::Authentication("No API key provided".into()))?;
         let mut config = Self::new(key);
         if let Ok(value) = std::env::var("RUNPOD_API_BASE_URL") {
             config.api_base_url = value;
@@ -215,7 +223,7 @@ impl Client {
                 message,
                 query: query.into(),
                 status_code: Some(status),
-                errors: payload.get("errors").cloned().unwrap_or_else(|| json!([])),
+                errors: Box::new(payload.get("errors").cloned().unwrap_or_else(|| json!([]))),
             });
         }
         if status == 204 || bytes.is_empty() {
@@ -261,7 +269,7 @@ impl Client {
                 message,
                 query: format!("GET {path}"),
                 status_code: None,
-                errors: json!([]),
+                errors: Box::new(json!([])),
             };
             let entries = page
                 .get(collection)
@@ -320,7 +328,7 @@ impl Client {
                     .into(),
                 query: query.into(),
                 status_code: None,
-                errors: errors.clone(),
+                errors: Box::new(errors.clone()),
             });
         }
         Ok(response)

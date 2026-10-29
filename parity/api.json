@@ -59,8 +59,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::is_cuda_available",
+      "status": "implemented"
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -5759,8 +5759,8 @@
       "kind": "function",
       "public": true,
       "signature": "api_key: str, profile: str='default', overwrite=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "credentials::CredentialStore::set_credentials",
+      "status": "implemented"
     },
     {
       "file": "runpod/cli/groups/config/functions.py",
@@ -5769,8 +5769,8 @@
       "kind": "function",
       "public": true,
       "signature": "profile: str='default'",
-      "rust": null,
-      "status": "pending"
+      "rust": "credentials::CredentialStore::check_credentials",
+      "status": "implemented"
     },
     {
       "file": "runpod/cli/groups/config/functions.py",
@@ -5779,8 +5779,8 @@
       "kind": "function",
       "public": true,
       "signature": "profile='default'",
-      "rust": null,
-      "status": "pending"
+      "rust": "credentials::CredentialStore::get_credentials",
+      "status": "implemented"
     },
     {
       "file": "runpod/cli/groups/pod/commands.py",
@@ -9409,8 +9409,8 @@
       "kind": "function",
       "public": true,
       "signature": "session, job_data, job, is_stream=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerTransport::send_result",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_http.py",
@@ -9419,8 +9419,8 @@
       "kind": "function",
       "public": true,
       "signature": "session, job_data, job",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerTransport::stream_result",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_job.py",
@@ -9439,8 +9439,8 @@
       "kind": "function",
       "public": true,
       "signature": "session: ClientSession",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerTransport::get_stop_signals",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_job.py",
@@ -9459,8 +9459,8 @@
       "kind": "function",
       "public": true,
       "signature": "session: ClientSession, num_jobs: int=1",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerTransport::get_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_job.py",
@@ -9469,8 +9469,8 @@
       "kind": "function",
       "public": true,
       "signature": "session: ClientSession, config: Dict[str, Any], job",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::handle_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_job.py",
@@ -9479,8 +9479,8 @@
       "kind": "function",
       "public": true,
       "signature": "handler: Callable, job: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::run_job",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_job.py",
@@ -9589,8 +9589,8 @@
       "kind": "function",
       "public": true,
       "signature": "hook: Callable[[], Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::register_prestart_hook",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9599,8 +9599,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::get_prestart_hooks",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9609,8 +9609,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::has_prestart_hooks",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9619,8 +9619,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::clear_prestart_hooks",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9749,8 +9749,8 @@
       "kind": "function",
       "public": true,
       "signature": "hooks: Sequence[Callable[[], Any]], timeout: float | None=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::run_prestart_phase",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_progress.py",
@@ -9779,8 +9779,8 @@
       "kind": "function",
       "public": true,
       "signature": "job: Dict[str, Any], progress: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerTransport::progress_update",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10139,8 +10139,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::clear",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10149,8 +10149,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, element: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::add",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10159,8 +10159,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, element: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::remove",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10169,8 +10169,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, element: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::get",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10179,8 +10179,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::get_job_list",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10189,8 +10189,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::get_job_count",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10239,8 +10239,8 @@
       "kind": "function",
       "public": true,
       "signature": "folder_list: List[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::clean",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/utils/rp_debugger.py",
@@ -10469,8 +10469,8 @@
       "kind": "function",
       "public": true,
       "signature": "huggingface_repository: str, /, path_template: str='/runpod/cache/{model}/{revision}'",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::resolve_model_cache_path_from_hugginface_repository",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10819,8 +10819,8 @@
       "kind": "function",
       "public": true,
       "signature": "raw_input: Dict[str, Any], schema: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::validator::validate",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/utils/rp_volume_cache.py",

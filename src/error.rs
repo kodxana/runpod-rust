@@ -21,7 +21,7 @@ pub enum Error {
         /// HTTP status, when provided by the server.
         status_code: Option<u16>,
         /// Structured validation details, without discarding unknown fields.
-        errors: Value,
+        errors: Box<Value>,
     },
     /// Local argument validation failed before the request was sent.
     #[error("{0}")]
