@@ -8,6 +8,14 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// An operation failed with additional context while retaining its original cause.
+    #[error("{message}: {source}")]
+    Context {
+        /// Description of the operation that could not complete.
+        message: String,
+        /// Underlying SDK failure, available through std::error::Error::source.
+        source: Box<Error>,
+    },
     /// Credentials were missing or rejected.
     #[error("{0}")]
     Authentication(String),
@@ -48,6 +56,7 @@ impl Error {
     #[must_use]
     pub fn status_code(&self) -> Option<u16> {
         match self {
+            Self::Context { source, .. } => source.status_code(),
             Self::Query { status_code, .. } => *status_code,
             Self::Http(error) => error.status().map(|status| status.as_u16()),
             Self::Authentication(_) => Some(401),

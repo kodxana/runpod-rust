@@ -4289,8 +4289,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4299,8 +4299,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4309,8 +4309,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4319,8 +4319,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, pin",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4329,8 +4329,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4339,8 +4339,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4349,8 +4349,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4359,8 +4359,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4369,8 +4369,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4379,8 +4379,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4389,8 +4389,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4399,8 +4399,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4409,8 +4409,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4419,8 +4419,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, kind",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_placement.py",
@@ -4429,8 +4429,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_placement::python_placement_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_registry.py",
@@ -4649,8 +4649,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_credentials::test_existing_pass_and_missing_raises_with_hint",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_secret.py",
@@ -4659,8 +4659,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_credentials::test_existing_pass_and_missing_raises_with_hint",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_secret.py",
@@ -4669,8 +4669,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_credentials::test_no_references_no_api_call",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_secret.py",
@@ -5649,8 +5649,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_existing_by_name_and_id",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5659,8 +5659,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_existing_by_name_and_id",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5669,8 +5669,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_storage_capability_beats_higher_hardware_stock",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5679,8 +5679,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, volume_type",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_missing_no_create_raises",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5689,8 +5689,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, volume_type",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_duplicate_names_raise_and_ids_take_precedence",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5709,8 +5709,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_global_creation_is_cached_and_mounts_resolve_by_name_and_id",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5719,8 +5719,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_existing_by_name_and_id",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5729,8 +5729,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_same_reference_in_different_backends_does_not_share_cache",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5749,8 +5749,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_unsupported_explicit_pin_never_relocates",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5799,8 +5799,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_global_attachment_does_not_pin_datacenter",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_volume.py",
@@ -5809,8 +5809,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_resolution::test_global_attachment_does_not_pin_datacenter",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_watch.py",

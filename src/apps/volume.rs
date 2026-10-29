@@ -1,6 +1,9 @@
 //! Volume references and execution-specific mount bindings.
+pub use super::resolution::{
+    ResolvedMount, ResolvedVolume, VolumeResolver, attach_endpoint_volumes, attach_pod_mounts,
+};
 use crate::{Error, Result, Value};
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
 use std::collections::BTreeMap;
 
 /// Compute family constraining the available storage backends.
@@ -21,9 +24,18 @@ fn valid_reference(reference: &str) -> Result<()> {
     Ok(())
 }
 
+fn deserialize_reference<'de, D: Deserializer<'de>>(
+    deserializer: D,
+) -> std::result::Result<String, D::Error> {
+    let reference = String::deserialize(deserializer)?;
+    valid_reference(&reference).map_err(serde::de::Error::custom)?;
+    Ok(reference)
+}
+
 /// Named network volume with size and datacenter placement constraints.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct NetworkVolume {
+    #[serde(deserialize_with = "deserialize_reference")]
     reference: String,
     /// Requested size in GB when creating a volume.
     pub size: u64,
@@ -55,6 +67,7 @@ impl NetworkVolume {
 /// Named global object-storage volume independent of datacenter placement.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct GlobalVolume {
+    #[serde(deserialize_with = "deserialize_reference")]
     reference: String,
     /// Whether resolution may create a missing volume.
     pub create: bool,

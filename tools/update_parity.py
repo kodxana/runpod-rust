@@ -63,6 +63,15 @@ for entry in api["entries"]:
             target = "apps::api::stock_in_datacenter"
     if file == "runpod/apps/gpu.py" and name == "live_pool_members_async":
         target = "apps::gpu::GpuCatalog::live_pool_members"
+    more_app_symbols = {
+        "runpod/apps/placement.py": {"StockMap":"apps::placement::StockMap", "StockMap.__init__":"apps::placement::StockMap::new", "StockMap.fetch":"apps::placement::StockMap::fetch", "StockMap.score":"apps::placement::StockMap::score", "_hardware_keys":"apps::placement::hardware_keys", "_score":"apps::placement::score_status", "candidates":"apps::placement::candidates", "solve_placement":"apps::placement::solve_placement"},
+        "runpod/apps/volume.py": {"VolumeResolver":"apps::volume::VolumeResolver", "VolumeResolver.__init__":"apps::volume::VolumeResolver::new", "VolumeResolver.resolve":"apps::volume::VolumeResolver::resolve", "VolumeResolver.resolve_mounts":"apps::volume::VolumeResolver::resolve_mounts", "attach_pod_mounts":"apps::volume::attach_pod_mounts", "attach_endpoint_volumes":"apps::volume::attach_endpoint_volumes", "_bind_worker_mounts":"apps::resolution::bind_worker_mounts"},
+        "runpod/apps/utils/lookup.py": {"find_by_id_or_name":"apps::lookup::find_by_id_or_name"},
+        "runpod/apps/utils/events.py": {"emit":"apps::events::emit"},
+        "runpod/apps/registry.py": {"resolve_registry_auth":"apps::registry::resolve_registry_auth"},
+        "runpod/apps/secret.py": {"validate_secrets":"apps::validate_secrets"},
+    }
+    target = more_app_symbols.get(file, {}).get(name, target)
     if file == "runpod/serverless/modules/rp_prestart.py" and name in ("register_prestart_hook", "get_prestart_hooks", "has_prestart_hooks", "clear_prestart_hooks", "run_prestart_phase"):
         target = f"serverless::PrestartHooks::{name}"
     if file == "runpod/serverless/modules/worker_state.py" and name.startswith("JobsProgress.") and name.split(".")[-1] in ("clear", "add", "remove", "get", "get_job_list", "get_job_count"):
@@ -116,6 +125,18 @@ for entry in tests["entries"]:
             target = "apps_api::python_apps_api_fixtures [" + lifecycle[leaf] + "]"
     if entry["file"] == "tests/test_apps/test_gpu_catalog.py" and entry["name"] == "test_failed_catalog_retries_after_cooldown":
         target = "apps_catalog::test_failed_catalog_retries_after_cooldown"
+    if entry["file"] == "tests/test_apps/test_placement.py":
+        target = "apps_placement::python_placement_fixtures"
+    if entry["file"] == "tests/test_apps/test_volume.py":
+        leaf = entry["name"].split(".")[-1]
+        covered = {"test_existing_by_name":"test_existing_by_name_and_id", "test_existing_by_id":"test_existing_by_name_and_id", "test_storage_capability_beats_higher_hardware_stock":"test_storage_capability_beats_higher_hardware_stock", "test_missing_no_create_raises":"test_missing_no_create_raises", "test_duplicate_names_raise":"test_duplicate_names_raise_and_ids_take_precedence", "test_global_creation_is_cached_and_mounts_resolve_by_name_and_id":"test_global_creation_is_cached_and_mounts_resolve_by_name_and_id", "test_resolution_cached_per_name":"test_existing_by_name_and_id", "test_same_reference_in_different_backends_does_not_share_cache":"test_same_reference_in_different_backends_does_not_share_cache", "test_unsupported_explicit_pin_never_relocates":"test_unsupported_explicit_pin_never_relocates", "test_global_attachment_does_not_pin_datacenter":"test_global_attachment_does_not_pin_datacenter", "test_removing_storage_clears_backend_and_worker_bindings":"test_global_attachment_does_not_pin_datacenter"}
+        if leaf in covered:
+            target = "apps_resolution::" + covered[leaf]
+    if entry["file"] == "tests/test_apps/test_secret.py":
+        if entry["name"] in ("TestValidateSecrets.test_existing_pass", "TestValidateSecrets.test_missing_raises_with_hint"):
+            target = "apps_credentials::test_existing_pass_and_missing_raises_with_hint"
+        elif entry["name"] == "TestValidateSecrets.test_no_references_no_api_call":
+            target = "apps_credentials::test_no_references_no_api_call"
     if target:
         entry.update(rust=target, status="ported")
 path.write_text(json.dumps(tests, indent=2) + "\n")

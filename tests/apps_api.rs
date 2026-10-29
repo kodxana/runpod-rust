@@ -337,11 +337,11 @@ async fn test_exhausted_retries_raise() {
 #[tokio::test]
 async fn test_mutation_transport_failure_is_not_retried() {
     let (c, server) = interrupted_responses(1, false).await;
-    let start = std::time::Instant::now();
-    assert!(matches!(
-        c.create_app("app").await,
-        Err(runpod::Error::Http(_))
-    ));
-    assert!(start.elapsed() < std::time::Duration::from_secs(1));
+    let error = c.create_app("app").await.unwrap_err();
+    // A replay after the fixture closes would replace this body error with a connect error.
+    assert!(
+        matches!(&error,runpod::Error::Http(error) if !error.is_connect()),
+        "{error:?}"
+    );
     server.await.unwrap();
 }

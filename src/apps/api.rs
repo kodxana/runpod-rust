@@ -15,7 +15,7 @@ use std::{collections::BTreeSet, path::Path, sync::Arc, time::Duration};
 use tokio::io::AsyncReadExt;
 
 /// Product whose available capacity is being queried.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Product {
     /// Dedicated pods in the secure cloud.
     Pod,

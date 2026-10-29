@@ -2,6 +2,34 @@ use crate::{Error, Result};
 use serde::{Serialize, Serializer};
 use std::{fmt, str::FromStr};
 
+/// Verifies all referenced secret names exist before provisioning workers.
+///
+/// # Errors
+/// Returns request errors or a sorted, deduplicated list of missing secrets.
+pub async fn validate_secrets(names: &[String], api: &super::AppsApiClient) -> Result<()> {
+    if names.is_empty() {
+        return Ok(());
+    }
+    let secrets = api.list_secrets().await?;
+    let existing = secrets
+        .iter()
+        .map(|s| crate::client::required_str(s, "name"))
+        .collect::<Result<std::collections::BTreeSet<_>>>()?;
+    let missing: std::collections::BTreeSet<_> = names
+        .iter()
+        .map(String::as_str)
+        .filter(|name| !existing.contains(name))
+        .collect();
+    if missing.is_empty() {
+        return Ok(());
+    }
+    let plural = if missing.len() > 1 { "s" } else { "" };
+    Err(Error::InvalidInput(format!(
+        "secret{plural} not found: {}. create with `rp secret add <name>`",
+        missing.into_iter().collect::<Vec<_>>().join(", ")
+    )))
+}
+
 /// A platform secret reference; the secret value never passes through this type.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Secret {

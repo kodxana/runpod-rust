@@ -1,0 +1,919 @@
+[
+  {
+    "name": "gpu_4090",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "gpu": "4090"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "gpu_ADA_24",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "gpu": "ADA_24"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "gpu_NVIDIA GeForce RTX 4090",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "gpu": "NVIDIA GeForce RTX 4090"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "pin_ eu_ro_1 ",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "cpu": "cpu5c-2-4",
+        "datacenter": " eu_ro_1 "
+      }
+    ],
+    "stocks": [
+      [
+        "cpu-pod",
+        "cpu5c-2-4",
+        0,
+        "EU-RO-1",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "pin_['eu-ro-1']",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "cpu": "cpu5c-2-4",
+        "datacenter": [
+          "eu-ro-1"
+        ]
+      }
+    ],
+    "stocks": [
+      [
+        "cpu-pod",
+        "cpu5c-2-4",
+        0,
+        "EU-RO-1",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "pin_['US-KS-2']",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "cpu": "cpu5c-2-4",
+        "datacenter": [
+          "US-KS-2"
+        ]
+      }
+    ],
+    "stocks": [
+      [
+        "cpu-pod",
+        "cpu5c-2-4",
+        0,
+        "EU-RO-1",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      []
+    ],
+    "error": "cannot place volume 'models': no datacenter can host every resource using it with network volume support\n  r            schedulable in: (nowhere)\nuse separate volumes or compatible hardware"
+  },
+  {
+    "name": "any_gpu",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r"
+      }
+    ],
+    "stocks": [],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1",
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1"
+      ]
+    ],
+    "output": "EU-CZ-1"
+  },
+  {
+    "name": "intersection",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "train",
+        "gpu": "H200"
+      },
+      {
+        "kind": "task",
+        "name": "infer",
+        "gpu": "4090"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA H200",
+        1,
+        "EU-RO-1",
+        2
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "US-KS-2",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ],
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "disjoint",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "train",
+        "gpu": "H200"
+      },
+      {
+        "kind": "task",
+        "name": "eval",
+        "gpu": "B200"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA H200",
+        1,
+        "EU-RO-1",
+        3
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA B200",
+        1,
+        "US-KS-2",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ],
+      [
+        "US-KS-2"
+      ]
+    ],
+    "error": "cannot place volume 'models': no datacenter can host every resource using it with network volume support\n  train        schedulable in: EU-RO-1\n  eval         schedulable in: US-KS-2\nuse separate volumes or compatible hardware"
+  },
+  {
+    "name": "existing_EU-RO-1",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "train",
+        "gpu": "H200"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA H200",
+        1,
+        "EU-RO-1",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [],
+      "existing_dc": "EU-RO-1"
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "existing_US-KS-2",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "train",
+        "gpu": "H200"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA H200",
+        1,
+        "EU-RO-1",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [],
+      "existing_dc": "US-KS-2"
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "error": "volume 'models' lives in US-KS-2, but train cannot schedule there (no hardware stock or conflicting datacenter pin)"
+  },
+  {
+    "name": "maximin",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "a",
+        "gpu": "H200"
+      },
+      {
+        "kind": "task",
+        "name": "b",
+        "gpu": "B200"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA H200",
+        1,
+        "EU-RO-1",
+        3
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA H200",
+        1,
+        "US-KS-2",
+        2
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA B200",
+        1,
+        "EU-RO-1",
+        1
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA B200",
+        1,
+        "US-KS-2",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ],
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ]
+    ],
+    "output": "US-KS-2"
+  },
+  {
+    "name": "tie_lexical",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r"
+      }
+    ],
+    "stocks": [],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-KS-2",
+        "EU-RO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1",
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "mixed",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "gpu",
+        "gpu": "4090"
+      },
+      {
+        "kind": "task",
+        "name": "cpu",
+        "cpu": "cpu5c-2-4"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "US-KS-2",
+        3
+      ],
+      [
+        "cpu-pod",
+        "cpu5c-2-4",
+        0,
+        "EU-RO-1",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ],
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "storage_excludes_best",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "cpu": "cpu5c-2-4"
+      }
+    ],
+    "stocks": [
+      [
+        "cpu-pod",
+        "cpu5c-2-4",
+        0,
+        "EU-RO-1",
+        1
+      ],
+      [
+        "cpu-pod",
+        "cpu5c-2-4",
+        0,
+        "US-KS-2",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "EU-RO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ]
+    ],
+    "output": "EU-RO-1"
+  },
+  {
+    "name": "pinned_disjoint",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "r",
+        "gpu": "4090"
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ],
+      "volume_dc": "US-KS-2"
+    },
+    "candidates": [
+      [
+        "EU-RO-1"
+      ]
+    ],
+    "error": "cannot place volume 'models': no datacenter can host every resource using it with network volume support in pinned datacenter US-KS-2\n  r            schedulable in: EU-RO-1\nuse separate volumes or compatible hardware"
+  },
+  {
+    "name": "gpu_count_queue",
+    "specs": [
+      {
+        "kind": "queue",
+        "name": "single",
+        "gpu": "4090"
+      },
+      {
+        "kind": "queue",
+        "name": "pair",
+        "gpu": "4090",
+        "gpu_count": 2
+      }
+    ],
+    "stocks": [
+      [
+        "gpu",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ],
+      [
+        "gpu",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "US-KS-2",
+        2
+      ],
+      [
+        "gpu",
+        "NVIDIA GeForce RTX 4090",
+        2,
+        "US-KS-2",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ],
+      [
+        "US-KS-2"
+      ]
+    ],
+    "output": "US-KS-2"
+  },
+  {
+    "name": "gpu_count_task",
+    "specs": [
+      {
+        "kind": "task",
+        "name": "single",
+        "gpu": "4090"
+      },
+      {
+        "kind": "task",
+        "name": "pair",
+        "gpu": "4090",
+        "gpu_count": 2
+      }
+    ],
+    "stocks": [
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "EU-RO-1",
+        3
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        1,
+        "US-KS-2",
+        2
+      ],
+      [
+        "gpu-pod",
+        "NVIDIA GeForce RTX 4090",
+        2,
+        "US-KS-2",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ],
+      [
+        "US-KS-2"
+      ]
+    ],
+    "output": "US-KS-2"
+  },
+  {
+    "name": "product_stock",
+    "specs": [
+      {
+        "kind": "queue",
+        "name": "serve",
+        "cpu": "cpu5c-2-4"
+      },
+      {
+        "kind": "task",
+        "name": "task",
+        "cpu": "cpu5c-2-4"
+      }
+    ],
+    "stocks": [
+      [
+        "cpu",
+        "cpu5c-2-4",
+        0,
+        "EU-RO-1",
+        3
+      ],
+      [
+        "cpu",
+        "cpu5c-2-4",
+        0,
+        "US-KS-2",
+        2
+      ],
+      [
+        "cpu-pod",
+        "cpu5c-2-4",
+        0,
+        "US-KS-2",
+        2
+      ]
+    ],
+    "options": {
+      "volume_name": "models",
+      "volume_datacenters": [
+        "US-CA-2",
+        "US-IL-1",
+        "US-KS-2",
+        "US-MO-1",
+        "US-MO-2",
+        "US-NC-2",
+        "US-NE-1",
+        "US-WA-1",
+        "EU-CZ-1",
+        "EU-RO-1",
+        "EUR-NO-1"
+      ]
+    },
+    "candidates": [
+      [
+        "EU-RO-1",
+        "US-KS-2"
+      ],
+      [
+        "US-KS-2"
+      ]
+    ],
+    "output": "US-KS-2"
+  }
+]

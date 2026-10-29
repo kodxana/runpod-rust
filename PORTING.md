@@ -65,6 +65,7 @@ Regenerate with the upstream SDK installed in an isolated environment:
 python tools/inventory.py ../runpod-python
 python tools/control_fixtures.py
 python tools/apps_api_fixtures.py
+python tools/placement_fixtures.py
 ```
 
 ## Preserved quirks
@@ -79,6 +80,12 @@ python tools/apps_api_fixtures.py
 - CPU instance memory is validated syntactically but not sent to REST v2.
 - Unsupported legacy pod/resume parameters remain errors rather than being ignored.
 - Template command `None` inherits, while an empty string explicitly clears it.
+- Placement ranks the worst resource's capacity first, then aggregate capacity; ties use
+  the first sorted datacenter. Pod/serverless and GPU counts have independent stock caches.
+- Stock queries are advisory and failures score zero. Like Python, a canceled stock fetch
+  leaves its configurations marked fetched for that provisioning run.
+- Existing volumes keep their datacenter regardless of new-volume capability catalogs.
+  Resolving a cached reference does not reconsider changed placement options.
 
 ## Deliberate language/runtime differences
 
@@ -115,6 +122,9 @@ python tools/apps_api_fixtures.py
   independently constructed clients fetch independently. Cancellation does not cache failure.
 - Apps use Rust enum/FromStr validation; some malformed-input error text differs from
   Python repr-based messages. The pinned 24 resource fixtures preserve exact messages.
+- Mount-binding JSON uses compact encoding instead of Python's spaced encoding; decoded
+  values and ordering are preserved. Event callbacks return Result; returned errors are
+  logged and ignored, while Rust panics retain their normal behavior.
 
 ## Verification log
 
@@ -135,6 +145,11 @@ python tools/apps_api_fixtures.py
 - Apps control-plane milestone: **61 integration tests and one doctest passed**, including
   161 Python differential cases. Build, formatting, Clippy with warnings denied, and docs passed.
   Actual truncated TCP responses verify read retry exhaustion and non-replayed mutations.
+- Placement and storage milestone: **77 integration tests and one doctest passed**, including
+  180 captured Python cases. Build, formatting, Clippy with warnings denied, and docs passed.
+  The matching upstream Apps API/placement/catalog/secret/registry subset passed **145 tests**.
+  [Rust review notes](reviews/apps-placement.md) record the fixed deserialization invariant,
+  retained error causes, and remaining advisory review limitations.
 
 This file will be updated as each remaining component and test is ported.
 

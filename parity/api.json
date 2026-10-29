@@ -3759,8 +3759,8 @@
       "kind": "function",
       "public": false,
       "signature": "status: Optional[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::score_status",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -3769,8 +3769,8 @@
       "kind": "function",
       "public": false,
       "signature": "spec",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::hardware_keys",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -3779,8 +3779,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::StockMap",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -3789,8 +3789,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, api=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::StockMap::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -3809,8 +3809,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, keys: Iterable[StockKey]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::StockMap::fetch",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -3839,8 +3839,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, key: StockKey, dc: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::StockMap::score",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -3849,8 +3849,8 @@
       "kind": "function",
       "public": true,
       "signature": "spec, stock: StockMap",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::candidates",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/placement.py",
@@ -3869,8 +3869,8 @@
       "kind": "function",
       "public": true,
       "signature": "specs: List, stock: StockMap, *, volume_name: str, volume_datacenters: Set[str], volume_dc: Optional[str]=None, existing_dc: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::placement::solve_placement",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/protocol.py",
@@ -3929,8 +3929,8 @@
       "kind": "function",
       "public": true,
       "signature": "name: Optional[str], api=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::registry::resolve_registry_auth",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/schedule.py",
@@ -4019,8 +4019,8 @@
       "kind": "function",
       "public": true,
       "signature": "names: List[str], api=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::validate_secrets",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/serialization.py",
@@ -5369,8 +5369,8 @@
       "kind": "function",
       "public": true,
       "signature": "sink: Optional[object], event: str, *args: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::events::emit",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/utils/lookup.py",
@@ -5379,8 +5379,8 @@
       "kind": "function",
       "public": true,
       "signature": "items: List[Dict[str, Any]], ref: str, *, noun: str, error: Callable[[str], Exception]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::lookup::find_by_id_or_name",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/utils/names.py",
@@ -5609,8 +5609,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::VolumeResolver",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5619,8 +5619,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, api=None, events: Optional[object]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::VolumeResolver::new",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5639,8 +5639,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, volume: Volume, specs: Optional[List]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::VolumeResolver::resolve",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5649,8 +5649,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mounts: Optional[Mapping[str, Volume]], specs: Optional[List]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::VolumeResolver::resolve_mounts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5669,8 +5669,8 @@
       "kind": "function",
       "public": false,
       "signature": "payload: Dict[str, Any], bindings: List[Dict[str, str]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::resolution::bind_worker_mounts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5679,8 +5679,8 @@
       "kind": "function",
       "public": true,
       "signature": "payload: Dict[str, Any], spec, resolver: VolumeResolver, specs: List",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::attach_pod_mounts",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/volume.py",
@@ -5689,8 +5689,8 @@
       "kind": "function",
       "public": true,
       "signature": "payload: Dict[str, Any], spec, resolver: VolumeResolver, app",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::volume::attach_endpoint_volumes",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/watch.py",
