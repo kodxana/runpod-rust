@@ -1582,8 +1582,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::Login",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/auth.py",
@@ -1592,8 +1592,8 @@
       "kind": "class",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::auth::AttemptFailure::Rejected",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/auth.py",
@@ -1602,8 +1602,8 @@
       "kind": "function",
       "public": false,
       "signature": "session: aiohttp.ClientSession, path: str, body: dict, *, creating: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::auth::EmailLoginClient::post_attempt",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/auth.py",
@@ -1612,8 +1612,9 @@
       "kind": "function",
       "public": true,
       "signature": "email: str, *, read_code: Callable[[], str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::auth::EmailLoginClient::agent_login",
+      "status": "adapted",
+      "note": "Explicit anonymous client/options and asynchronous code reader replace ambient Python state. Browser expiry accepts offset-aware RFC 3339 and elapsed time is monotonic; unsupported Python-only date formats are ignored. Credentials use native string validation. See PORTING.md."
     },
     {
       "file": "runpod/apps/auth.py",
@@ -1622,8 +1623,9 @@
       "kind": "function",
       "public": false,
       "signature": "value: Optional[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::auth::parse_expires_at",
+      "status": "adapted",
+      "note": "Explicit anonymous client/options and asynchronous code reader replace ambient Python state. Browser expiry accepts offset-aware RFC 3339 and elapsed time is monotonic; unsupported Python-only date formats are ignored. Credentials use native string validation. See PORTING.md."
     },
     {
       "file": "runpod/apps/auth.py",
@@ -1632,8 +1634,8 @@
       "kind": "function",
       "public": true,
       "signature": "request_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::auth::auth_url",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/auth.py",
@@ -1642,8 +1644,9 @@
       "kind": "function",
       "public": true,
       "signature": "*, timeout_seconds: float=DEFAULT_TIMEOUT_SECONDS, on_url: Optional[Callable[[str], None]]=None, api: Optional[AppsApiClient]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::auth::browser_login",
+      "status": "adapted",
+      "note": "Explicit anonymous client/options and asynchronous code reader replace ambient Python state. Browser expiry accepts offset-aware RFC 3339 and elapsed time is monotonic; unsupported Python-only date formats are ignored. Credentials use native string validation. See PORTING.md."
     },
     {
       "file": "runpod/apps/build.py",

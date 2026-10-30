@@ -141,6 +141,18 @@ for entry in api["entries"]:
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    if file == "runpod/apps/auth.py":
+        auth_symbols = {
+            "LoginError":"apps::AppError::Login", "_VerificationCodeRejected":"apps::auth::AttemptFailure::Rejected",
+            "_post_authentication_attempt":"apps::auth::EmailLoginClient::post_attempt",
+            "agent_login":"apps::auth::EmailLoginClient::agent_login", "_parse_expires_at":"apps::auth::parse_expires_at",
+            "auth_url":"apps::auth::auth_url", "browser_login":"apps::auth::browser_login",
+        }
+        if name in auth_symbols:
+            adapted = name in ("agent_login", "_parse_expires_at", "browser_login")
+            entry.update(rust=auth_symbols[name], status="adapted" if adapted else "implemented")
+            if adapted:
+                entry["note"] = "Explicit anonymous client/options and asynchronous code reader replace ambient Python state. Browser expiry accepts offset-aware RFC 3339 and elapsed time is monotonic; unsupported Python-only date formats are ignored. Credentials use native string validation. See PORTING.md."
     if file == "runpod/apps/dev.py":
         dev_symbols = {
             "_comparable":"comparable_payload", "_changed_fields":"changed_fields",
@@ -237,6 +249,8 @@ mapping = {
 fixtures = json.loads((root / "tests/fixtures/control.json").read_text())
 for entry in tests["entries"]:
     target = None
+    if entry["file"] in ("tests/test_apps/test_auth.py", "tests/test_apps/test_agent_auth.py"):
+        target = "apps_auth::" + entry["name"].split(".")[-1]
     if entry["file"] == "tests/test_apps/test_dev.py":
         leaf = entry["name"].split(".")[-1]
         if entry["name"].startswith(("TestEndpointInput.", "TestGpuIdsPayload.")) and leaf != "test_worker_self_call_stays_local":

@@ -4,6 +4,9 @@
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum AppError {
+    /// Browser approval or email verification failed, without including credentials or response bodies.
+    #[error("{0}")]
+    Login(String),
     /// Development endpoint deletions that failed and remain tracked for a later retry.
     #[error("dev cleanup incomplete: {}", .0.join("; "))]
     DevCleanup(Vec<String>),

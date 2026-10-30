@@ -659,8 +659,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_agent_login_uses_anonymous_pkce_exchange",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -669,8 +669,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_each_login_has_its_own_verifier_and_idempotency_key",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -679,8 +679,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server, status, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_start_errors_do_not_prompt_or_follow_redirects",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -689,8 +689,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server, status, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_verification_errors_are_not_retried",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -699,8 +699,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server, rejections",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_rejected_codes_reuse_attempt_and_verifier",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -709,8 +709,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server, status",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_retry_stops_on_terminal_verification_error",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -719,8 +719,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_aborted_retry_does_not_send_another_request",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -729,8 +729,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server, payload",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_invalid_attempt_does_not_prompt",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -739,8 +739,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server, payload",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_invalid_key_response_fails_without_exposing_body",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -749,8 +749,8 @@
       "kind": "function",
       "public": true,
       "signature": "signup_server",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_aborted_code_prompt_does_not_verify",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_agent_auth.py",
@@ -759,8 +759,8 @@
       "kind": "function",
       "public": true,
       "signature": "error",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_transport_failures_are_sanitized",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_api_client.py",
@@ -1619,8 +1619,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_returns_key_on_approval",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_auth.py",
@@ -1629,8 +1629,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_denied_raises",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_auth.py",
@@ -1639,8 +1639,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_timeout_raises",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_auth.py",
@@ -1649,8 +1649,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_missing_request_id_raises",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_auth.py",
@@ -1659,8 +1659,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_auth::test_consumed_without_key_raises",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",

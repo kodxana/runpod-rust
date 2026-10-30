@@ -53,12 +53,13 @@ by Python; the complete port remains in progress.
 | Invoker/StreamInvoker sync and async access | native async handle methods and `blocking::apps::{App, FunctionHandle, ApiHandle, FunctionJob, OutputIter}` |
 | `apps.manage` inspection, undeploy, and application deletion | `apps::manage` with `UndeployResult` and typed `AppError` variants |
 | `apps.dev` payloads, adoption, refresh, cleanup, and context management | `apps::dev::{DevConfig, DevSession, endpoint_input, comparable_payload, changed_fields}` |
+| `apps.auth` browser approval and email verification | `apps::auth::{browser_login, BrowserLoginOptions, auth_url, EmailLoginClient}`, `AppError::Login` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 372 implemented symbols, 85 adapted symbols, and 336 upstream
+This milestone maps 376 implemented symbols, 88 adapted symbols, and 352 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -105,6 +106,13 @@ python tools/verify_pickle.py
 
 ## Preserved quirks
 
+- Browser login polls once even with a zero or already-expired deadline. Approval/consumed
+  states carrying a key win before deadline checks; consumed without a key fails immediately.
+  Browser keys are not trimmed. Email login validates nonblank keys but returns their original
+  text. Only verification HTTP 422 prompts for another code; retries share the attempt and
+  verifier. All other HTTP/transport failures stop without replay. Creation alone sends a fresh
+  UUIDv4 idempotency key. Existing account keys, cookies, and netrc credentials are not imported;
+  redirects are never followed and server response bodies are omitted from login errors.
 - Development sessions adopt by stable endpoint name, track adopted endpoints before an
   update, and skip standing infrastructure for tasks. Refresh increments generation first,
   deletes removed resources before any saves, saves even unchanged survivors, and ignores
@@ -560,12 +568,28 @@ lifecycle future itself is dropped, keep its session and Tokio runtime alive and
 There is no async network work in a session destructor. See the
 [development-session review](reviews/apps-dev.md).
 
+- Development sessions passed all four CI jobs:
+  [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41044871415).
+- All 39 matching upstream browser/email login cases pass. Twenty Rust tests cover the
+  anonymous verifier/challenge exchange, unique idempotency keys, exact paths and headers,
+  rejection retries, terminal errors, malformed bodies, input cancellation, transport timeout,
+  media types, callback failure, and approval/deadline precedence. See the
+  [authentication review](reviews/apps-auth.md).
+- Authentication milestone: **313 integration tests, two unit tests, and two doctests** pass
+  on Windows stable Rust. All twenty new tests pass on Rust 1.88. Build, formatting, Clippy
+  with warnings denied, and docs pass. Review notes explain the native date/clock adaptation.
+
+Authentication uses explicit connection/options and an asynchronous code-reader callback.
+Browser expiry accepts RFC 3339 timestamps with explicit offsets; other formats accepted by
+Python's broad `datetime.fromisoformat` parser are ignored. Elapsed timeout checks use Tokio's
+monotonic clock. Native string validation rejects malformed non-string credential fields.
+Email responses use UTF-8 JSON and retain the SDK's native Rust user-agent identity.
+
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
-discovery, browser auth flows,
-and the CLI. Worker fitness, dynamic scaling, hosted API,
+discovery and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.
