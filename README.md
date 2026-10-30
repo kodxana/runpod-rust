@@ -36,7 +36,10 @@ development target bindings and worker sibling lookup share the application's st
 `blocking::apps::App` supplies synchronous registered handles, jobs, and stream iterators.
 `apps::manage` lists and inspects applications and tears down endpoints before their
 environment or application, collecting failures and retaining parents when cleanup fails.
-Native binary deployment, HTTP server integration, and development sessions remain in progress.
+`apps::dev::DevSession` adopts/provisions live endpoints, refreshes configuration, rebinds
+application handles, and tracks failures for cleanup retries. `run_until` awaits teardown
+after a shutdown signal, including endpoint creation that finishes during cancellation.
+Native binary deployment and HTTP server integration remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run

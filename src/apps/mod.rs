@@ -6,6 +6,7 @@ pub mod build;
 pub mod catalog;
 mod context;
 pub mod deploy;
+pub mod dev;
 mod endpoint_input;
 mod errors;
 pub mod events;

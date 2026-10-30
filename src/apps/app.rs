@@ -11,7 +11,10 @@ use sha2::{Digest, Sha256};
 use std::{
     collections::BTreeMap,
     fmt,
-    sync::{Arc, Mutex},
+    sync::{
+        Arc, Mutex,
+        atomic::{AtomicBool, Ordering},
+    },
 };
 
 /// Explicit application routing, connection, and task runtime configuration.
@@ -66,11 +69,13 @@ struct AppState {
     resources: Vec<RegisteredResource>,
     dev_targets: BTreeMap<String, Target>,
     events: Option<EventSink>,
+    dev_client: Option<Client>,
 }
 struct AppInner {
     name: String,
     config: AppConfig,
     state: Mutex<AppState>,
+    development_active: AtomicBool,
 }
 
 /// A named, ordered collection of native application functions and invocation routing state.
@@ -127,6 +132,7 @@ impl App {
                 name,
                 config,
                 state: Mutex::default(),
+                development_active: AtomicBool::new(false),
             }),
         })
     }
@@ -397,13 +403,63 @@ impl App {
         Ok(())
     }
     pub(crate) fn context(&self) -> ExecutionContext {
-        self.inner
+        let mut context = self
+            .inner
             .config
             .context
             .clone()
-            .unwrap_or_else(ExecutionContext::from_env)
+            .unwrap_or_else(ExecutionContext::from_env);
+        if context.kind == Context::Local && self.inner.development_active.load(Ordering::Acquire) {
+            context.kind = Context::Dev;
+        }
+        context
+    }
+    pub(crate) fn bind_development(&self, client: Client, events: Option<EventSink>) -> Result<()> {
+        let previous = {
+            let mut state = self
+                .inner
+                .state
+                .lock()
+                .map_err(|_| AppError::StatePoisoned("development session"))?;
+            (
+                state.dev_client.replace(client),
+                std::mem::replace(&mut state.events, events),
+            )
+        };
+        self.inner.development_active.store(true, Ordering::Release);
+        drop(previous);
+        Ok(())
+    }
+    pub(crate) fn clear_development(&self) -> Result<()> {
+        let previous = {
+            let mut state = self
+                .inner
+                .state
+                .lock()
+                .map_err(|_| AppError::StatePoisoned("development session"))?;
+            (
+                std::mem::take(&mut state.dev_targets),
+                state.events.take(),
+                state.dev_client.take(),
+            )
+        };
+        self.inner
+            .development_active
+            .store(false, Ordering::Release);
+        drop(previous);
+        Ok(())
     }
     fn client(&self) -> Result<Client> {
+        if let Some(client) = self
+            .inner
+            .state
+            .lock()
+            .map_err(|_| AppError::StatePoisoned("development client"))?
+            .dev_client
+            .clone()
+        {
+            return Ok(client);
+        }
         self.inner
             .config
             .client
@@ -635,5 +691,15 @@ mod tests {
             .init(NativeFunction::sync(|_| Ok(crate::Value::Null)))
             .unwrap();
         assert_eq!(count.load(Ordering::SeqCst), 3);
+        app.bind_development(Client::new("key").unwrap(), Some(events()))
+            .unwrap();
+        app.bind_development(Client::new("key").unwrap(), Some(events()))
+            .unwrap();
+        assert_eq!(count.load(Ordering::SeqCst), 4);
+        let mut target = Target::live(Client::new("key").unwrap(), "ep", "q").unwrap();
+        target.set_events(events()).unwrap();
+        app.set_dev_target("q", target).unwrap();
+        app.clear_development().unwrap();
+        assert_eq!(count.load(Ordering::SeqCst), 6);
     }
 }

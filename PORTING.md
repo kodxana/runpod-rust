@@ -52,12 +52,13 @@ by Python; the complete port remains in progress.
 | `App.api`, `ApiHandle`, route/lifecycle markers | `App::api`, `NativeApi`, `ApiHandle`, and explicit `RouteSpec`/hook registration |
 | Invoker/StreamInvoker sync and async access | native async handle methods and `blocking::apps::{App, FunctionHandle, ApiHandle, FunctionJob, OutputIter}` |
 | `apps.manage` inspection, undeploy, and application deletion | `apps::manage` with `UndeployResult` and typed `AppError` variants |
+| `apps.dev` payloads, adoption, refresh, cleanup, and context management | `apps::dev::{DevConfig, DevSession, endpoint_input, comparable_payload, changed_fields}` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 360 implemented symbols, 77 adapted symbols, and 307 upstream
+This milestone maps 372 implemented symbols, 85 adapted symbols, and 336 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -97,12 +98,25 @@ python tools/task_fixtures.py
 python tools/deploy_fixtures.py
 python tools/package_fixtures.py
 python tools/build_fixtures.py
+python tools/dev_fixtures.py
 cargo test --test apps_protocol
 python tools/verify_pickle.py
 ```
 
 ## Preserved quirks
 
+- Development sessions adopt by stable endpoint name, track adopted endpoints before an
+  update, and skip standing infrastructure for tasks. Refresh increments generation first,
+  deletes removed resources before any saves, saves even unchanged survivors, and ignores
+  generation-only changes in event diffs. Failed deletions stay tracked; later children are
+  still attempted. Secret preflight runs on start, including tasks, but not on refresh.
+  Volume resolution is cached for the session. Replaced application instances keep their old
+  bindings; current instances are cleared on stop, matching upstream ownership behavior.
+- Dev payloads preserve duplicate reserved environment entries: user values can override
+  generation, credentials, app name, and concurrency by appearing later, while resource name
+  and API ports are forced. Custom-image package overrides are appended last. Runtime image
+  overrides alone do not enable the custom-image bootstrap. GPU locations remain absent
+  unless pinned, unlike deployed endpoint payloads.
 - Management lists applications alphabetically despite the Python docstring's newest-first
   wording. Deletion flags report completed calls, even when a non-raising GraphQL response
   is false. Application-level deletion aggregates endpoint counts and failures but leaves
@@ -524,13 +538,34 @@ python tools/verify_pickle.py
 - Management milestone: **271 integration tests, two unit tests, and two doctests** pass
   on Windows stable Rust. All fifteen new tests pass on Rust 1.88. Build, formatting,
   Clippy with warnings denied, and docs pass. Pedantic review prompted documentation fixes.
+- Management passed all four CI jobs:
+  [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41042431402).
+- All 29 upstream development-session tests pass. The Rust tests replay 47 captured Python
+  payload/diff cases (518 captured cases overall), plus local HTTP tests for adoption, refresh
+  ordering, real target dispatch, secret preflight, registries/models/volume caching, task
+  events after refresh, retained failed IDs, observer errors, and cleanup error precedence.
+  Cancellation regressions interrupt both creation and cleanup, and verify that explicit
+  shutdown waits for creation and deletion before returning.
+- Development-session milestone: **293 integration tests, two unit tests, and two doctests**
+  pass on Windows stable Rust. All 22 new integration tests and both unit tests pass on
+  Rust 1.88. Build, formatting, Clippy with warnings denied, and docs pass. Pedantic review
+  found only advisory test-style suggestions after the source fixes.
+
+Development sessions use owned clients, runtime configuration, and app-local routing flags;
+they never change process environment variables. `DevConfig::images` selects the interpreter
+for explicit Python source used by existing live workers. It does not ship native Rust
+closures. `DevSession::run` replaces context-manager startup/body/error cleanup. Prefer
+`run_until` for shutdown signals: it settles a shielded creation and awaits teardown. When a
+lifecycle future itself is dropped, keep its session and Tokio runtime alive and call `stop`.
+There is no async network work in a session destructor. See the
+[development-session review](reviews/apps-dev.md).
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
-discovery, development sessions, browser auth flows,
+discovery, browser auth flows,
 and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

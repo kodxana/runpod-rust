@@ -4,6 +4,9 @@
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum AppError {
+    /// Development endpoint deletions that failed and remain tracked for a later retry.
+    #[error("dev cleanup incomplete: {}", .0.join("; "))]
+    DevCleanup(Vec<String>),
     /// No application matched its logical name.
     #[error("no app named '{0}' found. run `rp flash deploy` to create one.")]
     AppNotFound(String),

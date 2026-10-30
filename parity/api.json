@@ -2171,8 +2171,8 @@
       "kind": "function",
       "public": false,
       "signature": "payload: Dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::comparable_payload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2181,8 +2181,8 @@
       "kind": "function",
       "public": false,
       "signature": "old: Dict, new: Dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::changed_fields",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2191,8 +2191,9 @@
       "kind": "function",
       "public": false,
       "signature": "spec: ResourceSpec",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevConfig::image_for",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2201,8 +2202,8 @@
       "kind": "function",
       "public": false,
       "signature": "env",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::endpoint_input environment rendering",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2211,8 +2212,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevConfig::from_client",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2221,8 +2223,8 @@
       "kind": "function",
       "public": false,
       "signature": "instance_ids: List[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::endpoint_input CPU placement",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2231,8 +2233,8 @@
       "kind": "function",
       "public": false,
       "signature": "app: App, spec: ResourceSpec, generation: int=1, *, pool_members: Optional[Dict[str, Set[str]]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::endpoint_input",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2241,8 +2243,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2251,8 +2254,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, apps: List[App], api: Optional[AppsApiClient]=None, events: Optional[object]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::with_config",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2261,8 +2265,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, event: str, *args",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::emit",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2271,8 +2275,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, payload: Dict, spec, app",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::payload",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2281,8 +2285,8 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::endpoint_ids",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2291,8 +2295,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, app: App",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::desired_resources",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2301,8 +2305,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::start",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2311,8 +2315,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, apps: List[App]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::refresh",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2321,8 +2325,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, name: str, resource: str, payload: Dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::create_tracked",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2331,8 +2336,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, create: 'asyncio.Future[Dict]', name: str, resource: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::settle_create",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2341,8 +2347,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, events: Optional[object]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::stop_with_events",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2351,8 +2357,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::run / run_until",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",
@@ -2361,8 +2368,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, *exc_info",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::dev::DevSession::run / run_until / stop",
+      "status": "adapted",
+      "note": "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/discovery.py",

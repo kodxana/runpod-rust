@@ -141,6 +141,24 @@ for entry in api["entries"]:
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    if file == "runpod/apps/dev.py":
+        dev_symbols = {
+            "_comparable":"comparable_payload", "_changed_fields":"changed_fields",
+            "_image_for":"DevConfig::image_for", "_render_env":"endpoint_input environment rendering",
+            "_client_api_key":"DevConfig::from_client", "_cpu_locations":"endpoint_input CPU placement",
+            "_endpoint_input":"endpoint_input", "DevSession":"DevSession",
+            "DevSession.__init__":"DevSession::with_config", "DevSession._emit":"DevSession::emit",
+            "DevSession._attach_volumes":"DevSession::payload", "DevSession._endpoint_ids":"DevSession::endpoint_ids",
+            "DevSession._provisionable":"desired_resources", "DevSession.start":"DevSession::start",
+            "DevSession.refresh":"DevSession::refresh", "DevSession._create_tracked":"DevSession::create_tracked",
+            "DevSession._record_late_create":"DevSession::settle_create", "DevSession.stop":"DevSession::stop_with_events",
+            "DevSession.__aenter__":"DevSession::run / run_until", "DevSession.__aexit__":"DevSession::run / run_until / stop",
+        }
+        if name in dev_symbols:
+            adapted = name in ("DevSession", "DevSession.__init__", "_image_for", "_client_api_key", "DevSession._create_tracked", "DevSession._record_late_create", "DevSession.__aenter__", "DevSession.__aexit__")
+            entry.update(rust="apps::dev::" + dev_symbols[name], status="adapted" if adapted else "implemented")
+            if adapted:
+                entry["note"] = "Owned session/configuration replaces Python globals and context managers. Explicit run_until shutdown awaits pending creation and cleanup; canceling a lifecycle future retains state for an explicit stop. Runtime images execute explicit Python source; native Rust binary hosting remains pending. See PORTING.md."
     native_app_symbols = {
         "runpod/apps/app.py": {
             "get_registered_apps":"AppRegistry::apps", "_clear_registry":"AppRegistry::clear", "_restore_registry":"AppRegistry::restore",
@@ -219,6 +237,12 @@ mapping = {
 fixtures = json.loads((root / "tests/fixtures/control.json").read_text())
 for entry in tests["entries"]:
     target = None
+    if entry["file"] == "tests/test_apps/test_dev.py":
+        leaf = entry["name"].split(".")[-1]
+        if entry["name"].startswith(("TestEndpointInput.", "TestGpuIdsPayload.")) and leaf != "test_worker_self_call_stays_local":
+            target = "apps_dev_payload::python_development_payload_and_diff_fixtures"
+        else:
+            target = "apps_dev::" + ("test_refresh_diff_events" if leaf in ("test_refresh_provisions_added_resource", "test_refresh_deletes_removed_resource") else leaf)
     if entry["file"] == "tests/test_apps/test_manage.py":
         target = "apps_manage::" + entry["name"].split(".")[-1]
     if entry["file"] == "tests/test_apps/test_app.py":
