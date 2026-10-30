@@ -1,0 +1,407 @@
+[
+  {
+    "operation": "scale",
+    "current": 0,
+    "target": 0,
+    "occupied": 0,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 0,
+    "target": 0,
+    "occupied": 2,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 0,
+    "target": 1,
+    "occupied": 0,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 0,
+    "target": 1,
+    "occupied": 2,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 1
+        },
+        {
+          "delay": 1,
+          "concurrency": 1
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 0,
+    "target": 3,
+    "occupied": 0,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 0,
+    "target": 3,
+    "occupied": 2,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 3
+        },
+        {
+          "delay": 1,
+          "concurrency": 3
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 1,
+    "target": 0,
+    "occupied": 0,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 1,
+    "target": 0,
+    "occupied": 2,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 0
+        },
+        {
+          "delay": 1,
+          "concurrency": 0
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 1,
+    "target": 1,
+    "occupied": 0,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 1,
+    "target": 1,
+    "occupied": 2,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 1,
+    "target": 3,
+    "occupied": 0,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 1,
+    "target": 3,
+    "occupied": 2,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 3
+        },
+        {
+          "delay": 1,
+          "concurrency": 3
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 2,
+    "target": 0,
+    "occupied": 0,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 2,
+    "target": 0,
+    "occupied": 2,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 0
+        },
+        {
+          "delay": 1,
+          "concurrency": 0
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 2,
+    "target": 1,
+    "occupied": 0,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 2,
+    "target": 1,
+    "occupied": 2,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 1
+        },
+        {
+          "delay": 1,
+          "concurrency": 1
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 2,
+    "target": 3,
+    "occupied": 0,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 2,
+    "target": 3,
+    "occupied": 2,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 3
+        },
+        {
+          "delay": 1,
+          "concurrency": 3
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 5,
+    "target": 0,
+    "occupied": 0,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 5,
+    "target": 0,
+    "occupied": 2,
+    "output": {
+      "concurrency": 0,
+      "capacity": 0,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 0
+        },
+        {
+          "delay": 1,
+          "concurrency": 0
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 5,
+    "target": 1,
+    "occupied": 0,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 5,
+    "target": 1,
+    "occupied": 2,
+    "output": {
+      "concurrency": 1,
+      "capacity": 1,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 1
+        },
+        {
+          "delay": 1,
+          "concurrency": 1
+        }
+      ]
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 5,
+    "target": 3,
+    "occupied": 0,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": []
+    }
+  },
+  {
+    "operation": "scale",
+    "current": 5,
+    "target": 3,
+    "occupied": 2,
+    "output": {
+      "concurrency": 3,
+      "capacity": 3,
+      "sleeps": [
+        {
+          "delay": 1,
+          "concurrency": 3
+        },
+        {
+          "delay": 1,
+          "concurrency": 3
+        }
+      ]
+    }
+  },
+  {
+    "operation": "occupancy",
+    "tracked": 0,
+    "queued": 0,
+    "output": 0
+  },
+  {
+    "operation": "occupancy",
+    "tracked": 0,
+    "queued": 1,
+    "output": 1
+  },
+  {
+    "operation": "occupancy",
+    "tracked": 0,
+    "queued": 3,
+    "output": 3
+  },
+  {
+    "operation": "occupancy",
+    "tracked": 2,
+    "queued": 0,
+    "output": 2
+  },
+  {
+    "operation": "occupancy",
+    "tracked": 2,
+    "queued": 1,
+    "output": 3
+  },
+  {
+    "operation": "occupancy",
+    "tracked": 2,
+    "queued": 3,
+    "output": 5
+  },
+  {
+    "operation": "identity",
+    "current": 0,
+    "output": 0
+  },
+  {
+    "operation": "identity",
+    "current": 1,
+    "output": 1
+  },
+  {
+    "operation": "identity",
+    "current": 200,
+    "output": 200
+  }
+]

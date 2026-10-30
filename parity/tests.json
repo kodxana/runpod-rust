@@ -13989,8 +13989,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_runtime::prestart_allows_intake_but_gates_handlers",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -13999,8 +14000,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::shutdown_fails_held_jobs_and_cancels_blocked_prestart",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14019,8 +14021,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_runtime::prestart_allows_intake_but_gates_handlers",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14029,8 +14032,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::shutdown_fails_held_jobs_and_cancels_blocked_prestart",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14039,8 +14043,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::duplicate_job_ids_preserve_both_queued_invocations",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14049,8 +14054,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_runtime::failed_prestart_reports_claimed_job_without_running_handler",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14059,8 +14065,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::failed_prestart_cancels_intake_and_owns_one_fresh_fallback_claim",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14079,8 +14086,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::canceled_prestart_held_job_does_not_cause_another_failure_claim",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14089,8 +14097,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::failed_prestart_cancels_intake_and_owns_one_fresh_fallback_claim",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14099,8 +14108,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::fallback_claim_timeout_bounds_a_silent_server",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14119,8 +14129,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::shutdown_fails_held_jobs_and_cancels_blocked_prestart",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14129,8 +14140,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::shutdown_fails_held_jobs_and_cancels_blocked_prestart",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14169,8 +14181,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_startup::stalled_prestart_failure_report_is_bounded_and_preserves_startup_reason",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14239,8 +14252,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_runtime::prestart_allows_intake_but_gates_handlers",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14249,8 +14263,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::changing_scale_waits_for_existing_work_before_taking_a_new_batch",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14279,8 +14294,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::changing_scale_waits_for_existing_work_before_taking_a_new_batch",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14289,8 +14305,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::control_cancels_only_the_named_handler_and_shutdown_drains_the_other",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14309,8 +14326,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::duplicate_job_ids_preserve_both_queued_invocations",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14319,8 +14337,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::control_cancels_only_the_named_handler_and_shutdown_drains_the_other",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14329,8 +14348,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::control_cancels_only_the_named_handler_and_shutdown_drains_the_other",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14339,8 +14359,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_runtime::stop_channel_cancels_one_job_without_cancelling_others",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14359,8 +14380,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_runtime::stop_channel_cancels_one_job_without_cancelling_others",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14419,8 +14441,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::zero_concurrency_waits_instead_of_spinning_and_control_wakes_shutdown",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14449,8 +14472,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_runtime::prestart_allows_intake_but_gates_handlers",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14459,8 +14483,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::full_worker_takes_a_full_batch_as_soon_as_it_drains",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14469,8 +14494,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::full_worker_takes_a_full_batch_as_soon_as_it_drains",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14479,8 +14505,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::full_worker_takes_freed_slots_after_the_wait_bound",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",
@@ -14499,8 +14526,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_scaler: PatchScaler",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::zero_concurrency_waits_instead_of_spinning_and_control_wakes_shutdown",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_scale_mirror.py",
@@ -14509,8 +14537,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/worker_scaling::result_delivery_error_is_isolated_from_sibling_work",
+      "status": "ported",
+      "note": "Observed through the owned native worker and real local HTTP mocks; controls, counters, gate outcomes, and result requests replace assertions on Python task objects. Untested reflection, log-capture, process-hard-exit, and stricter timing cases remain pending."
     },
     {
       "file": "tests/test_serverless/test_scale_mirror.py",

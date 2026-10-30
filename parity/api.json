@@ -9891,8 +9891,9 @@
       "kind": "function",
       "public": false,
       "signature": "current_concurrency: int",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerConfig::default (no modifier)",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9901,8 +9902,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker / WorkerControl / WorkerConfig",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9911,8 +9913,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, config: dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::new",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9921,8 +9924,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::scaling::IntakeSchedule::poll",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9931,8 +9935,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::run_until_signal",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9941,8 +9946,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, signum, frame",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerControl::kill_worker / Worker::run_until_signal",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9951,8 +9957,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::run",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9961,8 +9968,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerControl::is_alive",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9971,8 +9979,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerControl::kill_worker",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9981,8 +9990,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerControl::current_occupancy",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9991,8 +10001,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, session: ClientSession",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::claim_one_job_to_fail",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10001,8 +10012,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, session: ClientSession, job_take_task: asyncio.Task, stop_signals_task: asyncio.Task, run_jobs_task: asyncio.Task",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::run bounded reporting phase",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10011,8 +10023,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, session: ClientSession",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::run intake branch / scaling::IntakeSchedule",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10021,8 +10034,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::scaling::IntakeSchedule full-wait state",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10031,8 +10045,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, session: ClientSession",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::run owned FuturesUnordered",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10041,8 +10056,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, tasks: set[asyncio.Task[Any]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::run tokio::select!",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10051,8 +10067,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, session: ClientSession",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::poll_stops / Worker::run stop branch",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10061,8 +10078,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerControl::stop_job",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10071,8 +10089,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, session: ClientSession, job: dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::handle_after_prestart / handle_job / run cleanup",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10081,8 +10100,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::handle_after_prestart watch gate",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10091,8 +10111,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, session: ClientSession, job: dict[str, Any], payload: dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Worker::fail_startup_job",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -10101,8 +10122,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::run_prestart_phase / Worker::run startup gate",
+      "status": "adapted",
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
     },
     {
       "file": "runpod/serverless/modules/rp_tips.py",

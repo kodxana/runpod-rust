@@ -1,4 +1,4 @@
-use super::{JobsProgress, WorkerJob};
+use super::{ConcurrencyModifier, JobsProgress, WorkerJob};
 use crate::{Error, Result, Value, json};
 use std::{fmt, time::Duration};
 
@@ -19,17 +19,27 @@ pub struct WorkerConfig {
     pub ping_url: Option<String>,
     /// Interval between heartbeats.
     pub ping_interval: Duration,
-    /// Maximum number of concurrent jobs.
+    /// Initial concurrency, before any configured modifier is applied.
     pub concurrency: usize,
+    /// Optional dynamic concurrency policy, evaluated at each intake iteration.
+    pub concurrency_modifier: Option<ConcurrencyModifier>,
+    /// How long a full worker waits for all slots before accepting a partial refill.
+    pub full_wait_interval: Duration,
+    /// Recheck interval while a requested queue resize waits for existing work to finish.
+    pub scale_wait_interval: Duration,
     /// Aggregate streamed values into the final output array.
     pub return_aggregate_stream: bool,
     /// Request worker refresh after each completed job.
     pub refresh_worker: bool,
     /// Optional timeout for the entire prestart phase.
     pub prestart_timeout: Option<Duration>,
+    /// Timeout for the one fallback claim when startup failed before any request was held.
+    pub prestart_claim_timeout: Duration,
+    /// Total deadline for reporting a startup failure before returning it to the caller.
+    pub prestart_failure_report_timeout: Duration,
     /// Timeout for each job-take or stop-channel long poll.
     pub request_timeout: Duration,
-    /// Pause after an empty poll or recoverable transport failure.
+    /// Optional pause after empty intake or a recoverable intake failure; Python defaults to zero.
     pub idle_interval: Duration,
 }
 impl fmt::Debug for WorkerConfig {
@@ -55,11 +65,16 @@ impl Default for WorkerConfig {
             ping_url: None,
             ping_interval: Duration::from_secs(10),
             concurrency: 1,
+            concurrency_modifier: None,
+            full_wait_interval: Duration::from_secs(1),
+            scale_wait_interval: Duration::from_secs(1),
             return_aggregate_stream: false,
             refresh_worker: false,
             prestart_timeout: None,
+            prestart_claim_timeout: Duration::from_secs(10),
+            prestart_failure_report_timeout: Duration::from_secs(15),
             request_timeout: Duration::from_secs(90),
-            idle_interval: Duration::from_secs(1),
+            idle_interval: Duration::ZERO,
         }
     }
 }
@@ -108,11 +123,14 @@ impl WorkerTransport {
     /// Creates a webhook transport from explicit worker configuration.
     ///
     /// # Errors
-    /// Rejects zero concurrency/heartbeat intervals and invalid header values.
+    /// Rejects zero scheduler/heartbeat intervals and invalid header values.
     pub fn new(config: WorkerConfig) -> Result<Self> {
-        if config.concurrency == 0 || config.ping_interval.is_zero() {
+        if config.full_wait_interval.is_zero()
+            || config.scale_wait_interval.is_zero()
+            || config.ping_interval.is_zero()
+        {
             return Err(Error::InvalidInput(
-                "worker concurrency and ping interval must be positive".into(),
+                "worker scheduler and ping intervals must be positive".into(),
             ));
         }
         let mut headers = reqwest::header::HeaderMap::new();

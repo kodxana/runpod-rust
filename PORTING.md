@@ -24,6 +24,7 @@ by Python; the complete port remains in progress.
 | `rp_http.send_result`, `stream_result`; `rp_progress.progress_update` | `WorkerTransport` methods |
 | `rp_prestart` registration, enumeration, clearing, execution | owned `PrestartHooks` registry |
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
+| `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule`; exception hook remains pending |
 | `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
@@ -63,9 +64,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 380 implemented symbols, 122 adapted symbols, and 397 upstream
+This milestone maps 380 implemented symbols, 144 adapted symbols, and 426 upstream
 test functions; other entries remain pending.
-The test mapping includes 396 ported tests and one explicitly adapted Python import test.
+The test mapping includes 425 ported tests and one explicitly adapted Python import test.
 
 ## Test mapping and reproduction
 
@@ -105,6 +106,7 @@ python tools/deploy_fixtures.py
 python tools/ssrf_fixtures.py
 python tools/download_fixtures.py  # Windows capture, including simulated POSIX paths
 python tools/upload_fixtures.py
+python tools/scaling_fixtures.py
 python tools/package_fixtures.py
 python tools/build_fixtures.py
 python tools/dev_fixtures.py
@@ -248,11 +250,11 @@ python tools/verify_pickle.py
   Async handlers and heartbeats share the caller's executor; no multiprocessing mirror
   or Python GIL is needed. Synchronous CPU work must be scheduled by the caller.
 - Worker handler failures carry Rust error type/backtrace information. Rust panics are
-  not converted into Python exceptions. Output delivery failures propagate to callers.
-- The worker loop currently has a fixed concurrency limit. Dynamic scaling, full fitness
-  checks, stdout capture/debugging, hosted HTTP API, CLI arguments, and the advanced
-  volume/download/upload helpers remain pending. The `start` convenience function uses
-  `test_input.json` locally and Ctrl-C for platform shutdown; SIGTERM handling is pending.
+  not converted into Python exceptions. Direct output delivery failures propagate to callers;
+  the worker dispatcher logs individual delivery failures and continues sibling jobs.
+- Dynamic scaling, cancellation, and Ctrl-C/Unix SIGTERM shutdown are implemented. Full
+  fitness checks, stdout capture/debugging, hosted HTTP API, CLI arguments, and volume-cache
+  helpers remain pending. The `start` convenience function uses `test_input.json` locally.
 - Credential profiles require a string API key. Validator schemas use Rust types and
   closures, so malformed Python schema objects are outside the Rust input domain.
 - Apps mount definitions use an ordered Vec of Mount values; bindings are owned snapshots.
@@ -790,7 +792,8 @@ and documentation annotations were then checked by all 18 upload tests on stable
 1.94.1. All 15 download tests also pass on both toolchains. Build, formatting, Clippy with
 warnings denied, and documentation checks pass; pedantic review found no remaining correctness
 issue. Python successfully decoded all 14 native pickle fixtures. No live S3/Runpod resources
-were used. The Unix-only copy-permissions test awaits the new CI run.
+were used. Subsequent CI run [41061119350](https://github.com/kodxana/runpod-rust/actions/runs/41061119350)
+passed on Linux, Windows, and macOS stable, plus Linux Rust 1.94.1, including Unix copy permissions.
 
 The previous download CI run [41056779984](https://github.com/kodxana/runpod-rust/actions/runs/41056779984)
 failed on a Windows-generated POSIX ZIP fixture. The capture now switches os.sep before
@@ -798,9 +801,49 @@ opening the ZIP, preserving literal backslashes. All 19 POSIX fixture files matc
 Linux Python extraction in WSL; Windows download tests pass. Native extraction code and ZIP
 bytes were unchanged by that correction.
 
+## Worker scaling and startup coordination
+
+The native worker now applies a `ConcurrencyModifier` once per intake iteration. A changed
+capacity waits for existing work to drain, while the reported concurrency changes immediately.
+A full worker wakes as soon as all jobs drain or after the one-second partial-refill bound.
+Returning zero pauses intake without spinning. Python's occupancy quirk is preserved: queued
+jobs count both in the queue and in the progress tracker. Duplicate IDs retain both queued
+invocations, although progress and cancellation remain keyed by ID, as in Python.
+
+`WorkerControl` observes concurrency/occupancy, cancels a named tracked job, and wakes shutdown
+from another task or thread. Shutdown stops intake and drains held work. Dropping the run future
+cancels handlers and clears shared state; a second concurrent run is rejected. Result-delivery
+failures do not stop siblings, and cancellation does not request a worker refresh. Empty/error
+stop polls retain the source's one-second delay, with five seconds for rate limiting. Intake
+yields without a default delay, matching Python, with an optional configured pause.
+
+Startup hooks run alongside intake, while dispatched jobs wait on a startup gate. Held jobs
+can be canceled before startup finishes. On failure, intake and stop polls are canceled before
+reporting. If no request was ever held, one fresh fallback claim has a ten-second deadline;
+the entire reporting phase has a fifteen-second deadline. Claim errors are ignored, while
+fallback delivery errors propagate, matching the source's exception precedence. Shutdown
+during startup reports `prestart_cancelled` and drops the unfinished hook future.
+
+`run_until_signal` explicitly installs Ctrl-C and Unix SIGTERM listeners; constructing a worker
+does not install signal handlers. Native ownership and Tokio futures replace Python queue/task
+objects and the multiprocessing shutdown mirror. The library returns typed startup errors;
+Python's unhealthy-process hard exit, uncaught-exception hook, and full captured-log/traceback
+payloads remain pending alongside the health and capture modules. Strict startup-race, injected
+queue, and reflection-specific tests remain pending rather than being counted as covered.
+
+`tools/scaling_fixtures.py` captures **33 Python cases**, bringing the total to **1,162**.
+The focused upstream scaler, mirror, and prestart suites pass **72 tests with one skip**.
+The ledger adds 22 adapted symbols and 29 mapped upstream tests. Native coverage includes
+16 new Windows integration tests and one fixture-replay unit test; a separate Unix subprocess
+test exercises real SIGTERM delivery and awaits CI. See
+[reviews/worker-scaling.md](reviews/worker-scaling.md) for review and final validation.
+The full Windows stable suite passes **393 tests** (387 integration, four unit, two doctests).
+All **24 focused unit/worker tests** pass on Rust 1.94.1. Build, formatting, Clippy with
+warnings denied, and documentation checks pass.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
-discovery and the CLI. Worker fitness, dynamic scaling, hosted API,
+discovery and the CLI. Worker fitness, hosted API,
 capture/debugging and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

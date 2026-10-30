@@ -128,6 +128,14 @@ and one named startup hook is supported. `ApiHandle` sends GET/POST/PUT/DELETE/P
 pending. `NativeApi::asgi_factory` describes a Python factory for interoperability; it does not
 run Python locally. `App::resources` returns `ResourceHandle` values for mixed function/API apps.
 
+Serverless workers accept a `ConcurrencyModifier` in `WorkerConfig`. Returning zero pauses
+intake; changing capacity waits for existing work to drain. `Worker::control` returns a
+cloneable handle for per-job cancellation, shutdown, and concurrency/occupancy observation.
+`Worker::run` accepts your shutdown future; `run_until_signal` handles Ctrl-C and Unix SIGTERM.
+Startup hooks run alongside intake and gate execution. See the
+[worker notes](PORTING.md#worker-scaling-and-startup-coordination) for failure reporting and
+remaining runtime work.
+
 For untrusted download URLs, use `utils::ssrf::SafeDownloader` with `DownloadOptions`.
 It validates DNS results, pins connections, checks each redirect, and bounds consumed bytes.
 `SafeResponse::error_for_status` rejects HTTP failure statuses; `::bytes` reads a small body,
