@@ -27,6 +27,9 @@ by Python; the complete port remains in progress.
 | `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule`; exception hook remains pending |
 | `_health.gpu` parsing, configuration, allocation binary, and nvidia-smi fallback | `serverless::health::{GpuChecks, GpuConfig, GpuTestOutput, HealthError, parse_gpu_test_output}` |
 | `_health.system` memory, disk, TCP readiness, and CUDA-version probes | `serverless::health::{SystemChecks, SystemConfig, MemoryInfo, DiskInfo, parse_version, network_probe_target}` |
+| `_health.fitness` registration, early/start passes, settings refresh, reporting, and hard exit | `serverless::health::{FitnessCheck, FitnessChecks, FitnessPass, FitnessFailure, report_unhealthy, terminate_unhealthy}` |
+| `_startup.run_import_checks` | explicit `FitnessChecks::run_startup_fitness_checks` before handler/runtime initialization |
+| Loaded Torch/CuPy lookup, CUDA initialization, compute benchmark | explicit `GpuFrameworks` / `GpuFramework` adapters and `SystemChecks` methods |
 | `_binary_helpers.get_binary_path`, serverless/early eligibility, environment flags | `serverless::health::{get_binary_path, is_serverless_environment, is_early_check_eligible}` and private flag helper |
 | `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
@@ -67,9 +70,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 382 implemented symbols, 162 adapted symbols, and 467 upstream
+This milestone maps 382 implemented symbols, 188 adapted symbols, and 548 upstream
 test functions; other entries remain pending.
-The test mapping includes 466 ported tests and one explicitly adapted Python import test.
+The test mapping includes 547 ported tests and one explicitly adapted Python import test.
 
 ## Test mapping and reproduction
 
@@ -257,7 +260,7 @@ python tools/verify_pickle.py
   not converted into Python exceptions. Direct output delivery failures propagate to callers;
   the worker dispatcher logs individual delivery failures and continues sibling jobs.
 - Dynamic scaling, cancellation, and Ctrl-C/Unix SIGTERM shutdown are implemented. Full
-  fitness checks, stdout capture/debugging, hosted HTTP API, CLI arguments, and volume-cache
+  remaining process-failure integration, stdout capture/debugging, hosted HTTP API, CLI arguments, and volume-cache
   helpers remain pending. The `start` convenience function uses `test_input.json` locally.
 - Credential profiles require a string API key. Validator schemas use Rust types and
   closures, so malformed Python schema objects are outside the Rust input domain.
@@ -831,8 +834,8 @@ during startup reports `prestart_cancelled` and drops the unfinished hook future
 `run_until_signal` explicitly installs Ctrl-C and Unix SIGTERM listeners; constructing a worker
 does not install signal handlers. Native ownership and Tokio futures replace Python queue/task
 objects and the multiprocessing shutdown mirror. The library returns typed startup errors;
-Python's unhealthy-process hard exit, uncaught-exception hook, and full captured-log/traceback
-payloads remain pending alongside the health and capture modules. Strict startup-race, injected
+Fitness failures now report and hard-exit; prestart-error process termination, the uncaught-exception
+hook, and full captured-log/traceback payloads remain pending. Strict startup-race, injected
 queue, and reflection-specific tests remain pending rather than being counted as covered.
 
 `tools/scaling_fixtures.py` captures **33 Python cases**, bringing the total to **1,162**.
@@ -897,15 +900,61 @@ ownership additionally require Unix/Linux CI. See [reviews/health-probes.md](rev
 Verification: the full Windows stable Rust 1.99.1 suite passes **417 tests** (409 integration,
 six unit, two doctests). All **28 focused unit/health tests** pass on Rust 1.94.1. Build,
 formatting, Clippy with warnings denied, and documentation checks pass. Unix/Linux-specific
-new probe tests await the next CI run.
+new probe tests passed CI for commit `442b06e`.
 
-Fitness registration, early/worker-start coordination and configuration refresh, unhealthy
-reporting/hard exit, and framework-specific CUDA initialization/compute checks are still
-pending. These probes are not yet automatically installed into the worker startup lifecycle.
+## Fitness lifecycle and framework checks
+
+`FitnessChecks` owns environment values, registration order, completion identities, and the
+early-pass snapshot. `FitnessCheck` wraps synchronous or asynchronous native callbacks.
+Clones retain identity: duplicate registrations run twice on their first pass, while distinct
+handles with the same name are independent. Clearing the registry deliberately preserves the
+Python registration latches; `reset_registration_state` clears those separately.
+
+Call `run_startup_fitness_checks` synchronously before initializing the handler or entering
+Tokio to opt into early checks. Rust has no import-time side effect. The same eligibility,
+defer/skip flags, and inherited-marker gates apply. A successful early marker is stored in the
+owned environment; callers forward it to subprocesses explicitly, without unsafe global
+environment mutation. Setup errors defer until worker start; failed hardware checks report
+unhealthy and hard-exit immediately. An already-running Tokio runtime defers the early pass.
+
+Early checks run only safe built-ins. Network, CUDA-context initialization, compute, and custom
+checks wait for worker start. Disk is checked again once after handler setup; changed tuning
+values invalidate only related completed checks. Changed skip flags remove or re-register
+their groups. Failed registration rolls back appended checks and latches so it can be retried.
+`serverless::start` now runs these checks before any intake, heartbeat, or prestart work.
+`start_with_fitness` and `Worker::run_with_fitness` retain explicitly prepared registries;
+the low-level `Worker::run` remains usable independently and local mode skips fitness.
+
+`run_fitness_checks` and worker entrypoints report failures through the unhealthy GET heartbeat,
+with raw worker authorization, worker-ID substitution, a 256-Unicode-character reason limit,
+and a two-second total deadline. Reporting is best effort. `FitnessChecks::check` returns a
+typed `FitnessFailure` instead for callers that own failure policy. Native error categories
+are translated to Python-compatible reason labels; native configuration/OS details can differ.
+
+Process termination uses a single documented `libc::_exit` call after best-effort stdio flush.
+`std::process::exit` would run C exit callbacks, which does not match Python `os._exit`.
+The crate denies unsafe code, with a narrow expectation for this FFI primitive and the test
+that registers an exit callback. There are no pointers or allocations crossing that boundary.
+Child-process tests verify exit codes, bypassed destructors/callbacks, live background threads,
+report-before-exit ordering, and termination if an in-progress failure report is canceled.
+
+`GpuFrameworks` explicitly supplies already-loaded native Torch-style and CuPy-style adapters.
+No framework is imported, linked, or initialized by default. Torch's initialized-context gate
+is checked before availability, preserving the ability to fork later. Initialization checks
+device counts, memory, allocation, and synchronization; CuPy visits each device and leaves the
+last selected, as in Python. Benchmarks allocate/multiply 1024-square matrices through the
+adapter and include synchronization in elapsed time. They measure after completion rather
+than interrupting synchronous device operations. Compute failures propagate; setup failures
+permit the source's fallback/skip behavior. Physical GPU execution is not claimed by mocks.
+
+The ledger adds 26 adapted symbols and 81 mapped upstream tests. Uncovered reflection,
+injected-stream failure, import machinery, and combined end-to-end health cases remain pending.
+The focused upstream registry/startup/safe-startup/force-kill/system suite passes 130 tests.
+See [reviews/fitness-lifecycle.md](reviews/fitness-lifecycle.md) for native validation and review.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
-discovery and the CLI. Worker fitness, hosted API,
+discovery and the CLI. Remaining worker process-failure integration, hosted API,
 capture/debugging and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

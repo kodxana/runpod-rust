@@ -1,6 +1,6 @@
 use super::{ConcurrencyModifier, JobsProgress, WorkerJob};
 use crate::{Error, Result, Value, json};
-use std::{fmt, time::Duration};
+use std::{collections::BTreeMap, fmt, time::Duration};
 
 /// Worker webhook addresses, concurrency limits, and output options.
 #[derive(Clone)]
@@ -84,7 +84,14 @@ impl WorkerConfig {
     /// # Errors
     /// Returns invalid input for malformed heartbeat configuration.
     pub fn from_env() -> Result<Self> {
-        let value = |name| std::env::var(name).ok();
+        Self::from_values(&std::env::vars().collect())
+    }
+    /// Read worker settings from an owned environment, including an early fitness registry.
+    ///
+    /// # Errors
+    /// Returns invalid input for malformed heartbeat configuration.
+    pub fn from_values(values: &BTreeMap<String, String>) -> Result<Self> {
+        let value = |name| values.get(name).cloned();
         let mut config = Self {
             worker_id: value("RUNPOD_POD_ID").unwrap_or_else(|| "local_worker".into()),
             api_key: value("RUNPOD_AI_API_KEY").unwrap_or_default(),

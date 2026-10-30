@@ -116,7 +116,12 @@ impl GpuChecks {
     /// # Errors
     /// Returns malformed settings or an error extracting the packaged allocation probe.
     pub fn from_values(values: &BTreeMap<String, String>) -> Result<Self, HealthError> {
-        let config = GpuConfig::from_values(values)?;
+        Self::with_environment(GpuConfig::from_values(values)?, values)
+    }
+    pub(super) fn with_environment(
+        config: GpuConfig,
+        values: &BTreeMap<String, String>,
+    ) -> Result<Self, HealthError> {
         let override_path = values
             .get("RUNPOD_BINARY_GPU_TEST_PATH")
             .filter(|s| !s.is_empty())

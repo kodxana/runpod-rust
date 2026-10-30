@@ -72,8 +72,9 @@
       "kind": "function",
       "public": false,
       "signature": "code: int=1",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::terminate_unhealthy",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -93,8 +94,9 @@
       "kind": "function",
       "public": true,
       "signature": "func: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessCheck::defer_to_worker_start",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -103,8 +105,9 @@
       "kind": "function",
       "public": false,
       "signature": "func: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessCheck::is_deferred",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -113,8 +116,9 @@
       "kind": "function",
       "public": true,
       "signature": "func: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessCheck::recheck_at_worker_start",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -123,8 +127,9 @@
       "kind": "function",
       "public": true,
       "signature": "func: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::register_fitness_check",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -133,8 +138,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::clear_fitness_checks",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -143,8 +149,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::reset_registration_state",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -153,8 +160,9 @@
       "kind": "function",
       "public": false,
       "signature": "check: str, reason: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::report_unhealthy",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -163,8 +171,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::register_builtins (GPU branch)",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -173,8 +182,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::register_builtins (system branch)",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -183,8 +193,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::register_builtins",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -193,8 +204,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::refresh_late_config",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -203,8 +215,9 @@
       "kind": "function",
       "public": false,
       "signature": "check_name: str, exc: Exception",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::fail_worker",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -213,8 +226,9 @@
       "kind": "function",
       "public": false,
       "signature": "check: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessCheck::shared",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -223,8 +237,9 @@
       "kind": "function",
       "public": false,
       "signature": "check: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::check (custom/builtin dispatch)",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -233,8 +248,9 @@
       "kind": "function",
       "public": true,
       "signature": "include_deferred: bool=True",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::run_fitness_checks",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -243,8 +259,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::run_startup_fitness_checks / tokio::runtime::Handle::try_current",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -253,8 +270,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::run_startup_fitness_checks",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -340,8 +358,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::register_builtins (GPU branch)",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/system.py",
@@ -350,8 +369,9 @@
       "kind": "function",
       "public": false,
       "signature": "name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuFrameworks explicit runtime handles",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/system.py",
@@ -360,8 +380,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuFrameworks::is_loaded",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/system.py",
@@ -370,8 +391,9 @@
       "kind": "function",
       "public": false,
       "signature": "torch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuFramework::is_initialized gate",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/system.py",
@@ -479,8 +501,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::check_cuda_initialization",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/system.py",
@@ -489,8 +512,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::check_gpu_compute_benchmark",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_health/system.py",
@@ -499,8 +523,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::register_builtins (system branch)",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/_logger.py",
@@ -649,8 +674,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::FitnessChecks::run_startup_fitness_checks",
+      "status": "adapted",
+      "notes": "Owned registry/configuration and explicit early call replace Python globals/import hooks. Typed Result failures; process entrypoint reports and uses C _exit. Framework checks require explicit already-loaded native adapters. See PORTING.md#fitness-lifecycle-and-framework-checks."
     },
     {
       "file": "runpod/agent.py",
@@ -6910,7 +6936,7 @@
       "line": 96,
       "kind": "function",
       "public": false,
-      "signature": "finished_text: str='[ok]✓[/ok]'",
+      "signature": "finished_text: str='[ok]\u2713[/ok]'",
       "rust": null,
       "status": "pending"
     },

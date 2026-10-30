@@ -12,4 +12,4 @@ pub use prestart::{PrestartError, PrestartHooks};
 pub use scaling::{ConcurrencyModifier, WorkerControl};
 pub use state::{JobsProgress, WorkerJob};
 pub use transport::{ResultKind, WorkerConfig, WorkerTransport};
-pub use worker::{Worker, start};
+pub use worker::{Worker, start, start_with_fitness};

@@ -2,6 +2,7 @@ use super::{
     Handler, HandlerKind, JobsProgress, PrestartHooks, ResultKind, WorkerConfig, WorkerControl,
     WorkerJob, WorkerTransport,
     handler::{handler_error, normalize_output},
+    health::FitnessChecks,
     scaling::IntakeSchedule,
 };
 use crate::{Error, Result, Value, client::truthy, json};
@@ -81,6 +82,19 @@ impl Worker {
             }
         })
         .await
+    }
+    /// Finish fitness checks before heartbeats, intake, prestart hooks, or handlers begin.
+    /// A fitness failure reports unhealthy and force-exits the entire process.
+    ///
+    /// # Errors
+    /// Returns startup or worker errors after fitness checks have passed.
+    pub async fn run_with_fitness(
+        &self,
+        fitness: &mut FitnessChecks,
+        shutdown: impl Future<Output = ()>,
+    ) -> Result<()> {
+        fitness.run_fitness_checks().await;
+        self.run(shutdown).await
     }
     /// Runs one local job after startup hooks; no webhook is contacted.
     ///
@@ -381,7 +395,17 @@ impl Worker {
 /// # Errors
 /// Returns invalid configuration, local input, startup, or transport errors.
 pub async fn start(handler: Handler) -> Result<()> {
-    let config = WorkerConfig::from_env()?;
+    start_with_fitness(handler, &mut FitnessChecks::from_env()).await
+}
+
+/// Start a worker using custom fitness checks and any retained early-check state.
+/// The registry's owned environment supplies worker configuration. Local mode skips fitness.
+/// A production fitness failure reports unhealthy and force-exits the entire process.
+///
+/// # Errors
+/// Returns invalid configuration, local input, startup, or transport errors.
+pub async fn start_with_fitness(handler: Handler, fitness: &mut FitnessChecks) -> Result<()> {
+    let config = WorkerConfig::from_values(fitness.environment())?;
     let local = config.job_get_url.is_none();
     let worker = Worker::new(config, handler)?;
     if local {
@@ -393,6 +417,7 @@ pub async fn start(handler: Handler) -> Result<()> {
         }
         Ok(())
     } else {
+        fitness.run_fitness_checks().await;
         worker.run_until_signal().await
     }
 }

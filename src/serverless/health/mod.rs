@@ -1,12 +1,21 @@
 //! Native startup fitness checks, hardware probes, and unhealthy worker reporting.
 mod environment;
+mod fitness;
+mod framework;
 mod gpu;
 mod process;
+mod reporting;
 mod system;
 
 pub use environment::{get_binary_path, is_early_check_eligible, is_serverless_environment};
+pub use fitness::{
+    EARLY_CHECKS_DONE_ENV, EarlyCheckStatus, FitnessCheck, FitnessChecks, FitnessFailure,
+    FitnessPass,
+};
+pub use framework::{GpuFramework, GpuFrameworks};
 pub use gpu::{GpuChecks, GpuConfig, GpuTestOutput, parse_gpu_test_output};
 pub use process::ProbeCommand;
+pub use reporting::{report_unhealthy, terminate_unhealthy};
 pub use system::{
     DiskInfo, MemoryInfo, SystemChecks, SystemConfig, network_probe_target, parse_version,
 };

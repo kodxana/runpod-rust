@@ -1,4 +1,4 @@
-use super::{HealthError, ProbeCommand, integer};
+use super::{GpuFrameworks, HealthError, ProbeCommand, integer};
 use std::{collections::BTreeMap, fmt, path::Path, sync::OnceLock, time::Duration};
 
 /// Parse the first major.minor pair, returning (0, 0) when no pair is present.
@@ -22,6 +22,9 @@ pub fn network_probe_target(value: Option<&str>) -> (String, u16) {
             host.trim_start_matches('[').trim_end_matches(']').into(),
             url.port().filter(|p| *p != 0).unwrap_or(fallback),
         );
+    }
+    if value.is_some_and(|value| !value.is_empty()) {
+        tracing::warn!("Unable to parse worker URL for network check; using api.runpod.ai:443");
     }
     ("api.runpod.ai".into(), 443)
 }
@@ -161,7 +164,8 @@ impl SystemConfig {
 pub struct SystemChecks {
     pub(super) config: SystemConfig,
     nvcc: ProbeCommand,
-    nvidia_smi: ProbeCommand,
+    pub(super) nvidia_smi: ProbeCommand,
+    pub(super) frameworks: GpuFrameworks,
 }
 impl SystemChecks {
     /// Use nvcc and nvidia-smi from PATH; constructing checks performs no probes.
@@ -182,6 +186,7 @@ impl SystemChecks {
             config,
             nvcc,
             nvidia_smi,
+            frameworks: GpuFrameworks::default(),
         }
     }
     /// Read native OS memory counters without enumerating processes or refreshing CPU data.

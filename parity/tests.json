@@ -11119,8 +11119,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_exit::hard_exit_skips_destructors_and_c_callbacks_with_live_threads",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -11129,8 +11130,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_exit::hard_exit_skips_destructors_and_c_callbacks_with_live_threads",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -11149,8 +11151,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::unhealthy_report_uses_raw_auth_substitution_and_unicode_character_cap",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -11159,8 +11162,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::unhealthy_report_skips_incomplete_settings_and_swallows_errors",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -11169,8 +11173,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::unhealthy_report_uses_raw_auth_substitution_and_unicode_character_cap",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -11179,8 +11184,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::unhealthy_report_skips_incomplete_settings_and_swallows_errors",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -11189,8 +11195,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::unhealthy_report_skips_incomplete_settings_and_swallows_errors",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -11199,8 +11206,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_exit::failed_check_and_failed_setup_report_before_terminating",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11407,8 +11415,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::early_only_runs_shared_checks_then_worker_runs_deferred_and_disk_once",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11417,8 +11426,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::changed_threshold_rechecks_only_affected_completed_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11527,8 +11537,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11537,8 +11548,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11547,8 +11559,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11557,8 +11570,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11577,8 +11591,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::duplicate_identity_runs_twice_initially_then_completed_checks_are_skipped",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11587,8 +11602,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11597,8 +11613,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11607,8 +11624,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11637,8 +11655,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11647,8 +11666,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_exit::hard_exit_skips_destructors_and_c_callbacks_with_live_threads",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11657,8 +11677,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::failure_retains_check_error_and_stops_later_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11667,8 +11688,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::failure_retains_check_error_and_stops_later_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11697,8 +11719,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::failure_retains_check_error_and_stops_later_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11717,8 +11740,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_log",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11727,8 +11751,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_log",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11737,8 +11762,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_log",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11747,8 +11773,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_log",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11777,8 +11804,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::duplicate_identity_runs_twice_initially_then_completed_checks_are_skipped",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11787,8 +11815,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::duplicate_identity_runs_twice_initially_then_completed_checks_are_skipped",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11797,8 +11826,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::failure_retains_check_error_and_stops_later_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11807,8 +11837,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::failure_retains_check_error_and_stops_later_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11817,8 +11848,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_log",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11827,8 +11859,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_log",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11837,8 +11870,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_registration.py",
@@ -11857,8 +11891,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_log",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::registration_names_counts_success_and_two_decimal_timings_are_logged",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11867,8 +11902,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, args",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_gate_respects_local_realtime_defer_skip_and_inherited_markers",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11877,8 +11913,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_gate_respects_local_realtime_defer_skip_and_inherited_markers",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11897,8 +11934,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::failed_system_registration_rolls_back_gpu_registration_and_retries",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11939,8 +11977,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::early_only_runs_shared_checks_then_worker_runs_deferred_and_disk_once",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11949,8 +11988,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::changed_threshold_rechecks_only_affected_completed_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11959,8 +11999,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::early_only_runs_shared_checks_then_worker_runs_deferred_and_disk_once",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11969,8 +12010,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::disk_exhausted_after_handler_setup_stops_before_network_or_handler_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11979,8 +12021,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_pass_sets_an_owned_child_marker_and_leaves_custom_checks_for_worker_start",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11989,8 +12032,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_setup_failure_does_not_latch_or_mark_and_can_be_retried",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11999,8 +12043,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_gate_respects_local_realtime_defer_skip_and_inherited_markers",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -12019,8 +12064,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::skip_flags_remove_and_reregister_groups_after_early_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -12091,8 +12137,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_exit::hard_exit_skips_destructors_and_c_callbacks_with_live_threads",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -12111,8 +12158,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::skip_flag_bypasses_custom_checks_and_setup_errors",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12121,8 +12169,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::sync_async_registration_returns_original_and_preserves_order",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12131,8 +12180,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::duplicate_identity_runs_twice_initially_then_completed_checks_are_skipped",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12141,8 +12191,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::duplicate_identity_runs_twice_initially_then_completed_checks_are_skipped",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12151,8 +12202,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_pass_sets_an_owned_child_marker_and_leaves_custom_checks_for_worker_start",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12161,8 +12213,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_gate_respects_local_realtime_defer_skip_and_inherited_markers",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12171,8 +12224,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_gate_respects_local_realtime_defer_skip_and_inherited_markers",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12181,8 +12235,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_gate_respects_local_realtime_defer_skip_and_inherited_markers",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12191,8 +12246,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_setup_failure_does_not_latch_or_mark_and_can_be_retried",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12201,8 +12257,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_sync_entrypoint_defers_inside_an_async_runtime",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12211,8 +12268,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_pass_sets_an_owned_child_marker_and_leaves_custom_checks_for_worker_start",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12221,8 +12279,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_pass_sets_an_owned_child_marker_and_leaves_custom_checks_for_worker_start",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12231,8 +12290,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::early_only_runs_shared_checks_then_worker_runs_deferred_and_disk_once",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12251,8 +12311,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::early_only_runs_shared_checks_then_worker_runs_deferred_and_disk_once",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12271,8 +12332,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness::early_setup_failure_does_not_latch_or_mark_and_can_be_retried",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12281,8 +12343,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::late_configuration_warning_names_changes_once_and_omits_values",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_startup.py",
@@ -12291,8 +12354,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, worker_env",
-      "rust": null,
-      "status": "pending"
+      "rust": "fitness_logs::late_configuration_warning_names_changes_once_and_omits_values",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12510,8 +12574,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unavailable_gpu_and_unavailable_torch_skip_framework_work",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12520,8 +12585,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unloaded_or_uninitialized_frameworks_never_initialize_cuda",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12530,8 +12596,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::torch_initialization_checks_memory_and_allocation_on_every_device",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12540,8 +12607,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::torch_device_failures_retain_context_and_do_not_fall_back",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12550,8 +12618,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::torch_device_failures_retain_context_and_do_not_fall_back",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12560,8 +12629,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::torch_device_failures_retain_context_and_do_not_fall_back",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12570,8 +12640,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::cupy_fallback_selects_each_device_without_torch_only_probes",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12580,8 +12651,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unloaded_or_uninitialized_frameworks_never_initialize_cuda",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12590,8 +12662,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unloaded_or_uninitialized_frameworks_never_initialize_cuda",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12600,8 +12673,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unavailable_gpu_and_unavailable_torch_skip_framework_work",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12610,8 +12684,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unloaded_or_uninitialized_frameworks_never_initialize_cuda",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12630,8 +12705,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unloaded_or_uninitialized_frameworks_never_initialize_cuda",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12640,8 +12716,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::cupy_fallback_selects_each_device_without_torch_only_probes",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12650,8 +12727,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "health_framework::unloaded_or_uninitialized_frameworks_never_initialize_cuda",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12660,8 +12738,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::early_only_runs_shared_checks_then_worker_runs_deferred_and_disk_once",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12670,8 +12749,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::changed_threshold_rechecks_only_affected_completed_checks",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12680,8 +12760,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gpu_available",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::fitness::tests::early_only_runs_shared_checks_then_worker_runs_deferred_and_disk_once",
+      "status": "ported",
+      "notes": "Native Result/owned-registry/framework-adapter equivalents; process exits tested only in child processes. See fitness lifecycle porting notes."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",

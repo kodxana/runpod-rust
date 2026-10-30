@@ -140,9 +140,14 @@ remaining runtime work.
 and CUDA-version checks. `GpuChecks::from_values` reads explicit environment values and
 uses the bundled Linux x86_64 allocation binary unless an existing override is supplied.
 `SystemChecks` accepts owned thresholds and optional executable overrides. Probes have
-bounded process/network lifetimes and need no Python interpreter. Automatic fitness
-registration, startup orchestration, and framework-specific checks remain in progress;
-see the [health notes](PORTING.md#native-health-probes).
+bounded process/network lifetimes and need no Python interpreter. Production `serverless::start`
+runs fitness checks before intake. Use an owned `FitnessChecks` registry with
+`start_with_fitness` for custom checks and retained early-check state. Call its synchronous
+`run_startup_fitness_checks` before initializing the handler or Tokio runtime when early
+checks are wanted. Failed worker checks report unhealthy and terminate the process;
+`FitnessChecks::check` instead returns a typed failure for library callers.
+GPU framework checks use explicit `GpuFramework` adapters supplied by the handler and
+never load a framework implicitly. See the [lifecycle notes](PORTING.md#fitness-lifecycle-and-framework-checks).
 
 For untrusted download URLs, use `utils::ssrf::SafeDownloader` with `DownloadOptions`.
 It validates DNS results, pins connections, checks each redirect, and bounds consumed bytes.

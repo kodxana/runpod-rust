@@ -20,6 +20,7 @@ flate2 = "1"
 fs2 = "0.4"
 getrandom = { version = "0.3", features = ["std"] }
 ignore = "0.4"
+libc = "0.2"
 md-5 = "0.10"
 percent-encoding = "2"
 pep508_rs = "0.9"
@@ -46,7 +47,8 @@ tokio-rustls = { version = "0.26", default-features = false, features = ["ring",
 tokio = { version = "1", features = ["test-util"] }
 
 [lints.rust]
-unsafe_code = "forbid"
+unsafe_code = "deny"
+unsafe_op_in_unsafe_fn = "deny"
 
 [lints.clippy]
 dbg_macro = "warn"
