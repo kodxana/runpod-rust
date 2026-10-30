@@ -2034,8 +2034,9 @@
       "kind": "function",
       "public": false,
       "signature": "fn, project_root: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::deploy::module_path_for",
+      "status": "adapted",
+      "note": "Explicit source/secret metadata replaces Python reflection and objects. Artifacts own temporary storage, builds use an owned blocking task, and observation callbacks follow EventSink's error-suppression contract. A canceled build await prevents subsequent cloud calls while local build work finishes. See PORTING.md."
     },
     {
       "file": "runpod/apps/deploy.py",
@@ -2125,8 +2126,8 @@
       "kind": "function",
       "public": false,
       "signature": "events, name: str, detail: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::deploy::phase",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/deploy.py",
@@ -2135,8 +2136,9 @@
       "kind": "function",
       "public": true,
       "signature": "app: App, project_root: Path, *, python_version: str=DEFAULT_PYTHON_VERSION, exclude: Optional[List[str]]=None, events: Optional[object]=None, output: Optional[Path]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::deploy::build_artifact",
+      "status": "adapted",
+      "note": "Explicit source/secret metadata replaces Python reflection and objects. Artifacts own temporary storage, builds use an owned blocking task, and observation callbacks follow EventSink's error-suppression contract. A canceled build await prevents subsequent cloud calls while local build work finishes. See PORTING.md."
     },
     {
       "file": "runpod/apps/deploy.py",
@@ -2145,8 +2147,9 @@
       "kind": "function",
       "public": true,
       "signature": "app: App, project_root: Path, *, env_name: Optional[str]=None, api: Optional[AppsApiClient]=None, python_version: str=DEFAULT_PYTHON_VERSION, exclude: Optional[List[str]]=None, events: Optional[object]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::deploy::deploy_app",
+      "status": "adapted",
+      "note": "Explicit source/secret metadata replaces Python reflection and objects. Artifacts own temporary storage, builds use an owned blocking task, and observation callbacks follow EventSink's error-suppression contract. A canceled build await prevents subsequent cloud calls while local build work finishes. See PORTING.md."
     },
     {
       "file": "runpod/apps/dev.py",

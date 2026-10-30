@@ -44,12 +44,13 @@ by Python; the complete port remains in progress.
 | `apps.deploy.package_project` and ignore helpers | `apps::deploy::{package_project, PackageOptions, Artifact}` and private scoped ignore matching |
 | `apps.build` requirement selection, installed closures, and pruning | `apps::build::{requirement_name, collect_requirements, split_exclusions, installed_closure, prune_excluded}` |
 | `apps.build` installer, SDK overlay, complete environment construction | `apps::build::{BuildTools, VendorOptions, BuildOptions, BuildResult, sync_running_package, build_environment}`, `AppError::Build` |
+| `apps.deploy.build_artifact`, `deploy_app`, `_module_path_for` | `apps::deploy::{build_artifact, deploy_app, module_path_for}` with explicit metadata and owned artifacts |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 344 implemented symbols, fifteen adapted symbols, and 262 upstream
+This milestone maps 345 implemented symbols, eighteen adapted symbols, and 266 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -95,6 +96,13 @@ python tools/verify_pickle.py
 
 ## Preserved quirks
 
+- Deployment validates resource specs and explicit secret references before any build.
+  App/environment creation happens after successful packaging and size validation. The
+  exact uploaded manifest is finalized; activation precedes endpoint reconciliation.
+  Environment names default on absent/empty overrides, duplicate existing environment
+  names keep the last value, and returned resources retain manifest order. Failure after
+  a completed remote mutation does not roll it back. Artifact size equal to the limit
+  succeeds; even one extra byte fails, including the upstream rounded-size diagnostic.
 - Installer progress reports each `Collecting` line and resets its count for each pip run.
   stdout/stderr share one pipe; failures use the last thirty lines and at most 3,000 Unicode
   characters. Empty requirements launch no tools. Missing pip triggers ensurepip; URL/path
@@ -285,6 +293,18 @@ python tools/verify_pickle.py
   source/destination trees are rejected. BuildResult owns automatic scratch until dropped
   or persisted. Caller-specified scratch is retained even after a failure. Source file
   timestamp preservation follows native copying rather than Python copy2 metadata behavior.
+- ResourceDefinition retains `referenced_secrets` separately from rendered environment
+  values. Use `set_environment` for typed environment values, or supply explicit names
+  when assembling metadata yourself. Ordinary strings that resemble secret templates
+  are not inferred to be secret objects. `module_path_for` accepts an explicit source
+  path and uses native canonicalization; inaccessible/nonexistent paths use the fallback.
+- `deploy_app` uses an owned blocking task for artifact creation. The Tokio executor stays
+  responsive; cancellation stops subsequent cloud operations, but an already running
+  synchronous build is allowed to finish, after which its temporary output is dropped.
+  Build/package callbacks may run on that blocking thread. EventSink errors are suppressed,
+  including progress/endpoint-ready observers that Python invokes directly. Use BuildTools
+  directly when a fallible installer progress callback is required. Worker credentials come
+  from the supplied Client, and the captured build package override also reaches worker env.
 
 ## Verification log
 
@@ -387,12 +407,24 @@ python tools/verify_pickle.py
   Clippy with warnings denied, and documentation generation pass. Pedantic review fixed
   documentation formatting; its function-length and test-helper allocation suggestions
   remain advisory. Real package-index/GitHub installation has not been exercised by tests.
+- Commit d4e3e0f passed stable Linux/Windows/macOS and Linux MSRV, including Unix installer
+  process fixtures: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41028795901).
+- All four upstream deployment pipeline tests pass. New Rust tests verify actual archive
+  bytes at a local upload service, exact finalized manifests, request ordering, environment
+  reuse/propagation, explicit-secret preflight, failure boundaries, standalone artifacts,
+  source module paths, executor responsiveness, and cancellation before cloud mutations.
+  A unit test verifies the size-limit boundary without creating a 1.5 GiB artifact.
+- Deployment pipeline milestone: **221 integration tests, one unit test, and one doctest**
+  pass on Windows stable Rust. The nine new integration tests and size-limit unit test
+  also pass on Rust 1.88. Build, formatting, Clippy with warnings denied, and docs pass.
+  See [pipeline review](reviews/apps-deploy-pipeline.md) for the cancellation contract and
+  remaining advisory review notes. No live Runpod resource was created or changed.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
-The current milestone does not implement deployment orchestration, native function
+The current milestone does not implement native function
 registration/deployment, discovery, development sessions, browser auth flows,
 management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.

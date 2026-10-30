@@ -16,6 +16,37 @@ use std::{collections::BTreeMap, fmt};
 /// Version understood by the pinned coordinator and application runtime.
 pub const MANIFEST_VERSION: u32 = 1;
 
+/// Resolves explicit source metadata to a dotted module path relative to the project.
+///
+/// Rust does not inspect Python callables. Absent, inaccessible, or outside-project source
+/// paths use the supplied fallback module. Package `__init__` names are omitted.
+#[must_use]
+pub fn module_path_for(
+    source: Option<&std::path::Path>,
+    project_root: &std::path::Path,
+    fallback: &str,
+) -> String {
+    let Some((source, root)) = source
+        .and_then(|source| std::fs::canonicalize(source).ok())
+        .zip(std::fs::canonicalize(project_root).ok())
+    else {
+        return fallback.to_owned();
+    };
+    let Ok(relative) = source.strip_prefix(root) else {
+        return fallback.to_owned();
+    };
+    let path = relative.with_extension("");
+    let mut parts: Vec<_> = path.iter().map(|part| part.to_string_lossy()).collect();
+    if parts.last().is_some_and(|part| part == "__init__") {
+        parts.pop();
+    }
+    if parts.is_empty() {
+        fallback.to_owned()
+    } else {
+        parts.join(".")
+    }
+}
+
 /// Explicit symbol metadata replacing runtime module and qualified-name reflection.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct SymbolReference {
@@ -32,6 +63,19 @@ pub struct ResourceDefinition {
     pub spec: ResourceSpec,
     /// Symbol metadata is absent only for resources without an attached callable.
     pub symbol: Option<SymbolReference>,
+    /// Explicit secret-object names retained separately from rendered environment strings.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub referenced_secrets: Vec<String>,
+}
+impl ResourceDefinition {
+    /// Replaces the environment while preserving which values are explicit secret references.
+    pub fn set_environment(&mut self, env: &[(String, super::EnvValue)]) {
+        self.spec.env = Some(super::render_env(env));
+        self.referenced_secrets = super::secret_names(env)
+            .into_iter()
+            .map(str::to_owned)
+            .collect();
+    }
 }
 
 /// An owned snapshot of the application metadata required for deployment.
@@ -154,6 +198,229 @@ pub struct DeployResult {
     /// Provisioned queue/API resource names mapped to their endpoint IDs.
     #[serde(default)]
     pub endpoints: BTreeMap<String, String>,
+}
+
+/// Dependency build configuration and external tools used to create an artifact.
+#[derive(Debug, Clone, Default)]
+pub struct ArtifactOptions {
+    /// Interpreter, dependency exclusion, scratch, and SDK source selections.
+    pub build: super::build::BuildOptions,
+    /// Explicit external dependency installer command.
+    pub tools: super::build::BuildTools,
+}
+
+/// Environment selection and artifact inputs for a complete deployment.
+#[derive(Debug, Clone, Default)]
+pub struct DeployOptions {
+    /// Environment name; absent or empty uses the application default.
+    pub environment: Option<String>,
+    /// Artifact interpreter version also selects the deployed worker image version.
+    pub artifact: ArtifactOptions,
+}
+
+struct PreparedArtifact {
+    artifact: Artifact,
+    manifest: Value,
+    size: u64,
+}
+
+fn phase(events: Option<&super::events::EventSink>, name: &str, detail: &str) {
+    super::events::emit(events, "phase", &[json!(name), json!(detail)]);
+}
+
+fn check_artifact_size(size: u64) -> Result<()> {
+    // The integer comparison is exact; floating point is only for the source-compatible display.
+    let size_mb = size as f64 / (1024.0 * 1024.0);
+    if size > super::build::MAX_ARTIFACT_MB * 1024 * 1024 {
+        return Err(AppError::Build(format!("artifact is {size_mb:.0} MB (limit {} MB). exclude large packages with --exclude (they must then come from the worker image) or trim project files via .runpodignore",super::build::MAX_ARTIFACT_MB)).into());
+    }
+    Ok(())
+}
+
+fn prepare_artifact(
+    app: &AppDefinition,
+    project_root: &std::path::Path,
+    options: &ArtifactOptions,
+    output: Option<&std::path::Path>,
+    events: Option<&super::events::EventSink>,
+) -> Result<PreparedArtifact> {
+    phase(
+        events,
+        "vendor",
+        &format!("python {}", options.build.python_version),
+    );
+    let mut progress = |count, name: &str| {
+        super::events::emit(events, "vendor_progress", &[json!(count), json!(name)]);
+        Ok(())
+    };
+    let build = super::build::build_environment(
+        app,
+        project_root,
+        &options.build,
+        &options.tools,
+        Some(&mut progress),
+    )?;
+    let manifest = build_manifest(app, &options.build.python_version, &build.excluded)?;
+    phase(events, "package", "");
+    let artifact = package_project(
+        project_root,
+        &manifest,
+        &PackageOptions {
+            output: output.map(std::path::Path::to_owned),
+            env_dir: Some(build.env_dir().to_owned()),
+        },
+    )?;
+    let size = std::fs::metadata(artifact.path())?.len();
+    check_artifact_size(size)?;
+    tracing::info!(app=%app.name,size_bytes=size,"packaged application artifact");
+    Ok(PreparedArtifact {
+        artifact,
+        manifest,
+        size,
+    })
+}
+
+/// Builds dependencies, emits a manifest, and packages an application without remote mutations.
+///
+/// This synchronous operation runs external build tools. Use a blocking executor from
+/// async code. Automatic artifact storage is owned by the returned Artifact; explicit
+/// output paths remain caller-owned. Build scratch stays alive until packaging finishes.
+///
+/// # Errors
+/// Returns build, manifest, archive, filesystem, or artifact-size-limit errors.
+pub fn build_artifact(
+    app: &AppDefinition,
+    project_root: &std::path::Path,
+    options: &ArtifactOptions,
+    output: Option<&std::path::Path>,
+    events: Option<&super::events::EventSink>,
+) -> Result<Artifact> {
+    Ok(prepare_artifact(app, project_root, options, output, events)?.artifact)
+}
+
+/// Validates, builds, uploads, activates, and reconciles one application deployment.
+///
+/// Resource and explicit-secret validation precede building. The owned blocking build
+/// keeps the async executor responsive. Canceling its await prevents further cloud
+/// operations, but an already running synchronous build finishes and cleans its storage.
+/// Completed cloud mutations are not rolled back after subsequent failure. Observation
+/// callback errors are suppressed according to the shared `EventSink` contract.
+///
+/// # Errors
+/// Returns validation, secret, build/task, upload, activation, or endpoint reconciliation errors.
+pub async fn deploy_app(
+    client: &Client,
+    app: &AppDefinition,
+    project_root: &std::path::Path,
+    options: &DeployOptions,
+    events: Option<&super::events::EventSink>,
+) -> Result<DeployResult> {
+    app.validate()?;
+    let api = AppsApiClient::new(client.clone())?;
+    let referenced: Vec<_> = app
+        .resources
+        .iter()
+        .flat_map(|r| r.referenced_secrets.iter().cloned())
+        .collect();
+    super::secret::validate_secrets(&referenced, &api).await?;
+    let environment_name = options
+        .environment
+        .as_deref()
+        .filter(|name| !name.is_empty())
+        .unwrap_or(&app.environment);
+    let mut config = DeploymentConfig::from_client(client);
+    config.python_version = options.artifact.build.python_version.clone();
+    // The captured build override must also govern nested task calls in workers.
+    if let Some(spec) = &options.artifact.build.package_spec {
+        config
+            .runtime_overrides
+            .insert("RUNPOD_PACKAGE_SPEC".into(), spec.clone());
+    } else {
+        config.runtime_overrides.remove("RUNPOD_PACKAGE_SPEC");
+    }
+    let owned_app = app.clone();
+    let root = project_root.to_owned();
+    let artifact_options = options.artifact.clone();
+    let build_events = events.cloned();
+    let prepared = tokio::task::spawn_blocking(move || {
+        prepare_artifact(
+            &owned_app,
+            &root,
+            &artifact_options,
+            None,
+            build_events.as_ref(),
+        )
+    })
+    .await??;
+    phase(
+        events,
+        "upload",
+        &format!("{:.1} MB", prepared.size as f64 / (1024.0 * 1024.0)),
+    );
+    let remote_app = match api.get_app_by_name(&app.name).await? {
+        Some(app) => app,
+        None => api.create_app(&app.name).await?,
+    };
+    let app_id = required_str(&remote_app, "id")?;
+    let mut environment = None;
+    if let Some(environments) = remote_app
+        .get("flashEnvironments")
+        .filter(|v| crate::client::truthy(v))
+    {
+        for entry in environments.as_array().ok_or_else(|| {
+            Error::InvalidResponse("application environments must be an array".into())
+        })? {
+            if required_str(entry, "name")? == environment_name {
+                environment = Some(entry.clone());
+            }
+        }
+    }
+    let environment = match environment {
+        Some(env) => env,
+        None => api.create_environment(app_id, environment_name).await?,
+    };
+    let environment_id = required_str(&environment, "id")?;
+    let upload = api.prepare_artifact_upload(app_id, prepared.size).await?;
+    let upload_events = events.cloned();
+    api.upload_tarball(
+        required_str(&upload, "uploadUrl")?,
+        prepared.artifact.path(),
+        move |sent, total| {
+            super::events::emit(
+                upload_events.as_ref(),
+                "upload_progress",
+                &[json!(sent), json!(total)],
+            );
+        },
+    )
+    .await?;
+    let build = api
+        .finalize_artifact_upload(
+            app_id,
+            required_str(&upload, "objectKey")?,
+            &prepared.manifest,
+        )
+        .await?;
+    let build_id = required_str(&build, "id")?;
+    api.deploy_build(environment_id, build_id).await?;
+    phase(events, "endpoints", "");
+    let endpoints = reconcile_endpoints(&api, app, &environment, build_id, &config).await?;
+    for (name, id) in &endpoints {
+        super::events::emit(events, "endpoint_ready", &[json!(name), json!(id)]);
+    }
+    let resources = prepared.manifest["resources"]
+        .as_array()
+        .ok_or_else(|| Error::InvalidResponse("manifest resources must be an array".into()))?
+        .iter()
+        .map(|r| required_str(r, "name").map(str::to_owned))
+        .collect::<Result<_>>()?;
+    Ok(DeployResult {
+        app_name: app.name.clone(),
+        build_id: build_id.into(),
+        environment_id: environment_id.into(),
+        resources,
+        endpoints,
+    })
 }
 
 /// Constructs a coordinator manifest from ordered resource and symbol metadata.
@@ -403,4 +670,19 @@ pub async fn reconcile_endpoints(
         }
     }
     Ok(endpoints)
+}
+
+#[cfg(test)]
+mod artifact_limit_tests {
+    #[test]
+    fn limit_is_inclusive_and_one_extra_byte_fails() {
+        let limit = super::super::build::MAX_ARTIFACT_MB * 1024 * 1024;
+        assert!(super::check_artifact_size(limit).is_ok());
+        assert!(
+            super::check_artifact_size(limit + 1)
+                .unwrap_err()
+                .to_string()
+                .contains("artifact is 1500 MB (limit 1500 MB)")
+        );
+    }
 }

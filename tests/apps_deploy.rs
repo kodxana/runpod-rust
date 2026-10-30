@@ -85,6 +85,7 @@ fn resource(kind: ResourceKind, name: &str) -> ResourceDefinition {
     ResourceDefinition {
         spec: ResourceSpec::new(kind, name),
         symbol: None,
+        referenced_secrets: Vec::new(),
     }
 }
 

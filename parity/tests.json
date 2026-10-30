@@ -2629,8 +2629,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_deploy_pipeline::test_deploy_app_full_flow",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2639,8 +2639,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_deploy_pipeline::test_deploy_reuses_existing_app_and_env_and_propagates_environment_for_nested_calls",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2649,8 +2649,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_deploy_pipeline::test_deploy_reuses_existing_app_and_env_and_propagates_environment_for_nested_calls",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2659,8 +2659,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_deploy_pipeline::test_invalid_mutated_spec_fails_before_remote_deployment_or_local_build",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",

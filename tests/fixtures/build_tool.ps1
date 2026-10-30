@@ -23,6 +23,7 @@ if ($mode -eq 'large-error') { [Console]::Error.WriteLine(('x' * 262144)) }
 [Console]::WriteLine('Collecting numpy>=1.0')
 [Console]::WriteLine('  Downloading numpy-2.0-cp312.whl')
 [Console]::WriteLine('Collecting requests[security]')
+if ($mode -eq 'delay') { Start-Sleep -Milliseconds 250 }
 if ($mode -eq 'large-error' -or $mode -eq 'vendor-fail') { [Console]::Error.WriteLine('resolver failed'); exit 1 }
 if (Test-Path -LiteralPath (Join-Path $root 'seed')) {
     $target = $command[[Array]::IndexOf($command, '--target') + 1]

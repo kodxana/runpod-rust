@@ -29,6 +29,7 @@ fi
 echo 'Collecting numpy>=1.0'
 echo '  Downloading numpy-2.0-cp312.whl'
 echo 'Collecting requests[security]'
+if [ "$mode" = 'delay' ]; then sleep 0.25; fi
 case "$mode" in large-error|vendor-fail) echo 'resolver failed' >&2; exit 1;; esac
 if [ -d "$root/seed" ]; then
     while [ "$1" != '--target' ]; do shift; done

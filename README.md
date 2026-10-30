@@ -27,7 +27,9 @@ protected credential exclusions, and separately vendored dependency files. `apps
 collects requirements, computes installed dependency closures, and prunes image-provided
 packages while retaining shared files. `BuildTools` and `build_environment` install Linux
 wheels through an explicitly configurable Python/pip command, report progress, and build
-the artifact environment. Complete deployment orchestration remains in progress.
+the artifact environment. `build_artifact` and async `deploy_app` connect preflight
+validation, building, packaging, upload, activation, and endpoint reconciliation.
+Native application registration and development workflows remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -78,6 +80,13 @@ and `cancel` clean up. An execution timeout of `None` is unlimited. `TaskConfig:
 selects the remote interpreter (default Python 3.12); no local Python is started.
 Keep the Tokio runtime alive until cancellation cleanup finishes. Dropping a submitted
 job without calling `wait` or `cancel` leaves it running, matching the Python lifecycle.
+
+For application deployment, create an `AppDefinition` with resource/symbol metadata.
+Use `ResourceDefinition::set_environment` with typed `EnvValue::Secret` values to retain
+secret references for preflight validation. `deploy_app` takes the core `Client` plus
+`DeployOptions`; its artifact interpreter version also selects the worker image version.
+Build work runs on a blocking executor. Canceling its await prevents later cloud calls,
+while an already running local build finishes and releases its owned temporary files.
 
 ```sh
 cargo build --locked

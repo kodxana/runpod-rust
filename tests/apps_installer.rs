@@ -257,6 +257,7 @@ fn build_case_dependency(
             ..ResourceSpec::default()
         },
         symbol: None,
+        referenced_secrets: Vec::new(),
     });
     if let Some(dependency) = cpu_dependency {
         app.resources.push(ResourceDefinition {
@@ -268,6 +269,7 @@ fn build_case_dependency(
                 ..ResourceSpec::default()
             },
             symbol: None,
+            referenced_secrets: Vec::new(),
         });
     }
     let options = BuildOptions {
@@ -375,6 +377,7 @@ fn sdk_override_and_pinned_fallback_install_no_deps_before_runtime_and_api_depen
                 ..ResourceSpec::default()
             },
             symbol: None,
+            referenced_secrets: Vec::new(),
         });
         let options = BuildOptions {
             scratch_dir: Some(scratch.clone()),

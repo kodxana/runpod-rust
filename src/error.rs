@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// An owned background operation panicked or could not be joined.
+    #[error(transparent)]
+    BackgroundTask(#[from] tokio::task::JoinError),
     /// Installed wheel metadata contained an unreadable CSV record.
     #[error(transparent)]
     Csv(#[from] csv::Error),

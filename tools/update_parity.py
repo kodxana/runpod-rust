@@ -97,6 +97,8 @@ for entry in api["entries"]:
         target = "apps::deploy::" + {"_deployed_endpoint_input":"deployed_endpoint_input", "_container_disk_gb":"deployed_endpoint_input container disk selection"}.get(name, name)
     if file == "runpod/apps/deploy.py" and name in ("_load_ignores", "_is_ignored"):
         target = "apps::package::" + name.removeprefix("_")
+    if file == "runpod/apps/deploy.py" and name == "_phase":
+        target = "apps::deploy::phase"
     build_symbols = {
         "requirement_name":"requirement_name", "_requirements_txt":"requirements_txt",
         "collect_requirements":"collect_requirements", "split_exclusions":"split_exclusions",
@@ -138,6 +140,8 @@ for entry in api["entries"]:
         entry.update(rust="apps::tasks::finish_cleanup / CleanupGuard", status="adapted", note="Tokio owns detached cleanup tasks. Future cancellation starts cleanup without blocking Drop; the runtime must remain alive. The 30-second foreground cleanup deadline and original error precedence are preserved.")
     if file == "runpod/apps/deploy.py" and name == "package_project":
         entry.update(rust="apps::deploy::package_project", status="adapted", note="Native tar/gzip and gitignore matching preserve archive members and contents. Automatic output is owned by Artifact and removed on drop unless persisted; compressed bytes and JSON escaping are not identical to Python. See PORTING.md.")
+    if file == "runpod/apps/deploy.py" and name in ("build_artifact", "deploy_app", "_module_path_for"):
+        entry.update(rust="apps::deploy::" + name.removeprefix("_"), status="adapted", note="Explicit source/secret metadata replaces Python reflection and objects. Artifacts own temporary storage, builds use an owned blocking task, and observation callbacks follow EventSink's error-suppression contract. A canceled build await prevents subsequent cloud calls while local build work finishes. See PORTING.md.")
     if file == "runpod/apps/build.py" and name in ("prune_excluded", "_read_record"):
         entry.update(rust="apps::build::" + name.removeprefix("_"), status="adapted", note="Relative wheel RECORD paths preserve Python pruning behavior. Absolute/drive paths are rejected and deletion targets must resolve inside the environment. Native CSV parse errors retain their cause. See PORTING.md.")
     if file == "runpod/apps/build.py" and name in ("BuildResult", "build_environment", "sync_running_package"):
@@ -267,6 +271,10 @@ for entry in tests["entries"]:
     if entry["file"] == "tests/test_apps/test_deploy.py" and entry["name"].startswith("TestPackaging."):
         leaf = entry["name"].split(".")[-1]
         target = ("apps_package_logs::" if leaf == "test_excluded_paths_are_logged_without_contents" else "apps_package::") + leaf
+    if entry["file"] == "tests/test_apps/test_deploy.py" and entry["name"].startswith("TestDeployPipeline."):
+        leaf=entry["name"].split(".")[-1]
+        mapped={"test_deploy_reuses_existing_app_and_env":"test_deploy_reuses_existing_app_and_env_and_propagates_environment_for_nested_calls", "test_deploy_environment_is_used_for_nested_calls":"test_deploy_reuses_existing_app_and_env_and_propagates_environment_for_nested_calls", "test_invalid_mutated_spec_fails_before_remote_deployment":"test_invalid_mutated_spec_fails_before_remote_deployment_or_local_build"}
+        target="apps_deploy_pipeline::" + mapped.get(leaf,leaf)
     if entry["file"] == "tests/test_apps/test_build.py" and entry["name"].startswith(("TestRequirementName.", "TestCollectRequirements.", "TestSplitExclusions.", "TestPruneExcluded.", "TestInstalledClosure.")):
         target = "apps_build::" + entry["name"].split(".")[-1]
     if entry["file"] == "tests/test_apps/test_build.py" and entry["name"].startswith(("TestRunpodRequirement.", "TestVendor.", "TestBuildEnvironmentPrunes.")):

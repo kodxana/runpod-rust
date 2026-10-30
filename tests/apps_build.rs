@@ -76,6 +76,7 @@ fn python_cases(op: &str, prefix: &str) {
                             ..ResourceSpec::default()
                         },
                         symbol: None,
+                        referenced_secrets: Vec::new(),
                     });
                 }
                 json!(collect_requirements(root, &app).unwrap())
