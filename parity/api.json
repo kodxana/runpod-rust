@@ -1659,8 +1659,8 @@
       "kind": "function",
       "public": true,
       "signature": "requirement: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::requirement_name",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1669,8 +1669,8 @@
       "kind": "function",
       "public": false,
       "signature": "project_root: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::requirements_txt",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1679,8 +1679,8 @@
       "kind": "function",
       "public": true,
       "signature": "project_root: Path, app",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::collect_requirements",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1689,8 +1689,8 @@
       "kind": "function",
       "public": true,
       "signature": "requirements: List[str], extra_excludes: Optional[List[str]]=None, *, auto_exclude: bool=True",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::split_exclusions",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1699,8 +1699,8 @@
       "kind": "function",
       "public": false,
       "signature": "requirement: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::parse_requirement",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1709,8 +1709,8 @@
       "kind": "function",
       "public": false,
       "signature": "dist_info_dir: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::installed_dist_infos",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1719,8 +1719,9 @@
       "kind": "function",
       "public": false,
       "signature": "dist_info: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::read_record",
+      "status": "adapted",
+      "note": "Relative wheel RECORD paths preserve Python pruning behavior. Absolute/drive paths are rejected and deletion targets must resolve inside the environment. Native CSV parse errors retain their cause. See PORTING.md."
     },
     {
       "file": "runpod/apps/build.py",
@@ -1729,8 +1730,8 @@
       "kind": "function",
       "public": false,
       "signature": "env_dir: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::installed_dist_infos",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1739,8 +1740,8 @@
       "kind": "function",
       "public": false,
       "signature": "dist_info: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::requires_dist",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1749,8 +1750,8 @@
       "kind": "function",
       "public": false,
       "signature": "markers: list, extra: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::marker_applies",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1759,8 +1760,8 @@
       "kind": "function",
       "public": false,
       "signature": "requirements: List[Requirement], extras: set",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::installed_closure",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1769,8 +1770,8 @@
       "kind": "function",
       "public": true,
       "signature": "env_dir: Path, roots: List[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::installed_closure",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1779,8 +1780,8 @@
       "kind": "function",
       "public": false,
       "signature": "requires: Dict[str, set], start: set, stop: set",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::dependency_closure",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1789,8 +1790,8 @@
       "kind": "function",
       "public": false,
       "signature": "env_dir: Path, rel_paths: set",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::remove_files",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1799,8 +1800,8 @@
       "kind": "function",
       "public": false,
       "signature": "env_dir: Path, tops: set",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::remove_empty_dirs",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1809,8 +1810,9 @@
       "kind": "function",
       "public": true,
       "signature": "env_dir: Path, excluded: List[str], roots: List[str], image_provided: List[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::prune_excluded",
+      "status": "adapted",
+      "note": "Relative wheel RECORD paths preserve Python pruning behavior. Absolute/drive paths are rejected and deletion targets must resolve inside the environment. Native CSV parse errors retain their cause. See PORTING.md."
     },
     {
       "file": "runpod/apps/build.py",
@@ -1819,8 +1821,8 @@
       "kind": "function",
       "public": false,
       "signature": "dist_infos: Dict[str, Path], records: Dict[str, Optional[set]], excluded: set, roots: List[str], image_provided: List[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::distributions_to_drop",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1829,8 +1831,8 @@
       "kind": "function",
       "public": false,
       "signature": "env_dir: Path, dist_infos: Dict[str, Path], records: Dict[str, Optional[set]], dropped: set",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::prune_excluded",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",

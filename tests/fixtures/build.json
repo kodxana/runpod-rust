@@ -1,0 +1,1896 @@
+[
+  {
+    "name": "numpy",
+    "op": "name",
+    "args": "numpy",
+    "expected": "numpy",
+    "files": null
+  },
+  {
+    "name": "numpy==1.26.0",
+    "op": "name",
+    "args": "numpy==1.26.0",
+    "expected": "numpy",
+    "files": null
+  },
+  {
+    "name": "Torch>=2.0",
+    "op": "name",
+    "args": "Torch>=2.0",
+    "expected": "torch",
+    "files": null
+  },
+  {
+    "name": "scikit_learn~=1.4",
+    "op": "name",
+    "args": "scikit_learn~=1.4",
+    "expected": "scikit-learn",
+    "files": null
+  },
+  {
+    "name": "pillow[extras]==10",
+    "op": "name",
+    "args": "pillow[extras]==10",
+    "expected": "pillow",
+    "files": null
+  },
+  {
+    "name": "  numpy >= 1",
+    "op": "name",
+    "args": "  numpy >= 1",
+    "expected": "numpy",
+    "files": null
+  },
+  {
+    "name": "Foo.Bar==1",
+    "op": "name",
+    "args": "Foo.Bar==1",
+    "expected": "foo.bar",
+    "files": null
+  },
+  {
+    "name": "models @ https://example.com/a.whl",
+    "op": "name",
+    "args": "models @ https://example.com/a.whl",
+    "expected": "models",
+    "files": null
+  },
+  {
+    "name": "./package.whl",
+    "op": "name",
+    "args": "./package.whl",
+    "expected": "./package.whl",
+    "files": null
+  },
+  {
+    "name": "https://example.com/a.whl",
+    "op": "name",
+    "args": "https://example.com/a.whl",
+    "expected": "https",
+    "files": null
+  },
+  {
+    "name": "",
+    "op": "name",
+    "args": "",
+    "expected": "",
+    "files": null
+  },
+  {
+    "name": "a__b",
+    "op": "name",
+    "args": "a__b",
+    "expected": "a--b",
+    "files": null
+  },
+  {
+    "name": "torch_family_auto_excluded",
+    "op": "split",
+    "args": {
+      "requirements": [
+        "numpy",
+        "torch==2.4",
+        "torchvision",
+        "requests"
+      ],
+      "extra_excludes": [],
+      "auto_exclude": true
+    },
+    "expected": [
+      [
+        "numpy",
+        "requests"
+      ],
+      [
+        "torch",
+        "torchvision"
+      ]
+    ],
+    "files": null
+  },
+  {
+    "name": "user_excludes_added",
+    "op": "split",
+    "args": {
+      "requirements": [
+        "numpy",
+        "transformers"
+      ],
+      "extra_excludes": [
+        "Transformers"
+      ],
+      "auto_exclude": true
+    },
+    "expected": [
+      [
+        "numpy"
+      ],
+      [
+        "transformers"
+      ]
+    ],
+    "files": null
+  },
+  {
+    "name": "auto_exclude_off_vendors_everything",
+    "op": "split",
+    "args": {
+      "requirements": [
+        "numpy",
+        "torch==2.4",
+        "triton"
+      ],
+      "extra_excludes": [],
+      "auto_exclude": false
+    },
+    "expected": [
+      [
+        "numpy",
+        "torch==2.4",
+        "triton"
+      ],
+      []
+    ],
+    "files": null
+  },
+  {
+    "name": "auto_exclude_off_user_excludes_still_apply",
+    "op": "split",
+    "args": {
+      "requirements": [
+        "numpy",
+        "torch"
+      ],
+      "extra_excludes": [
+        "torch"
+      ],
+      "auto_exclude": false
+    },
+    "expected": [
+      [
+        "numpy"
+      ],
+      [
+        "torch"
+      ]
+    ],
+    "files": null
+  },
+  {
+    "name": "deduplicated_sorted_exclusions",
+    "op": "split",
+    "args": {
+      "requirements": [
+        "triton",
+        "torch==1",
+        "torch==2",
+        "numpy"
+      ],
+      "extra_excludes": [],
+      "auto_exclude": true
+    },
+    "expected": [
+      [
+        "numpy"
+      ],
+      [
+        "torch",
+        "triton"
+      ]
+    ],
+    "files": null
+  },
+  {
+    "name": "merges_requirements_txt_and_decorator_deps",
+    "op": "collect",
+    "args": {
+      "text": "numpy==1.26\n# comment\n\npandas\n",
+      "dependencies": [
+        [
+          "requests",
+          "numpy"
+        ]
+      ]
+    },
+    "expected": [
+      "numpy==1.26",
+      "pandas",
+      "requests"
+    ],
+    "files": null
+  },
+  {
+    "name": "no_requirements_file",
+    "op": "collect",
+    "args": {
+      "text": null,
+      "dependencies": [
+        []
+      ]
+    },
+    "expected": [],
+    "files": null
+  },
+  {
+    "name": "first_names_win",
+    "op": "collect",
+    "args": {
+      "text": "-r other.txt\n--index-url https://example.com\nTorch==1\nfoo_bar\n",
+      "dependencies": [
+        [
+          "torch==2",
+          "foo-bar",
+          "Foo.Bar"
+        ]
+      ]
+    },
+    "expected": [
+      "Torch==1",
+      "foo_bar",
+      "Foo.Bar"
+    ],
+    "files": null
+  },
+  {
+    "name": "named_url_requirements_preserve_extras_and_markers_False",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models @ https://example.com/models.whl"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoIEAgaHR0cHM6Ly9leGFtcGxlLmNvbS90b3JjaC53aGw7ZG93bmxvYWQ9MSA7IGV4dHJhID09ICJncHUtbW9kZSINCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "named_url_requirements_preserve_extras_and_markers_True",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[GPU_Mode] @ https://example.com/models.whl"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoIEAgaHR0cHM6Ly9leGFtcGxlLmNvbS90b3JjaC53aGw7ZG93bmxvYWQ9MSA7IGV4dHJhID09ICJncHUtbW9kZSINCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "unnamed_roots_fail_closed_https://example.com/models.whl",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "https://example.com/models.whl"
+      ]
+    },
+    "expected": [
+      "models",
+      "other"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "unnamed_roots_fail_closed_./models.whl",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "./models.whl"
+      ]
+    },
+    "expected": [
+      "models",
+      "other"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "unnamed_roots_fail_closed_models.whl",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models.whl"
+      ]
+    },
+    "expected": [
+      "models",
+      "other"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "unnamed_roots_fail_closed_models.zip",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models.zip"
+      ]
+    },
+    "expected": [
+      "models",
+      "other"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "unnamed_roots_fail_closed_models.tar.gz",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models.tar.gz"
+      ]
+    },
+    "expected": [
+      "models",
+      "other"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "unnamed_roots_fail_closed_models.tgz",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models.tgz"
+      ]
+    },
+    "expected": [
+      "models",
+      "other"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANCg==",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_0_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpIGFuZCBleHRyYSA9PSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_0_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpIGFuZCBleHRyYSA9PSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_0_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpIGFuZCBleHRyYSA9PSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_0_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpIGFuZCBleHRyYSA9PSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_1_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_1_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_1_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_1_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_2_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAidG9yY2giID09IGV4dHJhDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_2_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAidG9yY2giID09IGV4dHJhDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_2_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAidG9yY2giID09IGV4dHJhDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_2_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAidG9yY2giID09IGV4dHJhDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_3_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCBweXRob25fdmVyc2lvbiA8ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_3_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCBweXRob25fdmVyc2lvbiA8ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_3_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCBweXRob25fdmVyc2lvbiA8ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_3_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIGFuZCBweXRob25fdmVyc2lvbiA8ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_4_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIG9yIHB5dGhvbl92ZXJzaW9uID49ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_4_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIG9yIHB5dGhvbl92ZXJzaW9uID49ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_4_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIG9yIHB5dGhvbl92ZXJzaW9uID49ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_4_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giIG9yIHB5dGhvbl92ZXJzaW9uID49ICIzLjEyIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_5_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAiYSIgYW5kIGV4dHJhID09ICJiIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_5_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAiYSIgYW5kIGV4dHJhID09ICJiIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_5_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAiYSIgYW5kIGV4dHJhID09ICJiIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_5_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAiYSIgYW5kIGV4dHJhID09ICJiIg0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_6_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2gtb3ItZ3B1Ig0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_6_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2gtb3ItZ3B1Ig0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_6_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2gtb3ItZ3B1Ig0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_6_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2gtb3ItZ3B1Ig0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_7_",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSAhPSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_7_[torch]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSAhPSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_7_[a,b]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[a,b]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSAhPSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "marker_7_[torch-or-gpu]",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models[torch-or-gpu]"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSAhPSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "transitive_extras_activate_grouped_marker",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "wrapper"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch",
+      "wrapper"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyAoc3lzX3BsYXRmb3JtID09ICJsaW51eCIgb3Igc3lzX3BsYXRmb3JtID09ICJ3aW4zMiIpIGFuZCBleHRyYSA9PSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "wrapper/__init__.py": "",
+      "wrapper-1.0.dist-info/METADATA": "TmFtZTogd3JhcHBlcg0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiBtb2RlbHNbdG9yY2hdDQo=",
+      "wrapper-1.0.dist-info/RECORD": "d3JhcHBlci9fX2luaXRfXy5weSwsDQp3cmFwcGVyLTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0Kd3JhcHBlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "invalid_marker_fails_closed",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models",
+      "other",
+      "torch"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PQ0K",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "missing_metadata_fails_closed",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "models"
+      ]
+    },
+    "expected": [
+      "models",
+      "other"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "other/__init__.py": "",
+      "other-1.0.dist-info/METADATA": "TmFtZTogb3RoZXINClZlcnNpb246IDEuMA0K",
+      "other-1.0.dist-info/RECORD": "b3RoZXIvX19pbml0X18ucHksLA0Kb3RoZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpvdGhlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "cycle_with_late_extra",
+    "op": "closure",
+    "args": {
+      "roots": [
+        "wrapper",
+        "models"
+      ]
+    },
+    "expected": [
+      "models",
+      "torch",
+      "wrapper"
+    ],
+    "files": {
+      "models/__init__.py": "",
+      "models-1.0.dist-info/METADATA": "TmFtZTogbW9kZWxzDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHdyYXBwZXINClJlcXVpcmVzLURpc3Q6IHRvcmNoOyBleHRyYSA9PSAidG9yY2giDQo=",
+      "models-1.0.dist-info/RECORD": "bW9kZWxzL19faW5pdF9fLnB5LCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1vZGVscy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "wrapper/__init__.py": "",
+      "wrapper-1.0.dist-info/METADATA": "TmFtZTogd3JhcHBlcg0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiBtb2RlbHNbdG9yY2hdDQo=",
+      "wrapper-1.0.dist-info/RECORD": "d3JhcHBlci9fX2luaXRfXy5weSwsDQp3cmFwcGVyLTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0Kd3JhcHBlci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "transitive_torch_and_its_tree_removed",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ],
+      "roots": [
+        "peft",
+        "faster-whisper"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [
+        "mpmath",
+        "nvidia-cublas-cu12",
+        "sympy",
+        "torch"
+      ],
+      "files": {
+        "faster_whisper/__init__.py": "",
+        "faster_whisper-1.0.dist-info/METADATA": "TmFtZTogZmFzdGVyLXdoaXNwZXINClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbnZpZGlhLWN1ZG5uLWN1MTINCg==",
+        "faster_whisper-1.0.dist-info/RECORD": "ZmFzdGVyX3doaXNwZXIvX19pbml0X18ucHksLA0KZmFzdGVyX3doaXNwZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpmYXN0ZXJfd2hpc3Blci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "nvidia/__init__.py": "",
+        "nvidia/cudnn/lib/libcudnn.so": "",
+        "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "faster_whisper",
+        "faster_whisper-1.0.dist-info",
+        "numpy",
+        "numpy-1.0.dist-info",
+        "nvidia",
+        "nvidia/cudnn",
+        "nvidia/cudnn/lib",
+        "nvidia_cudnn_cu12-1.0.dist-info",
+        "peft",
+        "peft-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "bin/torchrun": "",
+      "faster_whisper/__init__.py": "",
+      "faster_whisper-1.0.dist-info/METADATA": "TmFtZTogZmFzdGVyLXdoaXNwZXINClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbnZpZGlhLWN1ZG5uLWN1MTINCg==",
+      "faster_whisper-1.0.dist-info/RECORD": "ZmFzdGVyX3doaXNwZXIvX19pbml0X18ucHksLA0KZmFzdGVyX3doaXNwZXItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpmYXN0ZXJfd2hpc3Blci0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "functorch/__init__.py": "",
+      "mpmath/__init__.py": "",
+      "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+      "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "nvidia/__init__.py": "",
+      "nvidia/cublas/lib/libcublas.so": "",
+      "nvidia/cudnn/lib/libcudnn.so": "",
+      "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+      "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "sympy/__init__.py": "",
+      "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+      "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch/__pycache__/__init__.cpython-312.pyc": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogc3ltcHkNClJlcXVpcmVzLURpc3Q6IG51bXB5DQpSZXF1aXJlcy1EaXN0OiBudmlkaWEtY3VibGFzLWN1MTI9PTEyLjg7IHBsYXRmb3JtX3N5c3RlbSA9PSAiTGludXgiDQo=",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gvX19weWNhY2hlX18vX19pbml0X18uY3B5dGhvbi0zMTIucHljLCwNCmZ1bmN0b3JjaC9fX2luaXRfXy5weSwsDQp0b3JjaGdlbi9fX2luaXRfXy5weSwsDQouLi8uLi9iaW4vdG9yY2hydW4sLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torchgen/__init__.py": ""
+    }
+  },
+  {
+    "name": "root_requirement_is_kept",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ],
+      "roots": [
+        "peft",
+        "sympy==1.14"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [
+        "nvidia-cublas-cu12",
+        "torch"
+      ],
+      "files": {
+        "mpmath/__init__.py": "",
+        "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+        "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "nvidia/__init__.py": "",
+        "nvidia/cudnn/lib/libcudnn.so": "",
+        "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "sympy/__init__.py": "",
+        "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+        "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "mpmath",
+        "mpmath-1.0.dist-info",
+        "numpy",
+        "numpy-1.0.dist-info",
+        "nvidia",
+        "nvidia/cudnn",
+        "nvidia/cudnn/lib",
+        "nvidia_cudnn_cu12-1.0.dist-info",
+        "peft",
+        "peft-1.0.dist-info",
+        "sympy",
+        "sympy-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "bin/torchrun": "",
+      "functorch/__init__.py": "",
+      "mpmath/__init__.py": "",
+      "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+      "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "nvidia/__init__.py": "",
+      "nvidia/cublas/lib/libcublas.so": "",
+      "nvidia/cudnn/lib/libcudnn.so": "",
+      "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+      "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "sympy/__init__.py": "",
+      "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+      "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch/__pycache__/__init__.cpython-312.pyc": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogc3ltcHkNClJlcXVpcmVzLURpc3Q6IG51bXB5DQpSZXF1aXJlcy1EaXN0OiBudmlkaWEtY3VibGFzLWN1MTI9PTEyLjg7IHBsYXRmb3JtX3N5c3RlbSA9PSAiTGludXgiDQo=",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gvX19weWNhY2hlX18vX19pbml0X18uY3B5dGhvbi0zMTIucHljLCwNCmZ1bmN0b3JjaC9fX2luaXRfXy5weSwsDQp0b3JjaGdlbi9fX2luaXRfXy5weSwsDQouLi8uLi9iaW4vdG9yY2hydW4sLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torchgen/__init__.py": ""
+    }
+  },
+  {
+    "name": "nothing_excluded_installed_is_noop",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ],
+      "roots": [
+        "numpy"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [],
+      "files": {
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "numpy",
+        "numpy-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "missing_record_fails_closed",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ],
+      "roots": [
+        "peft",
+        "oddball"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [
+        "torch"
+      ],
+      "files": {
+        "mpmath/__init__.py": "",
+        "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+        "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "nvidia/__init__.py": "",
+        "nvidia/cublas/lib/libcublas.so": "",
+        "nvidia/cudnn/lib/libcudnn.so": "",
+        "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+        "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "oddball/__init__.py": "",
+        "oddball-1.0.dist-info/METADATA": "TmFtZTogb2RkYmFsbA0KVmVyc2lvbjogMS4wDQo=",
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "sympy/__init__.py": "",
+        "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+        "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "mpmath",
+        "mpmath-1.0.dist-info",
+        "numpy",
+        "numpy-1.0.dist-info",
+        "nvidia",
+        "nvidia/cublas",
+        "nvidia/cublas/lib",
+        "nvidia/cudnn",
+        "nvidia/cudnn/lib",
+        "nvidia_cublas_cu12-1.0.dist-info",
+        "nvidia_cudnn_cu12-1.0.dist-info",
+        "oddball",
+        "oddball-1.0.dist-info",
+        "peft",
+        "peft-1.0.dist-info",
+        "sympy",
+        "sympy-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "bin/torchrun": "",
+      "functorch/__init__.py": "",
+      "mpmath/__init__.py": "",
+      "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+      "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "nvidia/__init__.py": "",
+      "nvidia/cublas/lib/libcublas.so": "",
+      "nvidia/cudnn/lib/libcudnn.so": "",
+      "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+      "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "oddball/__init__.py": "",
+      "oddball-1.0.dist-info/METADATA": "TmFtZTogb2RkYmFsbA0KVmVyc2lvbjogMS4wDQo=",
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "sympy/__init__.py": "",
+      "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+      "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch/__pycache__/__init__.cpython-312.pyc": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogc3ltcHkNClJlcXVpcmVzLURpc3Q6IG51bXB5DQpSZXF1aXJlcy1EaXN0OiBudmlkaWEtY3VibGFzLWN1MTI9PTEyLjg7IHBsYXRmb3JtX3N5c3RlbSA9PSAiTGludXgiDQo=",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gvX19weWNhY2hlX18vX19pbml0X18uY3B5dGhvbi0zMTIucHljLCwNCmZ1bmN0b3JjaC9fX2luaXRfXy5weSwsDQp0b3JjaGdlbi9fX2luaXRfXy5weSwsDQouLi8uLi9iaW4vdG9yY2hydW4sLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torchgen/__init__.py": ""
+    }
+  },
+  {
+    "name": "missing_record_on_excluded_falls_back_to_dir",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ],
+      "roots": [
+        "peft"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [
+        "torch"
+      ],
+      "files": {
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaA0K",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "peft",
+        "peft-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaA0K",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0K"
+    }
+  },
+  {
+    "name": "unnamed_root_fails_closed",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ],
+      "roots": [
+        "peft",
+        "https://example.com/pkg.tar.gz"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [
+        "torch"
+      ],
+      "files": {
+        "mpmath/__init__.py": "",
+        "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+        "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "nvidia/__init__.py": "",
+        "nvidia/cublas/lib/libcublas.so": "",
+        "nvidia/cudnn/lib/libcudnn.so": "",
+        "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+        "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "sympy/__init__.py": "",
+        "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+        "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "mpmath",
+        "mpmath-1.0.dist-info",
+        "numpy",
+        "numpy-1.0.dist-info",
+        "nvidia",
+        "nvidia/cublas",
+        "nvidia/cublas/lib",
+        "nvidia/cudnn",
+        "nvidia/cudnn/lib",
+        "nvidia_cublas_cu12-1.0.dist-info",
+        "nvidia_cudnn_cu12-1.0.dist-info",
+        "peft",
+        "peft-1.0.dist-info",
+        "sympy",
+        "sympy-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "bin/torchrun": "",
+      "functorch/__init__.py": "",
+      "mpmath/__init__.py": "",
+      "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+      "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "nvidia/__init__.py": "",
+      "nvidia/cublas/lib/libcublas.so": "",
+      "nvidia/cudnn/lib/libcudnn.so": "",
+      "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+      "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "sympy/__init__.py": "",
+      "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+      "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch/__pycache__/__init__.cpython-312.pyc": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogc3ltcHkNClJlcXVpcmVzLURpc3Q6IG51bXB5DQpSZXF1aXJlcy1EaXN0OiBudmlkaWEtY3VibGFzLWN1MTI9PTEyLjg7IHBsYXRmb3JtX3N5c3RlbSA9PSAiTGludXgiDQo=",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gvX19weWNhY2hlX18vX19pbml0X18uY3B5dGhvbi0zMTIucHljLCwNCmZ1bmN0b3JjaC9fX2luaXRfXy5weSwsDQp0b3JjaGdlbi9fX2luaXRfXy5weSwsDQouLi8uLi9iaW4vdG9yY2hydW4sLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torchgen/__init__.py": ""
+    }
+  },
+  {
+    "name": "unreadable_requires_dist_fails_closed",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ],
+      "roots": [
+        "peft",
+        "weird"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [
+        "torch"
+      ],
+      "files": {
+        "mpmath/__init__.py": "",
+        "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+        "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "nvidia/__init__.py": "",
+        "nvidia/cublas/lib/libcublas.so": "",
+        "nvidia/cudnn/lib/libcudnn.so": "",
+        "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+        "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "sympy/__init__.py": "",
+        "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+        "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "weird/__init__.py": "",
+        "weird-1.0.dist-info/METADATA": "TmFtZTogd2VpcmQNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogaHR0cHM6Ly9leGFtcGxlLmNvbS94LndobA0K",
+        "weird-1.0.dist-info/RECORD": "d2VpcmQvX19pbml0X18ucHksLA0Kd2VpcmQtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp3ZWlyZC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "mpmath",
+        "mpmath-1.0.dist-info",
+        "numpy",
+        "numpy-1.0.dist-info",
+        "nvidia",
+        "nvidia/cublas",
+        "nvidia/cublas/lib",
+        "nvidia/cudnn",
+        "nvidia/cudnn/lib",
+        "nvidia_cublas_cu12-1.0.dist-info",
+        "nvidia_cudnn_cu12-1.0.dist-info",
+        "peft",
+        "peft-1.0.dist-info",
+        "sympy",
+        "sympy-1.0.dist-info",
+        "weird",
+        "weird-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "bin/torchrun": "",
+      "functorch/__init__.py": "",
+      "mpmath/__init__.py": "",
+      "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+      "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "nvidia/__init__.py": "",
+      "nvidia/cublas/lib/libcublas.so": "",
+      "nvidia/cudnn/lib/libcudnn.so": "",
+      "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+      "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "sympy/__init__.py": "",
+      "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+      "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch/__pycache__/__init__.cpython-312.pyc": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogc3ltcHkNClJlcXVpcmVzLURpc3Q6IG51bXB5DQpSZXF1aXJlcy1EaXN0OiBudmlkaWEtY3VibGFzLWN1MTI9PTEyLjg7IHBsYXRmb3JtX3N5c3RlbSA9PSAiTGludXgiDQo=",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gvX19weWNhY2hlX18vX19pbml0X18uY3B5dGhvbi0zMTIucHljLCwNCmZ1bmN0b3JjaC9fX2luaXRfXy5weSwsDQp0b3JjaGdlbi9fX2luaXRfXy5weSwsDQouLi8uLi9iaW4vdG9yY2hydW4sLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torchgen/__init__.py": "",
+      "weird/__init__.py": "",
+      "weird-1.0.dist-info/METADATA": "TmFtZTogd2VpcmQNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogaHR0cHM6Ly9leGFtcGxlLmNvbS94LndobA0K",
+      "weird-1.0.dist-info/RECORD": "d2VpcmQvX19pbml0X18ucHksLA0Kd2VpcmQtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp3ZWlyZC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+    }
+  },
+  {
+    "name": "user_exclude_keeps_its_dependencies",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton",
+        "bigpkg"
+      ],
+      "roots": [
+        "peft",
+        "bigpkg"
+      ],
+      "image_provided": [
+        "torch",
+        "torchaudio",
+        "torchvision",
+        "triton"
+      ]
+    },
+    "expected": {
+      "dropped": [
+        "bigpkg",
+        "nvidia-cublas-cu12",
+        "torch"
+      ],
+      "files": {
+        "mpmath/__init__.py": "",
+        "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+        "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "nvidia/__init__.py": "",
+        "nvidia/cudnn/lib/libcudnn.so": "",
+        "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "sympy/__init__.py": "",
+        "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+        "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "mpmath",
+        "mpmath-1.0.dist-info",
+        "numpy",
+        "numpy-1.0.dist-info",
+        "nvidia",
+        "nvidia/cudnn",
+        "nvidia/cudnn/lib",
+        "nvidia_cudnn_cu12-1.0.dist-info",
+        "peft",
+        "peft-1.0.dist-info",
+        "sympy",
+        "sympy-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "bigpkg/__init__.py": "",
+      "bigpkg-1.0.dist-info/METADATA": "TmFtZTogYmlncGtnDQpWZXJzaW9uOiAxLjANClJlcXVpcmVzLURpc3Q6IHN5bXB5DQo=",
+      "bigpkg-1.0.dist-info/RECORD": "YmlncGtnL19faW5pdF9fLnB5LCwNCmJpZ3BrZy0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCmJpZ3BrZy0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "bin/torchrun": "",
+      "functorch/__init__.py": "",
+      "mpmath/__init__.py": "",
+      "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+      "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "nvidia/__init__.py": "",
+      "nvidia/cublas/lib/libcublas.so": "",
+      "nvidia/cudnn/lib/libcudnn.so": "",
+      "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+      "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "sympy/__init__.py": "",
+      "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+      "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch/__pycache__/__init__.cpython-312.pyc": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogc3ltcHkNClJlcXVpcmVzLURpc3Q6IG51bXB5DQpSZXF1aXJlcy1EaXN0OiBudmlkaWEtY3VibGFzLWN1MTI9PTEyLjg7IHBsYXRmb3JtX3N5c3RlbSA9PSAiTGludXgiDQo=",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gvX19weWNhY2hlX18vX19pbml0X18uY3B5dGhvbi0zMTIucHljLCwNCmZ1bmN0b3JjaC9fX2luaXRfXy5weSwsDQp0b3JjaGdlbi9fX2luaXRfXy5weSwsDQouLi8uLi9iaW4vdG9yY2hydW4sLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torchgen/__init__.py": ""
+    }
+  },
+  {
+    "name": "no_image_provided_removes_only_named",
+    "op": "prune",
+    "args": {
+      "excluded": [
+        "torch"
+      ],
+      "roots": [
+        "peft"
+      ],
+      "image_provided": []
+    },
+    "expected": {
+      "dropped": [
+        "torch"
+      ],
+      "files": {
+        "mpmath/__init__.py": "",
+        "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+        "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "numpy/__init__.py": "",
+        "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+        "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "nvidia/__init__.py": "",
+        "nvidia/cublas/lib/libcublas.so": "",
+        "nvidia/cudnn/lib/libcudnn.so": "",
+        "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+        "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+        "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "peft/__init__.py": "",
+        "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+        "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+        "sympy/__init__.py": "",
+        "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+        "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo="
+      },
+      "dirs": [
+        "mpmath",
+        "mpmath-1.0.dist-info",
+        "numpy",
+        "numpy-1.0.dist-info",
+        "nvidia",
+        "nvidia/cublas",
+        "nvidia/cublas/lib",
+        "nvidia/cudnn",
+        "nvidia/cudnn/lib",
+        "nvidia_cublas_cu12-1.0.dist-info",
+        "nvidia_cudnn_cu12-1.0.dist-info",
+        "peft",
+        "peft-1.0.dist-info",
+        "sympy",
+        "sympy-1.0.dist-info"
+      ]
+    },
+    "files": {
+      "bin/torchrun": "",
+      "functorch/__init__.py": "",
+      "mpmath/__init__.py": "",
+      "mpmath-1.0.dist-info/METADATA": "TmFtZTogbXBtYXRoDQpWZXJzaW9uOiAxLjANCg==",
+      "mpmath-1.0.dist-info/RECORD": "bXBtYXRoL19faW5pdF9fLnB5LCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL01FVEFEQVRBLCwNCm1wbWF0aC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "numpy/__init__.py": "",
+      "numpy-1.0.dist-info/METADATA": "TmFtZTogbnVtcHkNClZlcnNpb246IDEuMA0K",
+      "numpy-1.0.dist-info/RECORD": "bnVtcHkvX19pbml0X18ucHksLA0KbnVtcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "nvidia/__init__.py": "",
+      "nvidia/cublas/lib/libcublas.so": "",
+      "nvidia/cudnn/lib/libcudnn.so": "",
+      "nvidia_cublas_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1Ymxhcy1jdTEyDQpWZXJzaW9uOiAxLjANCg==",
+      "nvidia_cublas_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1Ymxhcy9saWIvbGliY3VibGFzLnNvLCwNCm52aWRpYS9fX2luaXRfXy5weSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3VibGFzX2N1MTItMS4wLmRpc3QtaW5mby9SRUNPUkQsLA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/METADATA": "TmFtZTogbnZpZGlhLWN1ZG5uLWN1MTINClZlcnNpb246IDEuMA0K",
+      "nvidia_cudnn_cu12-1.0.dist-info/RECORD": "bnZpZGlhL2N1ZG5uL2xpYi9saWJjdWRubi5zbywsDQpudmlkaWEvX19pbml0X18ucHksLA0KbnZpZGlhX2N1ZG5uX2N1MTItMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpudmlkaWFfY3Vkbm5fY3UxMi0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "peft/__init__.py": "",
+      "peft-1.0.dist-info/METADATA": "TmFtZTogcGVmdA0KVmVyc2lvbjogMS4wDQpSZXF1aXJlcy1EaXN0OiB0b3JjaD49MS4xMw0KUmVxdWlyZXMtRGlzdDogbnVtcHkNCg==",
+      "peft-1.0.dist-info/RECORD": "cGVmdC9fX2luaXRfXy5weSwsDQpwZWZ0LTEuMC5kaXN0LWluZm8vTUVUQURBVEEsLA0KcGVmdC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "sympy/__init__.py": "",
+      "sympy-1.0.dist-info/METADATA": "TmFtZTogc3ltcHkNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogbXBtYXRoDQo=",
+      "sympy-1.0.dist-info/RECORD": "c3ltcHkvX19pbml0X18ucHksLA0Kc3ltcHktMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQpzeW1weS0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torch/__init__.py": "",
+      "torch/__pycache__/__init__.cpython-312.pyc": "",
+      "torch-1.0.dist-info/METADATA": "TmFtZTogdG9yY2gNClZlcnNpb246IDEuMA0KUmVxdWlyZXMtRGlzdDogc3ltcHkNClJlcXVpcmVzLURpc3Q6IG51bXB5DQpSZXF1aXJlcy1EaXN0OiBudmlkaWEtY3VibGFzLWN1MTI9PTEyLjg7IHBsYXRmb3JtX3N5c3RlbSA9PSAiTGludXgiDQo=",
+      "torch-1.0.dist-info/RECORD": "dG9yY2gvX19pbml0X18ucHksLA0KdG9yY2gvX19weWNhY2hlX18vX19pbml0X18uY3B5dGhvbi0zMTIucHljLCwNCmZ1bmN0b3JjaC9fX2luaXRfXy5weSwsDQp0b3JjaGdlbi9fX2luaXRfXy5weSwsDQouLi8uLi9iaW4vdG9yY2hydW4sLA0KdG9yY2gtMS4wLmRpc3QtaW5mby9NRVRBREFUQSwsDQp0b3JjaC0xLjAuZGlzdC1pbmZvL1JFQ09SRCwsDQo=",
+      "torchgen/__init__.py": ""
+    }
+  }
+]

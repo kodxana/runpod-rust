@@ -42,12 +42,13 @@ by Python; the complete port remains in progress.
 | `apps.targets.PodTarget` | `apps::targets::PodTarget`, explicit function metadata and async invoke/submit |
 | `apps.deploy` manifests, deployed endpoint payloads, reconciliation, result type | `apps::deploy::{build_manifest, deployed_endpoint_input, reconcile_endpoints, DeployResult}` with `AppDefinition` metadata |
 | `apps.deploy.package_project` and ignore helpers | `apps::deploy::{package_project, PackageOptions, Artifact}` and private scoped ignore matching |
+| `apps.build` requirement selection, installed closures, and pruning | `apps::build::{requirement_name, collect_requirements, split_exclusions, installed_closure, prune_excluded}` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 320 implemented symbols, ten adapted symbols, and 222 upstream
+This milestone maps 336 implemented symbols, twelve adapted symbols, and 245 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -86,12 +87,21 @@ python tools/monitor_fixtures.py
 python tools/task_fixtures.py
 python tools/deploy_fixtures.py
 python tools/package_fixtures.py
+python tools/build_fixtures.py
 cargo test --test apps_protocol
 python tools/verify_pickle.py
 ```
 
 ## Preserved quirks
 
+- Requirement collection keeps the first specification for each name; that helper replaces
+  underscores but does not normalize dots/repeated separators. Installed distribution
+  matching uses full Python package-name canonicalization. Dependency closure evaluates
+  extras separately, including an empty-extra context, and conservatively ignores builder
+  platform/version conditions. Missing/invalid wheel metadata includes every installed
+  distribution in a closure and limits pruning to the explicit exclusions. Shared files
+  survive if any retained distribution owns them. User exclusions keep their dependency
+  trees unless those dependencies belong exclusively to image-provided packages.
 - Packaging prunes ignored directories before looking for nested rules. Root `.runpodignore`
   overrides nested `.gitignore`; protected source paths cannot be unignored. Dependencies
   are copied separately under `env/`, retaining their certificate/data files regardless of
@@ -247,6 +257,12 @@ python tools/verify_pickle.py
   Unix). Ignore files must be UTF-8 and use the `ignore` crate's Git syntax; exotic patterns
   and platform-specific filename restrictions follow native libraries. Packaging is
   synchronous filesystem work; async orchestration must run it on a blocking executor.
+- Dependency analysis uses native `pep508_rs` and `csv` parsers. Unusual malformed specifiers,
+  CSV, and contradictory platform expressions follow those libraries rather than emulating
+  Python parsing internals. Pruning accepts relative wheel RECORD paths (including pip's
+  `../../bin/...` staging convention), rejects absolute/drive paths, and verifies resolved
+  containment before deleting. Unlike Python, even absolute paths pointing inside the
+  environment are ignored. Symlinks resolving outside the environment remain untouched.
 
 ## Verification log
 
@@ -325,6 +341,18 @@ python tools/verify_pickle.py
   stable Rust, with **398 captured Python cases** overall. Build, formatting, Clippy with
   warnings denied, and documentation generation passed. The separate pedantic review
   reported no warnings in the new packaging files; older advisory warnings remain.
+- Commit b84c575 passed all stable platform jobs and Linux MSRV, including the Unix
+  symlink/mode packaging tests: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41025108861).
+- Dependency analysis adds **73 Python cases** for requirement names, selection, extras,
+  transitive dependencies, and exact remaining file/directory trees after pruning.
+  All **34 matching upstream Python tests** pass. Additional Rust regressions check
+  absolute/traversal record paths and quoted CSV filenames; Unix tests cover symlink
+  containment. Installer subprocesses, SDK overlay, and build orchestration remain pending.
+- Dependency-analysis milestone: **192 integration tests and one doctest** pass on Windows
+  stable Rust. All **29 new tests** also pass on Rust 1.88. There are **471 captured Python
+  cases** overall. Build, formatting, Clippy with warnings denied, and docs pass; the
+  separate pedantic review has no warnings in the new files. See
+  [dependency-analysis review](reviews/apps-build-analysis.md).
 
 This file will be updated as each remaining component and test is ported.
 

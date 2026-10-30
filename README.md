@@ -23,8 +23,10 @@ cleanup after failure or cancellation. Application registration/build/deployment
 utilities, and CLI remain in progress.
 `apps::deploy` provides explicit application definitions, manifest generation, deployed
 endpoint payloads, endpoint reconciliation, and project archives with nested ignore rules,
-protected credential exclusions, and separately vendored dependency files. Dependency
-installation and the complete deployment pipeline are still pending.
+protected credential exclusions, and separately vendored dependency files. `apps::build`
+collects requirements, computes installed dependency closures, and prunes image-provided
+packages while retaining shared files. Dependency installation and the complete deployment
+pipeline are still pending.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run

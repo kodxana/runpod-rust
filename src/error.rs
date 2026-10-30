@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// Installed wheel metadata contained an unreadable CSV record.
+    #[error(transparent)]
+    Csv(#[from] csv::Error),
     /// A deployment ignore pattern could not be compiled.
     #[error(transparent)]
     IgnorePattern(#[from] ignore::Error),
