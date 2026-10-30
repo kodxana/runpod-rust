@@ -138,7 +138,7 @@ for entry in api["entries"]:
         "runpod/apps/app.py": {
             "get_registered_apps":"AppRegistry::apps", "_clear_registry":"AppRegistry::clear", "_restore_registry":"AppRegistry::restore",
             "App":"App", "App.__init__":"App::new / with_config", "App.resources":"App::resources",
-            "App._register":"App::register", "App.queue":"App::queue", "App.task":"App::task",
+            "App._register":"App::register", "App.queue":"App::queue", "App.task":"App::task", "App.api":"App::api",
             "App._resolve":"App::resolve", "App._resolve_dev_sibling":"App::resolve", "App.__repr__":"App::fmt",
         },
         "runpod/apps/handles.py": {
@@ -151,11 +151,16 @@ for entry in api["entries"]:
             "FunctionHandle._job_async":"FunctionHandle::job", "FunctionHandle._guard_discovery":"ExecutionContext::guard_discovery",
             "FunctionHandle._is_current_worker":"ExecutionContext::is_current_worker", "FunctionHandle.__repr__":"FunctionHandle::fmt",
             "FunctionHandle.__call__":"FunctionHandle has no Fn implementation; explicit invocation is required by Rust types",
+            "ApiHandle":"ApiHandle", "ApiHandle.__init__":"App::api / NativeApi",
+            "ApiHandle._collect_routes":"NativeApi::route / init / configure_spec", "ApiHandle.__repr__":"ApiHandle::fmt",
+            "_RouteCaller":"ApiHandle HTTP methods", "_RouteCaller.__init__":"ApiHandle HTTP methods",
+            "_RouteCaller.aio":"ApiHandle::request",
         },
+        "runpod/apps/markers.py": {"_route_marker":"NativeApi::route", "get":"NativeApi::route with GET", "post":"NativeApi::route with POST", "put":"NativeApi::route with PUT", "delete":"NativeApi::route with DELETE", "patch":"NativeApi::route with PATCH", "init":"NativeApi::init", "route_of":"NativeApi route metadata", "is_init":"NativeApi initialization metadata"},
         "runpod/apps/schedule.py": {"schedule":"FunctionHandle::schedule / ResourceSpec::schedule"},
     }
     if name in native_app_symbols.get(file, {}):
-        entry.update(rust="apps::" + native_app_symbols[file][name], status="adapted", note="Owned AppRegistry and explicit Rust functions replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. API resource registration, native binary deployment, and blocking function handles remain pending. See PORTING.md.")
+        entry.update(rust="apps::" + native_app_symbols[file][name], status="adapted", note="Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md.")
     if file == "runpod/apps/context.py" and name in ("Context", "current_context", "is_local"):
         entry.update(rust="apps::" + name, status="implemented")
     if file == "runpod/apps/discovery_state.py":
@@ -197,6 +202,11 @@ for entry in tests["entries"]:
     target = None
     if entry["file"] == "tests/test_apps/test_app.py":
         app_tests = {
+            "test_api_class_collects_routes":"api_collects_sorted_routes_and_rejects_duplicates_and_empty_services",
+            "test_api_class_without_routes_rejected":"api_collects_sorted_routes_and_rejects_duplicates_and_empty_services",
+            "test_api_duplicate_route_rejected":"api_collects_sorted_routes_and_rejects_duplicates_and_empty_services",
+            "test_api_asgi_factory":"api_discovery_guard_prevents_http_and_asgi_factory_metadata_is_explicit",
+            "test_api_reserved_path_rejected":"api_reserved_control_routes_are_rejected_for_every_verb",
             "test_app_registers_itself":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
             "test_app_requires_name":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
             "test_queue_name_defaults_to_function_name":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
@@ -208,7 +218,9 @@ for entry in tests["entries"]:
             "test_schedule_above_app_decorator":"schedule_records_intent_and_manifest_still_rejects_it",
         }
         if entry["name"] in app_tests:
-            target = "apps_app::" + app_tests[entry["name"]]
+            target = ("apps_api_handles::" if entry["name"].startswith("test_api_") else "apps_app::") + app_tests[entry["name"]]
+    if entry["file"] == "tests/test_apps/test_markers.py" and entry["name"] == "test_runtime_control_paths_are_rejected":
+        target = "apps_api_handles::api_reserved_control_routes_are_rejected_for_every_verb"
     if entry["file"] == "tests/test_apps/test_dispatch.py":
         if entry["name"].startswith("TestContextDetection."):
             target = "apps_app::context_detection_preserves_worker_precedence_and_empty_values"

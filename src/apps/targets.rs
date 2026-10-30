@@ -108,6 +108,9 @@ impl Target {
     pub fn endpoint_id(&self) -> &str {
         self.queue.endpoint_id()
     }
+    pub(crate) fn is_live(&self) -> bool {
+        matches!(self.mode, TargetMode::Live { .. })
+    }
     /// Overrides HTTP-route addressing for private gateways or local testing.
     ///
     /// # Errors

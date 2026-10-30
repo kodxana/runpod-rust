@@ -10,6 +10,28 @@ use futures_util::{StreamExt, stream::BoxStream};
 use serde_json::Map;
 use std::fmt;
 
+/// A registered function or HTTP API, retaining shared application state.
+#[derive(Debug, Clone)]
+#[non_exhaustive]
+pub enum ResourceHandle {
+    /// Queue or dedicated-pod function.
+    Function(FunctionHandle),
+    /// Load-balanced HTTP API.
+    Api(super::ApiHandle),
+}
+impl ResourceHandle {
+    /// Returns a snapshot of the underlying resource definition.
+    ///
+    /// # Errors
+    /// Returns poisoned registration errors.
+    pub fn spec(&self) -> Result<ResourceSpec> {
+        match self {
+            Self::Function(handle) => handle.spec(),
+            Self::Api(handle) => handle.spec(),
+        }
+    }
+}
+
 /// A registered native queue or task function with immutable per-call job options.
 #[derive(Clone)]
 pub struct FunctionHandle {

@@ -49,12 +49,13 @@ by Python; the complete port remains in progress.
 | Function handle local/async remote, spawn, job, stream, init, options | `apps::{FunctionHandle, NativeFunction, FunctionArgs, FunctionJob}`; blocking handles remain pending |
 | Context detection, discovery guard, development endpoint names | `apps::{Context, ExecutionContext, current_context, is_local, in_discovery, dev_endpoint_name}` |
 | `schedule` intent marker | `FunctionHandle::schedule` or an explicit `ResourceSpec::schedule` |
+| `App.api`, `ApiHandle`, route/lifecycle markers | `App::api`, `NativeApi`, `ApiHandle`, and explicit `RouteSpec`/hook registration |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 350 implemented symbols, 50 adapted symbols, and 290 upstream
+This milestone maps 350 implemented symbols, 67 adapted symbols, and 296 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -297,6 +298,18 @@ python tools/verify_pickle.py
   metadata and typed secret references are explicit. Schedule intent remains undeployable
   until backend support exists. `FunctionJob` owns its concrete queue/task job and exposes
   borrowed access plus common wait/cancel operations; dropping it preserves upstream lifecycle.
+- Native API declarations use an ordered map of handler names instead of Python class
+  inspection. RouteSpec carries method/path/name metadata; NativeFunction closures own method
+  state. Names shared by queue, task, and API resources are rejected. Resource snapshots now
+  contain `ResourceHandle::{Function, Api}`. API routes retain handler-name order, and replacing
+  a named method replaces its route. Multiple differently named init hooks are rejected.
+  Explicit setters take the place of marker attributes; no runtime reflection is introduced.
+- `ApiHandle` HTTP methods always make client calls, including inside the resource's own
+  worker. Explicit live source is attached to the shared target synchronization state;
+  failed synchronization prevents the HTTP call and can be retried. Native `initialize` and
+  `call_handler` expose registered bodies to a future HTTP router; server hosting and response
+  binding remain pending. ASGI factories are explicit Python-worker metadata and cannot be
+  initialized/executed as native Rust closures. Factory lifespans own their initialization.
 - `package_project` returns an `Artifact` that owns automatic temporary storage. Dropping
   it removes that storage; `persist` explicitly keeps it. A caller-specified output is
   always retained. Archive member paths/order and file bytes match the Python fixtures;
@@ -461,13 +474,24 @@ python tools/verify_pickle.py
   pass on Windows stable Rust. All eighteen new integration tests also pass on Rust 1.88.
   Build, formatting, Clippy with warnings denied, and documentation generation pass.
   See [native function review](reviews/apps-native-functions.md) for adaptations and limits.
+- Native function registration passed all four CI jobs:
+  [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41036209242).
+- Nine API-handle integration tests cover route validation/order/replacement, mixed-resource
+  registration, explicit native initialization, manifest/secret metadata, discovery guards,
+  all HTTP verbs, own-worker routing, shared source synchronization, and failed-sync retry.
+  All fifteen upstream reserved-path marker cases pass on Windows. A unit regression verifies
+  hooks, events, and targets release application locks before dropping user-owned captures.
+- API-handle milestone: **248 integration tests, two unit tests, and two doctests** pass on
+  Windows stable Rust. All 27 function/API integration tests and both unit tests pass on
+  Rust 1.88. Build, formatting, Clippy with warnings denied, and docs pass. See the
+  [API-handle review](reviews/apps-api-handles.md) for explicit native/runtime boundaries.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
-The current milestone does not implement native API route registration, native binary
-deployment, blocking function handles, discovery, development sessions, browser auth flows,
+The current milestone does not implement native binary deployment, HTTP server integration,
+blocking registered handles, discovery, development sessions, browser auth flows,
 management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

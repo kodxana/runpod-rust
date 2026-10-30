@@ -28,11 +28,12 @@ packages while retaining shared files. `BuildTools` and `build_environment` inst
 wheels through an explicitly configurable Python/pip command, report progress, and build
 the artifact environment. `build_artifact` and async `deploy_app` connect preflight
 validation, building, packaging, upload, activation, and endpoint reconciliation.
-`apps::App` registers native synchronous, asynchronous, and streaming queue/task functions.
+`apps::App` registers native synchronous, asynchronous, and streaming queue/task functions,
+plus named HTTP routes through `NativeApi` and `ApiHandle`.
 Handles support local calls, worker-local dispatch, remote calls, submission, reconnection,
 streaming, startup hooks, and per-job options. `AppRegistry` owns declaration membership;
 development target bindings and worker sibling lookup share the application's state.
-API route registration, native binary deployment, and development sessions remain in progress.
+Native binary deployment, HTTP server integration, and development sessions remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -100,6 +101,13 @@ calls never run startup hooks automatically; worker startup calls `::initialize`
 Native function bodies are compiled Rust code. Source-based live/task calls still require
 explicit Python source understood by the existing remote worker; shipping native Rust binaries
 is a remaining part of the port. `App::definition` returns deployment metadata without serializing closures.
+
+For HTTP APIs, add `RouteSpec`/`NativeFunction` pairs to a `NativeApi`, then call `App::api`.
+Routes are emitted in handler-name order, duplicates and runtime control paths are rejected,
+and one named startup hook is supported. `ApiHandle` sends GET/POST/PUT/DELETE/PATCH requests;
+`initialize` and `call_handler` expose native execution to a worker/router. HTTP hosting remains
+pending. `NativeApi::asgi_factory` describes a Python factory for interoperability; it does not
+run Python locally. `App::resources` returns `ResourceHandle` values for mixed function/API apps.
 
 ```sh
 cargo build --locked

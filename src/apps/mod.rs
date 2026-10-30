@@ -1,5 +1,6 @@
 //! Application resource definitions and provisioning operations.
 pub mod api;
+mod api_handle;
 mod app;
 pub mod build;
 pub mod catalog;
@@ -34,12 +35,13 @@ pub mod targets;
 pub mod tasks;
 pub mod volume;
 pub use api::AppsApiClient;
+pub use api_handle::{ApiHandle, NativeApi};
 pub use app::{App, AppConfig, AppRegistry, dev_endpoint_name};
 pub use catalog::{CpuInstanceType, DataCenter, GpuGroup, GpuType};
 pub use context::{Context, ExecutionContext, current_context, in_discovery, is_local};
 pub use errors::AppError;
 pub use function::{FunctionArgs, NativeFunction};
-pub use handles::{FunctionHandle, FunctionJob};
+pub use handles::{FunctionHandle, FunctionJob, ResourceHandle};
 pub use job::Job;
 pub use model::Model;
 pub use secret::{EnvValue, Secret, render_env, secret_names, validate_secrets};

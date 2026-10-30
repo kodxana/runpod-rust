@@ -1,6 +1,6 @@
 use super::{
-    AppError, AppsApiClient, Context, ExecutionContext, FunctionHandle, NativeFunction,
-    ResourceKind, ResourceSpec,
+    ApiHandle, AppError, AppsApiClient, Context, ExecutionContext, FunctionHandle, NativeApi,
+    NativeFunction, ResourceHandle, ResourceKind, ResourceSpec,
     deploy::{AppDefinition, ResourceDefinition},
     events::EventSink,
     targets::{FunctionDefinition, ResourceAddress, Target},
@@ -44,9 +44,26 @@ pub(crate) struct RegisteredFunction {
     pub body: NativeFunction,
     pub init: Option<NativeFunction>,
 }
+#[derive(Clone)]
+pub(crate) struct RegisteredApi {
+    pub definition: ResourceDefinition,
+    pub body: NativeApi,
+}
+enum RegisteredResource {
+    Function(RegisteredFunction),
+    Api(RegisteredApi),
+}
+impl RegisteredResource {
+    fn definition(&self) -> &ResourceDefinition {
+        match self {
+            Self::Function(r) => &r.definition,
+            Self::Api(r) => &r.definition,
+        }
+    }
+}
 #[derive(Default)]
 struct AppState {
-    functions: Vec<RegisteredFunction>,
+    resources: Vec<RegisteredResource>,
     dev_targets: BTreeMap<String, Target>,
     events: Option<EventSink>,
 }
@@ -153,6 +170,45 @@ impl App {
         spec.kind = ResourceKind::Task;
         self.register(spec, function, body)
     }
+    /// Registers named native HTTP routes or explicit metadata for a Python ASGI factory.
+    ///
+    /// # Errors
+    /// Returns invalid resource/route configuration, missing routes, duplicate names, or poisoned state.
+    pub fn api(&self, mut spec: ResourceSpec, body: NativeApi) -> Result<ApiHandle> {
+        spec.kind = ResourceKind::Api;
+        if spec.name.is_empty() {
+            body.name().clone_into(&mut spec.name);
+        }
+        spec.validate()?;
+        body.configure_spec(&mut spec)?;
+        let mut state = self
+            .inner
+            .state
+            .lock()
+            .map_err(|_| AppError::StatePoisoned("registration"))?;
+        if state
+            .resources
+            .iter()
+            .any(|r| r.definition().spec.name == spec.name)
+        {
+            return Err(AppError::InvalidResource(format!(
+                "duplicate resource name '{}' in app '{}'",
+                spec.name,
+                self.name()
+            ))
+            .into());
+        }
+        let index = state.resources.len();
+        state.resources.push(RegisteredResource::Api(RegisteredApi {
+            definition: ResourceDefinition {
+                spec,
+                symbol: body.symbol().cloned(),
+                referenced_secrets: Vec::new(),
+            },
+            body,
+        }));
+        Ok(ApiHandle::new(self.clone(), index))
+    }
     fn register(
         &self,
         mut spec: ResourceSpec,
@@ -169,9 +225,9 @@ impl App {
             .lock()
             .map_err(|_| AppError::StatePoisoned("registration"))?;
         if state
-            .functions
+            .resources
             .iter()
-            .any(|r| r.definition.spec.name == spec.name)
+            .any(|r| r.definition().spec.name == spec.name)
         {
             return Err(AppError::InvalidResource(format!(
                 "duplicate resource name '{}' in app '{}'",
@@ -180,17 +236,19 @@ impl App {
             ))
             .into());
         }
-        let index = state.functions.len();
-        state.functions.push(RegisteredFunction {
-            definition: ResourceDefinition {
-                spec,
-                symbol: None,
-                referenced_secrets: Vec::new(),
-            },
-            function,
-            body,
-            init: None,
-        });
+        let index = state.resources.len();
+        state
+            .resources
+            .push(RegisteredResource::Function(RegisteredFunction {
+                definition: ResourceDefinition {
+                    spec,
+                    symbol: None,
+                    referenced_secrets: Vec::new(),
+                },
+                function,
+                body,
+                init: None,
+            }));
         Ok(FunctionHandle::new(self.clone(), index))
     }
 
@@ -208,27 +266,35 @@ impl App {
             name: self.name().into(),
             environment: self.environment().into(),
             resources: state
-                .functions
+                .resources
                 .iter()
-                .map(|r| r.definition.clone())
+                .map(|r| r.definition().clone())
                 .collect(),
         })
     }
 
-    /// Returns function handles in registration order; modifying the vector does not mutate the app.
+    /// Returns resource handles in registration order; modifying the vector does not mutate the app.
     ///
     /// # Errors
     /// Returns an error if registration state is poisoned.
-    pub fn resources(&self) -> Result<Vec<FunctionHandle>> {
-        let count = self
+    pub fn resources(&self) -> Result<Vec<ResourceHandle>> {
+        let state = self
             .inner
             .state
             .lock()
-            .map_err(|_| AppError::StatePoisoned("registration"))?
-            .functions
-            .len();
-        Ok((0..count)
-            .map(|index| FunctionHandle::new(self.clone(), index))
+            .map_err(|_| AppError::StatePoisoned("registration"))?;
+        Ok(state
+            .resources
+            .iter()
+            .enumerate()
+            .map(|(index, resource)| match resource {
+                RegisteredResource::Function(_) => {
+                    ResourceHandle::Function(FunctionHandle::new(self.clone(), index))
+                }
+                RegisteredResource::Api(_) => {
+                    ResourceHandle::Api(ApiHandle::new(self.clone(), index))
+                }
+            })
             .collect())
     }
 
@@ -237,12 +303,15 @@ impl App {
     /// # Errors
     /// Returns an error if routing state is poisoned.
     pub fn set_dev_target(&self, resource: impl Into<String>, target: Target) -> Result<()> {
-        self.inner
-            .state
-            .lock()
-            .map_err(|_| AppError::StatePoisoned("development targets"))?
-            .dev_targets
-            .insert(resource.into(), target);
+        let previous = {
+            self.inner
+                .state
+                .lock()
+                .map_err(|_| AppError::StatePoisoned("development targets"))?
+                .dev_targets
+                .insert(resource.into(), target)
+        };
+        drop(previous);
         Ok(())
     }
 
@@ -251,11 +320,15 @@ impl App {
     /// # Errors
     /// Returns an error if routing state is poisoned.
     pub fn set_events(&self, events: Option<EventSink>) -> Result<()> {
-        self.inner
-            .state
-            .lock()
-            .map_err(|_| AppError::StatePoisoned("events"))?
-            .events = events;
+        let previous = {
+            let mut state = self
+                .inner
+                .state
+                .lock()
+                .map_err(|_| AppError::StatePoisoned("events"))?;
+            std::mem::replace(&mut state.events, events)
+        };
+        drop(previous);
         Ok(())
     }
 
@@ -264,9 +337,12 @@ impl App {
             .state
             .lock()
             .map_err(|_| AppError::StatePoisoned("registration"))?
-            .functions
+            .resources
             .get(index)
-            .cloned()
+            .and_then(|r| match r {
+                RegisteredResource::Function(r) => Some(r.clone()),
+                RegisteredResource::Api(_) => None,
+            })
             .ok_or_else(|| {
                 Error::InvalidInput("function handle does not belong to this application".into())
             })
@@ -282,10 +358,43 @@ impl App {
             .lock()
             .map_err(|_| AppError::StatePoisoned("registration"))?;
         let function = state
-            .functions
+            .resources
             .get_mut(index)
+            .and_then(|r| match r {
+                RegisteredResource::Function(r) => Some(r),
+                RegisteredResource::Api(_) => None,
+            })
             .ok_or_else(|| Error::InvalidInput("unknown function handle".into()))?;
         Ok(update(function))
+    }
+    pub(crate) fn api_resource(&self, index: usize) -> Result<RegisteredApi> {
+        self.inner
+            .state
+            .lock()
+            .map_err(|_| AppError::StatePoisoned("registration"))?
+            .resources
+            .get(index)
+            .and_then(|r| match r {
+                RegisteredResource::Api(r) => Some(r.clone()),
+                RegisteredResource::Function(_) => None,
+            })
+            .ok_or_else(|| Error::InvalidInput("unknown API handle".into()))
+    }
+    pub(crate) fn set_api_environment(
+        &self,
+        index: usize,
+        env: &[(String, super::EnvValue)],
+    ) -> Result<()> {
+        let mut state = self
+            .inner
+            .state
+            .lock()
+            .map_err(|_| AppError::StatePoisoned("registration"))?;
+        let Some(RegisteredResource::Api(resource)) = state.resources.get_mut(index) else {
+            return Err(Error::InvalidInput("unknown API handle".into()));
+        };
+        resource.definition.set_environment(env);
+        Ok(())
     }
     pub(crate) fn context(&self) -> ExecutionContext {
         self.inner
@@ -324,7 +433,15 @@ impl App {
         function: &RegisteredFunction,
         context: &ExecutionContext,
     ) -> Result<ResolvedTarget> {
-        let spec = &function.definition.spec;
+        self.resolve_resource(&function.definition.spec, Some(&function.function), context)
+            .await
+    }
+    pub(crate) async fn resolve_resource(
+        &self,
+        spec: &ResourceSpec,
+        function: Option<&FunctionDefinition>,
+        context: &ExecutionContext,
+    ) -> Result<ResolvedTarget> {
         spec.validate()?;
         if spec.kind == ResourceKind::Task {
             let (specs, events) = {
@@ -335,9 +452,9 @@ impl App {
                     .map_err(|_| AppError::StatePoisoned("registration"))?;
                 (
                     state
-                        .functions
+                        .resources
                         .iter()
-                        .map(|r| r.definition.spec.clone())
+                        .map(|r| r.definition().spec.clone())
                         .collect(),
                     state.events.clone(),
                 )
@@ -345,7 +462,9 @@ impl App {
             let mut target = PodTarget::with_config(
                 self.client()?,
                 spec.clone(),
-                function.function.clone(),
+                function
+                    .ok_or_else(|| Error::InvalidInput("task requires function metadata".into()))?
+                    .clone(),
                 self.inner.config.task.clone(),
                 Some(specs),
             )?;
@@ -441,4 +560,80 @@ pub fn dev_endpoint_name(app: &str, resource: &str) -> String {
         "dev-{app}-{resource}-{:02x}{:02x}{:02x}",
         digest[0], digest[1], digest[2]
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::{
+        Weak,
+        atomic::{AtomicUsize, Ordering},
+    };
+
+    struct ReentrantDrop {
+        app: Weak<AppInner>,
+        count: Arc<AtomicUsize>,
+    }
+    impl Drop for ReentrantDrop {
+        fn drop(&mut self) {
+            let app = self.app.upgrade().expect("test keeps application alive");
+            assert!(
+                app.state.try_lock().is_ok(),
+                "user capture dropped while application lock was held"
+            );
+            self.count.fetch_add(1, Ordering::SeqCst);
+        }
+    }
+    #[test]
+    fn replacing_user_callbacks_releases_lock_before_dropping_captures() {
+        let app = App::new("test").unwrap();
+        let count = Arc::new(AtomicUsize::new(0));
+        let events = || {
+            let probe = ReentrantDrop {
+                app: Arc::downgrade(&app.inner),
+                count: count.clone(),
+            };
+            EventSink::new(move |_, _| {
+                let _keep = &probe;
+                Ok(())
+            })
+        };
+        app.set_events(Some(events())).unwrap();
+        app.set_events(None).unwrap();
+        assert_eq!(count.load(Ordering::SeqCst), 1);
+        let mut target = Target::live(Client::new("key").unwrap(), "ep", "q").unwrap();
+        target.set_events(events()).unwrap();
+        app.set_dev_target("q", target).unwrap();
+        app.set_dev_target(
+            "q",
+            Target::live(Client::new("key").unwrap(), "ep", "q").unwrap(),
+        )
+        .unwrap();
+        assert_eq!(count.load(Ordering::SeqCst), 2);
+        let function = app
+            .queue(
+                ResourceSpec::default(),
+                FunctionDefinition {
+                    name: "q".into(),
+                    parameters: vec![],
+                    source: None,
+                },
+                NativeFunction::sync(|_| Ok(crate::Value::Null)),
+            )
+            .unwrap();
+        let probe = ReentrantDrop {
+            app: Arc::downgrade(&app.inner),
+            count: count.clone(),
+        };
+        function
+            .init(NativeFunction::sync(move |_| {
+                let _keep = &probe;
+                Ok(crate::Value::Null)
+            }))
+            .unwrap();
+        function
+            .init(NativeFunction::sync(|_| Ok(crate::Value::Null)))
+            .unwrap();
+        assert_eq!(count.load(Ordering::SeqCst), 3);
+    }
 }
