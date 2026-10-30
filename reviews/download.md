@@ -65,3 +65,11 @@ Existing SSRF policy is reused without widening its error-catching boundary. Own
 make tests deterministic without globals, and nonzero concurrency is enforced by the type.
 Return values expose all original metadata, downloaded ZIPs are retained, and archive codecs
 come from a maintained Rust library with a verified Rust 1.88 minimum version.
+
+## Follow-up: POSIX fixture capture
+
+CI run 41056779984 exposed a fixture-generation error: ZipInfo normalizes names at
+archive-open time using the host os.sep. The generator opened the archive before switching
+to simulated POSIX rules, turning a literal backslash into a slash. Move archive opening
+inside the platform patch. The ZIP and native extraction code are unchanged. All 19 expected
+POSIX files now match actual Linux Python extraction in WSL; Windows download tests pass.

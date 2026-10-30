@@ -742,7 +742,7 @@
       "?/C:/device.txt": "device",
       "é:/unicode-drive.txt": "unicode drive",
       "trailing . /bad:name?.txt": "sanitized",
-      "back/slash.txt": "backslash",
+      "back\\slash.txt": "backslash",
       "link": "../../outside",
       "zip64.txt": "zip64"
     }

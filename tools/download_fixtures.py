@@ -116,10 +116,13 @@ for platform, path_module, sep, altsep in [("windows", ntpath, "\\", "/"), ("pos
             if not self.closed:
                 files[self.path] = self.getvalue().decode("utf8")
             super().close()
-    with zipfile.ZipFile(io.BytesIO(archive_bytes.getvalue())) as archive, ExitStack() as stack:
+    with ExitStack() as stack:
         stack.enter_context(patch.object(os, "path", path_module))
         stack.enter_context(patch.object(os, "sep", sep))
         stack.enter_context(patch.object(os, "altsep", altsep))
+        # ZipInfo normalizes names at archive-open time using os.sep. Set the
+        # simulated platform first so POSIX literal backslashes remain literal.
+        archive = stack.enter_context(zipfile.ZipFile(io.BytesIO(archive_bytes.getvalue())))
         stack.enter_context(patch.object(path_module, "exists", return_value=False))
         stack.enter_context(patch.object(path_module, "isdir", return_value=False))
         stack.enter_context(patch.object(os, "makedirs"))
