@@ -1,8 +1,5 @@
 use crate::Result;
-use std::{
-    path::{Path, PathBuf},
-    time::Duration,
-};
+use std::path::{Path, PathBuf};
 
 /// Resolves a model repository and optional revision into the platform cache path.
 ///
@@ -26,17 +23,13 @@ pub fn resolve_model_cache_path_from_hugginface_repository(
 
 /// Probes nvidia-smi with a five-second deadline and returns whether CUDA is available.
 pub async fn is_cuda_available() -> bool {
-    let mut command = tokio::process::Command::new("nvidia-smi");
-    command
-        .kill_on_drop(true)
-        .stderr(std::process::Stdio::null());
-    match tokio::time::timeout(Duration::from_secs(5), command.output()).await {
-        Ok(Ok(output)) => {
-            output.status.success()
-                && String::from_utf8_lossy(&output.stdout).contains("NVIDIA-SMI")
-        }
-        _ => false,
-    }
+    crate::serverless::health::GpuChecks::with_commands(
+        crate::serverless::health::GpuConfig::default(),
+        None,
+        crate::serverless::health::ProbeCommand::new("nvidia-smi"),
+    )
+    .is_available()
+    .await
 }
 
 /// Removes conventional job directories and explicitly named extra folders.

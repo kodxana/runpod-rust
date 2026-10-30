@@ -29,8 +29,9 @@
       "kind": "function",
       "public": true,
       "signature": "binary_name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::get_binary_path",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/__init__.py",
@@ -39,8 +40,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::is_serverless_environment",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/__init__.py",
@@ -49,8 +51,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::is_early_check_eligible",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/cuda.py",
@@ -79,8 +82,9 @@
       "kind": "function",
       "public": false,
       "signature": "name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::environment::flag",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/fitness.py",
@@ -259,8 +263,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::HealthError::GpuAllocation",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -269,8 +274,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuConfig::from_values",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -279,8 +285,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuChecks::from_values",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -289,8 +296,9 @@
       "kind": "function",
       "public": false,
       "signature": "output: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::parse_gpu_test_output",
+      "status": "implemented",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -299,8 +307,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuChecks::run_gpu_test_binary",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -309,8 +318,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuChecks::run_gpu_test_fallback",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -319,8 +329,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::GpuChecks::check_gpu_health",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/gpu.py",
@@ -369,8 +380,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemConfig::from_values",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -379,8 +391,9 @@
       "kind": "function",
       "public": false,
       "signature": "version_string: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::parse_version",
+      "status": "implemented",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -389,8 +402,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::memory_info / MemoryInfo::from_meminfo",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -399,8 +413,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::check_memory_availability",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -409,8 +424,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::check_disk_space",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -419,8 +435,9 @@
       "kind": "function",
       "public": false,
       "signature": "url: str | None",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::network_probe_target",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -429,8 +446,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::check_network_connectivity",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -439,8 +457,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::cuda_version",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",
@@ -449,8 +468,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::SystemChecks::check_cuda_versions",
+      "status": "adapted",
+      "note": "Owned configuration and native process/OS APIs replace Python globals and probes. Linux x86_64 embeds the unchanged upstream gpu_test resource. Registration, fitness lifecycle, framework checks, and process-exit integration remain pending. See PORTING.md and reviews/health-probes.md."
     },
     {
       "file": "runpod/_health/system.py",

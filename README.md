@@ -136,6 +136,14 @@ Startup hooks run alongside intake and gate execution. See the
 [worker notes](PORTING.md#worker-scaling-and-startup-coordination) for failure reporting and
 remaining runtime work.
 
+`serverless::health` exposes native GPU allocation/fallback probes and memory, disk, TCP,
+and CUDA-version checks. `GpuChecks::from_values` reads explicit environment values and
+uses the bundled Linux x86_64 allocation binary unless an existing override is supplied.
+`SystemChecks` accepts owned thresholds and optional executable overrides. Probes have
+bounded process/network lifetimes and need no Python interpreter. Automatic fitness
+registration, startup orchestration, and framework-specific checks remain in progress;
+see the [health notes](PORTING.md#native-health-probes).
+
 For untrusted download URLs, use `utils::ssrf::SafeDownloader` with `DownloadOptions`.
 It validates DNS results, pins connections, checks each redirect, and bounds consumed bytes.
 `SafeResponse::error_for_status` rejects HTTP failure statuses; `::bytes` reads a small body,

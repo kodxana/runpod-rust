@@ -1,0 +1,475 @@
+[
+  {
+    "operation": "gpu_parse",
+    "test": "test_parse_success_single_gpu",
+    "input": "Linux Kernel Version: 5.15.0\nCUDA Driver Version: 12.2\nFound 1 GPUs:\nGPU 0: NVIDIA A100 (UUID: GPU-xxx)\nGPU 0 memory allocation test passed.\n",
+    "output": {
+      "success": true,
+      "gpu_count": 1,
+      "found_gpus": 1,
+      "errors": [],
+      "details": {
+        "kernel": "5.15.0",
+        "cuda_version": "12.2"
+      }
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "test": "test_parse_success_multi_gpu",
+    "input": "Linux Kernel Version: 5.15.0\nCUDA Driver Version: 12.2\nFound 2 GPUs:\nGPU 0: NVIDIA A100 (UUID: GPU-xxx)\nGPU 0 memory allocation test passed.\nGPU 1: NVIDIA A100 (UUID: GPU-yyy)\nGPU 1 memory allocation test passed.\n",
+    "output": {
+      "success": true,
+      "gpu_count": 2,
+      "found_gpus": 2,
+      "errors": [],
+      "details": {
+        "kernel": "5.15.0",
+        "cuda_version": "12.2"
+      }
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "test": "test_parse_failure_nvml_init",
+    "input": "Failed to initialize NVML: Driver/library version mismatch\n",
+    "output": {
+      "success": false,
+      "gpu_count": 0,
+      "found_gpus": 0,
+      "errors": [
+        "Failed to initialize NVML: Driver/library version mismatch"
+      ],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "test": "test_parse_failure_no_gpus",
+    "input": "Linux Kernel Version: 5.15.0\nCUDA Driver Version: 12.2\nFound 0 GPUs:\n",
+    "output": {
+      "success": false,
+      "gpu_count": 0,
+      "found_gpus": 0,
+      "errors": [],
+      "details": {
+        "kernel": "5.15.0",
+        "cuda_version": "12.2"
+      }
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "test": "test_parse_failure_memory_allocation",
+    "input": "Linux Kernel Version: 5.15.0\nCUDA Driver Version: 12.2\nFound 1 GPUs:\nGPU 0: NVIDIA A100 (UUID: GPU-xxx)\nGPU 0 memory allocation test failed. Error code: 2 (out of memory)\n",
+    "output": {
+      "success": false,
+      "gpu_count": 0,
+      "found_gpus": 1,
+      "errors": [
+        "GPU 0 memory allocation test failed. Error code: 2 (out of memory)"
+      ],
+      "details": {
+        "kernel": "5.15.0",
+        "cuda_version": "12.2"
+      }
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "test": "test_parse_partial_failure_mixed_gpus",
+    "input": "Linux Kernel Version: 5.15.0\nCUDA Driver Version: 12.2\nFound 2 GPUs:\nGPU 0: NVIDIA A100 (UUID: GPU-xxx)\nGPU 0 memory allocation test passed.\nGPU 1: NVIDIA A100 (UUID: GPU-yyy)\nGPU 1 memory allocation test failed. Error code: 2\n",
+    "output": {
+      "success": false,
+      "gpu_count": 1,
+      "found_gpus": 2,
+      "errors": [
+        "GPU 1 memory allocation test failed. Error code: 2"
+      ],
+      "details": {
+        "kernel": "5.15.0",
+        "cuda_version": "12.2"
+      }
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "test": "test_parse_error_messages_capture",
+    "input": "Failed to get GPU count: Driver not found\nGPU 0: Error cannot access device\nUnable to initialize CUDA\n",
+    "output": {
+      "success": false,
+      "gpu_count": 0,
+      "found_gpus": 0,
+      "errors": [
+        "Failed to get GPU count: Driver not found",
+        "GPU 0: Error cannot access device",
+        "Unable to initialize CUDA"
+      ],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "",
+    "output": {
+      "success": false,
+      "gpu_count": 0,
+      "found_gpus": 0,
+      "errors": [],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "Found bogus GPUs:\nGPU 0 memory allocation test passed.",
+    "output": {
+      "success": false,
+      "gpu_count": 1,
+      "found_gpus": 0,
+      "errors": [],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "Found -1 GPUs:\nCannot allocate",
+    "output": {
+      "success": false,
+      "gpu_count": 0,
+      "found_gpus": -1,
+      "errors": [
+        "Cannot allocate"
+      ],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "Found 1 GPUs:\nGPU 0 MEMORY ALLOCATION TEST PASSED.",
+    "output": {
+      "success": true,
+      "gpu_count": 1,
+      "found_gpus": 1,
+      "errors": [],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "Found 1 GPUs:\nGPU 0 memory allocation test passed.\nCUDA Driver Version: error 12.2",
+    "output": {
+      "success": false,
+      "gpu_count": 1,
+      "found_gpus": 1,
+      "errors": [
+        "CUDA Driver Version: error 12.2"
+      ],
+      "details": {
+        "cuda_version": "error 12.2"
+      }
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "Found 3 GPUs:\nFound 1 GPUs:\nGPU 0 memory allocation test passed.",
+    "output": {
+      "success": true,
+      "gpu_count": 1,
+      "found_gpus": 1,
+      "errors": [],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "Found 1 GPUs:\nGPU 0 memory allocation test passed.\nGPU 0 memory allocation test passed.",
+    "output": {
+      "success": false,
+      "gpu_count": 2,
+      "found_gpus": 1,
+      "errors": [],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "found 1 GPUs:\nGPU 0 memory allocation test passed.",
+    "output": {
+      "success": false,
+      "gpu_count": 1,
+      "found_gpus": 0,
+      "errors": [],
+      "details": {}
+    }
+  },
+  {
+    "operation": "gpu_parse",
+    "input": "CUDA Driver Version: 12.2: detail\r\nLinux Kernel Version: 6.2\nUnable to start",
+    "output": {
+      "success": false,
+      "gpu_count": 0,
+      "found_gpus": 0,
+      "errors": [
+        "Unable to start"
+      ],
+      "details": {
+        "cuda_version": "12.2: detail",
+        "kernel": "6.2"
+      }
+    }
+  },
+  {
+    "operation": "version",
+    "input": "12.2",
+    "output": [
+      12,
+      2
+    ]
+  },
+  {
+    "operation": "version",
+    "input": "CUDA Version 11.8",
+    "output": [
+      11,
+      8
+    ]
+  },
+  {
+    "operation": "version",
+    "input": "release 12.1, V12.1.105",
+    "output": [
+      12,
+      1
+    ]
+  },
+  {
+    "operation": "version",
+    "input": "unknown",
+    "output": [
+      0,
+      0
+    ]
+  },
+  {
+    "operation": "version",
+    "input": "",
+    "output": [
+      0,
+      0
+    ]
+  },
+  {
+    "operation": "version",
+    "input": "10",
+    "output": [
+      0,
+      0
+    ]
+  },
+  {
+    "operation": "version",
+    "input": "v9.02.1",
+    "output": [
+      9,
+      2
+    ]
+  },
+  {
+    "operation": "version",
+    "input": " 13.5 ",
+    "output": [
+      13,
+      5
+    ]
+  },
+  {
+    "operation": "version",
+    "input": "version 0.0",
+    "output": [
+      0,
+      0
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": null,
+    "output": [
+      "api.runpod.ai",
+      443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "",
+    "output": [
+      "api.runpod.ai",
+      443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "https://api.example/job",
+    "output": [
+      "api.example",
+      443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "http://worker:8080/path?secret=token",
+    "output": [
+      "worker",
+      8080
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "https://user:pass@HOST:0/job",
+    "output": [
+      "host",
+      443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "worker/job",
+    "output": [
+      "api.runpod.ai",
+      443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "ftp://host/file",
+    "output": [
+      "api.runpod.ai",
+      443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "https://host:invalid",
+    "output": [
+      "api.runpod.ai",
+      443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "https://[::1]:8443/job",
+    "output": [
+      "::1",
+      8443
+    ]
+  },
+  {
+    "operation": "network_target",
+    "input": "https://host:99999",
+    "output": [
+      "api.runpod.ai",
+      443
+    ]
+  },
+  {
+    "operation": "eligibility",
+    "environment": {},
+    "args": [],
+    "output": {
+      "serverless": false,
+      "early": false
+    }
+  },
+  {
+    "operation": "eligibility",
+    "environment": {
+      "RUNPOD_ENDPOINT_ID": "e",
+      "RUNPOD_WEBHOOK_GET_JOB": "url"
+    },
+    "args": [],
+    "output": {
+      "serverless": true,
+      "early": true
+    }
+  },
+  {
+    "operation": "eligibility",
+    "environment": {
+      "RUNPOD_ENDPOINT_ID": "e",
+      "RUNPOD_WEBHOOK_GET_JOB": "url",
+      "RUNPOD_TEST": " YES "
+    },
+    "args": [],
+    "output": {
+      "serverless": false,
+      "early": false
+    }
+  },
+  {
+    "operation": "eligibility",
+    "environment": {
+      "RUNPOD_ENDPOINT_ID": "e",
+      "RUNPOD_WEBHOOK_GET_JOB": "url",
+      "RUNPOD_REALTIME_PORT": "8000"
+    },
+    "args": [],
+    "output": {
+      "serverless": true,
+      "early": false
+    }
+  },
+  {
+    "operation": "eligibility",
+    "environment": {
+      "RUNPOD_ENDPOINT_ID": "e",
+      "RUNPOD_WEBHOOK_GET_JOB": "url"
+    },
+    "args": [
+      "--test_input={}"
+    ],
+    "output": {
+      "serverless": true,
+      "early": false
+    }
+  },
+  {
+    "operation": "eligibility",
+    "environment": {
+      "RUNPOD_ENDPOINT_ID": "e",
+      "RUNPOD_WEBHOOK_GET_JOB": "url"
+    },
+    "args": [
+      "--rp_serve_api"
+    ],
+    "output": {
+      "serverless": true,
+      "early": false
+    }
+  },
+  {
+    "operation": "eligibility",
+    "environment": {
+      "RUNPOD_ENDPOINT_ID": "  ",
+      "RUNPOD_WEBHOOK_GET_JOB": "url"
+    },
+    "args": [],
+    "output": {
+      "serverless": false,
+      "early": false
+    }
+  },
+  {
+    "operation": "eligibility",
+    "environment": {
+      "RUNPOD_ENDPOINT_ID": "e",
+      "RUNPOD_WEBHOOK_GET_JOB": "url",
+      "RUNPOD_REALTIME_PORT": " 0 "
+    },
+    "args": [
+      "--test_inputs"
+    ],
+    "output": {
+      "serverless": true,
+      "early": true
+    }
+  }
+]

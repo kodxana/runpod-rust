@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// A native worker health probe failed.
+    #[error(transparent)]
+    Health(#[from] crate::serverless::health::HealthError),
     /// A native S3 operation failed, retaining the underlying SDK error.
     #[error(transparent)]
     Upload(#[from] crate::utils::upload::UploadError),

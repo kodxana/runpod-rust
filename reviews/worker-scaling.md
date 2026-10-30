@@ -45,5 +45,7 @@ The focused Python suites passed 72 tests with one skip. New native coverage con
 16 Windows integration tests and one unit test replaying 33 captured cases. The complete
 Windows stable Rust 1.99.1 suite passed 393 tests: 387 integration, four unit, and two doctests.
 All 24 focused unit/worker tests passed on Rust 1.94.1. Formatting, build, Clippy with warnings
-denied, and documentation checks pass. The Unix SIGTERM subprocess test awaits CI.
+denied, and documentation checks pass. Subsequent CI run
+[41069882750](https://github.com/kodxana/runpod-rust/actions/runs/41069882750) passed all four
+jobs, including Linux/macOS SIGTERM testing and Linux Rust 1.94.1.
 No live Runpod resources were used.

@@ -25,6 +25,9 @@ by Python; the complete port remains in progress.
 | `rp_prestart` registration, enumeration, clearing, execution | owned `PrestartHooks` registry |
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
 | `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule`; exception hook remains pending |
+| `_health.gpu` parsing, configuration, allocation binary, and nvidia-smi fallback | `serverless::health::{GpuChecks, GpuConfig, GpuTestOutput, HealthError, parse_gpu_test_output}` |
+| `_health.system` memory, disk, TCP readiness, and CUDA-version probes | `serverless::health::{SystemChecks, SystemConfig, MemoryInfo, DiskInfo, parse_version, network_probe_target}` |
+| `_binary_helpers.get_binary_path`, serverless/early eligibility, environment flags | `serverless::health::{get_binary_path, is_serverless_environment, is_early_check_eligible}` and private flag helper |
 | `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
@@ -64,9 +67,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 380 implemented symbols, 144 adapted symbols, and 426 upstream
+This milestone maps 382 implemented symbols, 162 adapted symbols, and 467 upstream
 test functions; other entries remain pending.
-The test mapping includes 425 ported tests and one explicitly adapted Python import test.
+The test mapping includes 466 ported tests and one explicitly adapted Python import test.
 
 ## Test mapping and reproduction
 
@@ -107,6 +110,7 @@ python tools/ssrf_fixtures.py
 python tools/download_fixtures.py  # Windows capture, including simulated POSIX paths
 python tools/upload_fixtures.py
 python tools/scaling_fixtures.py
+python tools/health_fixtures.py
 python tools/package_fixtures.py
 python tools/build_fixtures.py
 python tools/dev_fixtures.py
@@ -835,11 +839,69 @@ queue, and reflection-specific tests remain pending rather than being counted as
 The focused upstream scaler, mirror, and prestart suites pass **72 tests with one skip**.
 The ledger adds 22 adapted symbols and 29 mapped upstream tests. Native coverage includes
 16 new Windows integration tests and one fixture-replay unit test; a separate Unix subprocess
-test exercises real SIGTERM delivery and awaits CI. See
+test exercises real SIGTERM delivery. Subsequent CI run
+[41069882750](https://github.com/kodxana/runpod-rust/actions/runs/41069882750) passed on Linux,
+Windows, and macOS stable, plus Linux Rust 1.94.1, including the SIGTERM test. See
 [reviews/worker-scaling.md](reviews/worker-scaling.md) for review and final validation.
 The full Windows stable suite passes **393 tests** (387 integration, four unit, two doctests).
 All **24 focused unit/worker tests** pass on Rust 1.94.1. Build, formatting, Clippy with
 warnings denied, and documentation checks pass.
+
+## Native health probes
+
+`serverless::health` now supplies the native probe layer used by Python's health modules.
+GPU allocation parsing preserves metadata, repeated GPU count lines, case-sensitive headers,
+case-insensitive error words, negative error-message slice limits, and the source's decision
+to trust successful stdout even when the allocation process exits nonzero. A device allocation
+failure is a distinct `HealthError::GpuAllocation` and never falls back. Missing/nonexecutable
+binaries and failures before device enumeration permit a bounded `nvidia-smi --list-gpus`
+fallback. Combined failures retain the fallback error as their source.
+
+The unchanged 830,408-byte upstream `gpu_test` binary is embedded on Linux x86_64, extracted
+to an owned temporary file with mode 0700, and removed after its final owner drops. An existing
+`RUNPOD_BINARY_GPU_TEST_PATH` overrides it. Other platforms can supply a native binary or use
+the fallback; no unsupported Linux executable is launched there. See [binaries/README.md](binaries/README.md)
+for provenance, license, and platform requirements. Its SHA-256 is
+`fa26cfe85d7d3c403d592f7707c66894773fd09b2cdfd55f30b433b7afb48494`.
+
+Native OS memory counters replace psutil, with a separate `/proc/meminfo` parser preserving
+the source fallback. Root-filesystem available space uses native filesystem statistics.
+Thresholds remain strict less-than comparisons, including zero-total and negative-threshold
+behavior. TCP readiness uses three attempts within one shared budget, includes connection
+teardown, sends no HTTP request, and reports only the host/port. CUDA detection tries bounded
+nvcc then nvidia-smi processes and skips unavailable version information. The existing
+`utils::is_cuda_available` now uses the same bounded process helper and timeout warning.
+
+Configuration is owned rather than mutable global state. Integer settings use signed 64-bit
+values; version pairs use unsigned 64-bit values. Exotic unbounded Python integers, numeric
+underscores, and non-ASCII version digits are outside this native input domain. Nonpositive
+GPU timeouts become an immediate zero-duration deadline. Rust URL parsing replaces urlsplit;
+the captured malformed URLs, zero ports, credentials, and IPv6 cases match. OS-specific error
+types/messages are retained through `HealthError`; absence of a native binary on unsupported
+platforms is reported as missing. Memory counters may differ between native OS and psutil
+implementations. The packaged GPU probe has not been exercised on physical GPU hardware.
+
+The [sysinfo 0.38.4](https://docs.rs/sysinfo/0.38.4/sysinfo/) dependency supports the existing
+Rust 1.94.1 minimum; only its system feature is enabled. Native filesystem statistics use
+[fs2 0.4.3](https://docs.rs/fs2/0.4.3/fs2/fn.statvfs.html). Neither starts Python.
+
+`tools/health_fixtures.py` captures **43 Python cases**, bringing the total to **1,205**.
+The full upstream health suite has **158 passed and two Windows-only test-fixture failures**:
+its two successful-binary integration cases launch Unix-style script executables directly.
+Native process tests instead compile a small Rust fixture executable and verify success,
+fallback, permission errors, timeout/cancellation cleanup, and version detection. Unit tests
+control the retry clock and prove timed-out probe futures are dropped. The ledger adds
+20 symbols and 41 upstream test mappings; executable permissions and embedded resource
+ownership additionally require Unix/Linux CI. See [reviews/health-probes.md](reviews/health-probes.md).
+
+Verification: the full Windows stable Rust 1.99.1 suite passes **417 tests** (409 integration,
+six unit, two doctests). All **28 focused unit/health tests** pass on Rust 1.94.1. Build,
+formatting, Clippy with warnings denied, and documentation checks pass. Unix/Linux-specific
+new probe tests await the next CI run.
+
+Fitness registration, early/worker-start coordination and configuration refresh, unhealthy
+reporting/hard exit, and framework-specific CUDA initialization/compute checks are still
+pending. These probes are not yet automatically installed into the worker startup lifecycle.
 
 ## Remaining work
 

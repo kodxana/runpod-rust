@@ -11209,8 +11209,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::python_gpu_output_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11219,8 +11220,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::python_gpu_output_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11229,8 +11231,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::python_gpu_output_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11239,8 +11242,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::python_gpu_output_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11249,8 +11253,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::python_gpu_output_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11259,8 +11264,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::python_gpu_output_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11269,8 +11275,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::python_gpu_output_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11279,8 +11286,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::binary_paths_prefer_valid_override_then_package_file",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11289,8 +11297,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::binary_paths_prefer_valid_override_then_package_file",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11299,8 +11308,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::binary_paths_prefer_valid_override_then_package_file",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11309,8 +11319,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::binary_success_uses_output_even_when_exit_status_is_nonzero",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11319,8 +11330,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::missing_binary_and_fallback_timeouts_retain_error_categories",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11329,8 +11341,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::non_executable_allocation_binary_uses_the_fallback (Unix)",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11339,8 +11352,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::binary_timeout_kills_and_reaps_the_process",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11349,8 +11363,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::loader_failure_falls_back_and_combined_failure_keeps_both_causes",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11359,8 +11374,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::binary_success_uses_output_even_when_exit_status_is_nonzero",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11369,8 +11385,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::allocation_failure_never_falls_back_to_a_list_of_healthy_gpus",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11379,8 +11396,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_gpu::loader_failure_falls_back_and_combined_failure_keeps_both_causes",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_gpu_checks.py",
@@ -11899,8 +11917,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::system::tests::network_retries_refusal_and_can_succeed_on_the_next_attempt / tests/health_system::network_readiness_uses_host_and_port_without_sending_http",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -11909,8 +11928,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::system::tests::network_probe_and_teardown_share_one_bounded_budget",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -12009,8 +12029,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, url",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::python_health_helper_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -12019,8 +12040,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::python_health_helper_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_safe_startup.py",
@@ -12279,8 +12301,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_get_mem",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::memory_and_disk_thresholds_and_zero_total",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12289,8 +12312,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_get_mem",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::memory_and_disk_thresholds_and_zero_total",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12299,8 +12323,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_get_mem",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::memory_and_disk_thresholds_and_zero_total",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12309,8 +12334,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::native_memory_and_disk_queries_read_the_host",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12319,8 +12345,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_disk_usage",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::memory_and_disk_thresholds_and_zero_total",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12329,8 +12356,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_disk_usage",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::memory_and_disk_thresholds_and_zero_total",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12339,8 +12367,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_disk_usage",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::native_memory_and_disk_queries_read_the_host",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12349,8 +12378,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::network_readiness_uses_host_and_port_without_sending_http",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12359,8 +12389,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::system::tests::network_probe_and_teardown_share_one_bounded_budget",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12369,8 +12400,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::health::system::tests::network_retries_refusal_and_can_succeed_on_the_next_attempt",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12379,8 +12411,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::python_health_helper_fixtures",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12389,8 +12422,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12399,8 +12433,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12409,8 +12444,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12419,8 +12455,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12429,8 +12466,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12439,8 +12477,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12449,8 +12488,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",
@@ -12459,8 +12499,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/health_system::cuda_version_prefers_nvcc_and_falls_back_only_when_needed",
+      "status": "ported",
+      "note": "Native parser fixtures, local TCP sockets, controlled probe futures, and compiled native subprocesses verify equivalent behavior. Unix executable permissions require Unix CI. Fitness orchestration and GPU framework tests remain pending."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_system_checks.py",

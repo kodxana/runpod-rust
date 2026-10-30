@@ -1,5 +1,6 @@
 //! Native serverless handlers, job tracking, startup hooks, and worker transport.
 mod handler;
+pub mod health;
 mod prestart;
 mod scaling;
 mod state;
