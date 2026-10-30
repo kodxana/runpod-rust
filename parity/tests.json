@@ -14679,8 +14679,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_download_chunk_length_and_disposition_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14689,8 +14689,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_open_file, mock_get, mock_makedirs",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_download_metadata_for_signed_urls_headers_and_filename_edges / batch_none_and_empty_inputs_create_directory_without_requests / batch_retries_exactly_three_times_and_preserves_successes_and_failures",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14699,8 +14699,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_open_file, mock_get, mock_makedirs",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_download_chunk_length_and_disposition_fixtures [chunk-sizing parser; native HTTP parser rejects malformed wire framing]",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14709,8 +14709,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_open_file, mock_get, mock_makedirs",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_download_metadata_for_signed_urls_headers_and_filename_edges",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14719,8 +14719,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_file, mock_get",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_download_metadata_for_signed_urls_headers_and_filename_edges",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14729,8 +14729,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_file, mock_get",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_download_metadata_for_signed_urls_headers_and_filename_edges",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14739,8 +14739,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_file, mock_get",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_download_chunk_length_and_disposition_fixtures [chunk-sizing parser; native HTTP parser rejects malformed wire framing]",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14749,8 +14749,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_zip, mock_file, mock_get",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::single_http_error_is_not_saved_extracted_or_retried",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_download.py",
@@ -14759,8 +14759,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_zip, mock_file, mock_get",
-      "rust": null,
-      "status": "pending"
+      "rust": "download::python_zip_contents_paths_compressions_duplicates_and_link_entries / python_download_metadata_for_signed_urls_headers_and_filename_edges",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_model_cache.py",

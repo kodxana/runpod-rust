@@ -1,4 +1,5 @@
 //! Worker input validation, model cache paths, GPU probing, and cleanup helpers.
+pub mod download;
 mod files;
 pub mod ssrf;
 pub mod validator;

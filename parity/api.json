@@ -10511,8 +10511,8 @@
       "kind": "function",
       "public": true,
       "signature": "file_size: int",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::download::calculate_chunk_size",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/utils/rp_download.py",
@@ -10521,8 +10521,9 @@
       "kind": "function",
       "public": true,
       "signature": "headers",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::download::parse_content_length",
+      "status": "adapted",
+      "note": "Native async owned configuration, ordered concurrent results, three-attempt HTTP retries, and native ZIP extraction. Sizes parse as signed ASCII i128; raw malformed HTTP Content-Length is rejected by reqwest. Partial files and trusted job-path behavior are retained. Native user-agent, tracing, jitter, cancellation, path normalization, and duplicate-ZIP-write adaptations are documented in PORTING.md and reviews/download.md."
     },
     {
       "file": "runpod/serverless/utils/rp_download.py",
@@ -10531,8 +10532,8 @@
       "kind": "function",
       "public": true,
       "signature": "content_disposition: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::download::extract_disposition_params",
+      "status": "implemented"
     },
     {
       "file": "runpod/serverless/utils/rp_download.py",
@@ -10541,8 +10542,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_id: str, urls: Union[str, List[str]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::download::download_files_from_urls / FileDownloader::download_files_from_urls",
+      "status": "adapted",
+      "note": "Native async owned configuration, ordered concurrent results, three-attempt HTTP retries, and native ZIP extraction. Sizes parse as signed ASCII i128; raw malformed HTTP Content-Length is rejected by reqwest. Partial files and trusted job-path behavior are retained. Native user-agent, tracing, jitter, cancellation, path normalization, and duplicate-ZIP-write adaptations are documented in PORTING.md and reviews/download.md."
     },
     {
       "file": "runpod/serverless/utils/rp_download.py",
@@ -10551,8 +10553,9 @@
       "kind": "function",
       "public": true,
       "signature": "file_url: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::download::file / FileDownloader::file",
+      "status": "adapted",
+      "note": "Native async owned configuration, ordered concurrent results, three-attempt HTTP retries, and native ZIP extraction. Sizes parse as signed ASCII i128; raw malformed HTTP Content-Length is rejected by reqwest. Partial files and trusted job-path behavior are retained. Native user-agent, tracing, jitter, cancellation, path normalization, and duplicate-ZIP-write adaptations are documented in PORTING.md and reviews/download.md."
     },
     {
       "file": "runpod/serverless/utils/rp_model_cache.py",

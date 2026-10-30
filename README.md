@@ -134,8 +134,14 @@ while `iter_content_capped` yields a stream suitable for writing larger files. R
 streams own their transports and release them when dropped. Defaults capture the environment;
 use `DownloadOptions::from_values` for an explicit configuration. The default limit is 5 GiB.
 See [PORTING.md](PORTING.md#download-security-transport) for inherited IP-classification
-behavior, proxy opt-in, and native transport differences. File extraction/upload helpers
-remain in progress.
+behavior, proxy opt-in, and native transport differences.
+
+`utils::download::FileDownloader::new(project_root)` adds file download helpers. Use
+`download_files_from_urls(job_id, urls)` for ordered results with three-attempt HTTP retries,
+or `file(url)` for metadata and ZIP extraction. Paths and partial files belong to the caller;
+policy/filesystem failures propagate. The default single-file operation does not retry.
+`job_id` is a trusted path and ZIP expansion is unbounded, matching Python; see the
+[porting notes](PORTING.md#file-downloads-and-zip-extraction). Upload helpers remain in progress.
 
 ```sh
 cargo build --locked

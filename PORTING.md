@@ -56,12 +56,13 @@ by Python; the complete port remains in progress.
 | `apps.auth` browser approval and email verification | `apps::auth::{browser_login, BrowserLoginOptions, auth_url, EmailLoginClient}`, `AppError::Login` |
 | `local_entrypoint`, entrypoint lookup/execution/clearing | `apps::entrypoint::{EntrypointRegistry, run_entrypoint}`, `blocking::apps::run_entrypoint` |
 | SSRF address checks, pinned requests, redirects, proxy refusal, and byte caps | `utils::ssrf::{SafeDownloader, DownloadOptions, SafeResponse, SsrfError, is_safe_address, iter_content_capped}` |
+| File chunk/header helpers, batch download, single-file download and ZIP extraction | `utils::download::{calculate_chunk_size, parse_content_length, extract_disposition_params, FileDownloader, DownloadedFile, download_files_from_urls, file}` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 377 implemented symbols, 111 adapted symbols, and 378 upstream
+This milestone maps 379 implemented symbols, 114 adapted symbols, and 387 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -100,6 +101,7 @@ python tools/monitor_fixtures.py
 python tools/task_fixtures.py
 python tools/deploy_fixtures.py
 python tools/ssrf_fixtures.py
+python tools/download_fixtures.py  # Windows capture, including simulated POSIX paths
 python tools/package_fixtures.py
 python tools/build_fixtures.py
 python tools/dev_fixtures.py
@@ -656,9 +658,74 @@ Native adaptations are explicit:
 
 This file will be updated as each remaining component and test is ported.
 
+### File downloads and ZIP extraction
+
+The SSRF transport passed all four CI jobs: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41051344163).
+`utils::download` now provides all five upstream download functions. `FileDownloader` owns
+an absolute project root, transport options, optional resolver, concurrency, and timeouts.
+Convenience functions capture the current directory. Native async operations replace the
+Python thread pool without changing cwd or environment. Batch results retain input order;
+completed slots admit queued items even while an earlier item waits. All items finish before
+the first policy/filesystem error in input order is returned. HTTP failures get three attempts
+with full-jitter exponential delays, then return `None`. Policy and local I/O errors are never
+retried. Missing inputs return `None`, and empty batches still create their output directory.
+
+Single downloads reject HTTP errors before writing, return `DownloadedFile` with the original
+dictionary field names under Serde, and extract lowercase `.zip` inputs. Original URL paths
+determine fallback names/extensions; query strings and fragments cannot become extensions.
+Content-Disposition keeps Python's simple parser, including quoted-semicolon and `filename*`
+quirks. Files get OS-random UUIDv4 names. Retry attempts retain the same UUID, including partial
+files under an earlier response's different extension. Failed/canceled writes may leave partial
+files, matching upstream. Buffered disk writes finish before a returned body/policy error.
+
+ZIP decoding is native through `zip` 9.1.3, with stored, DEFLATE, BZIP2, and LZMA members and
+ZIP64 covered. Extraction removes absolute roots and `.`/`..` components instead of resolving
+them, applies Windows drive/UNC and illegal-name rules, and writes symlink entries as ordinary
+files. Duplicate-name records use their last central-directory offset to retain final overwrite
+precedence when sanitized paths collide. CRC errors propagate. Blocking extraction observes
+cancellation at entry/read boundaries; cancellation does not roll back completed files.
+
+The 66 new Python captures include separate Windows/POSIX metadata and ZIP-tree expectations,
+bringing the total to **1,082 captured cases**. The archive has fixed timestamps and includes
+duplicate/aliased names, Unicode, drive and UNC paths, ZIP64, all four compression methods, and
+symlink metadata. The generator must run on Windows because native `ntpath.abspath` removes
+trailing dots; POSIX behavior is captured using `posixpath` and mocked filesystem operations.
+All nine upstream download tests pass. Fifteen Rust integration tests plus one new unit test
+pass on Windows stable and Rust 1.88. See the [download review](reviews/download.md).
+The complete stable suite passes **353 integration tests, three unit tests, and two
+doctests (358 total)**. The final reusable-buffer adjustment is covered by the targeted
+stable/MSRV tests. Formatting, Clippy with warnings denied, documentation, and build checks pass.
+
+Adaptations and inherited limitations:
+
+- The returned paths use native Rust/OS normalization; Windows returned filenames lose a
+  trailing dot as upstream. Sizes parse as signed ASCII i128; invalid or overflowing header
+  values return zero for chunk sizing. The typed Rust boundary excludes Python's arbitrary
+  header value types. Parameter maps are ordered by key instead of Python insertion order.
+- Hyper rejects malformed wire Content-Length before it reaches the sizing helper. The two
+  upstream tests using fake malformed headers map to parser fixtures, not a claim that native
+  HTTP accepts malformed framing. Decompression/timeout differences from SSRF still apply.
+- Owned configuration snapshots replace per-call environment reads. The native user-agent
+  identifies Rust; caller-provided headers can override it. Exhausted batch errors use tracing
+  rather than stdout and omit URL details. Random jitter has the same bounds, not Python's RNG
+  sequence. Source request deadlines remain five seconds for batches and thirty for single
+  files by default; both are configurable.
+- ZIP parsing coalesces duplicate raw names. Final successful overwrite behavior is tested;
+  intermediate duplicate writes and partial output after conflicting file/directory entries
+  can differ from Python. Parse/decode/filesystem errors use native `Error::Zip`/`Error::Io`.
+- As upstream, the download cap does **not** bound expanded ZIP size, and `job_id` is a trusted
+  filesystem path that may contain absolute or parent components. The project root is a
+  location default, not a filesystem sandbox. Native Windows drive-relative path joining can
+  differ from `ntpath`; ordinary IDs, absolute paths, and parent traversal follow OS semantics.
+  Extraction assumes its newly created directory is not concurrently modified by another
+  process. These inherited policies are explicit rather than silently changed during a port.
+- Cancellation stops active HTTP futures and queued work. A submitted disk write may finish;
+  an extraction already parsing a ZIP checks cancellation at its next entry/read boundary.
+  Callers own completed and partial artifacts and can use existing cleanup utilities.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
 discovery and the CLI. Worker fitness, dynamic scaling, hosted API,
-capture/debugging, file download/upload helpers, and volume-cache operations are also pending.
+capture/debugging, upload helpers, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

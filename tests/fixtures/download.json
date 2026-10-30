@@ -1,0 +1,750 @@
+[
+  {
+    "operation": "chunk_size",
+    "input": -10,
+    "output": 1024
+  },
+  {
+    "operation": "chunk_size",
+    "input": 0,
+    "output": 1024
+  },
+  {
+    "operation": "chunk_size",
+    "input": 1,
+    "output": 1024
+  },
+  {
+    "operation": "chunk_size",
+    "input": 1024,
+    "output": 1024
+  },
+  {
+    "operation": "chunk_size",
+    "input": 1048576,
+    "output": 1024
+  },
+  {
+    "operation": "chunk_size",
+    "input": 1048577,
+    "output": 1048576
+  },
+  {
+    "operation": "chunk_size",
+    "input": 1073741824,
+    "output": 1048576
+  },
+  {
+    "operation": "chunk_size",
+    "input": 1073741825,
+    "output": 10485760
+  },
+  {
+    "operation": "chunk_size",
+    "input": 1099511627776,
+    "output": 10485760
+  },
+  {
+    "operation": "content_length",
+    "input": {},
+    "output": "0"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": ""
+    },
+    "output": "0"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "abc"
+    },
+    "output": "0"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "1.2"
+    },
+    "output": "0"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "-4"
+    },
+    "output": "-4"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "0"
+    },
+    "output": "0"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "1"
+    },
+    "output": "1"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "100000000000000000000"
+    },
+    "output": "100000000000000000000"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": " +1_024 "
+    },
+    "output": "1024"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "1__2"
+    },
+    "output": "0"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "_1"
+    },
+    "output": "0"
+  },
+  {
+    "operation": "content_length",
+    "input": {
+      "Content-Length": "1_"
+    },
+    "output": "0"
+  },
+  {
+    "operation": "disposition",
+    "input": "",
+    "output": {}
+  },
+  {
+    "operation": "disposition",
+    "input": "attachment",
+    "output": {}
+  },
+  {
+    "operation": "disposition",
+    "input": "attachment; filename=\"a.txt\"",
+    "output": {
+      "filename": "a.txt"
+    }
+  },
+  {
+    "operation": "disposition",
+    "input": "FILENAME= a.bin ; TYPE=thing",
+    "output": {
+      "filename": "a.bin",
+      "type": "thing"
+    }
+  },
+  {
+    "operation": "disposition",
+    "input": "filename=\"a;b.txt\"",
+    "output": {
+      "filename": "a"
+    }
+  },
+  {
+    "operation": "disposition",
+    "input": "filename=a.txt; filename=b.zip",
+    "output": {
+      "filename": "b.zip"
+    }
+  },
+  {
+    "operation": "disposition",
+    "input": "filename*=UTF-8''a.txt",
+    "output": {
+      "filename*": "UTF-8''a.txt"
+    }
+  },
+  {
+    "operation": "disposition",
+    "input": "name=\"a=b\"; filename=\"\"",
+    "output": {
+      "name": "a=b",
+      "filename": ""
+    }
+  },
+  {
+    "operation": "disposition",
+    "input": " x = \"\"\"value\"\"\"; x=final",
+    "output": {
+      "x": "final"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.jpg?signature=abc#fragment",
+      "disposition": null
+    },
+    "output": {
+      "type": "jpg",
+      "original_name": "a.jpg",
+      "file_name": "11111111-1111-4111-8111-111111111111.jpg",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.jpg"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/no_ext",
+      "disposition": "inline; filename=\"named.txt\""
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "named.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.txt",
+      "disposition": "filename=without_extension"
+    },
+    "output": {
+      "type": "",
+      "original_name": "without_extension",
+      "file_name": "11111111-1111-4111-8111-111111111111",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.zip",
+      "disposition": ""
+    },
+    "output": {
+      "type": "zip",
+      "original_name": "a.zip",
+      "file_name": "11111111-1111-4111-8111-111111111111.zip",
+      "extracted": true,
+      "batch_name": "11111111-1111-4111-8111-111111111111.zip"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.ZIP",
+      "disposition": null
+    },
+    "output": {
+      "type": "ZIP",
+      "original_name": "a.ZIP",
+      "file_name": "11111111-1111-4111-8111-111111111111.ZIP",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.ZIP"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/folder/",
+      "disposition": null
+    },
+    "output": {
+      "type": "",
+      "original_name": "",
+      "file_name": "11111111-1111-4111-8111-111111111111",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/.hidden",
+      "disposition": null
+    },
+    "output": {
+      "type": "",
+      "original_name": ".hidden",
+      "file_name": "11111111-1111-4111-8111-111111111111",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/...dots",
+      "disposition": null
+    },
+    "output": {
+      "type": "",
+      "original_name": "...dots",
+      "file_name": "11111111-1111-4111-8111-111111111111",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/archive.tar.gz",
+      "disposition": null
+    },
+    "output": {
+      "type": "gz",
+      "original_name": "archive.tar.gz",
+      "file_name": "11111111-1111-4111-8111-111111111111.gz",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.gz"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/raw%20name.txt",
+      "disposition": null
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "raw%20name.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/raw name.txt",
+      "disposition": null
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "raw name.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/żółw.txt",
+      "disposition": null
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "żółw.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"a;b.txt\""
+    },
+    "output": {
+      "type": "",
+      "original_name": "a",
+      "file_name": "11111111-1111-4111-8111-111111111111",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.jpg"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"dir/back\\file.txt\""
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "dir/back\\file.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"..\\.hidden\""
+    },
+    "output": {
+      "type": "",
+      "original_name": "..\\.hidden",
+      "file_name": "11111111-1111-4111-8111-111111111111",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.jpg"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"C:.hidden\""
+    },
+    "output": {
+      "type": "hidden",
+      "original_name": "C:.hidden",
+      "file_name": "11111111-1111-4111-8111-111111111111.hidden",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.hidden"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "windows",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"name.\""
+    },
+    "output": {
+      "type": "",
+      "original_name": "name.",
+      "file_name": "11111111-1111-4111-8111-111111111111",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.jpg?signature=abc#fragment",
+      "disposition": null
+    },
+    "output": {
+      "type": "jpg",
+      "original_name": "a.jpg",
+      "file_name": "11111111-1111-4111-8111-111111111111.jpg",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.jpg"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/no_ext",
+      "disposition": "inline; filename=\"named.txt\""
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "named.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.txt",
+      "disposition": "filename=without_extension"
+    },
+    "output": {
+      "type": "",
+      "original_name": "without_extension",
+      "file_name": "11111111-1111-4111-8111-111111111111.",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.zip",
+      "disposition": ""
+    },
+    "output": {
+      "type": "zip",
+      "original_name": "a.zip",
+      "file_name": "11111111-1111-4111-8111-111111111111.zip",
+      "extracted": true,
+      "batch_name": "11111111-1111-4111-8111-111111111111.zip"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.ZIP",
+      "disposition": null
+    },
+    "output": {
+      "type": "ZIP",
+      "original_name": "a.ZIP",
+      "file_name": "11111111-1111-4111-8111-111111111111.ZIP",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.ZIP"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/folder/",
+      "disposition": null
+    },
+    "output": {
+      "type": "",
+      "original_name": "",
+      "file_name": "11111111-1111-4111-8111-111111111111.",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/.hidden",
+      "disposition": null
+    },
+    "output": {
+      "type": "",
+      "original_name": ".hidden",
+      "file_name": "11111111-1111-4111-8111-111111111111.",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/...dots",
+      "disposition": null
+    },
+    "output": {
+      "type": "",
+      "original_name": "...dots",
+      "file_name": "11111111-1111-4111-8111-111111111111.",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/archive.tar.gz",
+      "disposition": null
+    },
+    "output": {
+      "type": "gz",
+      "original_name": "archive.tar.gz",
+      "file_name": "11111111-1111-4111-8111-111111111111.gz",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.gz"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/raw%20name.txt",
+      "disposition": null
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "raw%20name.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/raw name.txt",
+      "disposition": null
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "raw name.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/żółw.txt",
+      "disposition": null
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "żółw.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"a;b.txt\""
+    },
+    "output": {
+      "type": "",
+      "original_name": "a",
+      "file_name": "11111111-1111-4111-8111-111111111111.",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.jpg"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"dir/back\\file.txt\""
+    },
+    "output": {
+      "type": "txt",
+      "original_name": "dir/back\\file.txt",
+      "file_name": "11111111-1111-4111-8111-111111111111.txt",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.txt"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"..\\.hidden\""
+    },
+    "output": {
+      "type": "hidden",
+      "original_name": "..\\.hidden",
+      "file_name": "11111111-1111-4111-8111-111111111111.hidden",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.hidden"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"C:.hidden\""
+    },
+    "output": {
+      "type": "hidden",
+      "original_name": "C:.hidden",
+      "file_name": "11111111-1111-4111-8111-111111111111.hidden",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111.hidden"
+    }
+  },
+  {
+    "operation": "metadata",
+    "platform": "posix",
+    "input": {
+      "url": "https://example.com/a.jpg",
+      "disposition": "filename=\"name.\""
+    },
+    "output": {
+      "type": "",
+      "original_name": "name.",
+      "file_name": "11111111-1111-4111-8111-111111111111.",
+      "extracted": false,
+      "batch_name": "11111111-1111-4111-8111-111111111111."
+    }
+  },
+  {
+    "operation": "zip",
+    "platform": "windows",
+    "output": {
+      "stored.txt": "stored.txt content",
+      "deflated.txt": "deflated.txt content",
+      "bzipped.txt": "bzipped.txt content",
+      "lzma.txt": "lzma.txt content",
+      "parent.txt": "parent",
+      "absolute.txt": "absolute",
+      "dir/kept.txt": "kept",
+      "dup.txt": "last",
+      "unicode/żółw.txt": "utf8",
+      "dir/nested.txt": "nested",
+      "drive.txt": "drive",
+      "unc.txt": "extended UNC",
+      "network.txt": "UNC",
+      "device.txt": "device",
+      "unicode-drive.txt": "unicode drive",
+      "trailing/bad_name_.txt": "sanitized",
+      "back/slash.txt": "backslash",
+      "link": "../../outside",
+      "zip64.txt": "zip64"
+    }
+  },
+  {
+    "operation": "zip",
+    "platform": "posix",
+    "output": {
+      "stored.txt": "stored.txt content",
+      "deflated.txt": "deflated.txt content",
+      "bzipped.txt": "bzipped.txt content",
+      "lzma.txt": "lzma.txt content",
+      "parent.txt": "parent",
+      "absolute.txt": "absolute",
+      "dir/kept.txt": "kept",
+      "dup.txt": "last",
+      "unicode/żółw.txt": "utf8",
+      "dir/nested.txt": "nested",
+      "C:/drive.txt": "drive",
+      "?/UNC/server/share/unc.txt": "extended UNC",
+      "server/share/network.txt": "UNC",
+      "?/C:/device.txt": "device",
+      "é:/unicode-drive.txt": "unicode drive",
+      "trailing . /bad:name?.txt": "sanitized",
+      "back/slash.txt": "backslash",
+      "link": "../../outside",
+      "zip64.txt": "zip64"
+    }
+  }
+]

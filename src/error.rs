@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// A downloaded ZIP could not be parsed or extracted.
+    #[error(transparent)]
+    Zip(#[from] zip::result::ZipError),
     /// A download was rejected by URL, address, proxy, redirect, or size policy.
     /// This is deliberately separate from retryable HTTP transport failures.
     #[error(transparent)]

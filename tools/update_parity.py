@@ -141,6 +141,12 @@ for entry in api["entries"]:
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    if file == "runpod/serverless/utils/rp_download.py":
+        if name in ("calculate_chunk_size", "extract_disposition_params"):
+            entry.update(rust="utils::download::" + name, status="implemented")
+        elif name in ("parse_content_length", "download_files_from_urls", "file"):
+            entry.update(rust="utils::download::" + name + (" / FileDownloader::" + name if name != "parse_content_length" else ""),
+                         status="adapted", note="Native async owned configuration, ordered concurrent results, three-attempt HTTP retries, and native ZIP extraction. Sizes parse as signed ASCII i128; raw malformed HTTP Content-Length is rejected by reqwest. Partial files and trusted job-path behavior are retained. Native user-agent, tracing, jitter, cancellation, path normalization, and duplicate-ZIP-write adaptations are documented in PORTING.md and reviews/download.md.")
     if file == "runpod/serverless/utils/rp_ssrf.py":
         ssrf_symbols = {
             "SSRFError":"SsrfError / Error::Ssrf",
@@ -279,6 +285,21 @@ mapping = {
 fixtures = json.loads((root / "tests/fixtures/control.json").read_text())
 for entry in tests["entries"]:
     target = None
+    if entry["file"] == "tests/test_serverless/test_utils/test_download.py":
+        download_tests = {
+            "test_calculate_chunk_size":"python_download_chunk_length_and_disposition_fixtures",
+            "test_download_files_from_urls":"python_download_metadata_for_signed_urls_headers_and_filename_edges / batch_none_and_empty_inputs_create_directory_without_requests / batch_retries_exactly_three_times_and_preserves_successes_and_failures",
+            "test_download_files_with_malformed_content_length":"python_download_chunk_length_and_disposition_fixtures [chunk-sizing parser; native HTTP parser rejects malformed wire framing]",
+            "test_download_files_from_urls_signed":"python_download_metadata_for_signed_urls_headers_and_filename_edges",
+            "test_download_file":"python_download_metadata_for_signed_urls_headers_and_filename_edges",
+            "test_download_file_with_content_disposition":"python_download_metadata_for_signed_urls_headers_and_filename_edges",
+            "test_download_file_with_malformed_content_length":"python_download_chunk_length_and_disposition_fixtures [chunk-sizing parser; native HTTP parser rejects malformed wire framing]",
+            "test_download_file_raises_on_http_error":"single_http_error_is_not_saved_extracted_or_retried",
+            "test_download_zip_file":"python_zip_contents_paths_compressions_duplicates_and_link_entries / python_download_metadata_for_signed_urls_headers_and_filename_edges",
+        }
+        leaf = entry["name"].split(".")[-1]
+        if leaf in download_tests:
+            target = "download::" + download_tests[leaf]
     if entry["file"] == "tests/test_serverless/test_utils/test_ssrf.py":
         ssrf_tests = {
             "test_blocks_non_global_and_allows_public":"python_ssrf_classification_configuration_and_host_fixtures",
