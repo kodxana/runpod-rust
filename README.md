@@ -25,8 +25,9 @@ utilities, and CLI remain in progress.
 endpoint payloads, endpoint reconciliation, and project archives with nested ignore rules,
 protected credential exclusions, and separately vendored dependency files. `apps::build`
 collects requirements, computes installed dependency closures, and prunes image-provided
-packages while retaining shared files. Dependency installation and the complete deployment
-pipeline are still pending.
+packages while retaining shared files. `BuildTools` and `build_environment` install Linux
+wheels through an explicitly configurable Python/pip command, report progress, and build
+the artifact environment. Complete deployment orchestration remains in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -86,8 +87,11 @@ cargo doc --locked --no-deps
 ```
 
 Tests use local mock HTTP services; they do not create billable cloud resources.
-Python is used only to regenerate differential fixtures, never at Rust runtime.
-CI also uses Python to verify that it can decode pickle values produced by Rust.
+Core API clients, workers, serialization, and dependency analysis execute natively in Rust.
+Building Python-compatible deployment artifacts invokes Python/pip as external build tools;
+it does not invoke the Python SDK to perform SDK operations. Build tests use local stand-in
+executables without installing packages. Python also regenerates differential fixtures,
+and CI verifies that it can decode pickle values produced by Rust.
 
 The destination project's Apache-2.0 license is retained. Upstream-derived code and
 fixtures retain the original MIT notice in [LICENSE-UPSTREAM](LICENSE-UPSTREAM).

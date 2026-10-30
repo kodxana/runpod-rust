@@ -4,6 +4,9 @@
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum AppError {
+    /// Dependency installation or artifact environment construction failed.
+    #[error("{0}")]
+    Build(String),
     /// A named application resource has no deployed endpoint.
     #[error(
         "'{resource_name}' in app '{app_name}' is not deployed. run `rp flash deploy` first, or use .local() to run it here."

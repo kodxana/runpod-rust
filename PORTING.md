@@ -43,12 +43,13 @@ by Python; the complete port remains in progress.
 | `apps.deploy` manifests, deployed endpoint payloads, reconciliation, result type | `apps::deploy::{build_manifest, deployed_endpoint_input, reconcile_endpoints, DeployResult}` with `AppDefinition` metadata |
 | `apps.deploy.package_project` and ignore helpers | `apps::deploy::{package_project, PackageOptions, Artifact}` and private scoped ignore matching |
 | `apps.build` requirement selection, installed closures, and pruning | `apps::build::{requirement_name, collect_requirements, split_exclusions, installed_closure, prune_excluded}` |
+| `apps.build` installer, SDK overlay, complete environment construction | `apps::build::{BuildTools, VendorOptions, BuildOptions, BuildResult, sync_running_package, build_environment}`, `AppError::Build` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 336 implemented symbols, twelve adapted symbols, and 245 upstream
+This milestone maps 344 implemented symbols, fifteen adapted symbols, and 262 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -73,7 +74,7 @@ invalid files. Utility tests cover typed validation and Python's default/constra
 `tests/apps_spec.rs` checks 24 Python manifest/validation fixtures. Apps value and volume
 tests check model references, secret expansion, GPU exclusions, mount restrictions, and
 worker binding lookup. Static catalog enums and GraphQL documents are extracted directly
-from pinned source by reproducible tools; no Python runs inside the Rust library.
+from pinned source by reproducible tools; SDK API/worker operations execute natively.
 
 Regenerate with the upstream SDK installed in an isolated environment:
 
@@ -94,6 +95,15 @@ python tools/verify_pickle.py
 
 ## Preserved quirks
 
+- Installer progress reports each `Collecting` line and resets its count for each pip run.
+  stdout/stderr share one pipe; failures use the last thirty lines and at most 3,000 Unicode
+  characters. Empty requirements launch no tools. Missing pip triggers ensurepip; URL/path
+  SDK overrides build a wheel first, then choose the last sorted `runpod-*.whl` filename.
+  SDK installation uses `--no-deps` before the runtime/user dependency installation.
+- Any custom image disables automatic size-based exclusions. Mixed CPU/GPU apps still
+  prune image-provided packages, but record a package for CPU cold-start installation only
+  when CPU requirements need it (or the user explicitly excluded it). API resources add
+  FastAPI/uvicorn dependencies. The SDK overlay retains unrelated stale files, as upstream.
 - Requirement collection keeps the first specification for each name; that helper replaces
   underscores but does not normalize dots/repeated separators. Installed distribution
   matching uses full Python package-name canonicalization. Dependency closure evaluates
@@ -263,6 +273,18 @@ python tools/verify_pickle.py
   `../../bin/...` staging convention), rejects absolute/drive paths, and verifies resolved
   containment before deleting. Unlike Python, even absolute paths pointing inside the
   environment are ignored. Symlinks resolving outside the environment remain untouched.
+- `BuildTools` explicitly owns the external interpreter command; build/installer functions
+  are synchronous and require a blocking executor in async flows. Python/pip are external
+  build tools, not an SDK runtime bridge. Child stdin is closed, console windows are hidden
+  on Windows, and a failed read or progress callback kills/reaps the installer. The default
+  command is `python` on Windows and `python3` elsewhere; callers can select a venv binary.
+- `BuildOptions` captures the package override and takes an optional SDK package directory.
+  Rust has no installed Python package tree to reflect on. With no explicit source/override,
+  `build_environment` builds and installs the exact pinned upstream GitHub source revision.
+  An explicit source is overlaid with native file copying (bytecode excluded); overlapping
+  source/destination trees are rejected. BuildResult owns automatic scratch until dropped
+  or persisted. Caller-specified scratch is retained even after a failure. Source file
+  timestamp preservation follows native copying rather than Python copy2 metadata behavior.
 
 ## Verification log
 
@@ -353,13 +375,25 @@ python tools/verify_pickle.py
   cases** overall. Build, formatting, Clippy with warnings denied, and docs pass; the
   separate pedantic review has no warnings in the new files. See
   [dependency-analysis review](reviews/apps-build-analysis.md).
+- Commit deaf5ae passed all stable platform jobs and Linux MSRV, including Unix pruning
+  containment: [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41026474247).
+- All **66 upstream build tests** pass. New Rust process tests use shell/PowerShell stand-ins
+  to exercise real pipe handling, large stderr, bootstrap failures, wheel selection, exact
+  target flags, fallible progress callbacks, SDK overrides, and scratch ownership. No pip
+  install or package download is performed in those tests. See
+  [installer review](reviews/apps-installer.md).
+- Installer/build milestone: **212 integration tests and one doctest** pass on Windows
+  stable Rust. All **20 new installer/build tests** pass on Rust 1.88. Build, formatting,
+  Clippy with warnings denied, and documentation generation pass. Pedantic review fixed
+  documentation formatting; its function-length and test-helper allocation suggestions
+  remain advisory. Real package-index/GitHub installation has not been exercised by tests.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement deployment orchestration, native function
-registration/deployment, dependency installation, discovery, development sessions, browser auth flows,
+registration/deployment, discovery, development sessions, browser auth flows,
 management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

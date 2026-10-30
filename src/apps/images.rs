@@ -4,7 +4,7 @@ use crate::{Error, Result};
 
 /// Runtime image versions supported by the pinned SDK.
 pub const SUPPORTED_PYTHON_VERSIONS: &[&str] = &["3.10", "3.11", "3.12", "3.13", "3.14"];
-/// Default remote interpreter version; Rust does not require a local Python interpreter.
+/// Default remote interpreter version; image selection does not start a local Python interpreter.
 pub const DEFAULT_PYTHON_VERSION: &str = "3.12";
 
 /// Reads the runtime channel override, including an explicitly empty value.

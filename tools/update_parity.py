@@ -106,9 +106,15 @@ for entry in api["entries"]:
         "installed_closure":"installed_closure", "_dependency_closure":"dependency_closure",
         "_remove_files":"remove_files", "_remove_empty_dirs":"remove_empty_dirs",
         "_distributions_to_drop":"distributions_to_drop", "_delete_distributions":"prune_excluded",
+        "BuildError":"AppError::Build", "_is_pinnable_name":"BuildTools::runpod_requirement",
+        "runpod_requirement":"BuildTools::runpod_requirement", "_ensure_pip":"BuildTools::ensure_pip",
+        "_build_wheel":"BuildTools::build_wheel", "vendor":"BuildTools::vendor",
+        "_cpu_requirements_closure":"cpu_requirements_closure", "_exclusions_for_cpu_workers":"exclusions_for_cpu_workers",
     }
     if file == "runpod/apps/build.py" and name in build_symbols:
         target = "apps::build::" + build_symbols[name]
+        if name == "BuildError":
+            target = "apps::AppError::Build"
     if file == "runpod/apps/tasks.py" and name in ("TaskExecution.start", "TaskExecution.wait_ready", "TaskExecution.execute", "TaskExecution.submit", "TaskExecution.set_timeout", "TaskExecution.poll_result", "TaskExecution.terminate", "TaskJob.pod_id", "TaskJob.wait", "TaskJob.cancel"):
         target = "apps::tasks::" + name.replace(".", "::")
     if file == "runpod/apps/targets.py" and "." in name:
@@ -134,6 +140,8 @@ for entry in api["entries"]:
         entry.update(rust="apps::deploy::package_project", status="adapted", note="Native tar/gzip and gitignore matching preserve archive members and contents. Automatic output is owned by Artifact and removed on drop unless persisted; compressed bytes and JSON escaping are not identical to Python. See PORTING.md.")
     if file == "runpod/apps/build.py" and name in ("prune_excluded", "_read_record"):
         entry.update(rust="apps::build::" + name.removeprefix("_"), status="adapted", note="Relative wheel RECORD paths preserve Python pruning behavior. Absolute/drive paths are rejected and deletion targets must resolve inside the environment. Native CSV parse errors retain their cause. See PORTING.md.")
+    if file == "runpod/apps/build.py" and name in ("BuildResult", "build_environment", "sync_running_package"):
+        entry.update(rust="apps::build::" + name, status="adapted", note="Owned BuildResult removes automatic scratch on drop unless persisted. SDK overlay takes an explicit Python package source; without one or an override, Rust builds the pinned upstream revision. External pip builds dependencies; SDK orchestration stays native. See PORTING.md.")
     if file == "runpod/apps/serialization.py" and name in ("serialize_arg", "serialize_args", "serialize_kwargs", "deserialize_result", "get_function_source", "require_json_args"):
         entry.update(rust="apps::serialization::" + name if name != "require_json_args" else "serde_json::Value argument boundary", status="adapted",
                      note="Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions.")
@@ -261,6 +269,10 @@ for entry in tests["entries"]:
         target = ("apps_package_logs::" if leaf == "test_excluded_paths_are_logged_without_contents" else "apps_package::") + leaf
     if entry["file"] == "tests/test_apps/test_build.py" and entry["name"].startswith(("TestRequirementName.", "TestCollectRequirements.", "TestSplitExclusions.", "TestPruneExcluded.", "TestInstalledClosure.")):
         target = "apps_build::" + entry["name"].split(".")[-1]
+    if entry["file"] == "tests/test_apps/test_build.py" and entry["name"].startswith(("TestRunpodRequirement.", "TestVendor.", "TestBuildEnvironmentPrunes.")):
+        leaf = entry["name"].split(".")[-1]
+        mapped = {"test_default_is_published_package":"test_default_is_published_package_and_version_pin_passes_through", "test_version_pin_passes_through":"test_default_is_published_package_and_version_pin_passes_through", "test_running_package_overlays_env":"test_running_package_overlays_env_and_excludes_bytecode", "test_url_spec_builds_wheel":"test_url_spec_builds_wheel_and_selects_last_sorted_name", "test_failure_raises_build_error":"failed_builds_clean_automatic_storage_but_keep_explicit_scratch", "test_progress_reports_collected_packages":"test_progress_reports_collected_packages_and_exact_target_flags"}
+        target = "apps_installer::" + mapped.get(leaf,leaf)
     if entry["file"] == "tests/test_apps/test_config_params.py" and entry["name"] in ("TestDeployPayload.test_config_params_reach_payload", "TestDeployPayload.test_flashboot_default_present", "TestDeployPayload.test_flashboot_disabled_omitted"):
         target = "apps_deploy::python_deployment_manifest_and_endpoint_fixtures"
     if entry["file"] == "tests/test_apps/test_shim.py" and entry["name"] in ("test_starts_an_installed_runtime", "test_installs_missing_packages_and_honors_overrides"):

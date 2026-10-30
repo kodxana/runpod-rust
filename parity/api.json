@@ -1639,8 +1639,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::Build",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1649,8 +1649,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::BuildResult",
+      "status": "adapted",
+      "note": "Owned BuildResult removes automatic scratch on drop unless persisted. SDK overlay takes an explicit Python package source; without one or an override, Rust builds the pinned upstream revision. External pip builds dependencies; SDK orchestration stays native. See PORTING.md."
     },
     {
       "file": "runpod/apps/build.py",
@@ -1841,8 +1842,8 @@
       "kind": "function",
       "public": false,
       "signature": "spec: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::BuildTools::runpod_requirement",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1851,8 +1852,8 @@
       "kind": "function",
       "public": true,
       "signature": "scratch_dir: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::BuildTools::runpod_requirement",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1861,8 +1862,9 @@
       "kind": "function",
       "public": true,
       "signature": "env_dir: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::sync_running_package",
+      "status": "adapted",
+      "note": "Owned BuildResult removes automatic scratch on drop unless persisted. SDK overlay takes an explicit Python package source; without one or an override, Rust builds the pinned upstream revision. External pip builds dependencies; SDK orchestration stays native. See PORTING.md."
     },
     {
       "file": "runpod/apps/build.py",
@@ -1871,8 +1873,8 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::BuildTools::ensure_pip",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1881,8 +1883,8 @@
       "kind": "function",
       "public": false,
       "signature": "spec: str, scratch_dir: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::BuildTools::build_wheel",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1891,8 +1893,8 @@
       "kind": "function",
       "public": true,
       "signature": "env_dir: Path, requirements: List[str], python_version: str, *, no_deps: bool=False, progress: Optional[callable]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::BuildTools::vendor",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1901,8 +1903,8 @@
       "kind": "function",
       "public": false,
       "signature": "project_root: Path, resources, env_dir: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::cpu_requirements_closure",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1911,8 +1913,8 @@
       "kind": "function",
       "public": false,
       "signature": "excluded: List[str], user_exclude: List[str], cpu_needs: set",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::exclusions_for_cpu_workers",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/build.py",
@@ -1921,8 +1923,9 @@
       "kind": "function",
       "public": true,
       "signature": "app, project_root: Path, *, python_version: str=DEFAULT_PYTHON_VERSION, exclude: Optional[List[str]]=None, scratch_dir: Optional[Path]=None, events: Optional[object]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::build::build_environment",
+      "status": "adapted",
+      "note": "Owned BuildResult removes automatic scratch on drop unless persisted. SDK overlay takes an explicit Python package source; without one or an override, Rust builds the pinned upstream revision. External pip builds dependencies; SDK orchestration stays native. See PORTING.md."
     },
     {
       "file": "runpod/apps/context.py",

@@ -1,5 +1,8 @@
 //! Dependency selection and analysis of installed wheel metadata for application builds.
 use super::deploy::AppDefinition;
+pub use super::installer::{
+    BuildProgress, BuildTools, MANYLINUX_PLATFORMS, VendorOptions, sync_running_package,
+};
 use crate::Result;
 use pep508_rs::{ExtraName, Requirement, VerbatimUrl};
 use regex::Regex;
@@ -14,6 +17,277 @@ use std::{
 
 /// Large distributions supplied by the built-in GPU images.
 pub const SIZE_PROHIBITIVE_PACKAGES: &[&str] = &["torch", "torchvision", "torchaudio", "triton"];
+
+/// Runtime dependency subset imported by the Python-compatible workers.
+pub const RUNTIME_REQUIREMENTS: &[&str] = &[
+    "aiohttp[speedups]",
+    "aiohttp-retry",
+    "backoff",
+    "cloudpickle",
+    "py-cpuinfo",
+    "requests",
+    "tomli",
+    "tomlkit",
+    "tqdm-loggable",
+];
+/// Additional serving dependencies for API resources.
+pub const API_RUNTIME_REQUIREMENTS: &[&str] = &["fastapi[standard]", "uvicorn>=0.30"];
+/// Maximum compressed artifact size accepted by the upstream deployment pipeline, in MiB.
+pub const MAX_ARTIFACT_MB: u64 = 1500;
+/// Exact upstream SDK source used when no explicit SDK tree or package override is provided.
+pub const PINNED_SDK_SOURCE: &str = "https://github.com/runpod/runpod-python/archive/ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5.tar.gz";
+
+/// Inputs for constructing an environment for the Python-compatible remote runtime.
+#[derive(Clone)]
+pub struct BuildOptions {
+    /// Remote interpreter version; local build tools can use a different version.
+    pub python_version: String,
+    /// User-excluded distributions, in requirement syntax.
+    pub exclude: Vec<String>,
+    /// Caller-owned scratch directory; automatic storage is owned by [`BuildResult`].
+    pub scratch_dir: Option<PathBuf>,
+    /// Explicit Python SDK package directory to overlay when `package_spec` is absent/empty.
+    pub sdk_source: Option<PathBuf>,
+    /// Captured `RUNPOD_PACKAGE_SPEC` override; takes precedence over `sdk_source` when nonempty.
+    pub package_spec: Option<String>,
+}
+impl Default for BuildOptions {
+    fn default() -> Self {
+        Self {
+            python_version: super::images::DEFAULT_PYTHON_VERSION.into(),
+            exclude: Vec::new(),
+            scratch_dir: None,
+            sdk_source: None,
+            package_spec: std::env::var("RUNPOD_PACKAGE_SPEC").ok(),
+        }
+    }
+}
+impl std::fmt::Debug for BuildOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("BuildOptions")
+            .field("python_version", &self.python_version)
+            .field("exclude_count", &self.exclude.len())
+            .field("scratch_dir", &self.scratch_dir)
+            .field("sdk_source", &self.sdk_source)
+            .field("has_package_spec", &self.package_spec.is_some())
+            .finish()
+    }
+}
+
+/// Constructed dependency tree and the temporary storage owner needed while packaging it.
+#[derive(Debug)]
+pub struct BuildResult {
+    env_dir: PathBuf,
+    /// Runtime and retained user requirement strings, in installation order.
+    pub requirements: Vec<String>,
+    /// Sorted exclusions to record in the deployment manifest.
+    pub excluded: Vec<String>,
+    scratch: Option<tempfile::TempDir>,
+}
+impl BuildResult {
+    /// Borrows the dependency directory while keeping temporary build storage alive.
+    #[must_use]
+    pub fn env_dir(&self) -> &Path {
+        &self.env_dir
+    }
+    /// Retains automatic storage and transfers responsibility for deleting it to the caller.
+    #[must_use]
+    pub fn persist(mut self) -> PathBuf {
+        if let Some(scratch) = self.scratch.take() {
+            let _ = scratch.keep();
+        }
+        self.env_dir
+    }
+}
+
+fn has_gpu(resource: &super::ResourceSpec) -> bool {
+    resource
+        .gpu
+        .as_ref()
+        .is_some_and(|gpu| !gpu.values().is_empty())
+}
+
+fn cpu_requirements_closure(
+    project_root: &Path,
+    app: &AppDefinition,
+    env: &Path,
+) -> Result<BTreeSet<String>> {
+    let mut roots = requirements_txt(project_root)?;
+    roots.extend(
+        app.resources
+            .iter()
+            .filter(|r| !has_gpu(&r.spec))
+            .flat_map(|r| r.spec.dependencies.iter().flatten())
+            .cloned(),
+    );
+    installed_closure(env, &roots)
+}
+
+fn exclusions_for_cpu_workers(
+    excluded: Vec<String>,
+    user_exclude: &[String],
+    cpu_needs: &BTreeSet<String>,
+) -> Vec<String> {
+    let user_excluded: BTreeSet<_> = user_exclude
+        .iter()
+        .map(|s| canonical_name(&requirement_name(s)))
+        .collect();
+    let kept: Vec<_> = excluded
+        .into_iter()
+        .filter(|name| {
+            user_excluded.contains(name)
+                || !SIZE_PROHIBITIVE_PACKAGES.contains(&name.as_str())
+                || cpu_needs.contains(name)
+        })
+        .collect();
+    for name in &kept {
+        if SIZE_PROHIBITIVE_PACKAGES.contains(&name.as_str()) {
+            tracing::warn!(package=%name,"cpu resources need an unbundled package; their workers install it at cold start, so give them container disk for it");
+        }
+    }
+    kept
+}
+
+/// Installs and prunes a complete environment for the Python-compatible artifact format.
+///
+/// Runs external pip tools synchronously; use a blocking executor from async code. A
+/// nonempty package override installs that SDK without its dependencies. Otherwise an
+/// explicit SDK source is overlaid, or the pinned upstream revision is built/installed.
+/// Runtime dependencies, user requirements, image exclusions, and CPU cold-start needs
+/// follow the pinned Python SDK. Dropping automatic results removes their scratch tree.
+///
+/// # Errors
+/// Returns unsupported-version, installer, callback, metadata, pruning, or overlay failures.
+pub fn build_environment(
+    app: &AppDefinition,
+    project_root: &Path,
+    options: &BuildOptions,
+    tools: &BuildTools,
+    mut progress: Option<&mut BuildProgress<'_>>,
+) -> Result<BuildResult> {
+    if !super::images::SUPPORTED_PYTHON_VERSIONS.contains(&options.python_version.as_str()) {
+        return Err(super::AppError::Build(format!(
+            "python {} is not supported (supported: {})",
+            options.python_version,
+            super::images::SUPPORTED_PYTHON_VERSIONS.join(", ")
+        ))
+        .into());
+    }
+    let (scratch_path, scratch) = if let Some(path) = &options.scratch_dir {
+        (path.clone(), None)
+    } else {
+        let temp = tempfile::Builder::new().prefix("rp-build-").tempdir()?;
+        (temp.path().to_owned(), Some(temp))
+    };
+    let env_dir = scratch_path.join("env");
+    fs::create_dir_all(&env_dir)?;
+    let user_requirements = collect_requirements(project_root, app)?;
+    let auto_exclude = !app
+        .resources
+        .iter()
+        .any(|r| r.spec.image.as_ref().is_some_and(|image| !image.is_empty()))
+        && app.resources.iter().any(|r| has_gpu(&r.spec));
+    let (vendored, mut excluded) = split_exclusions(
+        &user_requirements,
+        &ExclusionOptions {
+            auto_exclude,
+            extra_excludes: options.exclude.clone(),
+        },
+    );
+    let mut requirements: Vec<String> = RUNTIME_REQUIREMENTS
+        .iter()
+        .map(|s| (*s).to_owned())
+        .collect();
+    if app
+        .resources
+        .iter()
+        .any(|r| r.spec.kind == super::ResourceKind::Api)
+    {
+        requirements.extend(API_RUNTIME_REQUIREMENTS.iter().map(|s| (*s).to_owned()));
+    }
+    requirements.extend(vendored);
+    let package_spec = options.package_spec.as_deref().filter(|s| !s.is_empty());
+    let sdk_spec =
+        package_spec.or_else(|| options.sdk_source.is_none().then_some(PINNED_SDK_SOURCE));
+    let mut forward = |count, name: &str| match progress.as_mut() {
+        Some(callback) => callback(count, name),
+        None => Ok(()),
+    };
+    if let Some(spec) = sdk_spec {
+        let requirement = tools.runpod_requirement(&scratch_path, Some(spec))?;
+        tools.vendor(
+            &env_dir,
+            &[requirement],
+            &options.python_version,
+            &VendorOptions { no_deps: true },
+            Some(&mut forward),
+        )?;
+    }
+    tracing::info!(packages=requirements.len(),python_version=%options.python_version,excluded=?excluded,"vendoring runtime dependencies");
+    tools.vendor(
+        &env_dir,
+        &requirements,
+        &options.python_version,
+        &VendorOptions::default(),
+        Some(&mut forward),
+    )?;
+    let mut prune_names: BTreeSet<_> = options
+        .exclude
+        .iter()
+        .map(|s| requirement_name(s))
+        .collect();
+    if auto_exclude {
+        prune_names.extend(SIZE_PROHIBITIVE_PACKAGES.iter().map(|s| (*s).to_owned()));
+    }
+    let cpu_needs = if auto_exclude && app.resources.iter().any(|r| !has_gpu(&r.spec)) {
+        Some(cpu_requirements_closure(project_root, app, &env_dir)?)
+    } else {
+        None
+    };
+    let provided: Vec<String> = if auto_exclude {
+        SIZE_PROHIBITIVE_PACKAGES
+            .iter()
+            .map(|s| (*s).to_owned())
+            .collect()
+    } else {
+        Vec::new()
+    };
+    let pruned = prune_excluded(
+        &env_dir,
+        &prune_names.iter().cloned().collect::<Vec<_>>(),
+        &requirements,
+        &provided,
+    )?;
+    if !pruned.is_empty() {
+        tracing::info!(packages=?pruned,"removed image-provided or excluded dependencies");
+        let pruned: BTreeSet<_> = pruned.into_iter().collect();
+        excluded = excluded
+            .into_iter()
+            .chain(
+                prune_names
+                    .iter()
+                    .map(|name| canonical_name(name))
+                    .filter(|name| pruned.contains(name)),
+            )
+            .collect::<BTreeSet<_>>()
+            .into_iter()
+            .collect();
+    }
+    if let Some(needs) = cpu_needs {
+        excluded = exclusions_for_cpu_workers(excluded, &options.exclude, &needs);
+    }
+    if package_spec.is_none()
+        && let Some(source) = &options.sdk_source
+    {
+        sync_running_package(&env_dir, source)?;
+    }
+    Ok(BuildResult {
+        env_dir,
+        requirements,
+        excluded,
+        scratch,
+    })
+}
 
 static REQUIREMENT_NAME: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(r"^\s*([A-Za-z0-9][A-Za-z0-9._-]*)").expect("static requirement name pattern")

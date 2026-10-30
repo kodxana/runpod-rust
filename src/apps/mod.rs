@@ -9,6 +9,7 @@ pub mod events;
 pub mod gpu;
 pub mod graphql;
 pub mod images;
+mod installer;
 mod job;
 pub mod logs;
 pub mod lookup;

@@ -1749,8 +1749,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_default_is_published_package_and_version_pin_passes_through",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1759,8 +1759,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_running_package_overlays_env_and_excludes_bytecode",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1769,8 +1769,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_default_is_published_package_and_version_pin_passes_through",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1779,8 +1779,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_url_spec_builds_wheel_and_selects_last_sorted_name",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1789,8 +1789,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::failed_builds_clean_automatic_storage_but_keep_explicit_scratch",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1799,8 +1799,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_progress_reports_collected_packages_and_exact_target_flags",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1809,8 +1809,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_large_stderr_does_not_block_progress_or_error",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1909,8 +1909,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_gpu_builtin_image_prunes_transitive_torch",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1919,8 +1919,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_mixed_cpu_gpu_app_prunes_transitive_torch",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1929,8 +1929,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_mixed_app_records_torch_only_when_cpu_needs_it",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1939,8 +1939,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_mixed_app_ignores_torch_behind_an_unrequested_extra",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1949,8 +1949,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_mixed_app_records_torch_for_a_requested_extra",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1959,8 +1959,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, marker, requested, builder_platform",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_mixed_app_evaluates_extra_markers",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1969,8 +1969,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_mixed_app_records_torch_when_a_marker_branch_skips_the_extra",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1979,8 +1979,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_mixed_app_direct_gpu_torch_not_recorded",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1989,8 +1989,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_custom_image_keeps_transitive_torch",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
@@ -1999,8 +1999,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_installer::test_cpu_keeps_transitive_torch",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_build.py",
