@@ -1,0 +1,2514 @@
+[
+  {
+    "operation": "address",
+    "input": "",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "0.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "0.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "0.11.17.143",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "0.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "0177.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "0x7f000001",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "1.0.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "1.1.1.1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "1.2.3.004",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "10.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "10.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "10.100.133.136",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "10.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "100.127.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "100.128.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "100.181.6.107",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "100.63.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "100.64.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "100.64.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "1000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "1000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "100:0:0:1::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "100::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "100::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "100::ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "105.66.15.100",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "108.98.143.10",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "109.47.94.61",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "11.0.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "110.245.142.86",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "111.209.19.51",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "112.174.23.53",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "115.235.44.122",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "116.170.123.24",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "117.104.216.55",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "117.13.98.100",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "117.137.131.67",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "120.62.60.62",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "121.251.61.20",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "125.179.224.67",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "126.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "127.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "127.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "127.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "127.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "128.0.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "129.207.117.171",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "133.149.52.93",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "135.203.12.96",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "137.153.236.18",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "137.35.183.1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "14.81.224.96",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "141.209.144.95",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "142.82.227.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "1430:da6c:3927:9c07:1155:15d3:f08:64ab",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "145.229.46.4",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "151.150.124.166",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "152.113.162.111",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "152.145.137.194",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "152.51.46.22",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "156.131.146.214",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "157.161.186.137",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "157.75.172.158",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "15b7:a848:ac7f:81e2:d1c7:f3c2:1ecb:a3fd",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "167.5.23.10",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "168.154.196.182",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "169.253.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "169.254.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "169.254.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "169.254.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "169.255.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "17.182.110.233",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "172.15.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "172.16.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "172.16.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "172.31.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "172.32.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "175.148.188.10",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "175.5.65.253",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "178.116.20.219",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "18.239.118.167",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "186.148.69.103",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "186.35.246.229",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "188.81.247.82",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "189:ce0a:b1e6:c57:569c:6630:4a16:944",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "18c4:58a9:e5d0:47ed:5ad9:6ec3:bc8a:ef53",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "19.243.67.241",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "191.24.69.202",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "191.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "191.45.79.206",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.10",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.11",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.169",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.170",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.171",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.172",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.8",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.0.9",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "192.0.1.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "192.0.1.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "192.0.2.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.2.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.2.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.0.3.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "192.167.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "192.168.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.168.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.168.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "192.169.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "194.103.244.89",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "197.3.167.97",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "197.94.194.93",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "198.17.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "198.18.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "198.18.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "198.19.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "198.20.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "198.51.100.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "198.51.100.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "198.51.100.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "198.51.101.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "198.51.99.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "199.76.254.244",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "1a3e:6561:7961:5104:b8c9:299d:b5d4:7546",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "1d01:de1e:864a:25c6:8263:2ce9:3dbe:471f",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "1eb8:e0a:4448:17f1:56d1:dc1b:b9ce:4dd6",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "1ff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "1fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2000::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2000:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:1::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:1::1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:1::2",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:1::3",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:1f:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:1ff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:200::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:20::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:20::1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:2:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:2f:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:30::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:30::1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:3::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:3::1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:3:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:3f:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:40::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:4:111:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:4:112::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:4:112::1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:4:112:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:4:113::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:4::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:db7:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:db8::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:db8::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:db8:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2001:db9::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2001:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2002::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2002::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2002:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2003::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "200::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "200::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "203.0.112.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "203.0.113.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "203.0.113.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "203.0.113.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "203.0.114.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "204.193.221.96",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "208.202.65.175",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "20e5:586:3cf0:1c99:434a:80cf:851e:fdf1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "210.200.14.42",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "211.107.162.171",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "213.68.101.84",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "223.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "224.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "224.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "23.96.34.84",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "238.244.88.132",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "239.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "240.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "240.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "240.242.234.239",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "242.117.81.153",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "243.244.176.10",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "244.4.124.149",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "245.1.90.251",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "247.47.35.23",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "250.38.9.52",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "253.248.58.204",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "254.134.225.234",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "254.94.76.237",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "255.255.255.254",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "255.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "2606:2800:220:1::1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2606:2800:220:1::1%eth0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2832:c4af:4069:efd6:8e67:cbb9:fb21:7173",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "29.146.22.116",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "29.189.163.13",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "29.23.201.201",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2bf0:5146:c53:188d:e6c7:7a6b:1ca2:450c",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2c0e:5a0e:412a:b110:5553:f3e:9d83:7caa",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2e0a:7d36:72a8:6468:f30:ac57:459a:8161",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "2fff:abc:a828:dfb:b1b3:525d:b114:277",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "3.215.218.62",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "307c:1a46:b360:c673:fd7f:5909:621a:c547",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "31.109.164.188",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "32.230.177.42",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "35.64.43.219",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "37.119.3.25",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "3746:2140:a4ec:57ab:262c:1ba8:6deb:c3ba",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "386c:7e90:947d:549e:74f9:17da:e920:dd53",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "39c9:a32a:6d12:3eb9:ab7e:47c:ed78:88f4",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "3d3f:6231:96f9:9130:34ae:72a2:8aa:1158",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "3ff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "3ffe:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "3fff:1000::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "3fff::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "3fff::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "3fff:fff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "4000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "4000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "400::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "400::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "4274:90e1:2378:97d4:72fd:4287:4457:8ad2",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "43.129.63.247",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "44.16.213.104",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "44bd:f849:d4bf:ec49:3110:9f8a:320f:e9f6",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "46c3:16bf:eee3:151:3cb7:323a:c3ea:a141",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "48.157.129.217",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "4958:69d8:b1a8:eb98:ec5a:f245:8655:995",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "4a06:eb63:68b9:7b7:6ad9:6f05:960c:bc7f",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "4ca2:2374:6a8e:6ed2:af0d:2e0e:a25f:a225",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "4d3c:76d3:743f:398d:ebeb:d775:b116:65b9",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "4e95:ba08:7e50:65e3:8206:1d5e:20b4:d591",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "51.12.51.125",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "56.0.147.34",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "56.12.89.44",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "56.27.239.32",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "56.45.156.105",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "5d21:4a87:ed8e:5076:7a4d:6cf:b1b2:9fbd",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "5fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "6000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "6000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "618c:69e1:e9e5:33d9:850d:d74:9168:bea6",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "61c2:596:9243:96fd:91d4:8c89:b757:d8d",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "6362:3ed:fe86:af86:d8dd:3cb7:108c:6c99",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "64:ff9b:0:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "64:ff9b:1::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "64:ff9b:1::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "64:ff9b:1:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "64:ff9b:2::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "66.147.31.241",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "68.154.193.144",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "6949:335f:c0bd:56a:c993:4431:e552:c316",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "6e0d:2748:915c:6efc:8c36:5b5c:88f9:6169",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "6ea5:3ba5:e4c:a453:fb93:d7fc:3099:8a2d",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "7.23.38.32",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "7060:9200:5b46:83f1:833f:9d2e:fbfe:4b1e",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "71.109.110.103",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "71d8:56a4:d944:d3da:f53c:5387:bc6f:b2a1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "73.140.140.112",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "756:da30:f17e:aa7d:c319:a2fb:8377:70c7",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "761d:9956:5bb9:bd53:1b2c:6c6e:918a:bb40",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "7a49:8be7:5807:8a69:d195:857b:341c:590a",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "7ff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "7fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "8.8.8.8",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "8000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "8000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "800::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "800::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "81.78.117.159",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "820:545d:f9a0:bb9d:cfda:f4d2:66f:f15",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "83.21.159.38",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "87.181.54.114",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "877b:2d83:e051:f5cb:9cb8:df3d:964b:c0c1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "8901:74a6:ad45:f067:8672:7254:e814:359c",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "8c47:ff3c:e650:fed5:91ea:8b06:9711:4d1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "8ee0:a06a:1164:6684:bb51:2aba:d062:a12",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "9.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "91.81.124.140",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "92.52.169.144",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "93.184.216.34",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "95.37.33.162",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "98.250.253.141",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "9885:1bd:70ae:52f7:7bec:a1a5:222c:da87",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "99.5.168.44",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "9ac4:6d4f:27f6:b3de:3f8d:cd2c:4333:a28b",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "9b56:66a2:aacb:53ea:cc11:aaaa:dfa6:37eb",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "9d6:4202:bb65:bea6:9e01:9363:b62:e8a2",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "9fef:362f:614e:8087:ef45:d849:6d45:a48c",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "9fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::1:0:0:0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::2",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::fffe:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:0.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:0.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:0.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:1.0.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:10.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:10.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:10.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:100.127.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:100.128.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:100.63.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:100.64.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:100.64.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:11.0.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:126.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:127.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:127.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:127.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:128.0.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:169.253.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:169.254.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:169.254.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:169.254.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:169.255.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:172.15.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:172.16.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:172.16.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:172.31.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:172.32.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:191.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.10",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.11",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.169",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.170",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.171",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.172",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.8",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.0.9",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.1.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.1.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.2.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.2.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.2.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.0.3.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.167.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.168.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.168.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.168.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:192.169.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.17.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.18.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.18.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.19.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.20.0.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.51.100.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.51.100.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.51.100.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.51.101.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:198.51.99.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:203.0.112.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:203.0.113.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:203.0.113.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:203.0.113.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:203.0.114.0",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:223.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:224.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:224.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:239.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:240.0.0.0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:240.0.0.1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:255.255.255.254",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:255.255.255.255",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:8.8.8.8",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "::ffff:9.255.255.255",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "a000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "a000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "a415:b7c7:a117:204d:37c1:d6cd:90b7:8011",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "a449:cbe4:1102:44cd:bef5:2ed3:83e7:30fc",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "a819:fbec:c586:9698:cfb9:8ea2:6aea:1077",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "a9d5:a983:3400:efa8:6408:8b66:6256:a31d",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "aa4b:dad5:9126:d58:2231:cf69:4509:4294",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "aa96:22b8:1bb8:f777:34ab:6d1c:2a1e:52",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "af9e:cd48:2e80:14c6:9b8c:61d3:fb62:5d17",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "b095:3081:2a26:c24a:47f0:3209:5d92:d797",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "b0b:550:dd2e:1035:5029:7f8e:f532:9a6a",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "b0dd:885a:7fcc:9404:3bcd:bc46:6cc9:a840",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "b0e9:7cda:311:9a0c:59c3:99b7:6c85:e12f",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "b20e:372c:5ec9:c6a4:cae1:2991:8100:1796",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "b829:9356:4784:cd59:488f:107d:4f05:5919",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "bb88:d00:3a8b:b3ac:2ce9:f76b:c09:d0eb",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "bd53:5e32:dde4:a0d4:8a66:795c:d449:9c7e",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "bd71:cae0:4d3a:ec7:4e94:5cd1:2853:aebd",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "bed6:b5b5:708b:1907:1e78:e70:c7:2c5d",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "bfff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "c000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "c000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "c124:18b9:5fd6:ff00:7735:ef56:9b80:c8fa",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "c1af:4d41:3f7e:f636:192d:c888:c1e9:9217",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "c4ec:2e7e:bf6e:6590:1b35:8be9:8ba8:1ca",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "c68a:dd91:8f37:6baa:6ea:da45:8936:38b9",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "c8b5:e590:c8c:8646:6b91:f57a:719b:967d",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "cb75:161:5132:2254:f602:1b76:6dd0:eda4",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "cc06:6b1c:3551:78f6:a9a5:7c1c:d158:1a75",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "cc96:2fb6:90ca:96da:c86:92c9:6f9b:d49e",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "cd16:6006:c5bc:2a3a:c835:16da:ffc0:920",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "d2df:5346:55bc:7811:6f48:7b9a:9649:77db",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "d39a:15b2:ad6e:a30e:f9cc:ffee:94e7:98d1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "d6a2:d535:997b:8747:6cc0:4c0f:ad43:ca6a",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "d6f6:15ac:13a4:4762:a75b:1d58:7730:958c",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "d915:fa1b:8109:d2ad:1b7d:55e3:a2e5:c24b",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "db19:ad41:c29b:b774:8053:370e:d1ee:ac71",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "dcfe:9872:3ade:400e:e110:3353:c06e:f86a",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "de3a:a96b:d246:e7b1:d675:4f7c:b5d:e7c",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "ded5:a4f8:1e08:7ce7:5cd6:a648:cc65:e6a",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "dfff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e081:2aed:d6b6:8d18:d8ca:8e50:f88c:a7a5",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e3eb:d060:3737:b005:442f:2eb8:ec73:675c",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e486:b357:1d9c:c415:84e1:6ff5:48ab:7717",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e663:9661:59f5:1a1f:a285:142c:394f:ce11",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e756:21fc:f5b7:9b48:9d74:9c34:8336:c495",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e89a:a106:8a26:ca27:8512:d982:eb0a:c28f",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "e9dd:d2a:eadb:d6b4:9e43:2cc6:fb48:ca2c",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "eacf:ee42:75a0:10aa:461c:8a51:a92e:32e1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "eb4a:9fbc:4778:20fc:4624:66bf:75ce:5521",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "ee0f:68b8:9448:d37:debc:ea4e:f90e:4ab9",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "efff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "f000::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "f000::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "f2e8:24d5:b9e0:651e:d1a9:8d12:2cb0:5842",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "f7ff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "f800::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "f800::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fba8:7d3b:b8c1:f573:9209:3850:2e0:f407",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fbff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fc00::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fc00::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fcb:b429:7c31:b748:eab8:ec30:d2a3:4c3f",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fe00::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fe00::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fe7f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fe80::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fe80::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fe80::1%eth0",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fec0::",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "fec0::1",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "feff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": true
+  },
+  {
+    "operation": "address",
+    "input": "ff00::",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "ff00::1",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "ff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+    "output": false
+  },
+  {
+    "operation": "address",
+    "input": "not-an-ip",
+    "output": false
+  },
+  {
+    "operation": "max_bytes",
+    "input": {},
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": ""
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "0"
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "-1"
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "abc"
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "1"
+    },
+    "output": 1
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "12345"
+    },
+    "output": 12345
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": " +1_024 "
+    },
+    "output": 1024
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "_1"
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "1__2"
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "1_"
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "max_bytes",
+    "input": {
+      "RUNPOD_MAX_DOWNLOAD_BYTES": "1.0"
+    },
+    "output": 5368709120
+  },
+  {
+    "operation": "protection",
+    "input": "",
+    "output": true
+  },
+  {
+    "operation": "protection",
+    "input": "1",
+    "output": false
+  },
+  {
+    "operation": "protection",
+    "input": "true",
+    "output": false
+  },
+  {
+    "operation": "protection",
+    "input": "yes",
+    "output": false
+  },
+  {
+    "operation": "protection",
+    "input": " YES ",
+    "output": false
+  },
+  {
+    "operation": "protection",
+    "input": "True",
+    "output": false
+  },
+  {
+    "operation": "protection",
+    "input": "0",
+    "output": true
+  },
+  {
+    "operation": "protection",
+    "input": "false",
+    "output": true
+  },
+  {
+    "operation": "protection",
+    "input": "on",
+    "output": true
+  },
+  {
+    "operation": "protection",
+    "input": "2",
+    "output": true
+  },
+  {
+    "operation": "host",
+    "input": "http://example.com/path",
+    "output": "example.com"
+  },
+  {
+    "operation": "host",
+    "input": "http://example.com:8080/path",
+    "output": "example.com:8080"
+  },
+  {
+    "operation": "host",
+    "input": "http://example.com:80",
+    "output": "example.com:80"
+  },
+  {
+    "operation": "host",
+    "input": "https://example.com:443/x",
+    "output": "example.com:443"
+  },
+  {
+    "operation": "host",
+    "input": "https://93.184.216.34/x",
+    "output": "93.184.216.34"
+  },
+  {
+    "operation": "host",
+    "input": "https://93.184.216.34:8443/x",
+    "output": "93.184.216.34:8443"
+  },
+  {
+    "operation": "host",
+    "input": "https://[2606:2800:220:1::1]/x",
+    "output": "[2606:2800:220:1::1]"
+  },
+  {
+    "operation": "host",
+    "input": "https://[2606:2800:220:1::1]:8443/x",
+    "output": "[2606:2800:220:1::1]:8443"
+  },
+  {
+    "operation": "host",
+    "input": "https://[2606:2800:220:1::1]:443/x",
+    "output": "[2606:2800:220:1::1]:443"
+  },
+  {
+    "operation": "host",
+    "input": "http://user:pass@example.com:8080/x",
+    "output": "example.com:8080"
+  }
+]

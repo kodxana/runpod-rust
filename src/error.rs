@@ -8,6 +8,10 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// A download was rejected by URL, address, proxy, redirect, or size policy.
+    /// This is deliberately separate from retryable HTTP transport failures.
+    #[error(transparent)]
+    Ssrf(#[from] crate::utils::ssrf::SsrfError),
     /// An owned background operation panicked or could not be joined.
     #[error(transparent)]
     BackgroundTask(#[from] tokio::task::JoinError),

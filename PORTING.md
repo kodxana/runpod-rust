@@ -55,12 +55,13 @@ by Python; the complete port remains in progress.
 | `apps.dev` payloads, adoption, refresh, cleanup, and context management | `apps::dev::{DevConfig, DevSession, endpoint_input, comparable_payload, changed_fields}` |
 | `apps.auth` browser approval and email verification | `apps::auth::{browser_login, BrowserLoginOptions, auth_url, EmailLoginClient}`, `AppError::Login` |
 | `local_entrypoint`, entrypoint lookup/execution/clearing | `apps::entrypoint::{EntrypointRegistry, run_entrypoint}`, `blocking::apps::run_entrypoint` |
+| SSRF address checks, pinned requests, redirects, proxy refusal, and byte caps | `utils::ssrf::{SafeDownloader, DownloadOptions, SafeResponse, SsrfError, is_safe_address, iter_content_capped}` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 376 implemented symbols, 92 adapted symbols, and 352 upstream
+This milestone maps 377 implemented symbols, 111 adapted symbols, and 378 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -98,6 +99,7 @@ python tools/invocation_fixtures.py
 python tools/monitor_fixtures.py
 python tools/task_fixtures.py
 python tools/deploy_fixtures.py
+python tools/ssrf_fixtures.py
 python tools/package_fixtures.py
 python tools/build_fixtures.py
 python tools/dev_fixtures.py
@@ -597,11 +599,66 @@ All four new entrypoint tests pass on Windows stable and Rust 1.88. Formatting, 
 warnings denied, and docs pass; pedantic review reports no new source warnings. The preceding
 complete suite passed 317 tests; these four tests extend it without changing execution logic.
 
+Authentication and entrypoints passed all four CI jobs: [authentication run](https://github.com/kodxana/runpod-rust/actions/runs/41047207031)
+and [entrypoint run](https://github.com/kodxana/runpod-rust/actions/runs/41047730289).
+
+### Download security transport
+
+`utils::ssrf` ports all twenty source symbols through native async interfaces. Each redirect
+resolves and validates all DNS answers before creating a single-use pinned connection; failed
+connections advance through the validated list. HTTP responses and post-connect timeouts do
+not advance. An observed connection-completion flag distinguishes the overlapping reqwest
+connect/header timers, including Windows connect timeouts. TLS SNI, Host, certificate identity,
+and chain verification remain bound to the requested hostname. An explicit Host header cannot
+override it. Proxies are rejected unless private downloads are enabled; NO_PROXY exclusions,
+lowercase environment precedence, and CGI HTTP_PROXY suppression are supported.
+
+The 498 captured address/configuration/authority cases bring the total captured Python cases
+to **1,016**. Twenty-one Rust tests use local HTTP/TLS servers, including refused connections,
+mixed DNS results, integer/octal/mapped-IP URL spellings, repeated resolution on redirects,
+gzip expansion, missing Content-Length, exact limits, proxy routing, cancellation, socket
+cleanup, and TLS trust/hostname rejection. All 26 upstream SSRF tests pass. The metadata-hop
+test maps to separate native hop-revalidation and literal-metadata-rejection checks, avoiding
+a real public-network request. The public test certificates/keys are fixtures only.
+
+The complete Windows stable suite passes **338 integration tests, two unit tests, and two
+doctests**. The new tests pass on Rust 1.88. See the [Rust review](reviews/ssrf.md).
+
+Native adaptations are explicit:
+
+- `Error::Ssrf` is distinct from `Error::Http`. Error text is native and proxy diagnostics
+  omit credentials/URLs. Owned responses and streams replace monkey-patched close methods;
+  cleanup cannot mask a transport failure. Every public body reader enforces the cap, and
+  an optional stream cap may tighten it. Dropping a future, response, or stream releases
+  transport state. No asynchronous network operation runs in Drop.
+- Configuration snapshots replace repeated reads of mutable process environment. Positive
+  ASCII integer limits (including separators) must fit u64; overflow/invalid values fall
+  back to 5 GiB. Non-Unicode environment entries are ignored. Only explicit/environment
+  proxies are used; system proxy registries and PAC files are not imported. Private opt-in
+  still applies scheme and size limits but intentionally gives up proxy DNS pinning.
+- URL parsing uses reqwest/WHATWG normalization, rejects ambiguous backslashes/control
+  characters and scoped IPv6 URLs, and checks the actual normalized literal IP before
+  dialing. It may canonicalize Unicode hosts, numeric IP spellings, and redirected default
+  ports. Direct Host construction retains explicit default ports and IPv6 brackets.
+- The IP classifier mirrors pinned CPython 3.13, including its inherited `fec0::/10`
+  site-local IPv6 acceptance. It is not a live IANA registry or an additional network
+  allowlist. Applications that route that deprecated range internally need additional policy.
+- Responses are always streamed until consumed. Reqwest transparently decompresses gzip,
+  deflate, and Brotli; decoded bytes are capped. It removes Content-Encoding/Content-Length
+  when decoding, so compressed responses use the consumed-body check instead of the raw
+  compressed Content-Length precheck. Chunk boundaries are native and at most the requested
+  size. HTTP parser failures (including malformed length/framing) remain transport errors.
+- Reqwest's initial read deadline starts before connecting; it is more conservative than
+  Python's separate connect-then-header deadlines. Body reads have an inactivity timeout.
+  Automatic request retries, redirects, cookies, Referer, netrc, and account credentials are
+  disabled/not imported. Explicit caller headers are retained on each redirect as upstream;
+  callers must not supply secrets for untrusted redirected URLs.
+
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
 discovery and the CLI. Worker fitness, dynamic scaling, hosted API,
-capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
+capture/debugging, file download/upload helpers, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

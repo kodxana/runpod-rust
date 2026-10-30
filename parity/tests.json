@@ -15789,8 +15789,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::python_ssrf_classification_configuration_and_host_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15799,8 +15799,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::validates_every_dns_answer_deduplicates_and_preserves_order",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15809,8 +15809,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gai",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::validates_every_dns_answer_deduplicates_and_preserves_order",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15819,8 +15819,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gai",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::blocked_schemes_ambiguous_hosts_and_literal_forms_never_reach_dns",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15829,8 +15829,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gai",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::validates_every_dns_answer_deduplicates_and_preserves_order",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15839,8 +15839,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gai",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::validates_every_dns_answer_deduplicates_and_preserves_order",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15849,8 +15849,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_gai",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::dial_is_pinned_preserves_authority_and_returns_http_statuses",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15859,8 +15859,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::blocked_schemes_ambiguous_hosts_and_literal_forms_never_reach_dns",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15869,8 +15869,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::redirect_uses_new_dns_result_instead_of_reusing_first_connection + blocked_schemes_ambiguous_hosts_and_literal_forms_never_reach_dns [hop revalidation and metadata rejection checked separately]",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15879,8 +15879,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::redirect_scheme_revalidation_missing_location_and_limit",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15889,8 +15889,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::size_limit_rejects_declared_and_decompressed_bodies",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15899,8 +15899,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::exact_limit_empty_body_and_tighter_stream_limit",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15909,8 +15909,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::connection_failure_falls_back_but_http_error_does_not",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15919,8 +15919,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::all_connection_failures_return_transport_error",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15929,8 +15929,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::dropping_unread_response_or_partial_stream_closes_the_socket",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15939,8 +15939,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::body_read_timeout_is_a_transport_error_and_releases_connection",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15949,8 +15949,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::body_read_timeout_is_a_transport_error_and_releases_connection [native Drop is infallible]",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15959,8 +15959,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::chunked_and_eof_bodies_enforce_cap_without_content_length / cap_failure_closes_body_before_delivering_error",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15969,8 +15969,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::exact_limit_empty_body_and_tighter_stream_limit",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15979,8 +15979,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::python_ssrf_classification_configuration_and_host_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15989,8 +15989,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::python_ssrf_classification_configuration_and_host_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -15999,8 +15999,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::proxy_refusal_precedes_dns_and_never_discloses_proxy_credentials",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -16009,8 +16009,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::no_proxy_honors_domains_ports_ipv4_cidr_and_cgi_precedence",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -16019,8 +16019,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, _mock_resolve, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::private_opt_in_permits_explicit_proxy_with_scheme_and_size_guards",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -16029,8 +16029,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::python_ssrf_classification_configuration_and_host_fixtures",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",
@@ -16039,8 +16039,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "ssrf::dial_is_pinned_preserves_authority_and_returns_http_statuses / pinned_tls_preserves_sni_trust_chain_and_certificate_hostname",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",

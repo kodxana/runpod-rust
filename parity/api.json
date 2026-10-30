@@ -10571,8 +10571,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SsrfError / Error::Ssrf",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10581,8 +10582,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::DownloadOptions::from_values / AddressPolicy",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10591,8 +10593,9 @@
       "kind": "function",
       "public": true,
       "signature": "ip: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::is_safe_address",
+      "status": "implemented",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10601,8 +10604,9 @@
       "kind": "function",
       "public": true,
       "signature": "host: str, port: int",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::resolve_and_validate / resolve_and_validate",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10611,8 +10615,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::max_download_bytes",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10621,8 +10626,9 @@
       "kind": "function",
       "public": false,
       "signature": "url: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::ProxySettings / SafeDownloader::safe_get",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10631,8 +10637,9 @@
       "kind": "function",
       "public": false,
       "signature": "url: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::host_header_for",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10641,8 +10648,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10651,8 +10659,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, pinned_ip: str, **kwargs",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::new",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10661,8 +10670,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, request, **kwargs",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::get_via_first_reachable_ip",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10671,8 +10681,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, pool, url: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::get_via_first_reachable_ip",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10681,8 +10692,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, request, verify, proxies=None, cert=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::get_via_first_reachable_ip",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10691,8 +10703,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, url, proxies=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::get_via_first_reachable_ip",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10701,8 +10714,9 @@
       "kind": "function",
       "public": false,
       "signature": "pinned_ip: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::get_via_first_reachable_ip",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10711,8 +10725,9 @@
       "kind": "function",
       "public": false,
       "signature": "session: SyncClientSession",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeResponse / owned transport Drop",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10721,8 +10736,9 @@
       "kind": "function",
       "public": false,
       "signature": "response, session: SyncClientSession",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeResponse",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10731,8 +10747,9 @@
       "kind": "function",
       "public": false,
       "signature": "response, max_bytes: Optional[int]",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::safe_get",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10741,8 +10758,9 @@
       "kind": "function",
       "public": true,
       "signature": "response, chunk_size: int, max_bytes: Optional[int]",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::iter_content_capped",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10751,8 +10769,9 @@
       "kind": "function",
       "public": false,
       "signature": "ips, url: str, *, headers, stream, timeout",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::get_via_first_reachable_ip",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_ssrf.py",
@@ -10761,8 +10780,9 @@
       "kind": "function",
       "public": true,
       "signature": "url: str, *, stream: bool=True, timeout: int=30, headers: Optional[dict]=None, max_bytes: Optional[int]=None, max_redirects: int=_DEFAULT_MAX_REDIRECTS",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::ssrf::SafeDownloader::safe_get / safe_get",
+      "status": "adapted",
+      "note": "Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",

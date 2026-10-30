@@ -127,6 +127,16 @@ and one named startup hook is supported. `ApiHandle` sends GET/POST/PUT/DELETE/P
 pending. `NativeApi::asgi_factory` describes a Python factory for interoperability; it does not
 run Python locally. `App::resources` returns `ResourceHandle` values for mixed function/API apps.
 
+For untrusted download URLs, use `utils::ssrf::SafeDownloader` with `DownloadOptions`.
+It validates DNS results, pins connections, checks each redirect, and bounds consumed bytes.
+`SafeResponse::error_for_status` rejects HTTP failure statuses; `::bytes` reads a small body,
+while `iter_content_capped` yields a stream suitable for writing larger files. Responses and
+streams own their transports and release them when dropped. Defaults capture the environment;
+use `DownloadOptions::from_values` for an explicit configuration. The default limit is 5 GiB.
+See [PORTING.md](PORTING.md#download-security-transport) for inherited IP-classification
+behavior, proxy opt-in, and native transport differences. File extraction/upload helpers
+remain in progress.
+
 ```sh
 cargo build --locked
 cargo test --locked

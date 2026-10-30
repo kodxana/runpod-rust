@@ -20,7 +20,7 @@ getrandom = { version = "0.3", features = ["std"] }
 ignore = "0.4"
 percent-encoding = "2"
 pep508_rs = "0.9"
-reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "stream", "multipart"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "stream", "multipart", "gzip", "deflate", "brotli"] }
 regex = "1"
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1", features = ["preserve_order"] }
@@ -29,12 +29,14 @@ sha2 = "0.10"
 thiserror = "2"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "sync", "net", "fs", "io-util", "process", "signal"] }
 tracing = "0.1"
+tower = { version = "0.5", features = ["util"] }
 toml_edit = "0.23"
 tempfile = "3"
 tar = "0.4"
 
 [dev-dependencies]
 wiremock = "0.6"
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12"] }
 tokio = { version = "1", features = ["test-util"] }
 
 [lints.rust]

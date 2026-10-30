@@ -141,6 +141,32 @@ for entry in api["entries"]:
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    if file == "runpod/serverless/utils/rp_ssrf.py":
+        ssrf_symbols = {
+            "SSRFError":"SsrfError / Error::Ssrf",
+            "_ssrf_protection_enabled":"DownloadOptions::from_values / AddressPolicy",
+            "is_safe_address":"is_safe_address",
+            "resolve_and_validate":"SafeDownloader::resolve_and_validate / resolve_and_validate",
+            "max_download_bytes":"max_download_bytes",
+            "_refuse_if_proxied":"ProxySettings / SafeDownloader::safe_get",
+            "_host_header_for":"host_header_for",
+            "PinnedIPAdapter":"SafeDownloader",
+            "PinnedIPAdapter.__init__":"SafeDownloader::new",
+            "PinnedIPAdapter.send":"SafeDownloader::get_via_first_reachable_ip",
+            "PinnedIPAdapter._pin":"SafeDownloader::get_via_first_reachable_ip",
+            "PinnedIPAdapter.get_connection_with_tls_context":"SafeDownloader::get_via_first_reachable_ip",
+            "PinnedIPAdapter.get_connection":"SafeDownloader::get_via_first_reachable_ip",
+            "_build_pinned_session":"SafeDownloader::get_via_first_reachable_ip",
+            "_close_session_quietly":"SafeResponse / owned transport Drop",
+            "_bind_session_to_response":"SafeResponse",
+            "_enforce_content_length":"SafeDownloader::safe_get",
+            "iter_content_capped":"iter_content_capped",
+            "_get_via_first_reachable_ip":"SafeDownloader::get_via_first_reachable_ip",
+            "safe_get":"SafeDownloader::safe_get / safe_get",
+        }
+        if name in ssrf_symbols:
+            entry.update(rust="utils::ssrf::" + ssrf_symbols[name], status="implemented" if name == "is_safe_address" else "adapted",
+                         note="Native async transport owns its response and enforces caps on every body reader. Environment is captured; only explicit/env proxies are used. Reqwest normalizes URLs and compressed headers; errors are typed. IP classification matches pinned CPython 3.13, including inherited site-local IPv6 behavior. See PORTING.md and reviews/ssrf.md for limits and timeout adaptations.")
     if file == "runpod/apps/entrypoint.py":
         entry_symbols = {"local_entrypoint":"EntrypointRegistry::local_entrypoint", "get_entrypoint":"EntrypointRegistry::get_entrypoint", "run_entrypoint":"run_entrypoint / blocking::apps::run_entrypoint", "_clear_entrypoints":"EntrypointRegistry::clear"}
         if name in entry_symbols:
@@ -253,6 +279,38 @@ mapping = {
 fixtures = json.loads((root / "tests/fixtures/control.json").read_text())
 for entry in tests["entries"]:
     target = None
+    if entry["file"] == "tests/test_serverless/test_utils/test_ssrf.py":
+        ssrf_tests = {
+            "test_blocks_non_global_and_allows_public":"python_ssrf_classification_configuration_and_host_fixtures",
+            "test_ssrf_error_is_not_a_request_exception":"validates_every_dns_answer_deduplicates_and_preserves_order",
+            "test_returns_ips_when_all_public":"validates_every_dns_answer_deduplicates_and_preserves_order",
+            "test_raises_on_private":"blocked_schemes_ambiguous_hosts_and_literal_forms_never_reach_dns",
+            "test_fails_closed_on_mixed_public_and_private":"validates_every_dns_answer_deduplicates_and_preserves_order",
+            "test_raises_when_dns_fails":"validates_every_dns_answer_deduplicates_and_preserves_order",
+            "test_escape_hatch_allows_private":"dial_is_pinned_preserves_authority_and_returns_http_statuses",
+            "test_rejects_non_http_schemes":"blocked_schemes_ambiguous_hosts_and_literal_forms_never_reach_dns",
+            "test_redirect_to_metadata_is_blocked":"redirect_uses_new_dns_result_instead_of_reusing_first_connection + blocked_schemes_ambiguous_hosts_and_literal_forms_never_reach_dns [hop revalidation and metadata rejection checked separately]",
+            "test_too_many_redirects":"redirect_scheme_revalidation_missing_location_and_limit",
+            "test_content_length_over_cap_rejected":"size_limit_rejects_declared_and_decompressed_bodies",
+            "test_returns_response_on_success":"exact_limit_empty_body_and_tighter_stream_limit",
+            "test_falls_back_to_next_validated_ip_when_first_is_unreachable":"connection_failure_falls_back_but_http_error_does_not",
+            "test_raises_when_every_validated_ip_is_unreachable":"all_connection_failures_return_transport_error",
+            "test_closing_response_closes_session":"dropping_unread_response_or_partial_stream_closes_the_socket",
+            "test_request_error_closes_session":"body_read_timeout_is_a_transport_error_and_releases_connection",
+            "test_session_close_error_does_not_mask_response_error":"body_read_timeout_is_a_transport_error_and_releases_connection [native Drop is infallible]",
+            "test_aborts_when_stream_exceeds_cap":"chunked_and_eof_bodies_enforce_cap_without_content_length / cap_failure_closes_body_before_delivering_error",
+            "test_passes_through_under_cap":"exact_limit_empty_body_and_tighter_stream_limit",
+            "test_default_when_unset":"python_ssrf_classification_configuration_and_host_fixtures",
+            "test_env_override":"python_ssrf_classification_configuration_and_host_fixtures",
+            "test_raises_when_a_proxy_is_configured":"proxy_refusal_precedes_dns_and_never_discloses_proxy_credentials",
+            "test_allows_host_excluded_by_no_proxy":"no_proxy_honors_domains_ports_ipv4_cidr_and_cgi_precedence",
+            "test_escape_hatch_permits_proxied_fetch":"private_opt_in_permits_explicit_proxy_with_scheme_and_size_guards",
+            "test_builds_authority_for_each_host_form":"python_ssrf_classification_configuration_and_host_fixtures",
+            "test_dials_pinned_ip_and_preserves_host_header":"dial_is_pinned_preserves_authority_and_returns_http_statuses / pinned_tls_preserves_sni_trust_chain_and_certificate_hostname",
+        }
+        leaf = entry["name"].split(".")[-1]
+        if leaf in ssrf_tests:
+            target = "ssrf::" + ssrf_tests[leaf]
     if entry["file"] in ("tests/test_apps/test_auth.py", "tests/test_apps/test_agent_auth.py"):
         target = "apps_auth::" + entry["name"].split(".")[-1]
     if entry["file"] == "tests/test_apps/test_dev.py":
