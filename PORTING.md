@@ -46,16 +46,17 @@ by Python; the complete port remains in progress.
 | `apps.build` installer, SDK overlay, complete environment construction | `apps::build::{BuildTools, VendorOptions, BuildOptions, BuildResult, sync_running_package, build_environment}`, `AppError::Build` |
 | `apps.deploy.build_artifact`, `deploy_app`, `_module_path_for` | `apps::deploy::{build_artifact, deploy_app, module_path_for}` with explicit metadata and owned artifacts |
 | `apps.App` queue/task registration and process registry | `apps::{App, AppConfig, AppRegistry}`, explicit registration and owned state |
-| Function handle local/async remote, spawn, job, stream, init, options | `apps::{FunctionHandle, NativeFunction, FunctionArgs, FunctionJob}`; blocking handles remain pending |
+| Function handle local/async remote, spawn, job, stream, init, options | `apps::{FunctionHandle, NativeFunction, FunctionArgs, FunctionJob}` plus `blocking::apps` facades |
 | Context detection, discovery guard, development endpoint names | `apps::{Context, ExecutionContext, current_context, is_local, in_discovery, dev_endpoint_name}` |
 | `schedule` intent marker | `FunctionHandle::schedule` or an explicit `ResourceSpec::schedule` |
 | `App.api`, `ApiHandle`, route/lifecycle markers | `App::api`, `NativeApi`, `ApiHandle`, and explicit `RouteSpec`/hook registration |
+| Invoker/StreamInvoker sync and async access | native async handle methods and `blocking::apps::{App, FunctionHandle, ApiHandle, FunctionJob, OutputIter}` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 350 implemented symbols, 67 adapted symbols, and 296 upstream
+This milestone maps 350 implemented symbols, 77 adapted symbols, and 298 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -284,7 +285,7 @@ python tools/verify_pickle.py
   incremental output. Synchronous bodies run in Tokio's blocking pool. A panic there retains
   its JoinError, and already-running synchronous work finishes after caller cancellation.
   Async/streaming-body panics retain normal Rust panic semantics. No Python interpreter is
-  involved in native function execution. Blocking function handles are still pending.
+  involved in native function execution. Blocking registered handles own a runtime facade.
 - The invocation context is read on each call unless AppConfig supplies a fixed snapshot.
   Workers take precedence over dev sessions; dev app/resource identity overrides deployed
   resource identity. Own-worker calls run locally, sibling calls use sentinel routing or a
@@ -310,6 +311,18 @@ python tools/verify_pickle.py
   `call_handler` expose registered bodies to a future HTTP router; server hosting and response
   binding remain pending. ASGI factories are explicit Python-worker metadata and cannot be
   initialized/executed as native Rust closures. Factory lifespans own their initialization.
+- `blocking::apps::App` owns a multi-thread Tokio runtime and wraps existing native App state.
+  Function/API handles, submitted jobs, reconnectable queue jobs, and output iterators retain
+  that runtime independently of the originating app. `as_async` exposes the native handle
+  for async calls and metadata configuration. Per-job options clone their binding, and no
+  hidden process-global loop thread is created. Native sync bodies can recursively call
+  blocking handles from the blocking pool; async callers use native async handle methods.
+- Construct blocking apps outside Tokio and call their blocking methods from synchronous
+  code, never while polling an async task. This deliberately replaces Python's ability to
+  block an already-running asyncio loop with Rust's explicit async/blocking API separation.
+  The constructor returns a structured error for nested-runtime creation. Python's generic
+  global bridge and KeyboardInterrupt cleanup machinery remain pending the native lifecycle
+  audit; the registered facade does not claim to install OS signal handling.
 - `package_project` returns an `Artifact` that owns automatic temporary storage. Dropping
   it removes that storage; `persist` explicitly keeps it. A caller-specified output is
   always retained. Archive member paths/order and file bytes match the Python fixtures;
@@ -485,13 +498,23 @@ python tools/verify_pickle.py
   Windows stable Rust. All 27 function/API integration tests and both unit tests pass on
   Rust 1.88. Build, formatting, Clippy with warnings denied, and docs pass. See the
   [API-handle review](reviews/apps-api-handles.md) for explicit native/runtime boundaries.
+- Native API handles passed all four CI jobs:
+  [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41038108570).
+- Eight blocking-handle tests cover local/remote execution, explicit initialization, all HTTP
+  verbs, task/queue registration, option binding, retained-runtime job and iterator behavior,
+  queue reconnection/cancellation, lazy remote streaming, nested-runtime rejection, and
+  worker-local recursion from synchronous and concurrent asynchronous callers.
+- Blocking registered-handle milestone: **256 integration tests, two unit tests, and two
+  doctests** pass on Windows stable Rust. All eight new tests also pass on Rust 1.88.
+  Build, formatting, Clippy with warnings denied, and docs pass. See the
+  [blocking-handle review](reviews/apps-blocking-handles.md) for runtime ownership and limits.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
-blocking registered handles, discovery, development sessions, browser auth flows,
+discovery, development sessions, browser auth flows,
 management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

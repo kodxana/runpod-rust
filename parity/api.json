@@ -1441,7 +1441,7 @@
       "signature": "",
       "rust": "apps::AppRegistry::apps",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1452,7 +1452,7 @@
       "signature": "",
       "rust": "apps::AppRegistry::clear",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1463,7 +1463,7 @@
       "signature": "apps: List['App']",
       "rust": "apps::AppRegistry::restore",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1474,7 +1474,7 @@
       "signature": "",
       "rust": "apps::App",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1485,7 +1485,7 @@
       "signature": "self, name: str, *, env: str=DEFAULT_ENV",
       "rust": "apps::App::new / with_config",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1496,7 +1496,7 @@
       "signature": "self",
       "rust": "apps::App::resources",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1507,7 +1507,7 @@
       "signature": "self, name: str, handle: Union[FunctionHandle, ApiHandle]",
       "rust": "apps::App::register",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1518,7 +1518,7 @@
       "signature": "self, *, name: Optional[str]=None, gpu: Optional[Union[GpuLike, List[GpuLike]]]=None, cpu: Optional[Union[str, List[str]]]=None, gpu_count: int=1, workers: Union[int, Tuple[int, int], None]=None, idle_timeout: int=60, dependencies: Optional[List[str]]=None, system_dependencies: Optional[List[str]]=None, mounts: Optional[Mapping[str, Volume]]=None, env: Optional[Dict[str, Any]]=None, datacenter: Optional[Union[str, List[str]]]=None, image: Optional[str]=None, registry_auth: Optional[str]=None, model: Optional[Any]=None, max_concurrency: int=1, execution_timeout_ms: int=0, flashboot: bool=True, scaler_type: Optional[str]=None, scaler_value: int=DEFAULT_SCALER_VALUE, min_cuda_version: Optional[str]=None, accelerate_downloads: bool=True, container_disk_gb: Optional[int]=None",
       "rust": "apps::App::queue",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1529,7 +1529,7 @@
       "signature": "self, *, name: Optional[str]=None, gpu: Optional[Union[GpuLike, List[GpuLike]]]=None, cpu: Optional[Union[str, List[str]]]=None, gpu_count: int=1, dependencies: Optional[List[str]]=None, system_dependencies: Optional[List[str]]=None, mounts: Optional[Mapping[str, Volume]]=None, env: Optional[Dict[str, Any]]=None, image: Optional[str]=None, registry_auth: Optional[str]=None, datacenter: Optional[Union[str, List[str]]]=None, min_cuda_version: Optional[str]=None, accelerate_downloads: bool=True, container_disk_gb: Optional[int]=None",
       "rust": "apps::App::task",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1540,7 +1540,7 @@
       "signature": "self, *, name: Optional[str]=None, gpu: Optional[Union[GpuLike, List[GpuLike]]]=None, cpu: Optional[Union[str, List[str]]]=None, gpu_count: int=1, workers: Union[int, Tuple[int, int], None]=None, idle_timeout: int=60, dependencies: Optional[List[str]]=None, system_dependencies: Optional[List[str]]=None, mounts: Optional[Mapping[str, Volume]]=None, env: Optional[Dict[str, Any]]=None, datacenter: Optional[Union[str, List[str]]]=None, image: Optional[str]=None, registry_auth: Optional[str]=None, model: Optional[Any]=None, execution_timeout_ms: int=0, flashboot: bool=True, scaler_type: Optional[str]=None, scaler_value: int=DEFAULT_SCALER_VALUE, min_cuda_version: Optional[str]=None, accelerate_downloads: bool=True, container_disk_gb: Optional[int]=None",
       "rust": "apps::App::api",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1551,7 +1551,7 @@
       "signature": "self, spec: ResourceSpec",
       "rust": "apps::App::resolve",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1562,7 +1562,7 @@
       "signature": "self, spec: ResourceSpec",
       "rust": "apps::App::resolve",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/app.py",
@@ -1573,7 +1573,7 @@
       "signature": "self",
       "rust": "apps::App::fmt",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/auth.py",
@@ -2775,7 +2775,7 @@
       "signature": "",
       "rust": "apps::FunctionHandle",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2786,7 +2786,7 @@
       "signature": "self, app: 'App', fn: Callable, spec: ResourceSpec",
       "rust": "apps::FunctionHandle::new / App::register",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2797,7 +2797,7 @@
       "signature": "self, *, webhook: Optional[str]=None, execution_timeout: Optional[int]=None, ttl: Optional[int]=None, low_priority: Optional[bool]=None, s3_config: Optional[Dict[str, Any]]=None",
       "rust": "apps::FunctionHandle::with_options",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2808,7 +2808,7 @@
       "signature": "self, fn: Callable",
       "rust": "apps::FunctionHandle::init",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2819,7 +2819,7 @@
       "signature": "self, *args: Any, **kwargs: Any",
       "rust": "apps::FunctionHandle::local / local_stream",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2830,7 +2830,7 @@
       "signature": "self, *args: Any, **kwargs: Any",
       "rust": "apps::NativeFunction::call",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2841,7 +2841,7 @@
       "signature": "result: Any",
       "rust": "apps::NativeFunction::call",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2850,8 +2850,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, *args: Any, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "blocking::apps::FunctionHandle::remote",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2862,7 +2863,7 @@
       "signature": "self, *args: Any, **kwargs: Any",
       "rust": "apps::FunctionHandle::remote",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2873,7 +2874,7 @@
       "signature": "self, *args: Any, **kwargs: Any",
       "rust": "apps::FunctionHandle::stream",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2884,7 +2885,7 @@
       "signature": "self",
       "rust": "apps::FunctionHandle::stream",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2895,7 +2896,7 @@
       "signature": "self, payload: Dict[str, Any]",
       "rust": "apps::FunctionHandle::apply_options",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2906,7 +2907,7 @@
       "signature": "self, *args: Any, **kwargs: Any",
       "rust": "apps::FunctionHandle::spawn",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2917,7 +2918,7 @@
       "signature": "self, job_id: str",
       "rust": "apps::FunctionHandle::job",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2928,7 +2929,7 @@
       "signature": "self",
       "rust": "apps::ExecutionContext::guard_discovery",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2939,7 +2940,7 @@
       "signature": "self",
       "rust": "apps::ExecutionContext::is_current_worker",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2950,7 +2951,7 @@
       "signature": "self, *args: Any, **kwargs: Any",
       "rust": "apps::FunctionHandle has no Fn implementation; explicit invocation is required by Rust types",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2961,7 +2962,7 @@
       "signature": "self",
       "rust": "apps::FunctionHandle::fmt",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2972,7 +2973,7 @@
       "signature": "",
       "rust": "apps::ApiHandle HTTP methods",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2983,7 +2984,7 @@
       "signature": "self, handle: 'ApiHandle', method: str",
       "rust": "apps::ApiHandle HTTP methods",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -2992,8 +2993,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, path: str, body: Any=None, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "blocking::apps::ApiHandle::request",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -3004,7 +3006,7 @@
       "signature": "self, path: str, body: Any=None, **kwargs: Any",
       "rust": "apps::ApiHandle::request",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -3015,7 +3017,7 @@
       "signature": "",
       "rust": "apps::ApiHandle",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -3026,7 +3028,7 @@
       "signature": "self, app: 'App', target: Any, spec: ResourceSpec",
       "rust": "apps::App::api / NativeApi",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -3037,7 +3039,7 @@
       "signature": "self, cls: Type",
       "rust": "apps::NativeApi::route / init / configure_spec",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/handles.py",
@@ -3048,7 +3050,7 @@
       "signature": "self",
       "rust": "apps::ApiHandle::fmt",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/images.py",
@@ -3118,8 +3120,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::native async methods and blocking::apps handle methods",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/invoker.py",
@@ -3128,8 +3131,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, factory: CoroFactory, *, sync_factory: Optional[Callable]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::registered handles own their function and runtime",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/invoker.py",
@@ -3138,8 +3142,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, *args: Any, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "blocking::apps handle invocation methods",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/invoker.py",
@@ -3148,8 +3153,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, *args: Any, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::native async handle methods",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/invoker.py",
@@ -3158,8 +3164,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::native streams and blocking::apps::OutputIter",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/invoker.py",
@@ -3168,8 +3175,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, factory: AsyncGenFactory",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::registered handles own stream factories",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/invoker.py",
@@ -3178,8 +3186,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, *args: Any, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "blocking::apps::FunctionHandle::stream / OutputIter::next",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/invoker.py",
@@ -3188,8 +3197,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, *args: Any, **kwargs: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::FunctionHandle::stream",
+      "status": "adapted",
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/job.py",
@@ -3460,7 +3470,7 @@
       "signature": "method: str, path: str",
       "rust": "apps::NativeApi::route",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3471,7 +3481,7 @@
       "signature": "path: str",
       "rust": "apps::NativeApi::route with GET",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3482,7 +3492,7 @@
       "signature": "path: str",
       "rust": "apps::NativeApi::route with POST",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3493,7 +3503,7 @@
       "signature": "path: str",
       "rust": "apps::NativeApi::route with PUT",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3504,7 +3514,7 @@
       "signature": "path: str",
       "rust": "apps::NativeApi::route with DELETE",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3515,7 +3525,7 @@
       "signature": "path: str",
       "rust": "apps::NativeApi::route with PATCH",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3526,7 +3536,7 @@
       "signature": "fn: Callable",
       "rust": "apps::NativeApi::init",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3537,7 +3547,7 @@
       "signature": "fn: Any",
       "rust": "apps::NativeApi route metadata",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/markers.py",
@@ -3548,7 +3558,7 @@
       "signature": "fn: Any",
       "rust": "apps::NativeApi initialization metadata",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/model.py",
@@ -3999,7 +4009,7 @@
       "signature": "*, cron: str",
       "rust": "apps::FunctionHandle::schedule / ResourceSpec::schedule",
       "status": "adapted",
-      "note": "Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md."
+      "note": "Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md."
     },
     {
       "file": "runpod/apps/secret.py",

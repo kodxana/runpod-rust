@@ -33,6 +33,7 @@ plus named HTTP routes through `NativeApi` and `ApiHandle`.
 Handles support local calls, worker-local dispatch, remote calls, submission, reconnection,
 streaming, startup hooks, and per-job options. `AppRegistry` owns declaration membership;
 development target bindings and worker sibling lookup share the application's state.
+`blocking::apps::App` supplies synchronous registered handles, jobs, and stream iterators.
 Native binary deployment, HTTP server integration, and development sessions remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
@@ -101,6 +102,13 @@ calls never run startup hooks automatically; worker startup calls `::initialize`
 Native function bodies are compiled Rust code. Source-based live/task calls still require
 explicit Python source understood by the existing remote worker; shipping native Rust binaries
 is a remaining part of the port. `App::definition` returns deployment metadata without serializing closures.
+
+For synchronous registered functions/APIs, construct `blocking::apps::App` outside Tokio,
+or wrap existing declarations with `::from_app`. Register resources with the same inputs.
+Returned handles, jobs, and iterators retain the runtime after the app is dropped. Use
+`as_async` for native async calls or metadata configuration. Blocking methods must run in
+synchronous code, outside an actively polled async task; the SDK does not create a hidden
+global event-loop thread. Keep explicit task jobs until `wait` or `cancel` completes.
 
 For HTTP APIs, add `RouteSpec`/`NativeFunction` pairs to a `NativeApi`, then call `App::api`.
 Routes are emitted in handler-name order, duplicates and runtime control paths are rejected,

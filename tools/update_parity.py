@@ -146,6 +146,7 @@ for entry in api["entries"]:
             "FunctionHandle.with_options":"FunctionHandle::with_options", "FunctionHandle.init":"FunctionHandle::init",
             "FunctionHandle.local":"FunctionHandle::local / local_stream", "FunctionHandle._call_local_sync":"NativeFunction::call",
             "FunctionHandle._await_local_result":"NativeFunction::call", "FunctionHandle._remote_async":"FunctionHandle::remote",
+            "FunctionHandle._remote_sync":"blocking::apps::FunctionHandle::remote",
             "FunctionHandle._stream_async":"FunctionHandle::stream", "FunctionHandle._guard_generator":"FunctionHandle::stream",
             "FunctionHandle._apply_options":"FunctionHandle::apply_options", "FunctionHandle._spawn_async":"FunctionHandle::spawn",
             "FunctionHandle._job_async":"FunctionHandle::job", "FunctionHandle._guard_discovery":"ExecutionContext::guard_discovery",
@@ -155,12 +156,23 @@ for entry in api["entries"]:
             "ApiHandle._collect_routes":"NativeApi::route / init / configure_spec", "ApiHandle.__repr__":"ApiHandle::fmt",
             "_RouteCaller":"ApiHandle HTTP methods", "_RouteCaller.__init__":"ApiHandle HTTP methods",
             "_RouteCaller.aio":"ApiHandle::request",
+            "_RouteCaller.__call__":"blocking::apps::ApiHandle::request",
+        },
+        "runpod/apps/invoker.py": {
+            "Invoker":"native async methods and blocking::apps handle methods",
+            "Invoker.__init__":"registered handles own their function and runtime",
+            "Invoker.__call__":"blocking::apps handle invocation methods", "Invoker.aio":"native async handle methods",
+            "StreamInvoker":"native streams and blocking::apps::OutputIter",
+            "StreamInvoker.__init__":"registered handles own stream factories",
+            "StreamInvoker.__call__":"blocking::apps::FunctionHandle::stream / OutputIter::next",
+            "StreamInvoker.aio":"FunctionHandle::stream",
         },
         "runpod/apps/markers.py": {"_route_marker":"NativeApi::route", "get":"NativeApi::route with GET", "post":"NativeApi::route with POST", "put":"NativeApi::route with PUT", "delete":"NativeApi::route with DELETE", "patch":"NativeApi::route with PATCH", "init":"NativeApi::init", "route_of":"NativeApi route metadata", "is_init":"NativeApi initialization metadata"},
         "runpod/apps/schedule.py": {"schedule":"FunctionHandle::schedule / ResourceSpec::schedule"},
     }
     if name in native_app_symbols.get(file, {}):
-        entry.update(rust="apps::" + native_app_symbols[file][name], status="adapted", note="Owned AppRegistry and explicit Rust function/route registration replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. ASGI factories remain explicit Python-worker metadata. Native binary deployment and blocking registered handles remain pending. See PORTING.md.")
+        rust_symbol = native_app_symbols[file][name]
+        entry.update(rust=rust_symbol if rust_symbol.startswith("blocking::") else "apps::" + rust_symbol, status="adapted", note="Owned registration and explicit Rust functions/routes replace decorators and reflection. Native async handles have blocking::apps facades; those own their runtime and must not block while polling an async task. Local streams expose generators, and ASGI factories remain Python-worker metadata. Native binary deployment remains pending. See PORTING.md.")
     if file == "runpod/apps/context.py" and name in ("Context", "current_context", "is_local"):
         entry.update(rust="apps::" + name, status="implemented")
     if file == "runpod/apps/discovery_state.py":
@@ -225,6 +237,8 @@ for entry in tests["entries"]:
         if entry["name"].startswith("TestContextDetection."):
             target = "apps_app::context_detection_preserves_worker_precedence_and_empty_values"
         dispatch_tests = {
+            "test_remote_sync_via_sentinel":"blocking_function_submit_reconnect_and_options_use_owned_runtime",
+            "test_worker_local_recursion_from_sync_and_async_callers":"worker_local_recursion_from_sync_and_async_callers",
             "test_remote_aio":"remote_aio_and_options_route_sibling_through_sentinel",
             "test_remote_with_options_merges_payload":"remote_aio_and_options_route_sibling_through_sentinel",
             "test_with_options_returns_new_handle":"remote_aio_and_options_route_sibling_through_sentinel",
@@ -238,7 +252,8 @@ for entry in tests["entries"]:
             "test_stream_generator_function":"remote_stream_is_lazy_and_preserves_chunk_order",
         }
         if entry["name"].startswith("TestRemoteDispatch.") and entry["name"].split(".")[-1] in dispatch_tests:
-            target = "apps_app::" + dispatch_tests[entry["name"].split(".")[-1]]
+            leaf = entry["name"].split(".")[-1]
+            target = ("apps_blocking_handles::" if leaf in ("test_remote_sync_via_sentinel", "test_worker_local_recursion_from_sync_and_async_callers") else "apps_app::") + dispatch_tests[leaf]
     if entry["file"] == "tests/test_api/test_rest.py":
         target = mapping.get(entry["name"])
     if entry["file"] == "tests/test_api/test_ctl_commands.py":

@@ -1,6 +1,8 @@
 //! Synchronous application clients and job handles.
+mod registered;
 use crate::{Result, Value, apps::targets::JobOptions};
 use futures_util::{StreamExt, stream::BoxStream};
+pub use registered::{ApiHandle, App, FunctionHandle, FunctionJob, ResourceHandle};
 use serde_json::Map;
 use std::{fmt, sync::Arc, time::Duration};
 
