@@ -18,6 +18,7 @@ mod installer;
 mod job;
 pub mod logs;
 pub mod lookup;
+pub mod manage;
 mod model;
 pub mod monitor;
 mod package;

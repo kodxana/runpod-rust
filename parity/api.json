@@ -3358,8 +3358,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::AppNotFound",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3368,8 +3368,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, app_name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::AppNotFound",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3378,8 +3378,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::EnvironmentNotFound",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3388,8 +3388,8 @@
       "kind": "function",
       "public": false,
       "signature": "self, app_name: str, env_name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::AppError::EnvironmentNotFound",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3398,8 +3398,8 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::manage::UndeployResult",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3408,8 +3408,8 @@
       "kind": "function",
       "public": true,
       "signature": "api: Optional[AppsApiClient]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::manage::list_apps",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3418,8 +3418,8 @@
       "kind": "function",
       "public": true,
       "signature": "app_name: str, api: Optional[AppsApiClient]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::manage::get_app",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3428,8 +3428,8 @@
       "kind": "function",
       "public": true,
       "signature": "app_name: str, env_name: str, api: Optional[AppsApiClient]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::manage::get_environment",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3438,8 +3438,8 @@
       "kind": "function",
       "public": true,
       "signature": "app_name: str, env_name: str, *, api: Optional[AppsApiClient]=None, delete_env: bool=True, events: Optional[object]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::manage::undeploy_environment",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/manage.py",
@@ -3448,8 +3448,8 @@
       "kind": "function",
       "public": true,
       "signature": "app_name: str, *, api: Optional[AppsApiClient]=None, events: Optional[object]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::manage::delete_app",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/markers.py",

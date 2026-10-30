@@ -34,6 +34,8 @@ Handles support local calls, worker-local dispatch, remote calls, submission, re
 streaming, startup hooks, and per-job options. `AppRegistry` owns declaration membership;
 development target bindings and worker sibling lookup share the application's state.
 `blocking::apps::App` supplies synchronous registered handles, jobs, and stream iterators.
+`apps::manage` lists and inspects applications and tears down endpoints before their
+environment or application, collecting failures and retaining parents when cleanup fails.
 Native binary deployment, HTTP server integration, and development sessions remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 

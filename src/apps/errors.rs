@@ -4,6 +4,17 @@
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum AppError {
+    /// No application matched its logical name.
+    #[error("no app named '{0}' found. run `rp flash deploy` to create one.")]
+    AppNotFound(String),
+    /// An application or its requested environment was absent.
+    #[error("no environment '{environment_name}' in app '{app_name}'.")]
+    EnvironmentNotFound {
+        /// Application routing name.
+        app_name: String,
+        /// Requested environment name.
+        environment_name: String,
+    },
     /// Execution was attempted while collecting declarations for discovery.
     #[error(
         "'{0}' was invoked during discovery. move calls into a function or local entrypoint so collecting declarations has no side effects."

@@ -51,12 +51,13 @@ by Python; the complete port remains in progress.
 | `schedule` intent marker | `FunctionHandle::schedule` or an explicit `ResourceSpec::schedule` |
 | `App.api`, `ApiHandle`, route/lifecycle markers | `App::api`, `NativeApi`, `ApiHandle`, and explicit `RouteSpec`/hook registration |
 | Invoker/StreamInvoker sync and async access | native async handle methods and `blocking::apps::{App, FunctionHandle, ApiHandle, FunctionJob, OutputIter}` |
+| `apps.manage` inspection, undeploy, and application deletion | `apps::manage` with `UndeployResult` and typed `AppError` variants |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 350 implemented symbols, 77 adapted symbols, and 298 upstream
+This milestone maps 360 implemented symbols, 77 adapted symbols, and 307 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -102,6 +103,11 @@ python tools/verify_pickle.py
 
 ## Preserved quirks
 
+- Management lists applications alphabetically despite the Python docstring's newest-first
+  wording. Deletion flags report completed calls, even when a non-raising GraphQL response
+  is false. Application-level deletion aggregates endpoint counts and failures but leaves
+  `environment_deleted` false. A failed child deletion retains its parent and does not stop
+  attempts on later children; lookup failures propagate immediately.
 - Deployment validates resource specs and explicit secret references before any build.
   App/environment creation happens after successful packaging and size validation. The
   exact uploaded manifest is finalized; activation precedes endpoint reconciliation.
@@ -509,12 +515,22 @@ python tools/verify_pickle.py
   Build, formatting, Clippy with warnings denied, and docs pass. See the
   [blocking-handle review](reviews/apps-blocking-handles.md) for runtime ownership and limits.
 
+- Blocking registered handles passed all four CI jobs:
+  [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41040245510).
+- All nine upstream management tests pass. Fifteen Rust tests check ordered real HTTP
+  requests, missing records, retained environments, partial failures, empty children,
+  event suppression, cancellation, and upstream deletion-result quirks. See the
+  [management review](reviews/apps-manage.md).
+- Management milestone: **271 integration tests, two unit tests, and two doctests** pass
+  on Windows stable Rust. All fifteen new tests pass on Rust 1.88. Build, formatting,
+  Clippy with warnings denied, and docs pass. Pedantic review prompted documentation fixes.
+
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
 discovery, development sessions, browser auth flows,
-management and the CLI. Worker fitness, dynamic scaling, hosted API,
+and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

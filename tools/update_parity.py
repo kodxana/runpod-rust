@@ -8,6 +8,13 @@ api = json.loads(path.read_text())
 for entry in api["entries"]:
     file, name = entry["file"], entry["name"]
     target = None
+    if file == "runpod/apps/manage.py":
+        if name.startswith("AppNotFound"):
+            target = "apps::AppError::AppNotFound"
+        elif name.startswith("EnvironmentNotFound"):
+            target = "apps::AppError::EnvironmentNotFound"
+        else:
+            target = "apps::manage::" + name
     if file == "runpod/api/ctl_commands.py" and entry["public"]:
         target = f"Client::{name}"
     if file == "runpod/api/rest.py" and entry["public"]:
@@ -212,6 +219,8 @@ mapping = {
 fixtures = json.loads((root / "tests/fixtures/control.json").read_text())
 for entry in tests["entries"]:
     target = None
+    if entry["file"] == "tests/test_apps/test_manage.py":
+        target = "apps_manage::" + entry["name"].split(".")[-1]
     if entry["file"] == "tests/test_apps/test_app.py":
         app_tests = {
             "test_api_class_collects_routes":"api_collects_sorted_routes_and_rejects_duplicates_and_empty_services",
