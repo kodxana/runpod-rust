@@ -395,7 +395,7 @@ fn basename(path: &str) -> &str {
         .next()
         .unwrap_or("")
 }
-fn extension(path: &str) -> &str {
+pub(crate) fn extension(path: &str) -> &str {
     let name = basename(path);
     match name.rfind('.') {
         Some(index) if name[..index].chars().any(|c| c != '.') => &name[index..],

@@ -16049,8 +16049,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::Cargo build and incomplete_credentials_fallback_and_debug_redaction",
+      "status": "adapted",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16059,8 +16060,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::captured_environment_and_explicit_credentials_region_selection; python_region_and_chunk_fixtures",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16069,8 +16071,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::captured_environment_and_explicit_credentials_region_selection",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16079,8 +16082,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_makedirs, mock_open, mock_get_boto_client",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::image_fallback_result_slot_and_batch_failures",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16089,8 +16093,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_open, mock_get_boto_client",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::python_image_content_type_and_key_fixtures",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16099,8 +16104,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_makedirs",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::fallback_copy_bytes_empty_precedence_and_original_paths",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16109,8 +16115,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_makedirs, mock_copyfile, mock_exists, mock_get_boto_client",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::fallback_copy_bytes_empty_precedence_and_original_paths",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16119,8 +16126,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_get_boto_client",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::single_file_extra_args_and_sse_customer_key_encoding; all_python_extra_args_wire_headers",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16129,8 +16137,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_makedirs, mock_open_file, mock_get_boto_client",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::fallback_copy_bytes_empty_precedence_and_original_paths",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_upload.py",
@@ -16139,8 +16148,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_get_boto_client",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/upload.rs::python_memory_requests_presigning_and_reusable_client",
+      "status": "ported",
+      "note": "Native S3 requests exercise real signing, upload bodies, and returned presigned URLs against local HTTP mocks. Python import availability is replaced by Cargo dependency resolution; missing-credential local fallback remains tested."
     },
     {
       "file": "tests/test_serverless/test_utils/test_validate.py",

@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// A native S3 operation failed, retaining the underlying SDK error.
+    #[error(transparent)]
+    Upload(#[from] crate::utils::upload::UploadError),
     /// A downloaded ZIP could not be parsed or extracted.
     #[error(transparent)]
     Zip(#[from] zip::result::ZipError),
@@ -87,6 +90,7 @@ impl Error {
             Self::Context { source, .. } => source.status_code(),
             Self::Query { status_code, .. } => *status_code,
             Self::Http(error) => error.status().map(|status| status.as_u16()),
+            Self::Upload(error) => error.status_code(),
             Self::Authentication(_) => Some(401),
             _ => None,
         }

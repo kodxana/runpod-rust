@@ -57,13 +57,15 @@ by Python; the complete port remains in progress.
 | `local_entrypoint`, entrypoint lookup/execution/clearing | `apps::entrypoint::{EntrypointRegistry, run_entrypoint}`, `blocking::apps::run_entrypoint` |
 | SSRF address checks, pinned requests, redirects, proxy refusal, and byte caps | `utils::ssrf::{SafeDownloader, DownloadOptions, SafeResponse, SsrfError, is_safe_address, iter_content_capped}` |
 | File chunk/header helpers, batch download, single-file download and ZIP extraction | `utils::download::{calculate_chunk_size, parse_content_length, extract_disposition_params, FileDownloader, DownloadedFile, download_files_from_urls, file}` |
+| Local fallback, region extraction, bucket client/configuration, image/file/memory and custom-bucket uploads | `utils::upload::{Uploader, UploadOptions, UploadRequest, BucketCredentials, TransferConfig, get_boto_client, extract_region_from_url}` and corresponding free functions |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 379 implemented symbols, 114 adapted symbols, and 387 upstream
+This milestone maps 380 implemented symbols, 122 adapted symbols, and 397 upstream
 test functions; other entries remain pending.
+The test mapping includes 396 ported tests and one explicitly adapted Python import test.
 
 ## Test mapping and reproduction
 
@@ -102,6 +104,7 @@ python tools/task_fixtures.py
 python tools/deploy_fixtures.py
 python tools/ssrf_fixtures.py
 python tools/download_fixtures.py  # Windows capture, including simulated POSIX paths
+python tools/upload_fixtures.py
 python tools/package_fixtures.py
 python tools/build_fixtures.py
 python tools/dev_fixtures.py
@@ -723,9 +726,81 @@ Adaptations and inherited limitations:
   an extraction already parsing a ZIP checks cancellation at its next entry/read boundary.
   Callers own completed and partial artifacts and can use existing cleanup utilities.
 
+## File and S3 uploads
+
+`utils::upload` now covers every function in `rp_upload.py`, with native async methods
+and free wrappers. The AWS Rust SDK handles SigV4, HTTPS, request serialization, streaming
+checksums, and standard retries. Its current minimum is Rust 1.94.1; Cargo metadata and CI
+now declare that version. Historical Rust 1.88 verification above refers to earlier commits.
+
+- Explicit credentials use the source dictionary names through `BucketCredentials` Serde
+  fields. Otherwise options capture the three BUCKET environment variables. Any missing/empty
+  credential selects local fallback; S3/network failures never select fallback. The original
+  URL region extraction is preserved, including returning `digitaloceanspaces` for a bare
+  `https://nyc3.digitaloceanspaces.com` endpoint. Unknown URL regions use an explicit region,
+  AWS_DEFAULT_REGION, then us-east-1. `bucket_upload` deliberately skips URL extraction.
+- Local fallback creates only its top-level directory, gives a nonempty source path
+  precedence over bytes, accepts empty bytes, and copies contents without copying permissions.
+  Same-file and hard-link copies are rejected before truncation. Returned relative strings
+  retain duplicate separators. Names/paths remain trusted and may contain parent components.
+- File and memory transfers preserve bucket defaults from local-time `%m-%y`, literal prefix
+  concatenation, and a seven-day presigned GET. Images retain case-sensitive extensions,
+  `image/<extension>` content types, random eight-hex names, and `simulated_uploaded` fallback.
+  A borrowed optional result slot replaces the shared Python list/index pair. Concurrent
+  `files` preserves order and turns each failure into None; `bucket_upload` is sequential,
+  uses full input paths as keys, stops on error, and returns raw unescaped endpoint URLs.
+- Multipart starts at exactly 25 KiB. The configured 25 KiB chunks are adjusted like
+  s3transfer to at least 5 MiB and at most 5 GiB, aiming for at most 10,000 parts. Parts run
+  with bounded concurrency, completion is ordered, and file ranges can be reopened on retry.
+  Botocore's three retries mean **four total attempts**. Native standard retry classification
+  and jitter are supplied by AWS. Connect/read settings are 60 seconds, as in botocore;
+  native read-deadline semantics and streaming framing can differ between HTTP libraries.
+- Every boto3 upload ExtraArgs name supported by the characterized botocore 1.43.121 stack
+  is forwarded to its applicable operations, including all ten explicit checksum fields.
+  Full-object checksums select FULL_OBJECT/algorithm for multipart; metadata is only sent on
+  creation; part ETags and returned checksums appear in completion. SSE customer keys are
+  UTF-8/base64 encoded and MD5 hashed unless the caller supplied an MD5, matching botocore.
+- Failed multipart work awaits an abort and retains its original error if abort also fails.
+  Cancellation after an UploadId is known schedules best-effort cleanup on the current Tokio
+  runtime. Runtime shutdown or cancellation before the creation response reveals its ID can
+  leave an upload requiring bucket lifecycle cleanup. Completed objects are not deleted.
+
+Native adaptations: Cargo resolves the S3 dependency at build time, so runtime boto3 import
+failure has no equivalent. Native tracing replaces logger/tqdm output without configuring a
+global logger. Owned roots/options replace mutable process globals. JSON ExtraArgs accept
+strings/maps/numbers; dates support RFC3339/HTTP-date strings or Unix seconds, rather than
+Python datetime objects. Dynamic Python coercions and unbounded integer sizes are not copied.
+Native default concurrency uses available parallelism. Presigned URLs and standard headers
+use AWS Rust SDK spelling/order (including `x-id=GetObject`), not byte-identical boto3 URLs.
+The default client uses path-style custom endpoints and explicit static credentials. It does
+not load boto3 profile files; `with_client` accepts a caller-configured AWS client for custom
+providers/transports. No Runpod account credential is used for S3.
+
+`tools/upload_fixtures.py` captures **47 Python cases**, bringing the total to **1,129**.
+Cases cover region quirks, transfer sizing, buckets/prefixes, image metadata, and a real
+botocore request with every ExtraArgs key intercepted before network access. All ten upstream
+upload tests pass. The native suite has 18 Windows tests plus a Unix-only permissions test,
+covering real local HTTP signing, multipart ordering/thresholds/metadata, body replay,
+four-attempt retries, presigning, fallback, same-file detection, abort, and cancellation.
+See [reviews/upload.md](reviews/upload.md) for review and verification details.
+
+Verification: the complete Windows stable Rust 1.99.1 suite passed **371 integration tests,
+three unit tests, and two doctests (376 total)**. The final explicit 60-second timeout setting
+and documentation annotations were then checked by all 18 upload tests on stable and Rust
+1.94.1. All 15 download tests also pass on both toolchains. Build, formatting, Clippy with
+warnings denied, and documentation checks pass; pedantic review found no remaining correctness
+issue. Python successfully decoded all 14 native pickle fixtures. No live S3/Runpod resources
+were used. The Unix-only copy-permissions test awaits the new CI run.
+
+The previous download CI run [41056779984](https://github.com/kodxana/runpod-rust/actions/runs/41056779984)
+failed on a Windows-generated POSIX ZIP fixture. The capture now switches os.sep before
+opening the ZIP, preserving literal backslashes. All 19 POSIX fixture files match actual
+Linux Python extraction in WSL; Windows download tests pass. Native extraction code and ZIP
+bytes were unchanged by that correction.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
 discovery and the CLI. Worker fitness, dynamic scaling, hosted API,
-capture/debugging, upload helpers, and volume-cache operations are also pending.
+capture/debugging and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

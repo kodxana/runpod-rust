@@ -6890,7 +6890,7 @@
       "line": 96,
       "kind": "function",
       "public": false,
-      "signature": "finished_text: str='[ok]\u2713[/ok]'",
+      "signature": "finished_text: str='[ok]✓[/ok]'",
       "rust": null,
       "status": "pending"
     },
@@ -10794,8 +10794,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "Cargo aws-sdk-s3 dependency",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10804,8 +10805,9 @@
       "kind": "function",
       "public": false,
       "signature": "file_name: str, source_path: Optional[str]=None, file_data: Optional[bytes]=None, directory: str='local_upload'",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::save_to_local_fallback",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10814,8 +10816,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_url",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::extract_region_from_url",
+      "status": "implemented",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10824,8 +10827,9 @@
       "kind": "function",
       "public": true,
       "signature": "bucket_creds: Optional[dict]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::get_boto_client",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10834,8 +10838,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_id, image_location, result_index=0, results_list=None, bucket_name: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::upload_image",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10844,8 +10849,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_id, file_list",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::files",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10854,8 +10860,9 @@
       "kind": "function",
       "public": true,
       "signature": "job_id, file_list, bucket_creds",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::bucket_upload",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10864,8 +10871,9 @@
       "kind": "function",
       "public": true,
       "signature": "file_name: str, file_location: str, bucket_creds: Optional[dict]=None, bucket_name: Optional[str]=None, prefix: Optional[str]=None, extra_args: Optional[dict]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::upload_file_to_bucket",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_upload.py",
@@ -10874,8 +10882,9 @@
       "kind": "function",
       "public": true,
       "signature": "file_name: str, file_data: bytes, bucket_creds: Optional[dict]=None, bucket_name: Optional[str]=None, prefix: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::upload::upload_in_memory_object",
+      "status": "adapted",
+      "note": "Native async S3 SDK, owned environment/root, typed credentials/errors, and TransferConfig replace boto3/thread/tqdm plumbing. Local fallback, S3 keys/headers, 25 KiB threshold, >=5 MiB parts, four attempts, and seven-day presigning are tested. Runtime import failure becomes a compile-time dependency; see PORTING.md and reviews/upload.md for explicit adaptations."
     },
     {
       "file": "runpod/serverless/utils/rp_validator.py",

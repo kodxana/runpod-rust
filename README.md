@@ -3,6 +3,7 @@
 A native Rust port of [runpod-python](https://github.com/runpod/runpod-python), pinned to
 `ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5`. **The complete port is in progress.**
 The checked-in API and test inventories track the remaining work explicitly.
+The current minimum Rust version is **1.94.1**, required by the native AWS S3 SDK.
 
 Implemented so far: all `api.ctl_commands` operations, REST and GraphQL transports,
 cursor pagination, serverless endpoint clients, job polling, cancellation, streaming,
@@ -141,7 +142,17 @@ behavior, proxy opt-in, and native transport differences.
 or `file(url)` for metadata and ZIP extraction. Paths and partial files belong to the caller;
 policy/filesystem failures propagate. The default single-file operation does not retry.
 `job_id` is a trusted path and ZIP expansion is unbounded, matching Python; see the
-[porting notes](PORTING.md#file-downloads-and-zip-extraction). Upload helpers remain in progress.
+[porting notes](PORTING.md#file-downloads-and-zip-extraction).
+
+`utils::upload::Uploader::new(project_root)` provides native S3 uploads with local fallback.
+Use `upload_file_to_bucket` or `upload_in_memory_object` with an `UploadRequest` for bucket,
+prefix, and boto3-compatible extra arguments. Credentials come from `BUCKET_ENDPOINT_URL`,
+`BUCKET_ACCESS_KEY_ID`, and `BUCKET_SECRET_ACCESS_KEY`, or an explicit `UploadOptions`.
+Missing credentials save to `local_upload`; configured S3 failures propagate. Uploads use
+SigV4, automatic multipart transfers, and seven-day presigned GET URLs. `upload_image`,
+ordered concurrent `files`, and sequential `bucket_upload` preserve their Python contracts.
+No Python process is involved. See the [upload notes](PORTING.md#file-and-s3-uploads) for
+credential-provider, cancellation, and transport adaptations.
 
 ```sh
 cargo build --locked

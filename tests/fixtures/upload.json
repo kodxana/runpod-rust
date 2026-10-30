@@ -1,0 +1,455 @@
+[
+  {
+    "operation": "region",
+    "input": "",
+    "output": null
+  },
+  {
+    "operation": "region",
+    "input": "https://example.com",
+    "output": null
+  },
+  {
+    "operation": "region",
+    "input": "https://bucket.s3.us-west-2.amazonaws.com",
+    "output": "us-west-2"
+  },
+  {
+    "operation": "region",
+    "input": "https://s3.us-west-2.amazonaws.com",
+    "output": null
+  },
+  {
+    "operation": "region",
+    "input": "https://bucket.s3.eu-central-003.backblazeb2.com",
+    "output": "eu-central-003"
+  },
+  {
+    "operation": "region",
+    "input": "https://bucket.nyc3.digitaloceanspaces.com",
+    "output": "nyc3"
+  },
+  {
+    "operation": "region",
+    "input": "https://nyc3.digitaloceanspaces.com",
+    "output": "digitaloceanspaces"
+  },
+  {
+    "operation": "region",
+    "input": "https://bucket.NYC3.digitaloceanspaces.com",
+    "output": "NYC3"
+  },
+  {
+    "operation": "region",
+    "input": "https://bucket.nyc3.digitaloceanspaces.com:443",
+    "output": null
+  },
+  {
+    "operation": "region",
+    "input": "https://bucket.nyc3.digitaloceanspaces.com/path",
+    "output": "nyc3"
+  },
+  {
+    "operation": "region",
+    "input": "//bucket.ams3.digitaloceanspaces.com",
+    "output": "ams3"
+  },
+  {
+    "operation": "region",
+    "input": "bucket.nyc3.digitaloceanspaces.com",
+    "output": null
+  },
+  {
+    "operation": "region",
+    "input": "https://BUCKET.NYC3.DIGITALOCEANSPACES.COM",
+    "output": null
+  },
+  {
+    "operation": "region",
+    "input": "https://example.com/path.s3.odd.name",
+    "output": "odd"
+  },
+  {
+    "operation": "region",
+    "input": "https://one.s3.first.s3.second.com",
+    "output": "first"
+  },
+  {
+    "operation": "region",
+    "input": "https://example.com/?x=.s3.query.example",
+    "output": "query"
+  },
+  {
+    "operation": "region",
+    "input": ".s3.",
+    "output": ""
+  },
+  {
+    "operation": "chunk",
+    "input": 0,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 1,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 25600,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 5242879,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 5242880,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 5242881,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 256000000,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 256000001,
+    "output": 5242880
+  },
+  {
+    "operation": "chunk",
+    "input": 53687091200,
+    "output": 6553600
+  },
+  {
+    "operation": "chunk",
+    "input": 5497558138880,
+    "output": 838860800
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": null,
+      "prefix": null
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": null,
+      "prefix": ""
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": null,
+      "prefix": "nested"
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "nested/a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": null,
+      "prefix": "ends/"
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "ends//a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "",
+      "prefix": null
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "",
+      "prefix": ""
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "",
+      "prefix": "nested"
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "nested/a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "",
+      "prefix": "ends/"
+    },
+    "output": {
+      "bucket": "01-24",
+      "key": "ends//a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "explicit",
+      "prefix": null
+    },
+    "output": {
+      "bucket": "explicit",
+      "key": "a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "explicit",
+      "prefix": ""
+    },
+    "output": {
+      "bucket": "explicit",
+      "key": "a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "explicit",
+      "prefix": "nested"
+    },
+    "output": {
+      "bucket": "explicit",
+      "key": "nested/a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "memory",
+    "input": {
+      "bucket": "explicit",
+      "prefix": "ends/"
+    },
+    "output": {
+      "bucket": "explicit",
+      "key": "ends//a b.txt",
+      "body": "hello",
+      "result": "signed",
+      "expires": 604800
+    }
+  },
+  {
+    "operation": "image",
+    "input": "image.png",
+    "output": {
+      "key": "job/11111111.png",
+      "content_type": "image/png",
+      "body": "image bytes"
+    }
+  },
+  {
+    "operation": "image",
+    "input": "archive.tar.gz",
+    "output": {
+      "key": "job/11111111.gz",
+      "content_type": "image/gz",
+      "body": "image bytes"
+    }
+  },
+  {
+    "operation": "image",
+    "input": "UPPER.JPG",
+    "output": {
+      "key": "job/11111111.JPG",
+      "content_type": "image/JPG",
+      "body": "image bytes"
+    }
+  },
+  {
+    "operation": "image",
+    "input": "no_extension",
+    "output": {
+      "key": "job/11111111",
+      "content_type": "image/",
+      "body": "image bytes"
+    }
+  },
+  {
+    "operation": "image",
+    "input": ".hidden",
+    "output": {
+      "key": "job/11111111",
+      "content_type": "image/",
+      "body": "image bytes"
+    }
+  },
+  {
+    "operation": "image",
+    "input": "...dots",
+    "output": {
+      "key": "job/11111111",
+      "content_type": "image/",
+      "body": "image bytes"
+    }
+  },
+  {
+    "operation": "image",
+    "input": "name.",
+    "output": {
+      "key": "job/11111111.",
+      "content_type": "image/",
+      "body": "image bytes"
+    }
+  },
+  {
+    "operation": "extra_args",
+    "input": {
+      "ACL": "private",
+      "CacheControl": "max-age=60",
+      "ChecksumAlgorithm": "CRC32",
+      "ContentDisposition": "attachment",
+      "ContentEncoding": "identity",
+      "ContentLanguage": "en",
+      "ContentType": "text/plain",
+      "ExpectedBucketOwner": "123456789012",
+      "Expires": "2030-01-01T00:00:00Z",
+      "GrantFullControl": "id=\"owner\"",
+      "GrantRead": "id=\"reader\"",
+      "GrantReadACP": "id=\"reader-acp\"",
+      "GrantWriteACP": "id=\"writer-acp\"",
+      "Metadata": {
+        "one": "1",
+        "two": "2"
+      },
+      "ObjectLockLegalHoldStatus": "ON",
+      "ObjectLockMode": "GOVERNANCE",
+      "ObjectLockRetainUntilDate": "2030-01-01T00:00:00Z",
+      "RequestPayer": "requester",
+      "ServerSideEncryption": "aws:kms",
+      "StorageClass": "STANDARD_IA",
+      "SSECustomerAlgorithm": "AES256",
+      "SSECustomerKey": "my secret key",
+      "SSECustomerKeyMD5": "provided-md5",
+      "SSEKMSKeyId": "test-key",
+      "SSEKMSEncryptionContext": "e30=",
+      "Tagging": "a=b",
+      "WebsiteRedirectLocation": "/other",
+      "ChecksumType": "FULL_OBJECT",
+      "MpuObjectSize": 4,
+      "ChecksumCRC32": "AAAAAA==",
+      "ChecksumCRC32C": "AAAAAA==",
+      "ChecksumCRC64NVME": "AAAAAA==",
+      "ChecksumMD5": "AAAAAA==",
+      "ChecksumSHA1": "AAAAAA==",
+      "ChecksumSHA256": "AAAAAA==",
+      "ChecksumSHA512": "AAAAAA==",
+      "ChecksumXXHASH3": "AAAAAA==",
+      "ChecksumXXHASH64": "AAAAAA==",
+      "ChecksumXXHASH128": "AAAAAA=="
+    },
+    "output": {
+      "x-amz-acl": "private",
+      "cache-control": "max-age=60",
+      "x-amz-sdk-checksum-algorithm": "CRC32",
+      "content-disposition": "attachment",
+      "content-encoding": "identity",
+      "content-language": "en",
+      "content-type": "text/plain",
+      "x-amz-expected-bucket-owner": "123456789012",
+      "expires": "Tue, 01 Jan 2030 00:00:00 GMT",
+      "x-amz-grant-full-control": "id=\"owner\"",
+      "x-amz-grant-read": "id=\"reader\"",
+      "x-amz-grant-read-acp": "id=\"reader-acp\"",
+      "x-amz-grant-write-acp": "id=\"writer-acp\"",
+      "x-amz-meta-one": "1",
+      "x-amz-meta-two": "2",
+      "x-amz-object-lock-legal-hold": "ON",
+      "x-amz-object-lock-mode": "GOVERNANCE",
+      "x-amz-object-lock-retain-until-date": "2030-01-01T00:00:00Z",
+      "x-amz-request-payer": "requester",
+      "x-amz-server-side-encryption": "aws:kms",
+      "x-amz-storage-class": "STANDARD_IA",
+      "x-amz-server-side-encryption-customer-algorithm": "AES256",
+      "x-amz-server-side-encryption-customer-key": "my secret key",
+      "x-amz-server-side-encryption-customer-key-md5": "provided-md5",
+      "x-amz-server-side-encryption-aws-kms-key-id": "test-key",
+      "x-amz-server-side-encryption-context": "e30=",
+      "x-amz-tagging": "a=b",
+      "x-amz-website-redirect-location": "/other",
+      "x-amz-checksum-crc32": "AAAAAA==",
+      "x-amz-checksum-crc32c": "AAAAAA==",
+      "x-amz-checksum-crc64nvme": "AAAAAA==",
+      "x-amz-checksum-md5": "AAAAAA==",
+      "x-amz-checksum-sha1": "AAAAAA==",
+      "x-amz-checksum-sha256": "AAAAAA==",
+      "x-amz-checksum-sha512": "AAAAAA==",
+      "x-amz-checksum-xxhash3": "AAAAAA==",
+      "x-amz-checksum-xxhash64": "AAAAAA==",
+      "x-amz-checksum-xxhash128": "AAAAAA=="
+    }
+  }
+]
