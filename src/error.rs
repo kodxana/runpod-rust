@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// A deployment ignore pattern could not be compiled.
+    #[error(transparent)]
+    IgnorePattern(#[from] ignore::Error),
     /// Application routing, configuration, or remote execution failed.
     #[error(transparent)]
     App(#[from] crate::apps::AppError),

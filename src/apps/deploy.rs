@@ -1,4 +1,7 @@
 //! Deployment manifests and reconciliation of application endpoints.
+pub use super::package::{
+    Artifact, DEFAULT_IGNORES, ENV_DIR_NAME, PROTECTED_IGNORES, PackageOptions, package_project,
+};
 use super::{
     AppError, AppsApiClient, ResourceKind, ResourceSpec, Selection,
     gpu::{PoolMembers, gpu_ids_value, needs_gpu_catalog, resolve_gpu_string},

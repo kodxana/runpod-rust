@@ -95,6 +95,8 @@ for entry in api["entries"]:
     target = task_symbols.get(file, {}).get(name, target)
     if file == "runpod/apps/deploy.py" and name in ("DeployResult", "build_manifest", "_deployed_endpoint_input", "reconcile_endpoints", "_container_disk_gb"):
         target = "apps::deploy::" + {"_deployed_endpoint_input":"deployed_endpoint_input", "_container_disk_gb":"deployed_endpoint_input container disk selection"}.get(name, name)
+    if file == "runpod/apps/deploy.py" and name in ("_load_ignores", "_is_ignored"):
+        target = "apps::package::" + name.removeprefix("_")
     if file == "runpod/apps/tasks.py" and name in ("TaskExecution.start", "TaskExecution.wait_ready", "TaskExecution.execute", "TaskExecution.submit", "TaskExecution.set_timeout", "TaskExecution.poll_result", "TaskExecution.terminate", "TaskJob.pod_id", "TaskJob.wait", "TaskJob.cancel"):
         target = "apps::tasks::" + name.replace(".", "::")
     if file == "runpod/apps/targets.py" and "." in name:
@@ -116,6 +118,8 @@ for entry in api["entries"]:
         entry.update(rust="apps::images::RuntimeImages::python_version", status="adapted", note="Explicit remote interpreter version, default 3.12, replaces local Python introspection. Native Rust serialization never launches Python; see PORTING.md.")
     if file == "runpod/apps/tasks.py" and name in ("finish_cleanup", "_cleanup_finished"):
         entry.update(rust="apps::tasks::finish_cleanup / CleanupGuard", status="adapted", note="Tokio owns detached cleanup tasks. Future cancellation starts cleanup without blocking Drop; the runtime must remain alive. The 30-second foreground cleanup deadline and original error precedence are preserved.")
+    if file == "runpod/apps/deploy.py" and name == "package_project":
+        entry.update(rust="apps::deploy::package_project", status="adapted", note="Native tar/gzip and gitignore matching preserve archive members and contents. Automatic output is owned by Artifact and removed on drop unless persisted; compressed bytes and JSON escaping are not identical to Python. See PORTING.md.")
     if file == "runpod/apps/serialization.py" and name in ("serialize_arg", "serialize_args", "serialize_kwargs", "deserialize_result", "get_function_source", "require_json_args"):
         entry.update(rust="apps::serialization::" + name if name != "require_json_args" else "serde_json::Value argument boundary", status="adapted",
                      note="Native Serde values and explicit FunctionSource metadata replace Python object execution/reflection; see PORTING.md. Built-in pickle interoperability is tested in both directions.")
@@ -238,6 +242,9 @@ for entry in tests["entries"]:
             target = "apps_tasks::runtime_image_channel_environment_is_captured_without_global_mutation"
     if entry["file"] == "tests/test_apps/test_deploy.py" and entry["name"] in ("TestManifest.test_manifest_shape", "TestManifest.test_schedule_blocked_until_backend_support", "TestEndpointInput.test_custom_api_declares_runtime_port"):
         target = "apps_deploy::python_deployment_manifest_and_endpoint_fixtures"
+    if entry["file"] == "tests/test_apps/test_deploy.py" and entry["name"].startswith("TestPackaging."):
+        leaf = entry["name"].split(".")[-1]
+        target = ("apps_package_logs::" if leaf == "test_excluded_paths_are_logged_without_contents" else "apps_package::") + leaf
     if entry["file"] == "tests/test_apps/test_config_params.py" and entry["name"] in ("TestDeployPayload.test_config_params_reach_payload", "TestDeployPayload.test_flashboot_default_present", "TestDeployPayload.test_flashboot_disabled_omitted"):
         target = "apps_deploy::python_deployment_manifest_and_endpoint_fixtures"
     if entry["file"] == "tests/test_apps/test_shim.py" and entry["name"] in ("test_starts_an_installed_runtime", "test_installs_missing_packages_and_honors_overrides"):

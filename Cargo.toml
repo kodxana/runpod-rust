@@ -14,7 +14,9 @@ async-stream = "0.3"
 base64 = "0.22"
 chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
 futures-util = "0.3"
+flate2 = "1"
 getrandom = { version = "0.3", features = ["std"] }
+ignore = "0.4"
 percent-encoding = "2"
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "stream", "multipart"] }
 regex = "1"
@@ -27,6 +29,7 @@ tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "sync"
 tracing = "0.1"
 toml_edit = "0.23"
 tempfile = "3"
+tar = "0.4"
 
 [dev-dependencies]
 wiremock = "0.6"

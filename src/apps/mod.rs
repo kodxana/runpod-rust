@@ -13,6 +13,7 @@ pub mod logs;
 pub mod lookup;
 mod model;
 pub mod monitor;
+mod package;
 pub mod placement;
 pub mod protocol;
 mod queue;

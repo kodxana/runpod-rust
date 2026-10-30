@@ -2559,8 +2559,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_package::test_tarball_contains_source_and_manifest",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2569,8 +2569,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_package::test_ignores_and_non_overridable_credentials",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2579,8 +2579,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_package::test_credential_like_source_paths_are_included",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2589,8 +2589,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, caplog",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_package_logs::test_excluded_paths_are_logged_without_contents",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2599,8 +2599,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_package::test_vendored_env_included_under_env",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2609,8 +2609,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_package::test_project_ignore_precedence",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",
@@ -2619,8 +2619,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_package::test_symlinks_cannot_escape_source_or_dependencies",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_deploy.py",

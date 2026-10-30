@@ -41,12 +41,13 @@ by Python; the complete port remains in progress.
 | `apps.tasks.TaskJob`, task result decoding and cleanup | `apps::tasks::TaskJob`, `unwrap_task_response`, `finish_cleanup` |
 | `apps.targets.PodTarget` | `apps::targets::PodTarget`, explicit function metadata and async invoke/submit |
 | `apps.deploy` manifests, deployed endpoint payloads, reconciliation, result type | `apps::deploy::{build_manifest, deployed_endpoint_input, reconcile_endpoints, DeployResult}` with `AppDefinition` metadata |
+| `apps.deploy.package_project` and ignore helpers | `apps::deploy::{package_project, PackageOptions, Artifact}` and private scoped ignore matching |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 318 implemented symbols, nine adapted symbols, and 215 upstream
+This milestone maps 320 implemented symbols, ten adapted symbols, and 222 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -84,12 +85,18 @@ python tools/invocation_fixtures.py
 python tools/monitor_fixtures.py
 python tools/task_fixtures.py
 python tools/deploy_fixtures.py
+python tools/package_fixtures.py
 cargo test --test apps_protocol
 python tools/verify_pickle.py
 ```
 
 ## Preserved quirks
 
+- Packaging prunes ignored directories before looking for nested rules. Root `.runpodignore`
+  overrides nested `.gitignore`; protected source paths cannot be unignored. Dependencies
+  are copied separately under `env/`, retaining their certificate/data files regardless of
+  source ignore rules. Both trees omit symlinks and the output archive itself. Only the
+  supplied root manifest is inserted; a nested source manifest remains an ordinary file.
 - Task jobs clean up on every exit from wait, including remote failure and cancellation.
   A successful result (including null) is cached. Dropping an unused job alone leaves its
   pod running; explicit cancel terminates it. An execution timeout of None is unlimited.
@@ -232,6 +239,14 @@ python tools/verify_pickle.py
   module/qualified-name metadata. This does not yet implement App registration or source
   discovery. `DeploymentConfig::from_client` supplies worker credentials from the owned
   client instead of Python globals; its Debug output hides credentials and override values.
+- `package_project` returns an `Artifact` that owns automatic temporary storage. Dropping
+  it removes that storage; `persist` explicitly keeps it. A caller-specified output is
+  always retained. Archive member paths/order and file bytes match the Python fixtures;
+  gzip headers, tar extensions, manifest metadata and JSON Unicode escaping need not be
+  byte-identical. Source files retain native file metadata (including executable mode on
+  Unix). Ignore files must be UTF-8 and use the `ignore` crate's Git syntax; exotic patterns
+  and platform-specific filename restrictions follow native libraries. Packaging is
+  synchronous filesystem work; async orchestration must run it on a blocking executor.
 
 ## Verification log
 
@@ -296,12 +311,27 @@ python tools/verify_pickle.py
   membership, task-only apps, and failure boundaries. Build, formatting, Clippy with
   warnings denied, and documentation generation passed. See [deployment review](reviews/apps-deploy.md).
 
+- Commit ca6617f passed all three stable platforms and the Linux MSRV job:
+  [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/40954045767).
+- Packaging adds sixteen Python archive fixtures and twenty Windows tests, including
+  binary/long-name/hard-link handling, temporary storage ownership, IO failures, and
+  exclusion logs without file contents. All twenty pass on stable and MSRV 1.88.0.
+  Unix additionally tests file/directory/broken symlinks, symlinked ignore files, and
+  executable mode preservation. The upstream packaging subset reported six passed and
+  one failed on Windows because creating symlinks requires privileges this session lacks;
+  its whole-project coverage threshold also fails for this small subset. See
+  [packaging review](reviews/apps-package.md).
+- The full packaging milestone passed **163 integration tests and one doctest** on Windows
+  stable Rust, with **398 captured Python cases** overall. Build, formatting, Clippy with
+  warnings denied, and documentation generation passed. The separate pedantic review
+  reported no warnings in the new packaging files; older advisory warnings remain.
+
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
 The current milestone does not implement deployment orchestration, native function
-registration/deployment, artifact construction, discovery, development sessions, browser auth flows,
+registration/deployment, dependency installation, discovery, development sessions, browser auth flows,
 management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

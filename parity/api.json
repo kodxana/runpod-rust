@@ -2059,8 +2059,8 @@
       "kind": "function",
       "public": false,
       "signature": "path: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::package::load_ignores",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/deploy.py",
@@ -2069,8 +2069,8 @@
       "kind": "function",
       "public": false,
       "signature": "rel_path: str, patterns: List[Tuple[str, GitIgnoreSpec]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::package::is_ignored",
+      "status": "implemented"
     },
     {
       "file": "runpod/apps/deploy.py",
@@ -2079,8 +2079,9 @@
       "kind": "function",
       "public": true,
       "signature": "project_root: Path, manifest: Dict[str, Any], output: Optional[Path]=None, env_dir: Optional[Path]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::deploy::package_project",
+      "status": "adapted",
+      "note": "Native tar/gzip and gitignore matching preserve archive members and contents. Automatic output is owned by Artifact and removed on drop unless persisted; compressed bytes and JSON escaping are not identical to Python. See PORTING.md."
     },
     {
       "file": "runpod/apps/deploy.py",

@@ -1,0 +1,456 @@
+[
+  {
+    "name": "source_and_manifest",
+    "files": {
+      "main.py": "print(42)\n",
+      "runpod_manifest.json": "forged",
+      "nested/runpod_manifest.json": "nested is source"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {
+      "app": "demo",
+      "unicode": "crab \ud83e\udd80",
+      "resources": []
+    },
+    "names": [
+      "main.py",
+      "nested/runpod_manifest.json",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      "main.py": "cHJpbnQoNDIpCg==",
+      "nested/runpod_manifest.json": "bmVzdGVkIGlzIHNvdXJjZQ=="
+    },
+    "archived_manifest": {
+      "app": "demo",
+      "unicode": "crab \ud83e\udd80",
+      "resources": []
+    }
+  },
+  {
+    "name": "protected_cannot_be_unignored",
+    "files": {
+      "main.py": "source",
+      ".env": "private",
+      "x.env.production": "private",
+      "private.pem": "private",
+      "private.key": "private",
+      ".aws/config": "private",
+      "nested/.ssh/id_ed25519": "private",
+      ".docker/config.json": "private",
+      "nested/.docker/config.json": "private",
+      "service-account-demo.json": "private",
+      "service_account_demo.json": "private",
+      ".runpodignore": "!*.env*\n!*.pem\n!*.key\n!.aws/\n!.ssh/\n!.docker/\n!service*.json\n!**/.docker/config.json\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".runpodignore",
+      "main.py",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".runpodignore": "ISouZW52KgohKi5wZW0KISoua2V5CiEuYXdzLwohLnNzaC8KIS5kb2NrZXIvCiFzZXJ2aWNlKi5qc29uCiEqKi8uZG9ja2VyL2NvbmZpZy5qc29uCg==",
+      "main.py": "c291cmNl"
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "credential_like_source_names",
+    "files": {
+      "credentials": "source",
+      "secrets": "source",
+      "src/credentials.py": "source",
+      "src/secrets.py": "source",
+      "src/nested/secrets/config.py": "source",
+      "src/nested/credentials/config.py": "source"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      "credentials",
+      "secrets",
+      "src/credentials.py",
+      "src/secrets.py",
+      "src/nested/credentials/config.py",
+      "src/nested/secrets/config.py",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      "credentials": "c291cmNl",
+      "secrets": "c291cmNl",
+      "src/credentials.py": "c291cmNl",
+      "src/secrets.py": "c291cmNl",
+      "src/nested/credentials/config.py": "c291cmNl",
+      "src/nested/secrets/config.py": "c291cmNl"
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "nested_precedence",
+    "files": {
+      "root.log": "root",
+      "nested/keep.log": "keep",
+      "nested/drop.log": "drop",
+      "other/keep.log": "other",
+      ".gitignore": "*.log\n",
+      "nested/.gitignore": "!*.log\n",
+      ".runpodignore": "!root.log\nnested/drop.log\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".gitignore",
+      ".runpodignore",
+      "root.log",
+      "nested/.gitignore",
+      "nested/keep.log",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".gitignore": "Ki5sb2cK",
+      ".runpodignore": "IXJvb3QubG9nCm5lc3RlZC9kcm9wLmxvZwo=",
+      "root.log": "cm9vdA==",
+      "nested/.gitignore": "ISoubG9nCg==",
+      "nested/keep.log": "a2VlcA=="
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "defaults_and_unignore",
+    "files": {
+      "test_app.py": "test",
+      "module_test.py": "test",
+      "tests/unit.py": "test",
+      "nested/tests/unit.py": "test",
+      "nested/env/a.py": "env",
+      "env/a.py": "root env",
+      "node_modules/a.js": "node",
+      ".venv/a.py": "venv",
+      "__pycache__/a.pyc": "cache",
+      "pkg/a.pyc": "cache",
+      ".DS_Store": "os",
+      ".runpodignore": "!test_app.py\n!tests/\n!nested/tests/\n!nested/env/\n!env/\n!node_modules/\n!*.pyc\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".runpodignore",
+      "test_app.py",
+      "nested/env/a.py",
+      "nested/tests/unit.py",
+      "node_modules/a.js",
+      "pkg/a.pyc",
+      "tests/unit.py",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".runpodignore": "IXRlc3RfYXBwLnB5CiF0ZXN0cy8KIW5lc3RlZC90ZXN0cy8KIW5lc3RlZC9lbnYvCiFlbnYvCiFub2RlX21vZHVsZXMvCiEqLnB5Ywo=",
+      "test_app.py": "dGVzdA==",
+      "nested/env/a.py": "ZW52",
+      "nested/tests/unit.py": "dGVzdA==",
+      "node_modules/a.js": "bm9kZQ==",
+      "pkg/a.pyc": "Y2FjaGU=",
+      "tests/unit.py": "dGVzdA=="
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "directory_pruning",
+    "files": {
+      "blocked/keep.py": "blocked",
+      "blocked/.gitignore": "!keep.py\n",
+      "open/deep/file.py": "keep",
+      ".gitignore": "blocked/\nopen/*\n!open/deep/\n",
+      ".runpodignore": ""
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".gitignore",
+      ".runpodignore",
+      "open/deep/file.py",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".gitignore": "YmxvY2tlZC8Kb3Blbi8qCiFvcGVuL2RlZXAvCg==",
+      ".runpodignore": "",
+      "open/deep/file.py": "a2VlcA=="
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "root_anchoring",
+    "files": {
+      "root-only.txt": "root",
+      "nested/root-only.txt": "nested",
+      "pkg/a.txt": "a",
+      "other/pkg/a.txt": "b",
+      ".gitignore": "/root-only.txt\n/pkg/\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".gitignore",
+      "nested/root-only.txt",
+      "other/pkg/a.txt",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".gitignore": "L3Jvb3Qtb25seS50eHQKL3BrZy8K",
+      "nested/root-only.txt": "bmVzdGVk",
+      "other/pkg/a.txt": "Yg=="
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "nested_root_anchoring",
+    "files": {
+      "a/root.txt": "a root",
+      "a/deep/root.txt": "a nested",
+      "b/root.txt": "b root",
+      "a/.gitignore": "/root.txt\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      "a/.gitignore",
+      "a/deep/root.txt",
+      "b/root.txt",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      "a/.gitignore": "L3Jvb3QudHh0Cg==",
+      "a/deep/root.txt": "YSBuZXN0ZWQ=",
+      "b/root.txt": "YiByb290"
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "glob_patterns",
+    "files": {
+      "a.tmp": "tmp",
+      "a1.txt": "a1",
+      "a2.txt": "a2",
+      "ab.txt": "ab",
+      "foo/bar/a.log": "log",
+      "foo/baz/a.txt": "text",
+      "docs/a.md": "doc",
+      "docs/keep.md": "keep",
+      ".gitignore": "a[12].txt\n**/*.log\n*.tmp\ndocs/*\n!docs/keep.md\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".gitignore",
+      "ab.txt",
+      "docs/keep.md",
+      "foo/baz/a.txt",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".gitignore": "YVsxMl0udHh0CioqLyoubG9nCioudG1wCmRvY3MvKgohZG9jcy9rZWVwLm1kCg==",
+      "ab.txt": "YWI=",
+      "docs/keep.md": "a2VlcA==",
+      "foo/baz/a.txt": "dGV4dA=="
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "escaped_literals",
+    "files": {
+      "#literal": "hash",
+      "!literal": "bang",
+      "space name.txt": "space",
+      ".gitignore": "\\#literal\n\\!literal\nspace\\ name.txt\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".gitignore",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".gitignore": "XCNsaXRlcmFsClwhbGl0ZXJhbApzcGFjZVwgbmFtZS50eHQK"
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "runpodignore_root_scope",
+    "files": {
+      "a/.runpodignore": "file.py\n",
+      "a/file.py": "included",
+      "file.py": "root"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      "file.py",
+      "a/.runpodignore",
+      "a/file.py",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      "file.py": "cm9vdA==",
+      "a/.runpodignore": "ZmlsZS5weQo=",
+      "a/file.py": "aW5jbHVkZWQ="
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "env_is_separate",
+    "files": {
+      "main.py": "source",
+      ".runpodignore": "*.pem\n*.txt\n",
+      "user.pem": "private"
+    },
+    "env_files": {
+      "numpy/__init__.py": "",
+      "numpy/ca.pem": "dependency CA",
+      ".env": "dependency data",
+      "tests/fixture.txt": "dependency fixture"
+    },
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      ".runpodignore",
+      "main.py",
+      "env/.env",
+      "env/numpy/__init__.py",
+      "env/numpy/ca.pem",
+      "env/tests/fixture.txt",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".runpodignore": "Ki5wZW0KKi50eHQK",
+      "main.py": "c291cmNl",
+      "env/.env": "ZGVwZW5kZW5jeSBkYXRh",
+      "env/numpy/__init__.py": "",
+      "env/numpy/ca.pem": "ZGVwZW5kZW5jeSBDQQ==",
+      "env/tests/fixture.txt": "ZGVwZW5kZW5jeSBmaXh0dXJl"
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "env_outside_project",
+    "files": {
+      "main.py": "source"
+    },
+    "env_files": {
+      "pkg/data.bin": "data"
+    },
+    "env_path": "../built-env",
+    "output": "artifact.bin",
+    "manifest": {},
+    "names": [
+      "main.py",
+      "env/pkg/data.bin",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      "main.py": "c291cmNl",
+      "env/pkg/data.bin": "ZGF0YQ=="
+    },
+    "archived_manifest": {}
+  },
+  {
+    "name": "empty_project",
+    "files": {},
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {
+      "version": 1
+    },
+    "names": [
+      "runpod_manifest.json"
+    ],
+    "contents": {},
+    "archived_manifest": {
+      "version": 1
+    }
+  },
+  {
+    "name": "unicode_and_order",
+    "files": {
+      "z.txt": "z",
+      "a.txt": "a",
+      "\u76ee\u5f55/\u811a\u672c.py": "print(\"\u503c\")",
+      "a/second.txt": "second",
+      "a/first.txt": "first",
+      "b/a.txt": "b"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "artifact.bin",
+    "manifest": {
+      "name": "\u6587\u5b57"
+    },
+    "names": [
+      "a.txt",
+      "z.txt",
+      "a/first.txt",
+      "a/second.txt",
+      "b/a.txt",
+      "\u76ee\u5f55/\u811a\u672c.py",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      "a.txt": "YQ==",
+      "z.txt": "eg==",
+      "a/first.txt": "Zmlyc3Q=",
+      "a/second.txt": "c2Vjb25k",
+      "b/a.txt": "Yg==",
+      "\u76ee\u5f55/\u811a\u672c.py": "cHJpbnQoIuWAvCIp"
+    },
+    "archived_manifest": {
+      "name": "\u6587\u5b57"
+    }
+  },
+  {
+    "name": "output_excluded_by_identity",
+    "files": {
+      "main.py": "source",
+      "archive.bin": "old archive",
+      ".runpodignore": "!*.bin\n"
+    },
+    "env_files": null,
+    "env_path": "vendor",
+    "output": "archive.bin",
+    "manifest": {},
+    "names": [
+      ".runpodignore",
+      "main.py",
+      "runpod_manifest.json"
+    ],
+    "contents": {
+      ".runpodignore": "ISouYmluCg==",
+      "main.py": "c291cmNl"
+    },
+    "archived_manifest": {}
+  }
+]
