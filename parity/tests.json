@@ -1239,8 +1239,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::app_registration_is_owned_ordered_and_rejects_duplicate_names",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1249,8 +1249,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::app_registration_is_owned_ordered_and_rejects_duplicate_names",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1269,8 +1269,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::app_registration_is_owned_ordered_and_rejects_duplicate_names",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1279,8 +1279,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::app_registration_is_owned_ordered_and_rejects_duplicate_names",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1319,8 +1319,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::app_registration_is_owned_ordered_and_rejects_duplicate_names",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1349,8 +1349,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::invalid_registration_does_not_change_resources",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1419,8 +1419,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::schedule_records_intent_and_manifest_still_rejects_it",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1439,8 +1439,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::local_sync_and_async_run_without_initialization_or_credentials",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -1449,8 +1449,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::local_sync_and_async_run_without_initialization_or_credentials",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_app.py",
@@ -3059,8 +3059,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::context_detection_preserves_worker_precedence_and_empty_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3069,8 +3069,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::context_detection_preserves_worker_precedence_and_empty_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3079,8 +3079,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::context_detection_preserves_worker_precedence_and_empty_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3089,8 +3089,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::context_detection_preserves_worker_precedence_and_empty_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3179,8 +3179,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::remote_aio_and_options_route_sibling_through_sentinel",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3189,8 +3189,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::remote_aio_and_options_route_sibling_through_sentinel",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3199,8 +3199,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::spawn_with_options_returns_queue_job_and_reconnect_does_not_submit",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3209,8 +3209,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::remote_aio_and_options_route_sibling_through_sentinel",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3219,8 +3219,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::streaming_rejects_plain_functions_and_tasks_and_options_reject_tasks",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3229,8 +3229,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::worker_executes_own_body_and_collects_generators",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3249,8 +3249,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::remote_aio_and_options_route_sibling_through_sentinel",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3259,8 +3259,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::discovery_guard_and_missing_dev_target_prevent_invocation",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3269,8 +3269,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::spawn_with_options_returns_queue_job_and_reconnect_does_not_submit",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3279,8 +3279,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::remote_stream_is_lazy_and_preserves_chunk_order",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",
@@ -3289,8 +3289,8 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps_app::streaming_rejects_plain_functions_and_tasks_and_options_reject_tasks",
+      "status": "ported"
     },
     {
       "file": "tests/test_apps/test_dispatch.py",

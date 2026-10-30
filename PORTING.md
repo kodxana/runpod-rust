@@ -45,12 +45,16 @@ by Python; the complete port remains in progress.
 | `apps.build` requirement selection, installed closures, and pruning | `apps::build::{requirement_name, collect_requirements, split_exclusions, installed_closure, prune_excluded}` |
 | `apps.build` installer, SDK overlay, complete environment construction | `apps::build::{BuildTools, VendorOptions, BuildOptions, BuildResult, sync_running_package, build_environment}`, `AppError::Build` |
 | `apps.deploy.build_artifact`, `deploy_app`, `_module_path_for` | `apps::deploy::{build_artifact, deploy_app, module_path_for}` with explicit metadata and owned artifacts |
+| `apps.App` queue/task registration and process registry | `apps::{App, AppConfig, AppRegistry}`, explicit registration and owned state |
+| Function handle local/async remote, spawn, job, stream, init, options | `apps::{FunctionHandle, NativeFunction, FunctionArgs, FunctionJob}`; blocking handles remain pending |
+| Context detection, discovery guard, development endpoint names | `apps::{Context, ExecutionContext, current_context, is_local, in_discovery, dev_endpoint_name}` |
+| `schedule` intent marker | `FunctionHandle::schedule` or an explicit `ResourceSpec::schedule` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 345 implemented symbols, eighteen adapted symbols, and 266 upstream
+This milestone maps 350 implemented symbols, 50 adapted symbols, and 290 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -235,8 +239,9 @@ python tools/verify_pickle.py
 - Rust has no runtime function signature/source reflection. FunctionDefinition supplies
   parameter names, and FunctionSource supplies complete module text or a file to re-read.
   Source passed to an existing Python worker must be source that worker understands;
-  this does not yet provide native Rust function deployment. Native build/worker
-  registration remains pending. JSON argument types enforce the queue boundary.
+  this does not yet provide native Rust function deployment. Native queue/task registration
+  and local execution are available; native artifact/runtime integration remains pending.
+  JSON argument types enforce the queue boundary.
 - FunctionResponse fields enforce their declared types; malformed non-boolean success
   or non-string error/result fields return decoding errors. Load-balancer endpoint IDs
   must contain only ASCII letters, digits, hyphens, or underscores to keep routing within
@@ -264,9 +269,34 @@ python tools/verify_pickle.py
   Duration values; raw submit payloads still reject booleans, strings, and negative numbers.
   Cleanup state uses watch channels and serialized termination, with no process-global task set.
 - Deployment helpers take an owned `AppDefinition` snapshot with explicit `SymbolReference`
-  module/qualified-name metadata. This does not yet implement App registration or source
-  discovery. `DeploymentConfig::from_client` supplies worker credentials from the owned
+  module/qualified-name metadata. `App::definition` also supplies such a snapshot; source
+  discovery remains pending. `DeploymentConfig::from_client` supplies worker credentials from the owned
   client instead of Python globals; its Debug output hides credentials and override values.
+- `AppRegistry` is caller-owned; creating an App does not alter a global registry. Resources
+  retain registration order and reject duplicates before changing shared state. `resources`
+  returns a vector snapshot, while handles share the owning app and registered hook metadata.
+  Resource identities are immutable after registration; mutable Python-spec tests therefore
+  map to validation at the Rust registration boundary, not externally mutable invalid state.
+- Function bodies are explicit `NativeFunction` values, accepting positional/named JSON
+  arguments. Rust closures provide their own argument defaults and validation. Local and
+  remote calls are async; `local` collects a generator into an array and `local_stream` exposes
+  incremental output. Synchronous bodies run in Tokio's blocking pool. A panic there retains
+  its JoinError, and already-running synchronous work finishes after caller cancellation.
+  Async/streaming-body panics retain normal Rust panic semantics. No Python interpreter is
+  involved in native function execution. Blocking function handles are still pending.
+- The invocation context is read on each call unless AppConfig supplies a fixed snapshot.
+  Workers take precedence over dev sessions; dev app/resource identity overrides deployed
+  resource identity. Own-worker calls run locally, sibling calls use sentinel routing or a
+  cached named development endpoint. Tasks resolve to dedicated pods before dev routing.
+  Discovery forbids remote/spawn/stream calls, including own-worker shortcuts; local calls
+  and queue job reconnection remain available. Discovery's diagnostic uses native terminology.
+- Queue options accumulate on cloned handles without mutating the original; task options and
+  task reconnection are rejected. Hooks are shared registrations rather than copied decorator
+  attributes, never run by local calls, and execute only through explicit initialization.
+  Hook replacement drops user captures after releasing the registry lock. Source/symbol
+  metadata and typed secret references are explicit. Schedule intent remains undeployable
+  until backend support exists. `FunctionJob` owns its concrete queue/task job and exposes
+  borrowed access plus common wait/cancel operations; dropping it preserves upstream lifecycle.
 - `package_project` returns an `Artifact` that owns automatic temporary storage. Dropping
   it removes that storage; `persist` explicitly keeps it. A caller-specified output is
   always retained. Archive member paths/order and file bytes match the Python fixtures;
@@ -419,13 +449,25 @@ python tools/verify_pickle.py
   also pass on Rust 1.88. Build, formatting, Clippy with warnings denied, and docs pass.
   See [pipeline review](reviews/apps-deploy-pipeline.md) for the cancellation contract and
   remaining advisory review notes. No live Runpod resource was created or changed.
+- The deployment pipeline passed all four CI jobs (Linux, Windows, macOS, and Linux MSRV):
+  [GitHub Actions run](https://github.com/kodxana/runpod-rust/actions/runs/41033921728).
+- Native App tests cover owned registration, rejected duplicates/configuration, local bodies
+  and hooks, context precedence, discovery guards, sentinel payload/options, cached dev lookup,
+  task job ownership, queue reconnection, lazy streaming, scheduler intent, secret metadata,
+  Send/Sync, redacted Debug, and synchronous-body executor responsiveness/panic causes.
+  Upstream App/context/dispatch subset: 65 passed and one failed on Windows because Python
+  converts the endpoint mount path to a backslash form. The Rust mount contract remains POSIX.
+- Native function milestone: **239 integration tests, one unit test, and two doctests**
+  pass on Windows stable Rust. All eighteen new integration tests also pass on Rust 1.88.
+  Build, formatting, Clippy with warnings denied, and documentation generation pass.
+  See [native function review](reviews/apps-native-functions.md) for adaptations and limits.
 
 This file will be updated as each remaining component and test is ported.
 
 ## Remaining work
 
-The current milestone does not implement native function
-registration/deployment, discovery, development sessions, browser auth flows,
+The current milestone does not implement native API route registration, native binary
+deployment, blocking function handles, discovery, development sessions, browser auth flows,
 management and the CLI. Worker fitness, dynamic scaling, hosted API,
 capture/debugging, downloads/uploads/SSRF, and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

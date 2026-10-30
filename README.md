@@ -19,8 +19,7 @@ calls, per-job options, reconnectable jobs, and streaming. Live targets support 
 envelopes, result decoding, coordinated source synchronization, and worker metrics/logs.
 Pod logs support snapshots, SSE cursors, and reconnect deduplication. Ephemeral tasks
 support runtime image selection, pod creation, runner requests, result polling, and
-cleanup after failure or cancellation. Application registration/build/deployment workflows, advanced worker
-utilities, and CLI remain in progress.
+cleanup after failure or cancellation. Advanced worker utilities and the CLI remain in progress.
 `apps::deploy` provides explicit application definitions, manifest generation, deployed
 endpoint payloads, endpoint reconciliation, and project archives with nested ignore rules,
 protected credential exclusions, and separately vendored dependency files. `apps::build`
@@ -29,7 +28,11 @@ packages while retaining shared files. `BuildTools` and `build_environment` inst
 wheels through an explicitly configurable Python/pip command, report progress, and build
 the artifact environment. `build_artifact` and async `deploy_app` connect preflight
 validation, building, packaging, upload, activation, and endpoint reconciliation.
-Native application registration and development workflows remain in progress.
+`apps::App` registers native synchronous, asynchronous, and streaming queue/task functions.
+Handles support local calls, worker-local dispatch, remote calls, submission, reconnection,
+streaming, startup hooks, and per-job options. `AppRegistry` owns declaration membership;
+development target bindings and worker sibling lookup share the application's state.
+API route registration, native binary deployment, and development sessions remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -87,6 +90,16 @@ secret references for preflight validation. `deploy_app` takes the core `Client`
 `DeployOptions`; its artifact interpreter version also selects the worker image version.
 Build work runs on a blocking executor. Canceling its await prevents later cloud calls,
 while an already running local build finishes and releases its owned temporary files.
+
+Native function registration uses `App::queue` or `App::task` with a `ResourceSpec`, explicit
+`FunctionDefinition` parameter names, and a `NativeFunction`. Use `NativeFunction::new` for
+async bodies, `::sync` for synchronous bodies, and `::streaming` for stream factories.
+`FunctionHandle::local` collects generator output; `::local_stream` retains incremental output.
+These methods are async, and synchronous bodies execute on Tokio's blocking pool. Local
+calls never run startup hooks automatically; worker startup calls `::initialize` explicitly.
+Native function bodies are compiled Rust code. Source-based live/task calls still require
+explicit Python source understood by the existing remote worker; shipping native Rust binaries
+is a remaining part of the port. `App::definition` returns deployment metadata without serializing closures.
 
 ```sh
 cargo build --locked

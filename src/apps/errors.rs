@@ -4,6 +4,14 @@
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum AppError {
+    /// Execution was attempted while collecting declarations for discovery.
+    #[error(
+        "'{0}' was invoked during discovery. move calls into a function or local entrypoint so collecting declarations has no side effects."
+    )]
+    DiscoveryInvocation(String),
+    /// A panic poisoned shared application registration or routing state.
+    #[error("application state lock was poisoned: {0}")]
+    StatePoisoned(&'static str),
     /// Dependency installation or artifact environment construction failed.
     #[error("{0}")]
     Build(String),

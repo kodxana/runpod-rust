@@ -134,6 +134,37 @@ for entry in api["entries"]:
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    native_app_symbols = {
+        "runpod/apps/app.py": {
+            "get_registered_apps":"AppRegistry::apps", "_clear_registry":"AppRegistry::clear", "_restore_registry":"AppRegistry::restore",
+            "App":"App", "App.__init__":"App::new / with_config", "App.resources":"App::resources",
+            "App._register":"App::register", "App.queue":"App::queue", "App.task":"App::task",
+            "App._resolve":"App::resolve", "App._resolve_dev_sibling":"App::resolve", "App.__repr__":"App::fmt",
+        },
+        "runpod/apps/handles.py": {
+            "FunctionHandle":"FunctionHandle", "FunctionHandle.__init__":"FunctionHandle::new / App::register",
+            "FunctionHandle.with_options":"FunctionHandle::with_options", "FunctionHandle.init":"FunctionHandle::init",
+            "FunctionHandle.local":"FunctionHandle::local / local_stream", "FunctionHandle._call_local_sync":"NativeFunction::call",
+            "FunctionHandle._await_local_result":"NativeFunction::call", "FunctionHandle._remote_async":"FunctionHandle::remote",
+            "FunctionHandle._stream_async":"FunctionHandle::stream", "FunctionHandle._guard_generator":"FunctionHandle::stream",
+            "FunctionHandle._apply_options":"FunctionHandle::apply_options", "FunctionHandle._spawn_async":"FunctionHandle::spawn",
+            "FunctionHandle._job_async":"FunctionHandle::job", "FunctionHandle._guard_discovery":"ExecutionContext::guard_discovery",
+            "FunctionHandle._is_current_worker":"ExecutionContext::is_current_worker", "FunctionHandle.__repr__":"FunctionHandle::fmt",
+            "FunctionHandle.__call__":"FunctionHandle has no Fn implementation; explicit invocation is required by Rust types",
+        },
+        "runpod/apps/schedule.py": {"schedule":"FunctionHandle::schedule / ResourceSpec::schedule"},
+    }
+    if name in native_app_symbols.get(file, {}):
+        entry.update(rust="apps::" + native_app_symbols[file][name], status="adapted", note="Owned AppRegistry and explicit Rust functions replace import-time decorators and reflection. Local calls are async; local_stream exposes generators. Handles share immutable resource identities and registered hooks. API resource registration, native binary deployment, and blocking function handles remain pending. See PORTING.md.")
+    if file == "runpod/apps/context.py" and name in ("Context", "current_context", "is_local"):
+        entry.update(rust="apps::" + name, status="implemented")
+    if file == "runpod/apps/discovery_state.py":
+        if name == "in_discovery":
+            entry.update(rust="apps::in_discovery", status="implemented")
+        if name in ("DiscoveryInvocationError", "DiscoveryInvocationError.__init__"):
+            entry.update(rust="apps::AppError::DiscoveryInvocation", status="adapted", note="Native discovery diagnostic describes collecting declarations; it does not refer to Python import guards.")
+    if file == "runpod/apps/utils/names.py" and name == "dev_endpoint_name":
+        entry.update(rust="apps::dev_endpoint_name", status="implemented")
     if file == "runpod/apps/images.py" and name == "local_python_version":
         entry.update(rust="apps::images::RuntimeImages::python_version", status="adapted", note="Explicit remote interpreter version, default 3.12, replaces local Python introspection. Native Rust serialization never launches Python; see PORTING.md.")
     if file == "runpod/apps/tasks.py" and name in ("finish_cleanup", "_cleanup_finished"):
@@ -164,6 +195,38 @@ mapping = {
 fixtures = json.loads((root / "tests/fixtures/control.json").read_text())
 for entry in tests["entries"]:
     target = None
+    if entry["file"] == "tests/test_apps/test_app.py":
+        app_tests = {
+            "test_app_registers_itself":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
+            "test_app_requires_name":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
+            "test_queue_name_defaults_to_function_name":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
+            "test_task_decorator":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
+            "test_duplicate_resource_name_rejected":"app_registration_is_owned_ordered_and_rejects_duplicate_names",
+            "test_workers_invalid":"invalid_registration_does_not_change_resources",
+            "test_handle_local_runs_body":"local_sync_and_async_run_without_initialization_or_credentials",
+            "test_handle_local_async_follows_signature":"local_sync_and_async_run_without_initialization_or_credentials",
+            "test_schedule_above_app_decorator":"schedule_records_intent_and_manifest_still_rejects_it",
+        }
+        if entry["name"] in app_tests:
+            target = "apps_app::" + app_tests[entry["name"]]
+    if entry["file"] == "tests/test_apps/test_dispatch.py":
+        if entry["name"].startswith("TestContextDetection."):
+            target = "apps_app::context_detection_preserves_worker_precedence_and_empty_values"
+        dispatch_tests = {
+            "test_remote_aio":"remote_aio_and_options_route_sibling_through_sentinel",
+            "test_remote_with_options_merges_payload":"remote_aio_and_options_route_sibling_through_sentinel",
+            "test_with_options_returns_new_handle":"remote_aio_and_options_route_sibling_through_sentinel",
+            "test_worker_calls_sibling_via_sentinel":"remote_aio_and_options_route_sibling_through_sentinel",
+            "test_spawn_with_options_merges_payload":"spawn_with_options_returns_queue_job_and_reconnect_does_not_submit",
+            "test_spawn_returns_job":"spawn_with_options_returns_queue_job_and_reconnect_does_not_submit",
+            "test_worker_executes_own_body":"worker_executes_own_body_and_collects_generators",
+            "test_dev_without_provisioned_target_raises":"discovery_guard_and_missing_dev_target_prevent_invocation",
+            "test_with_options_rejects_tasks":"streaming_rejects_plain_functions_and_tasks_and_options_reject_tasks",
+            "test_stream_rejects_non_generator":"streaming_rejects_plain_functions_and_tasks_and_options_reject_tasks",
+            "test_stream_generator_function":"remote_stream_is_lazy_and_preserves_chunk_order",
+        }
+        if entry["name"].startswith("TestRemoteDispatch.") and entry["name"].split(".")[-1] in dispatch_tests:
+            target = "apps_app::" + dispatch_tests[entry["name"].split(".")[-1]]
     if entry["file"] == "tests/test_api/test_rest.py":
         target = mapping.get(entry["name"])
     if entry["file"] == "tests/test_api/test_ctl_commands.py":
