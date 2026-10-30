@@ -141,6 +141,10 @@ for entry in api["entries"]:
         target = "serverless::" + name.replace(".", "::")
     if target:
         entry.update(rust=target, status="implemented")
+    if file == "runpod/apps/entrypoint.py":
+        entry_symbols = {"local_entrypoint":"EntrypointRegistry::local_entrypoint", "get_entrypoint":"EntrypointRegistry::get_entrypoint", "run_entrypoint":"run_entrypoint / blocking::apps::run_entrypoint", "_clear_entrypoints":"EntrypointRegistry::clear"}
+        if name in entry_symbols:
+            entry.update(rust="apps::entrypoint::" + entry_symbols[name], status="adapted", note="Owned registries replace module globals. Native functions retain shared captures; separate async/blocking runners replace Python loop bridging. Native streaming entrypoints collect to JSON values. See PORTING.md.")
     if file == "runpod/apps/auth.py":
         auth_symbols = {
             "LoginError":"apps::AppError::Login", "_VerificationCodeRejected":"apps::auth::AttemptFailure::Rejected",

@@ -54,12 +54,13 @@ by Python; the complete port remains in progress.
 | `apps.manage` inspection, undeploy, and application deletion | `apps::manage` with `UndeployResult` and typed `AppError` variants |
 | `apps.dev` payloads, adoption, refresh, cleanup, and context management | `apps::dev::{DevConfig, DevSession, endpoint_input, comparable_payload, changed_fields}` |
 | `apps.auth` browser approval and email verification | `apps::auth::{browser_login, BrowserLoginOptions, auth_url, EmailLoginClient}`, `AppError::Login` |
+| `local_entrypoint`, entrypoint lookup/execution/clearing | `apps::entrypoint::{EntrypointRegistry, run_entrypoint}`, `blocking::apps::run_entrypoint` |
 
 The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 376 implemented symbols, 88 adapted symbols, and 352 upstream
+This milestone maps 376 implemented symbols, 92 adapted symbols, and 352 upstream
 test functions; other entries remain pending.
 
 ## Test mapping and reproduction
@@ -584,6 +585,17 @@ Browser expiry accepts RFC 3339 timestamps with explicit offsets; other formats 
 Python's broad `datetime.fromisoformat` parser are ignored. Elapsed timeout checks use Tokio's
 monotonic clock. Native string validation rejects malformed non-string credential fields.
 Email responses use UTF-8 JSON and retain the SDK's native Rust user-agent identity.
+
+Local entrypoints use owned registries. Registration is lazy, selects the last declaration,
+and returns a native function sharing its captured state. Clearing only changes that registry;
+retained callables still work. Async execution delegates to the native function interface:
+synchronous bodies use the blocking pool and streams collect into JSON arrays. The blocking
+runner owns a runtime for that call and rejects use from inside Tokio. Four focused tests
+cover these contracts; they do not claim coverage of the pending discovery/CLI integration.
+See the [entrypoint review](reviews/apps-entrypoint.md).
+All four new entrypoint tests pass on Windows stable and Rust 1.88. Formatting, Clippy with
+warnings denied, and docs pass; pedantic review reports no new source warnings. The preceding
+complete suite passed 317 tests; these four tests extend it without changing execution logic.
 
 This file will be updated as each remaining component and test is ported.
 

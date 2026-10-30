@@ -42,6 +42,8 @@ after a shutdown signal, including endpoint creation that finishes during cancel
 `apps::auth` implements browser approval polling and anonymous email-code login with a
 fresh verifier/challenge per attempt. Callbacks handle UI and code input; keys are returned
 without opening a browser or saving credentials automatically.
+`apps::entrypoint` provides an owned local-entrypoint registry and async execution, with
+`blocking::apps::run_entrypoint` for synchronous callers.
 Native binary deployment and HTTP server integration remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 

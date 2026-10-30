@@ -2474,8 +2474,9 @@
       "kind": "function",
       "public": true,
       "signature": "fn: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::entrypoint::EntrypointRegistry::local_entrypoint",
+      "status": "adapted",
+      "note": "Owned registries replace module globals. Native functions retain shared captures; separate async/blocking runners replace Python loop bridging. Native streaming entrypoints collect to JSON values. See PORTING.md."
     },
     {
       "file": "runpod/apps/entrypoint.py",
@@ -2484,8 +2485,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::entrypoint::EntrypointRegistry::get_entrypoint",
+      "status": "adapted",
+      "note": "Owned registries replace module globals. Native functions retain shared captures; separate async/blocking runners replace Python loop bridging. Native streaming entrypoints collect to JSON values. See PORTING.md."
     },
     {
       "file": "runpod/apps/entrypoint.py",
@@ -2494,8 +2496,9 @@
       "kind": "function",
       "public": true,
       "signature": "fn: Callable",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::entrypoint::run_entrypoint / blocking::apps::run_entrypoint",
+      "status": "adapted",
+      "note": "Owned registries replace module globals. Native functions retain shared captures; separate async/blocking runners replace Python loop bridging. Native streaming entrypoints collect to JSON values. See PORTING.md."
     },
     {
       "file": "runpod/apps/entrypoint.py",
@@ -2504,8 +2507,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::entrypoint::EntrypointRegistry::clear",
+      "status": "adapted",
+      "note": "Owned registries replace module globals. Native functions retain shared captures; separate async/blocking runners replace Python loop bridging. Native streaming entrypoints collect to JSON values. See PORTING.md."
     },
     {
       "file": "runpod/apps/errors.py",

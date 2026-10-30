@@ -6,6 +6,21 @@ pub use registered::{ApiHandle, App, FunctionHandle, FunctionJob, ResourceHandle
 use serde_json::Map;
 use std::{fmt, sync::Arc, time::Duration};
 
+/// Executes a local entrypoint to completion on an owned runtime.
+///
+/// Call from synchronous code outside Tokio; async callers use `apps::entrypoint::run_entrypoint`.
+/// The runtime is dropped after completion, so entrypoint work must await its child tasks.
+/// # Errors
+/// Returns nested-runtime, runtime creation, or entrypoint execution errors.
+pub fn run_entrypoint(function: &crate::apps::NativeFunction) -> Result<Value> {
+    if tokio::runtime::Handle::try_current().is_ok() {
+        return Err(crate::Error::InvalidInput(
+            "blocking entrypoint must run outside a Tokio runtime".into(),
+        ));
+    }
+    tokio::runtime::Runtime::new()?.block_on(crate::apps::entrypoint::run_entrypoint(function))
+}
+
 /// Synchronous client for a deployed application queue.
 #[derive(Debug, Clone)]
 pub struct Queue {

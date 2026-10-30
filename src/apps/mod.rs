@@ -9,6 +9,7 @@ mod context;
 pub mod deploy;
 pub mod dev;
 mod endpoint_input;
+pub mod entrypoint;
 mod errors;
 pub mod events;
 mod function;
