@@ -141,6 +141,10 @@ See the
 [worker notes](PORTING.md#worker-scaling-and-startup-coordination) for failure reporting and
 remaining runtime work.
 
+`serverless::capture` provides `CaptureMode`, the bounded `RingBuffer`, and `clip` for
+preparing log tails and startup error text. Scoped capture and automatic attachment to
+failure reports are still being ported; see the [capture notes](PORTING.md#capture-policy-and-text-bounds).
+
 `serverless::health` exposes native GPU allocation/fallback probes and memory, disk, TCP,
 and CUDA-version checks. `GpuChecks::from_values` reads explicit environment values and
 uses the bundled Linux x86_64 allocation binary unless an existing override is supplied.

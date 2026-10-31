@@ -25,6 +25,7 @@ by Python; the complete port remains in progress.
 | `rp_prestart` registration, enumeration, clearing, execution | owned `PrestartHooks` registry |
 | `rp_prestart` blocking-hook invocation and raw hook sequence | `PrestartHooks::{register_sync_prestart_hook,run_prestart_hooks_async}` |
 | `PrestartError`, `PrestartTimeout` | `PrestartError::{Failed,Timeout}` with hook name and typed cause, carried by `Error::Prestart` |
+| `rp_capture` mode selection, text buffer, and clipping | `serverless::capture::{CaptureMode,RingBuffer,clip}`; scoped capture and payload integration pending |
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
 | `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule` |
 | `JobScaler.start`, uncaught-exception logging, prestart process exit | `Worker::start`, native panic hook, and `Worker::start_local`; lower-level runs retain typed errors |
@@ -73,9 +74,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 380 implemented symbols, 198 adapted symbols, and 563 upstream
+This milestone maps 380 implemented symbols, 205 adapted symbols, and 567 upstream
 test functions; other entries remain pending.
-The test mapping includes 562 ported tests and one explicitly adapted Python import test.
+The test mapping includes 566 ported tests and one explicitly adapted Python import test.
 
 ## Test mapping and reproduction
 
@@ -1000,9 +1001,34 @@ local failure exit, panic-hook scope, and fallback-delivery error precedence. Na
 logs, full traceback payloads, hosted failure handling, and reflection cases remain pending.
 See [reviews/worker-process.md](reviews/worker-process.md) for validation and review.
 
+## Capture policy and text bounds
+
+`serverless::capture` ports the capture-mode policy and text bounds used by failure reports.
+`CaptureMode::from_env` reads `RUNPOD_LOG_CAPTURE`; `From<&str>` parses an explicit value
+without mutating the process environment. Modes are trimmed and case-insensitive. Missing
+or unknown values select `Auto`; only `All` enables handler log capture. These helpers do
+not install a stream interceptor or enable capture by themselves.
+
+`RingBuffer` retains the latest characters across writes, with a default limit of 16,384.
+Write counts and bounds count Unicode scalar values, matching Python characters on valid
+Unicode text, rather than UTF-8 bytes. `clip` keeps the head and tail and inserts the exact
+omitted-character marker. The marker adds to the requested limit; unchanged text is borrowed.
+Python's unusual zero-limit behavior is preserved: a zero-sized buffer is unbounded, and
+clipping limits zero or one retain the whole tail because Python's `[-0:]` means the full
+string. Native `usize` limits exclude negative limits; Rust strings exclude lone surrogates.
+Mode whitespace follows Rust's standard Unicode trimming; Python-only control separators
+are not emulated.
+
+`tools/capture_fixtures.py` records 26 Python cases in `tests/fixtures/capture.json`, bringing
+the differential fixture total to **1,231**. Seven Rust tests cover these cases and four
+directly mapped upstream tests. The full upstream capture module passes **22 tests**;
+this does not mean all its behavior is ported. Stream tee installation, per-task scope,
+pause/resume, thread propagation, and attachment to handler/prestart payloads remain pending.
+See [reviews/capture-bounds.md](reviews/capture-bounds.md) for the scoped review.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
 discovery and the CLI. Hosted API,
-capture/debugging and volume-cache operations are also pending.
+capture integration/debugging and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

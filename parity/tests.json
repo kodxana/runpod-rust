@@ -10619,8 +10619,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture.rs::ring_buffer_keeps_tail",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10689,8 +10689,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture.rs::unknown_mode_falls_back_to_auto",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10749,8 +10749,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture.rs::clip_keeps_head_and_tail",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10759,8 +10759,8 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture.rs::clip_passthrough_when_small",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_capture.py",

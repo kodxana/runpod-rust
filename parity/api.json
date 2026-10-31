@@ -9207,8 +9207,9 @@
       "kind": "class",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::RingBuffer",
+      "status": "adapted",
+      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9217,8 +9218,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, limit: int=MAX_CAPTURED_CHARS",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::RingBuffer::{new,default}",
+      "status": "adapted",
+      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9227,8 +9229,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, text: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::RingBuffer::write",
+      "status": "adapted",
+      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9237,8 +9240,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::RingBuffer::as_str",
+      "status": "adapted",
+      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9307,8 +9311,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::CaptureMode::{from_env,from}",
+      "status": "adapted",
+      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9317,8 +9322,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::CaptureMode::handler_capture_enabled",
+      "status": "adapted",
+      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9357,8 +9363,9 @@
       "kind": "function",
       "public": true,
       "signature": "text: str, limit: int=MAX_CAPTURED_CHARS",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::clip",
+      "status": "adapted",
+      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
