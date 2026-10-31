@@ -77,9 +77,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 378 implemented symbols, 220 adapted symbols, and 590 upstream
+This milestone maps 382 implemented symbols, 234 adapted symbols, and 604 upstream
 test functions; other entries remain pending.
-The test mapping includes 566 ported tests and 24 explicitly adapted tests.
+The test mapping includes 566 ported tests and 38 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1086,9 +1086,79 @@ failure exposed an upload-test assumption about concurrent request arrival order
 `6005be8` fixes that assertion while retaining multipart completion-order checks.
 See [reviews/capture-context.md](reviews/capture-context.md) for validation and review.
 
+## Native development HTTP worker
+
+`serverless::WorkerApi` owns a native Axum HTTP server with `/run`, `/runsync`,
+`/status/{job_id}`, `/stream/{job_id}`, and optional `/{endpoint_id}/realtime` routes.
+`WorkerApi::new` starts no tasks. Register hooks, select an endpoint with `with_endpoint_id`,
+then use `serve(listener, shutdown)` for embedding or `start(host, port, concurrency)` for
+process startup. `start_realtime` rejects prestart hooks. The environment-based
+`serverless::start` selects realtime hosting when `RUNPOD_REALTIME_PORT` is nonzero,
+using the owned fitness environment's endpoint ID and concurrency; this path skips queue
+fitness checks and local test-input loading. Explicit `WorkerApi::start` selects hosted
+mode independently of that environment. Python command-line flag parsing remains pending.
+
+```rust,no_run
+use runpod::{Result, serverless::{Handler, WorkerApi, WorkerConfig}};
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    let handler = Handler::sync(|job| Ok(job.input));
+    WorkerApi::new(WorkerConfig::from_env()?, handler)?
+        .start("127.0.0.1", 8000, 1).await
+}
+```
+
+The development API preserves deferred execution: `/run` only stores a job, `/status`
+executes and removes it, and `/stream` accepts generator handlers and returns one collected
+JSON array. Missing jobs return HTTP 200 with `FAILED`. Unsupported streaming retains the
+job. Generator failures become HTTP 500 and retain the queued job; empty object results
+can produce HTTP 500 after scheduling their callback. Response-level null fields are
+omitted while nested null values remain. Handler inputs retain the simulation-only null
+`webhook` field and never receive the submitted callback URL.
+
+Callbacks carry the source result envelope or stream array, without worker authorization.
+`serverless::send_webhook` also exposes the delivery helper's boolean success result.
+They follow redirects, have a ten-second native request deadline, and are best effort;
+callback failures cannot change the HTTP response. Native Tokio tasks replace daemon
+threads. The source requests timeout bounds individual socket waits; the native deadline
+bounds the whole delivery. Callback tasks can outlive listener shutdown until the caller's
+runtime ends. Explicitly shared `JobsProgress` replaces the Python process-global singleton.
+Queued jobs and active realtime requests appear in heartbeat snapshots; synchronous
+simulation calls do not. Heartbeats start with `serve`, including its prestart phase.
+
+Hooks finish before the listener accepts requests. Failed hooks return a typed error from
+`serve`; `start` logs the structured startup report and force-exits with code 1, including
+when a hook leaves a detached thread. Shutdown stops accepting connections and drains
+active HTTP requests. A shutdown signal during prestart cancels the startup future without
+accepting work. Native server concurrency comes from Tokio; more than one server process
+is rejected. Upstream also cannot launch multiple Uvicorn workers from its application
+object, and additionally rejects multi-process hosted mode when hooks are registered.
+
+Request validation matches the captured Pydantic field/type errors and ignores unknown
+fields. JSON syntax failures retain HTTP 422 and its error structure, but use the native
+parser's diagnostics and positions. Rust integer/Unicode limits and native typed errors,
+backtraces, panic semantics, and explicit capture writers remain the documented runtime
+adaptations. A native streaming handler works on realtime routes; Python synchronous
+generators work there, while Python async-generator encoding fails. The native adapter
+unifies the two stream kinds. No default two-megabyte body cap is introduced.
+
+OpenAPI schemas and route descriptions are captured from Python; version and introductory
+text describe the native SDK. Swagger UI is served at `/`, `/docs` redirects there, and
+ReDoc and the OAuth redirect page are also available. The latter preserves FastAPI's MIT
+notice in `src/serverless/http/LICENSE-FASTAPI`. Trailing-slash redirects preserve encoded
+paths and query strings. Reverse-proxy trust and forwarded-header policy are left to the
+embedding/deployment layer instead of implicitly trusting Uvicorn proxy defaults.
+
+`tools/http_worker_fixtures.py` records **85 Python HTTP scenarios**, bringing the
+differential total to **1,316**. Real local HTTP tests compare response bodies, status
+codes, handler arguments, tracker state, and callbacks. Additional tests cover startup
+gating, heartbeat snapshots, shutdown, process exits, realtime environment selection,
+large bodies, documentation, and structured handler failures. Source HTTP/prestart tests
+pass **22 tests**. See [reviews/http-worker.md](reviews/http-worker.md) for final verification.
+
 ## Remaining work
 
-The current milestone does not implement native binary deployment, HTTP server integration,
-discovery and the CLI. Hosted API,
-debugger integration and volume-cache operations are also pending.
+The current milestone does not implement native binary deployment, Apps HTTP route hosting,
+discovery or the CLI. Debugger integration and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

@@ -9157,8 +9157,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::start_with_fitness",
+      "status": "adapted",
+      "note": "Reads the owned environment and selects the native realtime server; Rust port/integer validation replaces Python int conversion. Process integration is covered in worker_process.rs."
     },
     {
       "file": "runpod/serverless/__init__.py",
@@ -9167,8 +9168,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::start_with_fitness",
+      "status": "adapted",
+      "note": "Reads the owned environment and selects the native realtime server; Rust port/integer validation replaces Python int conversion. Process integration is covered in worker_process.rs."
     },
     {
       "file": "runpod/serverless/__init__.py",
@@ -9187,8 +9189,9 @@
       "kind": "function",
       "public": false,
       "signature": "config: dict[str, Any], realtime_port: int",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerApi::{start,start_realtime}",
+      "status": "adapted",
+      "note": "Explicit native hosted/realtime entrypoints validate hook and process-count restrictions before binding. Hosted start does not consult realtime environment settings. Python CLI flag parsing and its automatic mode precedence remain pending."
     },
     {
       "file": "runpod/serverless/__init__.py",
@@ -9383,8 +9386,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerJob / serverless::http::validation::request",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9393,8 +9397,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::simulation_job",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9403,8 +9408,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::validation::request",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9413,8 +9419,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::ApiState::completed / OpenAPI JobOutput",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9423,8 +9430,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::dispatch / OpenAPI StreamOutput",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9433,8 +9441,9 @@
       "kind": "function",
       "public": false,
       "signature": "url: str, payload: dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::send_webhook",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9443,8 +9452,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerApi",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9453,8 +9463,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, _app: FastAPI",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerApi::{serve,start}",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9463,8 +9474,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, config: dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerApi::{new,with_progress,with_endpoint_id}",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9473,8 +9485,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, api_host='localhost', api_port=8000, api_concurrency=1",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerApi::{serve,start,start_realtime}",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9483,8 +9496,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, job: Job",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::dispatch",
+      "status": "adapted",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9493,8 +9507,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, job_request: DefaultRequest",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::dispatch",
+      "status": "implemented",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9503,8 +9518,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, job_request: DefaultRequest",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::{dispatch,ApiState::completed}",
+      "status": "implemented",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9513,8 +9529,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::{dispatch,ApiState::collected}",
+      "status": "implemented",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9523,8 +9540,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, job_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::http::{dispatch,ApiState::completed}",
+      "status": "implemented",
+      "note": "Native Axum hosting, owned/shared job tracking and hook registries, async callbacks, and typed Rust errors replace Python framework/process state. 85 real Python HTTP scenarios verify bodies, status codes, handler arguments, tracking and callbacks. Native syntax-error diagnostics and unified realtime streaming are documented in PORTING.md and reviews/http-worker.md. CLI flags and Apps HTTP hosting remain pending."
     },
     {
       "file": "runpod/serverless/modules/rp_handler.py",

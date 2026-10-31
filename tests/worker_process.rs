@@ -92,6 +92,7 @@ async fn empty_queue_and_stalled_reporting_do_not_prevent_hard_exit() {
         "sync_failure",
         "sync_timeout",
         "local",
+        "http",
     ] {
         let server = MockServer::start().await;
         let take = if mode == "slow_report" {
@@ -165,6 +166,52 @@ async fn only_production_startup_replaces_the_process_panic_hook() {
     }
 }
 
+#[tokio::test]
+async fn environment_start_selects_realtime_without_local_input_or_fitness() {
+    let reservation = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let port = reservation.local_addr().unwrap().port();
+    drop(reservation);
+    let mut child = tokio::process::Command::new(std::env::current_exe().unwrap())
+        .args([
+            "--exact",
+            "worker_process_child",
+            "--ignored",
+            "--nocapture",
+        ])
+        .env("RUNPOD_RUST_WORKER_PROCESS", "realtime")
+        .env("RUNPOD_RUST_WORKER_SERVER", port.to_string())
+        .stdout(Stdio::null())
+        .stderr(Stdio::piped())
+        .kill_on_drop(true)
+        .spawn()
+        .unwrap();
+    let http = reqwest::Client::new();
+    let result = tokio::time::timeout(Duration::from_secs(10), async {
+        loop {
+            if let Ok(response) = http
+                .post(format!("http://127.0.0.1:{port}/native/realtime"))
+                .json(&json!({"id":"process","input":{"native":true}}))
+                .send()
+                .await
+            {
+                break response;
+            }
+            assert!(
+                child.try_wait().unwrap().is_none(),
+                "realtime child exited before serving"
+            );
+            tokio::time::sleep(Duration::from_millis(10)).await;
+        }
+    })
+    .await
+    .unwrap()
+    .json::<runpod::Value>()
+    .await
+    .unwrap();
+    assert_eq!(result, json!({"output":{"native":true}}));
+    child.kill().await.unwrap();
+}
+
 #[derive(Debug)]
 struct LogToStderr;
 impl tracing::Subscriber for LogToStderr {
@@ -197,6 +244,46 @@ fn worker_process_child() {
     };
     std::panic::set_hook(Box::new(|_| eprintln!("original panic hook")));
     tracing::subscriber::set_global_default(LogToStderr).unwrap();
+    if mode == "http" {
+        let mut api = runpod::serverless::WorkerApi::new(
+            WorkerConfig::default(),
+            Handler::sync(|_| unreachable!()),
+        )
+        .unwrap();
+        api.prestart_hooks_mut()
+            .register_sync_prestart_hook("load", || {
+                std::thread::spawn(|| {
+                    loop {
+                        std::thread::park();
+                    }
+                });
+                Err(Error::InvalidInput("weights unavailable".into()))
+            });
+        tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .unwrap()
+            .block_on(api.start("127.0.0.1", 0, 1))
+            .unwrap();
+        panic!("HTTP process returned after startup failure");
+    }
+    if mode == "realtime" {
+        let port = std::env::var("RUNPOD_RUST_WORKER_SERVER").unwrap();
+        let mut fitness = FitnessChecks::new(BTreeMap::from([
+            ("RUNPOD_REALTIME_PORT".into(), port),
+            ("RUNPOD_ENDPOINT_ID".into(), "native".into()),
+        ]));
+        tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .unwrap()
+            .block_on(runpod::serverless::start_with_fitness(
+                Handler::sync(|job| Ok(job.input)),
+                &mut fitness,
+            ))
+            .unwrap();
+        return;
+    }
     let server = std::env::var("RUNPOD_RUST_WORKER_SERVER").ok();
     let config = WorkerConfig {
         worker_id: "worker".into(),

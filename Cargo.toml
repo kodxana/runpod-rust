@@ -11,6 +11,7 @@ categories = ["api-bindings", "asynchronous"]
 
 [dependencies]
 async-stream = "0.3"
+axum = { version = "0.8.9", default-features = false, features = ["http1", "json", "tokio"] }
 aws-sdk-s3 = { version = "1.156.0", default-features = false, features = ["rt-tokio", "default-https-client", "http-1x"] }
 base64 = "0.22"
 chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }

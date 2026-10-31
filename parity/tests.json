@@ -11055,8 +11055,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::environment_start_selects_realtime_without_local_input_or_fitness",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",
@@ -11065,8 +11066,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::prestart_gates_requests_while_heartbeats_track_realtime_and_queued_jobs",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",
@@ -11075,8 +11077,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::webhook_boolean_result_redirects_and_failure",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",
@@ -11085,8 +11088,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::webhook_boolean_result_redirects_and_failure",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",
@@ -11095,8 +11099,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::python_http_contract_fixtures",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",
@@ -11105,8 +11110,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::python_http_contract_fixtures / handler_errors_capture_logs_and_failed_callbacks_do_not_change_results",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",
@@ -11115,8 +11121,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::python_http_contract_fixtures / explicit_shared_tracker_and_mode_guards",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",
@@ -11125,8 +11132,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::python_http_contract_fixtures",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fitness/test_force_kill.py",
@@ -13860,8 +13868,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::prestart_gates_requests_while_heartbeats_track_realtime_and_queued_jobs",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_prestart.py",
@@ -13870,8 +13879,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::startup_failure_and_cancellation_never_accept_work",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_prestart.py",
@@ -13880,8 +13890,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::prestart_gates_requests_while_heartbeats_track_realtime_and_queued_jobs",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_prestart.py",
@@ -13900,8 +13911,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::explicit_shared_tracker_and_mode_guards",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_prestart.py",
@@ -13910,8 +13922,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "http_worker::explicit_shared_tracker_and_mode_guards",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_prestart.py",
@@ -14401,8 +14414,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::empty_queue_and_stalled_reporting_do_not_prevent_hard_exit",
+      "status": "adapted",
+      "note": "Real local TCP requests, owned shared state, native handler/callback types and child processes replace Python FastAPI/Uvicorn mocks. See reviews/http-worker.md and the documented native runtime differences in PORTING.md."
     },
     {
       "file": "tests/test_serverless/test_rp_scale.py",

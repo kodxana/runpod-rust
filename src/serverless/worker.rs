@@ -427,7 +427,7 @@ impl Worker {
     }
 }
 
-/// Starts a platform worker, or executes `test_input.json` in local mode.
+/// Starts a realtime HTTP or platform queue worker, or executes `test_input.json` locally.
 /// Production startup installs a process-wide panic logger. Prestart failures force-exit.
 ///
 /// # Errors
@@ -440,7 +440,7 @@ pub async fn start(handler: Handler) -> Result<()> {
 }
 
 /// Start a worker using custom fitness checks and any retained early-check state.
-/// The registry's owned environment supplies worker configuration. Local mode skips fitness.
+/// The registry's owned environment supplies worker configuration. Local and realtime modes skip fitness.
 /// A production fitness failure reports unhealthy and force-exits the entire process.
 ///
 /// # Errors
@@ -450,6 +450,29 @@ pub async fn start(handler: Handler) -> Result<()> {
 /// Production startup cannot install its panic hook while the calling thread is unwinding.
 pub async fn start_with_fitness(handler: Handler, fitness: &mut FitnessChecks) -> Result<()> {
     let config = WorkerConfig::from_values(fitness.environment())?;
+    let env = fitness.environment();
+    let port = env
+        .get("RUNPOD_REALTIME_PORT")
+        .map_or("0", String::as_str)
+        .trim()
+        .parse::<u16>()
+        .map_err(|_| Error::InvalidInput("RUNPOD_REALTIME_PORT must be a valid port".into()))?;
+    let concurrency = env
+        .get("RUNPOD_REALTIME_CONCURRENCY")
+        .map_or("1", String::as_str)
+        .trim()
+        .parse::<isize>()
+        .map_err(|_| {
+            Error::InvalidInput("RUNPOD_REALTIME_CONCURRENCY must be an integer".into())
+        })?;
+    let concurrency = usize::try_from(concurrency).unwrap_or(1).max(1);
+    if port != 0 {
+        let mut api = super::WorkerApi::new(config, handler)?;
+        if let Some(id) = env.get("RUNPOD_ENDPOINT_ID") {
+            api = api.with_endpoint_id(id);
+        }
+        return api.start_realtime(port, concurrency).await;
+    }
     let local = config.job_get_url.is_none();
     let worker = Worker::new(config, handler)?;
     if local {
@@ -465,7 +488,7 @@ pub async fn start_with_fitness(handler: Handler, fitness: &mut FitnessChecks) -
     }
 }
 
-fn finish_process_start<T>(result: Result<T>) -> Result<T> {
+pub(crate) fn finish_process_start<T>(result: Result<T>) -> Result<T> {
     match result {
         Err(Error::Prestart(error)) => {
             tracing::error!(%error, "prestart_failed | Worker is unhealthy, exiting.");

@@ -1,0 +1,470 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Runpod | Development Worker API",
+    "description": "Test native Runpod workers with deferred job submission, result retrieval, streaming collection, and optional realtime calls. Use /status or /stream to execute a job submitted with /run.",
+    "version": "2.0.0rc3.dev19"
+  },
+  "paths": {
+    "/endpoint/realtime": {
+      "post": {
+        "summary": " Realtime",
+        "description": "Performs model inference on the input data using the provided handler.\nIf handler is not provided, returns an error message.",
+        "operationId": "_realtime_endpoint_realtime_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Job"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/run": {
+      "post": {
+        "tags": [
+          "Submit Job Requests"
+        ],
+        "summary": "Mimics the behavior of the run endpoint.",
+        "description": "Initiates processing jobs, returning a unique job ID.\n\n**Parameters:**\n- **input** (string): The data to be processed by the worker. This could be a string, JSON object, etc., depending on the worker's requirements.\n- **webhook** (string, optional): A callback URL for result notification upon completion. If specified, the server will send a POST request to this URL with the job's result once it's available.\n\n**Returns:**\n- **job_id** (string): A unique identifier for the job, used with the `/stream` and `/status` endpoints for monitoring progress and checking job status.",
+        "operationId": "_sim_run_run_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DefaultRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOutput"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runsync": {
+      "post": {
+        "tags": [
+          "Synchronously Submit Request & Get Job Results"
+        ],
+        "summary": "Mimics the behavior of the runsync endpoint.",
+        "description": "Executes processing jobs synchronously, returning the job's output directly.\n\nThis endpoint is ideal for tasks where immediate result retrieval is necessary,\nstreamlining the execution process by eliminating the need for subsequent\nstatus or result checks.\n\n**Parameters:**\n- **input** (string): The data to be processed by the worker. This should be in a format that the worker can understand (e.g., JSON, text, etc.).\n- **webhook** (string, optional): A callback URL to which the result will be posted. While direct result retrieval is the primary operation mode for this endpoint, specifying a webhook allows for asynchronous result notification if needed.\n\n**Returns:**\n- **output** (Any): The direct output from the processing job, formatted according to the job's nature and the expected response structure. This could be a JSON object, plain text, or any data structure depending on the processing logic.",
+        "operationId": "_sim_runsync_runsync_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DefaultRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOutput"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stream/{job_id}": {
+      "post": {
+        "tags": [
+          "Check Job Results"
+        ],
+        "summary": "Mimics the behavior of the stream endpoint.",
+        "description": "Continuously aggregates the output of a processing job, returning the full output once the job is complete.\n\nThis endpoint is especially useful for jobs where the complete output needs to be accessed at once. It provides a consolidated view of the results post-completion, ensuring that users can retrieve the entire output without the need to poll multiple times or manage partial results.\n\n**Parameters:**\n- **job_id** (string): The unique identifier of the job for which output is being requested. This ID is used to track the job's progress and aggregate its output.\n\n**Returns:**\n- **output** (Any): The aggregated output from the job, returned as a single entity once the job has concluded. The format of the output will depend on the nature of the job and how its results are structured.",
+        "operationId": "_sim_stream_stream__job_id__post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamOutput"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/status/{job_id}": {
+      "post": {
+        "tags": [
+          "Check Job Results"
+        ],
+        "summary": "Mimics the behavior of the status endpoint.",
+        "description": "Checks the completion status of a processing job and returns its output if the job is complete.\n\nThis endpoint is invaluable for monitoring the progress of a job and obtaining the output only after the job has fully completed. It simplifies the process of querying job completion and retrieving results, eliminating the need for continuous polling or result aggregation.\n\n**Parameters:**\n- **job_id** (string): The unique identifier for the job being queried. This ID is used to track and assess the status of the job.\n\n**Returns:**\n- **status** (string): The completion status of the job, typically 'complete' or 'in progress'. This status indicates whether the job has finished processing and if the output is ready for retrieval.\n- **output** (Any, optional): The final output of the job, provided if the job is complete. The format and structure of the output depend on the job's nature and the data processing involved.\n\n**Note:** The availability of the `output` field is contingent on the job's completion status. If the job is still in progress, this field may be omitted or contain partial results, depending on the implementation.",
+        "operationId": "_sim_status_status__job_id__post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOutput"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DefaultRequest": {
+        "properties": {
+          "input": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Input"
+          },
+          "webhook": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Webhook"
+          }
+        },
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "title": "DefaultRequest",
+        "description": "Represents a test input."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Job": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "input": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Input"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "input"
+        ],
+        "title": "Job",
+        "description": "Represents a job."
+      },
+      "JobOutput": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "output": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "JobOutput",
+        "description": "Represents the output of a job."
+      },
+      "StreamOutput": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "IN_PROGRESS"
+          },
+          "stream": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stream"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "StreamOutput",
+        "description": "Stream representation of a job."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Synchronously Submit Request & Get Job Results",
+      "description": "Endpoints for submitting job requests and getting the results."
+    },
+    {
+      "name": "Submit Job Requests",
+      "description": "Endpoints for submitting job requests."
+    },
+    {
+      "name": "Check Job Results",
+      "description": "Endpoints for checking the status of a job and getting the results."
+    }
+  ]
+}

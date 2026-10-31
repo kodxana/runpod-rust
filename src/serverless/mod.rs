@@ -2,6 +2,7 @@
 pub mod capture;
 mod handler;
 pub mod health;
+mod http;
 mod prestart;
 mod scaling;
 mod state;
@@ -12,6 +13,7 @@ pub use handler::{
     Handler, HandlerKind, normalize_output, run_job, run_job_generator,
     run_job_generator_with_capture, run_job_with_capture,
 };
+pub use http::{WorkerApi, send_webhook};
 pub use prestart::{
     PrestartError, PrestartHooks, build_prestart_cancelled_payload, build_prestart_failed_payload,
 };

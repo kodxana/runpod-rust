@@ -10,6 +10,9 @@ cursor pagination, serverless endpoint clients, job polling, cancellation, strea
 and a synchronous endpoint facade. The native worker now supports single/streaming handlers,
 concurrent intake, startup hooks, heartbeats, stop signals, and progress updates. Credential
 profiles, validation, cleanup, CUDA probing, and model-cache helpers are also available.
+`serverless::WorkerApi` hosts the development `/run`, `/runsync`, `/status`, and `/stream`
+routes, optional endpoint-specific realtime calls, and interactive API documentation.
+The development `/run` route stores a job; polling `/status` or `/stream` executes it.
 Apps resource specifications, GPU/CPU/datacenter selection, model/secret references, and
 volume mount definitions are available. `apps::AppsApiClient` implements endpoint saves,
 task pod provisioning, volumes, secrets, registries, application/environment lifecycle,
