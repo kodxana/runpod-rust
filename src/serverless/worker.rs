@@ -60,6 +60,20 @@ impl Worker {
     pub fn control(&self) -> WorkerControl {
         self.control.clone()
     }
+    /// Start a production process with fitness checks, panic logging, and signal handling.
+    /// Prestart failures are reported to held jobs before the process force-exits with code 1.
+    /// The installed panic hook remains process-wide after successful shutdown.
+    ///
+    /// # Errors
+    /// Returns signal-registration, concurrent-run, or startup-report transport errors.
+    ///
+    /// # Panics
+    /// Installing the panic hook panics if the calling thread is already unwinding.
+    pub async fn start(&self, fitness: &mut FitnessChecks) -> Result<()> {
+        fitness.run_fitness_checks().await;
+        std::panic::set_hook(Box::new(log_uncaught_panic));
+        finish_process_start(self.run_until_signal().await)
+    }
     /// Run until Ctrl-C or, on Unix, SIGTERM requests graceful shutdown.
     /// Signal registration is explicit; merely constructing a worker installs no handlers.
     ///
@@ -112,8 +126,7 @@ impl Worker {
         let job: WorkerJob = serde_json::from_value(job)?;
         self.hooks
             .run_prestart_phase(self.transport.config().prestart_timeout)
-            .await
-            .map_err(|e| Error::InvalidInput(e.to_string()))?;
+            .await?;
         let mut stream = self.handler.run(job);
         if self.handler.kind() == HandlerKind::Single {
             return Ok(match stream.next().await {
@@ -127,6 +140,14 @@ impl Worker {
             output.push(item?);
         }
         Ok(json!({"output":output}))
+    }
+    /// Run a local process job, force-exiting on prestart failure without installing a panic hook.
+    /// Other local errors and successful output are returned to the caller.
+    ///
+    /// # Errors
+    /// Returns invalid job input or handler stream errors; prestart failures terminate instead.
+    pub async fn start_local(&self, job: Value) -> Result<Value> {
+        finish_process_start(self.run_local(job).await)
     }
     /// Runs until shutdown resolves, then stops intake and drains active handlers.
     ///
@@ -226,7 +247,7 @@ impl Worker {
                             Ok(result)=>result?,
                             Err(_)=>tracing::warn!("timed out delivering startup failure"),
                         }
-                        return Err(Error::InvalidInput(error.to_string()));
+                        return Err(Error::Prestart(error));
                     }
                     startup.send_replace(StartupState::Ready);
                 },
@@ -391,9 +412,13 @@ impl Worker {
 }
 
 /// Starts a platform worker, or executes `test_input.json` in local mode.
+/// Production startup installs a process-wide panic logger. Prestart failures force-exit.
 ///
 /// # Errors
 /// Returns invalid configuration, local input, startup, or transport errors.
+///
+/// # Panics
+/// Production startup cannot install its panic hook while the calling thread is unwinding.
 pub async fn start(handler: Handler) -> Result<()> {
     start_with_fitness(handler, &mut FitnessChecks::from_env()).await
 }
@@ -404,20 +429,37 @@ pub async fn start(handler: Handler) -> Result<()> {
 ///
 /// # Errors
 /// Returns invalid configuration, local input, startup, or transport errors.
+///
+/// # Panics
+/// Production startup cannot install its panic hook while the calling thread is unwinding.
 pub async fn start_with_fitness(handler: Handler, fitness: &mut FitnessChecks) -> Result<()> {
     let config = WorkerConfig::from_values(fitness.environment())?;
     let local = config.job_get_url.is_none();
     let worker = Worker::new(config, handler)?;
     if local {
         let input = tokio::fs::read("test_input.json").await?;
-        let result = worker.run_local(serde_json::from_slice(&input)?).await?;
+        let result = worker.start_local(serde_json::from_slice(&input)?).await?;
         tracing::info!(output=%result,"local worker finished");
         if result.get("error").is_some_and(truthy) {
             return Err(Error::InvalidResponse(result["error"].to_string()));
         }
         Ok(())
     } else {
-        fitness.run_fitness_checks().await;
-        worker.run_until_signal().await
+        worker.start(fitness).await
     }
+}
+
+fn finish_process_start<T>(result: Result<T>) -> Result<T> {
+    match result {
+        Err(Error::Prestart(error)) => {
+            tracing::error!(%error, "prestart_failed | Worker is unhealthy, exiting.");
+            super::health::terminate_unhealthy(1)
+        }
+        result => result,
+    }
+}
+
+fn log_uncaught_panic(info: &std::panic::PanicHookInfo<'_>) {
+    let backtrace = std::backtrace::Backtrace::force_capture();
+    tracing::error!("Uncaught exception | {info}\n{backtrace}");
 }

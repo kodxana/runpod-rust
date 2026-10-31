@@ -23,8 +23,11 @@ by Python; the complete port remains in progress.
 | `rp_job.run_job`, `handle_job`, `get_job`, `get_stop_signals` | `serverless::run_job`, `Worker::handle_job`, `WorkerTransport` methods |
 | `rp_http.send_result`, `stream_result`; `rp_progress.progress_update` | `WorkerTransport` methods |
 | `rp_prestart` registration, enumeration, clearing, execution | owned `PrestartHooks` registry |
+| `rp_prestart` blocking-hook invocation and raw hook sequence | `PrestartHooks::{register_sync_prestart_hook,run_prestart_hooks_async}` |
+| `PrestartError`, `PrestartTimeout` | `PrestartError::{Failed,Timeout}` with hook name and typed cause, carried by `Error::Prestart` |
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
-| `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule`; exception hook remains pending |
+| `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule` |
+| `JobScaler.start`, uncaught-exception logging, prestart process exit | `Worker::start`, native panic hook, and `Worker::start_local`; lower-level runs retain typed errors |
 | `_health.gpu` parsing, configuration, allocation binary, and nvidia-smi fallback | `serverless::health::{GpuChecks, GpuConfig, GpuTestOutput, HealthError, parse_gpu_test_output}` |
 | `_health.system` memory, disk, TCP readiness, and CUDA-version probes | `serverless::health::{SystemChecks, SystemConfig, MemoryInfo, DiskInfo, parse_version, network_probe_target}` |
 | `_health.fitness` registration, early/start passes, settings refresh, reporting, and hard exit | `serverless::health::{FitnessCheck, FitnessChecks, FitnessPass, FitnessFailure, report_unhealthy, terminate_unhealthy}` |
@@ -70,9 +73,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 382 implemented symbols, 188 adapted symbols, and 548 upstream
+This milestone maps 380 implemented symbols, 198 adapted symbols, and 563 upstream
 test functions; other entries remain pending.
-The test mapping includes 547 ported tests and one explicitly adapted Python import test.
+The test mapping includes 562 ported tests and one explicitly adapted Python import test.
 
 ## Test mapping and reproduction
 
@@ -260,7 +263,7 @@ python tools/verify_pickle.py
   not converted into Python exceptions. Direct output delivery failures propagate to callers;
   the worker dispatcher logs individual delivery failures and continues sibling jobs.
 - Dynamic scaling, cancellation, and Ctrl-C/Unix SIGTERM shutdown are implemented. Full
-  remaining process-failure integration, stdout capture/debugging, hosted HTTP API, CLI arguments, and volume-cache
+  stdout capture/debugging, hosted HTTP API, CLI arguments, and volume-cache
   helpers remain pending. The `start` convenience function uses `test_input.json` locally.
 - Credential profiles require a string API key. Validator schemas use Rust types and
   closures, so malformed Python schema objects are outside the Rust input domain.
@@ -834,8 +837,8 @@ during startup reports `prestart_cancelled` and drops the unfinished hook future
 `run_until_signal` explicitly installs Ctrl-C and Unix SIGTERM listeners; constructing a worker
 does not install signal handlers. Native ownership and Tokio futures replace Python queue/task
 objects and the multiprocessing shutdown mirror. The library returns typed startup errors;
-Fitness failures now report and hard-exit; prestart-error process termination, the uncaught-exception
-hook, and full captured-log/traceback payloads remain pending. Strict startup-race, injected
+Fitness and prestart process entrypoints now report and hard-exit, and production startup
+installs a native panic hook. Full captured-log/traceback failure payloads remain pending. Strict startup-race, injected
 queue, and reflection-specific tests remain pending rather than being counted as covered.
 
 `tools/scaling_fixtures.py` captures **33 Python cases**, bringing the total to **1,162**.
@@ -952,9 +955,54 @@ injected-stream failure, import machinery, and combined end-to-end health cases 
 The focused upstream registry/startup/safe-startup/force-kill/system suite passes 130 tests.
 See [reviews/fitness-lifecycle.md](reviews/fitness-lifecycle.md) for native validation and review.
 
+## Worker process startup and blocking hooks
+
+`Worker::start` runs fitness checks, replaces the process-global panic hook, and runs the
+signal-aware production worker. After a prestart failure, existing bounded job-failure reporting
+finishes before `_exit(1)` forces respawn. `Worker::start_local` uses the same prestart exit
+policy without installing the panic hook or contacting webhooks. The convenience serverless
+entrypoints delegate to these methods. Successful local output and non-prestart errors remain
+returned values for native callers; remaining local CLI/output-comparison behavior is pending.
+
+`Worker::run`, `run_until_signal`, `run_with_fitness`, and `run_local` retain library control
+over prestart failures through `Error::Prestart(PrestartError)`. Named hook failures retain the
+original `Error` as their source. A failed fallback result delivery still propagates its HTTP
+error before the prestart exit, preserving Python's exception precedence. A timed-out report
+retains the prestart failure and therefore hard-exits at the process boundary.
+
+The native panic hook logs the panic payload, source location, and a forced native backtrace
+through `tracing`. Construction and local execution leave the existing hook alone. Like
+Python's assigned `sys.excepthook`, production installation replaces the previous hook and
+persists after worker shutdown. Rust invokes panic hooks before unwind, including panics later
+caught by an executor or caller; ordinary `Result` errors remain under caller control. No panic
+is caught or converted by this logger. This is a documented language-runtime adaptation.
+
+Blocking hooks use `register_sync_prestart_hook`, which creates a named `rp-prestart` thread
+and returns its result through an async channel. Dropping the join handle deliberately detaches
+it, so Tokio runtime shutdown never waits for a stuck hook. Timeout/cancellation stops waiting;
+the blocking work itself may continue until completion or process termination. Spawn failures
+and returned hook errors retain their typed cause. If a hook thread panics before sending its
+result, the channel yields a broken-pipe failure; the panic's diagnostics follow the installed
+hook. Python context-variable capture and captured-output propagation remain with the pending
+capture module. Async factories should return promptly; blocking work belongs in the sync API.
+
+`run_prestart_hooks_async` executes an ordered hook sequence under one deadline and emits phase,
+hook, and ready progress. A zero timeout invokes neither the hook nor its factory and identifies
+the hook as `unknown`, as in Python. The outer `run_prestart_phase` preserves the empty-registry
+no-op even for zero timeout. A hook's own `Error::Timeout` remains a named hook failure rather
+than being mistaken for the phase deadline.
+
+The ledger adds eight adapted symbols and 15 mapped upstream tests; registration and phase
+execution are relabeled adapted to reflect the explicit native APIs and typed return values.
+The matching upstream worker/prestart lifecycle suite passes **60 tests**. Child processes
+exercise queued failure delivery, empty and stalled reporting, hook timeouts, background threads,
+local failure exit, panic-hook scope, and fallback-delivery error precedence. Native captured
+logs, full traceback payloads, hosted failure handling, and reflection cases remain pending.
+See [reviews/worker-process.md](reviews/worker-process.md) for validation and review.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
-discovery and the CLI. Remaining worker process-failure integration, hosted API,
+discovery and the CLI. Hosted API,
 capture/debugging and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

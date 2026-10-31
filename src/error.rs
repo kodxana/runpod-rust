@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// A worker startup hook failed or exhausted its deadline, retaining the named cause.
+    #[error(transparent)]
+    Prestart(#[from] crate::serverless::PrestartError),
     /// A native worker health probe failed.
     #[error(transparent)]
     Health(#[from] crate::serverless::health::HealthError),

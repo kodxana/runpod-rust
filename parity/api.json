@@ -9727,8 +9727,9 @@
       "kind": "function",
       "public": true,
       "signature": "hook: Callable[[], Any]",
-      "rust": "serverless::PrestartHooks::register_prestart_hook",
-      "status": "implemented"
+      "rust": "serverless::PrestartHooks::{register_prestart_hook,register_sync_prestart_hook}",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9767,8 +9768,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartError::Timeout",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9777,8 +9779,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, hook: str, timeout: float",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartError::Timeout",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9787,8 +9790,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartError::Failed",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9797,8 +9801,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, original: BaseException, hook: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartError::Failed",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9847,8 +9852,9 @@
       "kind": "function",
       "public": false,
       "signature": "hook: Callable[[], Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::register_sync_prestart_hook (detached thread and oneshot result)",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9857,8 +9863,9 @@
       "kind": "function",
       "public": false,
       "signature": "hook: Callable[[], Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks typed async/sync registration and execution",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9877,8 +9884,9 @@
       "kind": "function",
       "public": true,
       "signature": "hooks: Sequence[Callable[[], Any]], timeout: float | None=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PrestartHooks::run_prestart_hooks_async",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9888,7 +9896,8 @@
       "public": true,
       "signature": "hooks: Sequence[Callable[[], Any]], timeout: float | None=None",
       "rust": "serverless::PrestartHooks::run_prestart_phase",
-      "status": "implemented"
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_progress.py",
@@ -9927,8 +9936,9 @@
       "kind": "function",
       "public": false,
       "signature": "exc_type, exc_value, exc_traceback",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::worker::log_uncaught_panic (installed by Worker::start)",
+      "status": "adapted",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",
@@ -9981,9 +9991,10 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": "serverless::Worker::run_until_signal",
+      "rust": "serverless::Worker::start",
       "status": "adapted",
-      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md."
+      "note": "Native owned async worker, modifier, shared control handle, and watch/abort futures replace global asyncio tasks and signal callbacks. Zero concurrency, drain waits, startup claim/report deadlines, and isolated job failures are preserved. Native errors return to the caller; health-driven process exit, exception-hook installation, and capture are tracked separately. See PORTING.md and reviews/worker-scaling.md.",
+      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
     },
     {
       "file": "runpod/serverless/modules/rp_scale.py",

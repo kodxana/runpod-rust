@@ -13921,8 +13921,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::synchronous_and_async_hooks_run_in_order_on_their_intended_threads",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -13941,8 +13942,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::sync_failure_retains_cause_and_prevents_later_hooks",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -13951,8 +13953,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::synchronous_and_async_hooks_run_in_order_on_their_intended_threads",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -13961,8 +13964,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::library_prestart_errors_keep_the_original_typed_cause",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -13971,8 +13975,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::one_deadline_covers_all_hooks_and_preserves_hook_errors",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -13981,8 +13986,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::one_deadline_covers_all_hooks_and_preserves_hook_errors",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -13991,8 +13997,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::zero_timeout_never_invokes_a_hook_or_factory",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14001,8 +14008,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::blocked_sync_hook_times_out_without_blocking_the_runtime",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14091,8 +14099,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "prestart_hooks::sync_failure_retains_cause_and_prevents_later_hooks",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14283,8 +14292,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::empty_queue_and_stalled_reporting_do_not_prevent_hard_exit",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14293,8 +14303,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::queue_prestart_failure_reports_held_job_before_hard_exit",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14324,8 +14335,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::empty_queue_and_stalled_reporting_do_not_prevent_hard_exit",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14334,8 +14346,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::queue_prestart_failure_reports_held_job_before_hard_exit",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14354,8 +14367,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::empty_queue_and_stalled_reporting_do_not_prevent_hard_exit",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -16630,8 +16644,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, _, __",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_process::only_production_startup_replaces_the_process_panic_hook",
+      "status": "ported",
+      "notes": "Native typed errors, explicit blocking-hook registration, and process-boundary equivalents. Panic hook and hard exits are exercised in isolated child processes."
     },
     {
       "file": "tests/test_serverless/test_worker.py",

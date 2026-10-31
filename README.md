@@ -132,7 +132,12 @@ Serverless workers accept a `ConcurrencyModifier` in `WorkerConfig`. Returning z
 intake; changing capacity waits for existing work to drain. `Worker::control` returns a
 cloneable handle for per-job cancellation, shutdown, and concurrency/occupancy observation.
 `Worker::run` accepts your shutdown future; `run_until_signal` handles Ctrl-C and Unix SIGTERM.
-Startup hooks run alongside intake and gate execution. See the
+Startup hooks run alongside intake and gate execution. Register blocking hooks with
+`PrestartHooks::register_sync_prestart_hook` so they can time out without blocking the runtime.
+`Worker::start` adds the production process policy: fitness checks, panic logging, signals,
+and hard exit after a reported prestart failure. `start_local` applies the prestart exit policy
+to a local job. The lower-level run methods return typed `Error::Prestart` failures instead.
+See the
 [worker notes](PORTING.md#worker-scaling-and-startup-coordination) for failure reporting and
 remaining runtime work.
 

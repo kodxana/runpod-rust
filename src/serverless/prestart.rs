@@ -1,6 +1,6 @@
 use crate::{Error, Result};
 use futures_util::{FutureExt, future::BoxFuture};
-use std::{fmt, future::Future, time::Duration};
+use std::{fmt, future::Future, sync::Arc, time::Duration};
 
 /// Named failure or deadline expiry in the startup hook sequence.
 #[derive(Debug, thiserror::Error)]
@@ -57,6 +57,34 @@ impl PrestartHooks {
             call: Box::new(move || hook().boxed()),
         });
     }
+    /// Register blocking startup work on a dedicated thread, outside Tokio's blocking pool.
+    /// A timeout or canceled phase stops waiting; the detached hook may continue until process exit.
+    /// The thread does not delay runtime shutdown, matching Python's daemon-thread behavior.
+    pub fn register_sync_prestart_hook(
+        &mut self,
+        name: impl Into<String>,
+        hook: impl Fn() -> Result<()> + Send + Sync + 'static,
+    ) {
+        let hook = Arc::new(hook);
+        self.register_prestart_hook(name, move || {
+            let hook = hook.clone();
+            async move {
+                let (completed, result) = tokio::sync::oneshot::channel();
+                // A dedicated detached thread avoids Tokio joining a blocked hook during shutdown.
+                std::thread::Builder::new()
+                    .name("rp-prestart".into())
+                    .spawn(move || {
+                        let _ = completed.send(hook());
+                    })?;
+                result.await.map_err(|_| {
+                    Error::Io(std::io::Error::new(
+                        std::io::ErrorKind::BrokenPipe,
+                        "prestart thread ended without returning its result",
+                    ))
+                })?
+            }
+        });
+    }
     /// Returns names in registration order.
     pub fn get_prestart_hooks(&self) -> Vec<&str> {
         self.hooks.iter().map(|h| h.name.as_str()).collect()
@@ -77,11 +105,39 @@ impl PrestartHooks {
         &self,
         timeout: Option<Duration>,
     ) -> std::result::Result<(), PrestartError> {
+        if self.hooks.is_empty() {
+            return Ok(());
+        }
+        self.run_prestart_hooks_async(timeout).await
+    }
+    /// Execute registered hooks in order, emitting progress under one optional phase deadline.
+    /// Unlike an empty phase, this explicit execution rejects a zero timeout even with no hooks.
+    ///
+    /// # Errors
+    /// Returns a named hook failure or phase timeout. Dropping the future cancels pending async work.
+    pub async fn run_prestart_hooks_async(
+        &self,
+        timeout: Option<Duration>,
+    ) -> std::result::Result<(), PrestartError> {
         let started = tokio::time::Instant::now();
+        tracing::info!("Prestart | phase started");
+        if timeout.is_some_and(|timeout| timeout.is_zero()) {
+            return Err(PrestartError::Timeout {
+                hook: "unknown".into(),
+                timeout: Duration::ZERO,
+            });
+        }
         for hook in &self.hooks {
-            let invocation = (hook.call)();
+            tracing::info!("Prestart | running hook: {}", hook.name);
+            let invocation = async { (hook.call)().await };
             let result = if let Some(timeout) = timeout {
                 let remaining = timeout.saturating_sub(started.elapsed());
+                if remaining.is_zero() {
+                    return Err(PrestartError::Timeout {
+                        hook: hook.name.clone(),
+                        timeout,
+                    });
+                }
                 tokio::time::timeout(remaining, invocation)
                     .await
                     .map_err(|_| PrestartError::Timeout {
@@ -96,6 +152,7 @@ impl PrestartHooks {
                 source: Box::new(source),
             })?;
         }
+        tracing::info!("Prestart | ready");
         Ok(())
     }
 }
