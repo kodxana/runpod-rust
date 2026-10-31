@@ -196,6 +196,16 @@ policy/filesystem failures propagate. The default single-file operation does not
 `job_id` is a trusted path and ZIP expansion is unbounded, matching Python; see the
 [porting notes](PORTING.md#file-downloads-and-zip-extraction).
 
+`serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
+mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults
+use `/runpod-volume` and `RUNPOD_ENDPOINT_ID`. `hydrate` restores files, `sync_inline`
+copies changes synchronously, and `sync` schedules background work. `enter` returns a
+guard that hydrates on entry and schedules sync on drop. These filesystem operations
+are blocking; retain the cache and `flush` background work before process exit.
+Small files share a tar archive; large files hydrate with bounded parallel range reads.
+See [examples/volume_cache.rs](examples/volume_cache.rs) and the
+[cache behavior notes](PORTING.md#directory-volume-cache).
+
 `utils::upload::Uploader::new(project_root)` provides native S3 uploads with local fallback.
 Use `upload_file_to_bucket` or `upload_in_memory_object` with an `UploadRequest` for bucket,
 prefix, and boto3-compatible extra arguments. Credentials come from `BUCKET_ENDPOINT_URL`,

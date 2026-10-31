@@ -40,6 +40,7 @@ by Python; the complete port remains in progress.
 | `_binary_helpers.get_binary_path`, serverless/early eligibility, environment flags | `serverless::health::{get_binary_path, is_serverless_environment, is_early_check_eligible}` and private flag helper |
 | `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
+| `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
 | GPU/CPU/datacenter enums and GPU selection | `apps::catalog`, `apps::gpu` |
@@ -77,9 +78,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 382 implemented symbols, 234 adapted symbols, and 604 upstream
+This milestone maps 382 implemented symbols, 282 adapted symbols, and 688 upstream
 test functions; other entries remain pending.
-The test mapping includes 566 ported tests and 38 explicitly adapted tests.
+The test mapping includes 630 ported tests and 58 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -267,8 +268,9 @@ python tools/verify_pickle.py
   not converted into Python exceptions. Direct output delivery failures propagate to callers;
   the worker dispatcher logs individual delivery failures and continues sibling jobs.
 - Dynamic scaling, cancellation, and Ctrl-C/Unix SIGTERM shutdown are implemented. Full
-  stdout capture/debugging, hosted HTTP API, CLI arguments, and volume-cache
-  helpers remain pending. The `start` convenience function uses `test_input.json` locally.
+  process-global stdout interception, debugger integration, and CLI arguments remain
+  pending. Native HTTP hosting and volume-cache helpers are described below.
+  The `start` convenience function uses `test_input.json` locally.
 - Credential profiles require a string API key. Validator schemas use Rust types and
   closures, so malformed Python schema objects are outside the Rust input domain.
 - Apps mount definitions use an ordered Vec of Mount values; bindings are owned snapshots.
@@ -1211,7 +1213,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **1,316 SDK differential cases**.
+additional runtime fixtures, separate from the **1,470 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1253,12 +1255,86 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 1,316 differential cases.
+separate from the SDK symbol inventory and its 1,470 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
+
+## Directory volume cache
+
+`utils::VolumeCache`, re-exported by `serverless`, ports the pinned SDK's complete
+directory-mirror workflow. `VolumeCacheConfig` owns its namespace, volume path, best-effort
+policy, and optional positive worker/chunk sizes. A missing/empty namespace falls back to
+`RUNPOD_ENDPOINT_ID`; no namespace or absent volume directory makes operations no-ops.
+Directories are resolved at construction. Rust paths and `NonZeroUsize` replace Python's
+scalar/bytes dispatch and runtime integer validation. The default copy pool is
+`min(32, available_parallelism * 4)`; hydrate uses explicit `max_workers` or 64 workers,
+with 8 MiB ranges. Native CPU availability can reflect process affinity/quota.
+
+The volume layout remains `.cache/<namespace>/{manifest.json,small.tar,big/}`. Files
+below 256 KiB are packed together; larger files stay unpacked. `.lock`, `.rpvc.tmp`,
+`refs/`, `.no_exist/`, and symlink sources are excluded. Two-second modification-time
+tolerance, unchanged-file skipping, deletion-triggered small-bucket repacking, pack-failure
+fallback to unpacked files, and omission of failed big copies from the manifest are retained.
+Big-file sync compares against the manifest's source metadata, so volumes that cannot
+retain timestamps do not force repeated copying. Deletion-only archive repacks return zero
+changed entries. Old unreferenced big files are not pruned, matching the source.
+
+Publication uses unique adjacent temporary files and atomic replacement, with the manifest
+written last. No cross-file transaction or writer lock is added; concurrent writers retain
+last-writer-wins behavior. Hydration checks both configured destination boundaries and
+the big-mirror source boundary after resolving symlinks. As upstream, configuring a
+filesystem root itself does not authorize descendant extraction; use concrete cache dirs.
+Windows paths must share the current filesystem drive, matching Python's relative-path
+constraint. Drive-relative namespaces are explicitly rejected to prevent path replacement.
+
+Native tar/PAX replaces external `tar` selection and its temporary listing file. Archive
+bytes/header ordering are not promised identical, but Python/Rust interoperation checks
+verify member names, content, and fractional mtimes. Manifests escape Unicode to ASCII,
+matching Python's default JSON writer and locale-based reader. Non-UTF-8 native paths and
+Python surrogate strings are outside this JSON interchange domain. Sparse inputs are
+written as regular members; regular, contiguous, and GNU sparse files can be read. Links,
+directories, and devices are skipped on extraction. Hard-linked input names retain link
+entries, so only the original regular member is restored, preserving the source behavior.
+Extraction validates all headers before writing and rereads the same open archive handle.
+Permission filtering follows Python's regular-file data filter on Unix; Windows permission
+bits retain their native filesystem meaning.
+
+Large files hydrate with offset-major ranges, sorted by source path, and at most the
+configured number of workers. Scheduling holds O(files + workers) state and buffers at most
+workers × chunk bytes. Every range opens independent handles, checks pinned size/mtime,
+and rejects short reads or a visible source replacement. Rust seeks on each private handle
+instead of using POSIX-only `pread`/`pwrite`. Unix ENOMEM/EIO/EAGAIN retain eight attempts
+with jittered exponential backoff; native out-of-memory/would-block errors are retryable
+across platforms. Other Windows error codes are not interpreted as POSIX errno values.
+Successful files receive the manifest mtime before atomic publication. Metadata failures
+remain best-effort, and failed files retain their prior local contents. Prepared temporaries
+are owned and cleaned during errors/unwinding. Identity deliberately excludes inode numbers,
+as in the source; it is a size/mtime check, not a content-integrity guarantee.
+
+`hydrate` and `sync_inline` are blocking operations returning counts; `sync` schedules a
+background thread. `enter` returns a dereferencing guard that hydrates first and schedules
+sync on drop, without swallowing caller errors/panics. Clones share an owned pending-sync
+registry. `flush(timeout)` waits per current sync and returns the number detached after
+timeout; dropping the last owner uses 30 seconds per pending sync. Rust has no implicit
+Python `atexit` hook: keep the cache alive and flush/drop it before process exit. Process
+termination and SIGINT are not translated to `KeyboardInterrupt`. Panics unwind rather
+than becoming best-effort Python exceptions; scoped range workers stop taking new work
+on failure/unwind. Explicit filesystem errors preserve typed causes. Individual file errors
+are logged/skipped even with `best_effort=false`, while operation-level failures propagate.
+
+`tools/volume_cache_fixtures.py` records **154 Python differential cases**, bringing the
+SDK case total to **1,470**. Native tests cover public round trips, manifest failures,
+atomic publication, range ordering/retries/replacement, bounded scheduling, scope and
+background completion, corrupt archives, Unicode, hard links, sparse files, and path
+boundaries. `tools/verify_volume_cache.py` checks Rust output in Python and Python PAX
+output in Rust; stable CI runs it on Linux, Windows, and macOS. No live FUSE/network volume
+was used. The ledger maps all 48 module symbols as native adaptations and 84 source test
+functions; 13 source tests remain pending, including additional filesystem fault injection,
+interrupted-wait behavior, and environment/path-type cases. See
+[reviews/volume-cache.md](reviews/volume-cache.md) for validation evidence.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live
-dispatcher, discovery or the CLI. Debugger integration and volume-cache
-operations are also pending.
+dispatcher, discovery or the CLI. Debugger integration and remaining cache/platform
+fault-injection coverage are also pending.
 All remain part of the requested full port, not exclusions from its scope.

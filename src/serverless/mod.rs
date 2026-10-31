@@ -9,6 +9,7 @@ mod state;
 mod transport;
 mod worker;
 
+pub use crate::utils::volume_cache::{VolumeCache, VolumeCacheConfig, VolumeCacheGuard};
 pub use handler::{
     Handler, HandlerKind, normalize_output, run_job, run_job_generator,
     run_job_generator_with_capture, run_job_with_capture,

@@ -15021,8 +15021,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_unavailable_when_volume_dir_missing",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15031,8 +15031,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_unavailable_without_namespace",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15041,8 +15041,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_available_when_volume_present_and_namespace_set",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15061,8 +15061,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, bad_namespace",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_namespace_rejects_unsafe_values",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15071,8 +15071,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_namespace_accepts_normal_value",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15081,8 +15081,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_scalar_dirs_path_is_treated_as_single_dir",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15111,8 +15112,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, bad",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::positive_tuning_is_enforced_by_types",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15121,8 +15123,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_then_hydrate_round_trip",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15131,8 +15133,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_is_idempotent_on_unchanged_file",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15141,8 +15143,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_recopies_modified_file",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15151,8 +15153,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_skips_unchanged_after_first_hydrate",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15161,8 +15163,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_does_not_overwrite_newer_container_file",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15171,8 +15173,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_skips_excluded_paths",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15181,8 +15183,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_sync_skips_symlink_source",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15191,8 +15193,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_skips_unsafe_destination",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15201,8 +15203,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_within_confines_source_to_base",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15211,8 +15213,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_no_manifest_is_noop",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15221,8 +15223,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_restores_big_and_small",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15231,8 +15233,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_context_manager_hydrates_on_enter_and_syncs_on_exit",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15241,8 +15244,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_context_manager_does_not_suppress_exceptions",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15251,8 +15255,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_best_effort_swallows_sync_failure_inline",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15261,8 +15265,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_best_effort_false_reraises_inline",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15271,8 +15275,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_best_effort_swallows_sync_failure_background",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15291,8 +15295,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::python_metadata_comparison_fixtures",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15301,8 +15306,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_do_sync_skips_missing_dirs",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15311,8 +15316,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_copy_file_returns_false_and_cleans_tmp_on_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15331,8 +15336,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_copy_file_preserves_mtime_and_mode",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15341,8 +15346,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_recopies_same_size_update_when_volume_rejects_utime",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15361,8 +15367,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_needs_copy_ignores_source_older_than_manifest",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15371,8 +15377,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_restores_source_mtime_so_next_sync_is_noop",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15381,8 +15388,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_recopies_when_mirror_file_is_missing",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15411,8 +15418,8 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_join_pending_syncs_swallows_join_exception",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15421,8 +15428,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_unavailable_when_volume_dir_missing",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15431,8 +15439,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_unavailable_when_volume_dir_missing",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15441,8 +15450,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_manifest_round_trip",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15451,8 +15460,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_read_manifest_none_when_absent",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15461,8 +15470,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_read_manifest_none_when_corrupt",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15471,8 +15480,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_read_manifest_none_when_corrupt",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15481,8 +15491,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_read_manifest_none_when_corrupt",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15491,8 +15502,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_meta_satisfied_by_local",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15501,8 +15512,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_changed_vs_manifest",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15521,8 +15532,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_partition_splits_at_threshold",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15531,8 +15542,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_partition_drops_unstatable",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15541,8 +15552,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_default_max_workers_is_positive",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15551,8 +15562,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_mirror_layout_paths",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15561,8 +15572,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_iter_files_skips_inflight_temp_files",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15571,8 +15582,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_sync_writes_manifest_and_archive_for_small",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15581,8 +15592,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_big_file_is_unpacked_and_incremental",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15591,8 +15602,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_sync_reclassifies_small_as_big_without_tar",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15611,8 +15623,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_does_not_resurrect_deleted_small_file",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15621,8 +15633,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_sync_omits_big_file_from_manifest_when_copy_fails",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15631,8 +15643,8 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_join_pending_syncs_bounded_by_timeout",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15641,8 +15653,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_pack_small_falls_back_to_tarfile / tools/verify_volume_cache.py",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15651,8 +15664,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_pack_small_falls_back_to_tarfile",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15661,8 +15675,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_pack_small_atomic_no_partial_on_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15671,8 +15685,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_pack_small_atomic_no_partial_on_failure (native tar; no subprocess)",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15681,8 +15696,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_extract_small_restores_files",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15691,8 +15706,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_extract_small_skips_unsafe_member",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15701,8 +15716,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_extract_small_incremental_skips_satisfied",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15711,8 +15726,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_extract_small_zero_when_archive_missing",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15721,8 +15736,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_extract_small_never_raises_when_getmembers_raises",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15731,8 +15746,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_extract_small_skips_non_file_members",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15761,8 +15776,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_copies_big_file_in_ranges",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15771,8 +15786,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_interleaves_ranges_across_files",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15781,8 +15796,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_retries_transient_range_errors",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15791,8 +15806,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_does_not_retry_non_transient_errors",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15801,8 +15816,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_gives_up_after_max_range_attempts",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15811,8 +15826,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_skips_only_the_failing_file",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15821,8 +15836,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_failure_leaves_existing_local_file_untouched",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15831,8 +15846,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_treats_short_read_as_failure",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15841,8 +15856,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, arg, bad",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::positive_tuning_is_enforced_by_types",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15851,8 +15867,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, arg, bad",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::positive_tuning_is_enforced_by_types",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15861,8 +15878,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_rejects_source_replaced_between_ranges",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15871,8 +15888,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "volume_cache::test_hydrate_rejects_source_whose_size_differs_from_manifest",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15881,8 +15898,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_unexpected_error_stops_ranges_and_cleans_temps",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15891,8 +15909,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_bounds_outstanding_range_tasks",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15901,8 +15919,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_hydrate_tuning_defaults",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15911,8 +15929,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_skips_file_when_local_temp_cannot_be_created",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15921,8 +15939,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_hydrate_cleans_temp_when_rename_fails",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15931,8 +15949,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_hydrate_workers_follow_explicit_max_workers",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15941,8 +15959,8 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::tests::test_explicit_hydrate_workers_override_max_workers",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15951,8 +15969,8 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::test_range_retry_jitters_backoff",
+      "status": "ported"
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15971,8 +15989,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::preparation_and_finalization_unwind_drop_all_temps",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_rp_volume_cache.py",
@@ -15981,8 +16000,9 @@
       "kind": "function",
       "public": true,
       "signature": "tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "utils::volume_cache::transfer::tests::preparation_and_finalization_unwind_drop_all_temps",
+      "status": "adapted",
+      "note": "Native type, tar, filesystem-failure or RAII equivalent; no claim of Python subprocess/KeyboardInterrupt/monkeypatch execution. See reviews/volume-cache.md."
     },
     {
       "file": "tests/test_serverless/test_utils/test_ssrf.py",

@@ -27,5 +27,6 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install cloudpickle==3.1.2
       - run: python tools/verify_pickle.py
+      - run: python tools/verify_volume_cache.py
       - run: cargo clippy --locked --all-targets --all-features -- -D warnings
       - run: cargo doc --locked --no-deps
