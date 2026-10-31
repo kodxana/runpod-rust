@@ -613,7 +613,35 @@ fn fifo_sources_do_not_block_packing_or_copying() {
     );
     assert!(!transfer::copy_file(&fifo, &f.local.join("copy")));
     assert_eq!(f.cache.sync_inline().unwrap(), 1);
+    let mut archive = tar::Archive::new(fs::File::open(f.cache.inner.archive_path()).unwrap());
+    let member = archive.entries().unwrap().next().unwrap().unwrap();
+    assert_eq!(member.path().unwrap(), relative_root(&fifo).unwrap());
+    assert!(member.header().entry_type().is_fifo());
     assert_eq!(f.cache.inner.extract_small(), 0);
+}
+#[cfg(unix)]
+#[test]
+fn sockets_do_not_discard_regular_small_files() {
+    let f = Fixture::new();
+    let socket = std::os::unix::net::UnixListener::bind(f.local.join("socket")).unwrap();
+    let path = f.put("regular", b"data");
+    assert_eq!(f.cache.sync_inline().unwrap(), 2);
+    fs::remove_file(&path).unwrap();
+    assert_eq!(f.cache.hydrate().unwrap(), 1);
+    assert_eq!(fs::read(path).unwrap(), b"data");
+    drop(socket);
+}
+#[cfg(unix)]
+#[test]
+fn device_members_retain_relative_names_and_types() {
+    let f = Fixture::new();
+    let device = Path::new("/dev/null");
+    assert!(f.cache.inner.pack_small(&[file_meta(device).unwrap()]));
+    let mut archive = tar::Archive::new(fs::File::open(f.cache.inner.archive_path()).unwrap());
+    let member = archive.entries().unwrap().next().unwrap().unwrap();
+    assert_eq!(member.path().unwrap(), Path::new("dev/null"));
+    assert!(member.header().entry_type().is_character_special());
+    assert_eq!(member.size(), 0);
 }
 #[cfg(unix)]
 #[test]

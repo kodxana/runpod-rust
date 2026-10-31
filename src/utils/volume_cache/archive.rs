@@ -18,10 +18,32 @@ impl Cache {
                 archive.sparse(false);
                 let mut identities: HashMap<u64, Vec<PathBuf>> = HashMap::new();
                 for file in files {
+                    let metadata = fs::symlink_metadata(&file.path)?;
+                    #[cfg(unix)]
+                    {
+                        use std::os::unix::fs::FileTypeExt;
+                        if metadata.file_type().is_socket() {
+                            // Python omits sockets without failing the bucket.
+                            continue;
+                        }
+                    }
                     // Native tar replaces platform-dependent subprocess/list-file encoding.
                     let mtime = file.mtime.to_string();
                     archive.append_pax_extensions([("mtime", mtime.as_bytes())])?;
-                    if !fs::symlink_metadata(&file.path)?.is_file() {
+                    #[cfg(unix)]
+                    {
+                        use std::os::unix::fs::FileTypeExt;
+                        let kind = metadata.file_type();
+                        if kind.is_fifo() || kind.is_char_device() || kind.is_block_device() {
+                            archive.append_data(
+                                &mut special_header(&file.path)?,
+                                relative_root(&file.path)?,
+                                io::empty(),
+                            )?;
+                            continue;
+                        }
+                    }
+                    if !metadata.is_file() {
                         archive.append_path_with_name(&file.path, relative_root(&file.path)?)?;
                         continue;
                     }
@@ -118,6 +140,23 @@ impl Cache {
         }
         restored
     }
+}
+#[cfg(unix)]
+fn special_header(path: &std::path::Path) -> io::Result<tar::Header> {
+    // tar's special-file branch ignores append_path_with_name's archive name.
+    // Reuse its platform metadata construction, then let the caller replace the
+    // absolute path with the correct relative member name. No file data is read.
+    let mut special = tar::Builder::new(Vec::new());
+    special.preserve_absolute_paths(true);
+    special.append_path(path)?;
+    let bytes = special.into_inner()?;
+    let mut source = tar::Archive::new(bytes.as_slice());
+    Ok(source
+        .entries()?
+        .next()
+        .ok_or_else(|| io::Error::other("missing special-file header"))??
+        .header()
+        .clone())
 }
 fn members(file: &mut File) -> io::Result<Vec<Option<FileMeta>>> {
     let cwd = std::env::current_dir()?;

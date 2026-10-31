@@ -92,3 +92,15 @@ No lint suppression was introduced.
 Logs remain in ignored `test-results/volume-cache-*`. Generated crate artifacts
 are cleaned after validation within the verified workspace target directory;
 dependency caches and logs remain. Incremental compilation stays disabled.
+
+## Unix CI follow-up
+
+The first cache commit's Linux jobs exposed a tar-crate special-file path issue:
+its `append_path_with_name` implementation ignores the requested archive name for
+FIFOs/devices, then rejects the absolute source path. That rejected the entire
+small bucket. The correction reuses tar's platform metadata/header construction
+in a temporary in-memory archive and writes the header with the relative member
+name. No FIFO/device data is opened. Sockets are omitted, matching Python, so
+their presence cannot discard regular members. Regression tests inspect FIFO
+and device names/types and restore a regular member alongside a socket. Unix
+execution is verified by the corrective commit's CI, not the Windows test run.
