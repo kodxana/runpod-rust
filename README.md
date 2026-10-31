@@ -187,6 +187,13 @@ cargo clippy --locked --all-targets --all-features -- -D warnings
 cargo doc --locked --no-deps
 ```
 
+Development and test builds omit debug information and incremental caches to reduce
+disk use. Debug assertions and overflow checks remain enabled. Reuse the default
+`target/` directory for focused checks instead of keeping separate toolchain caches;
+`cargo clean` removes generated artifacts when they are no longer needed. For a debugger
+session, override `CARGO_PROFILE_DEV_DEBUG=2` (or `CARGO_PROFILE_TEST_DEBUG=2` for tests).
+See Cargo's [profile settings](https://doc.rust-lang.org/cargo/reference/profiles.html).
+
 Tests use local mock HTTP services; they do not create billable cloud resources.
 Core API clients, workers, serialization, and dependency analysis execute natively in Rust.
 Building Python-compatible deployment artifacts invokes Python/pip as external build tools;

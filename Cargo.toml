@@ -52,3 +52,8 @@ unsafe_op_in_unsafe_fn = "deny"
 
 [lints.clippy]
 dbg_macro = "warn"
+
+# Keep local SDK builds compact; the test profile inherits these settings.
+[profile.dev]
+debug = 0
+incremental = false
