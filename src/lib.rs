@@ -23,6 +23,7 @@ pub mod control;
 pub mod credentials;
 pub mod endpoint;
 pub mod error;
+mod http_docs;
 pub mod serverless;
 pub mod utils;
 

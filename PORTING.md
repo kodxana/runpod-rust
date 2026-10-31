@@ -1157,8 +1157,66 @@ gating, heartbeat snapshots, shutdown, process exits, realtime environment selec
 large bodies, documentation, and structured handler failures. Source HTTP/prestart tests
 pass **22 tests**. See [reviews/http-worker.md](reviews/http-worker.md) for final verification.
 
+## Native Apps class-API hosting
+
+The Python SDK's `ApiHandle` declares routes and sends client requests; the actual server
+is maintained separately in [runpod-workers/sdk-runtime](https://github.com/runpod-workers/sdk-runtime).
+The native adapter is characterized against runtime commit
+`14f70227008c1ec317e3fe1865a4688b14f5d432`, specifically
+[`api/server.py`](https://github.com/runpod-workers/sdk-runtime/blob/14f70227008c1ec317e3fe1865a4688b14f5d432/src/runpod_sdk_runtime/api/server.py).
+This reference does not change the pinned Python SDK commit or inflate its symbol/test
+inventory. Separate contract coverage is recorded in [parity/runtime-api.json](parity/runtime-api.json).
+
+`ApiHandle::serve(listener, shutdown)` initializes an owned snapshot of the registered
+native API, then accepts HTTP requests. `start(host, port)` additionally binds the listener
+and handles shutdown signals. Handlers keep their closure-owned state; clones share that
+state rather than implicitly constructing Python class instances. Startup failures retain
+their typed Rust error and never open the request gate. `/ping` returns `{"status":"healthy"}`
+after initialization. The embedding API does not expose the framework-only pre-lifespan
+204 response that Python tests can observe by bypassing Uvicorn's startup gate.
+
+The source route wrapper is deliberately simple: GET calls have no arguments. POST, PUT,
+PATCH, and DELETE pass one positional argument when the body parses as non-null JSON.
+Empty, malformed, or null bodies produce no arguments, and content type does not control
+JSON parsing. Query strings and captured path parameters are not passed to the handler.
+Native JSON values preserve this contract; non-finite Python numeric values remain outside
+the native serde_json domain. Handler-returned `error` fields are ordinary data here.
+Returned native errors become HTTP 500; this route API does not apply serverless job envelopes.
+
+Routes retain handler-name ordering, first-full-match precedence, and first-partial-match
+405 responses. The standard `str`, `int`, `float`, `uuid`, and `path` converters are supported;
+unknown converters and duplicate parameter names fail before initialization. Trailing-slash
+redirects preserve encoded paths and query strings. `/docs`, `/redoc`, `/openapi.json`, and
+the OAuth redirect page follow framework route precedence. Documentation titles are escaped.
+The Apps and development-worker servers share the same documentation renderer/assets.
+
+Synchronous native functions use the existing blocking executor; asynchronous functions
+remain on the caller's runtime. Native streams collect into a JSON array. Python synchronous
+generators can also encode as arrays; Python async-generator encoding has different failure
+semantics, as already documented for the native streaming adaptation. Shutdown stops new
+connections and drains accepted HTTP requests. Dropping the server future is not an explicit
+handler-cancellation API. Axum owns HTTP connection settings; Uvicorn's 600-second keepalive
+configuration and implicit proxy trust are not claimed as transport parity.
+
+This hosts the existing `NativeFunction` JSON contract. Arbitrary HTTP response bodies,
+status/header overrides, native framework factories, and live source/binary loading remain
+pending integration. `NativeApi::asgi_factory` is still explicit Python-worker metadata and
+is rejected by the native host. Deployed class serving does not expose `/execute` or
+`/_runpod/sync`; those belong to the separate live dispatcher contract. Native binary
+packaging/bootstrap and automatic runtime mount setup also remain pending; owned mount
+bindings already exist for callers that initialize native state explicitly.
+
+`tools/apps_http_fixtures.py ../assets/sdk-runtime` captures **18 scenarios / 150 requests**
+from the pinned runtime. Real TCP tests compare response status/body, Allow/Location headers,
+handler calls, and the full generated OpenAPI document. Additional tests cover startup
+gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
+large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
+additional runtime fixtures, separate from the **1,316 SDK differential cases**.
+See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
+
 ## Remaining work
 
-The current milestone does not implement native binary deployment, Apps HTTP route hosting,
-discovery or the CLI. Debugger integration and volume-cache operations are also pending.
+The current milestone does not implement native binary deployment, the remaining Apps HTTP
+factory/response/live adapters, discovery or the CLI. Debugger integration and volume-cache
+operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

@@ -142,7 +142,18 @@ impl NativeApi {
         }
         Ok(())
     }
-    async fn initialize(&self) -> Result<()> {
+    pub(super) fn http_routes(&self) -> Result<Vec<RouteSpec>> {
+        match &self.body {
+            ApiBody::Routes { methods, .. } => {
+                Ok(methods.values().map(|(route, _)| route.clone()).collect())
+            }
+            ApiBody::AsgiFactory(_) => Err(AppError::InvalidResource(
+                "ASGI factories execute in a Python worker".into(),
+            )
+            .into()),
+        }
+    }
+    pub(super) async fn initialize(&self) -> Result<()> {
         match &self.body {
             ApiBody::Routes { init, .. } => {
                 if let Some((_, hook)) = init {
@@ -156,7 +167,7 @@ impl NativeApi {
             .into()),
         }
     }
-    async fn call_handler(&self, name: &str, args: FunctionArgs) -> Result<Value> {
+    pub(super) async fn call_handler(&self, name: &str, args: FunctionArgs) -> Result<Value> {
         let ApiBody::Routes { methods, .. } = &self.body else {
             return Err(AppError::InvalidResource(
                 "ASGI factories execute in a Python worker".into(),
@@ -194,12 +205,59 @@ impl ApiHandle {
     pub fn set_environment(&self, env: &[(String, super::EnvValue)]) -> Result<()> {
         self.app.set_api_environment(self.index, env)
     }
-    /// Runs the native startup hook explicitly, before a worker begins accepting requests.
+    /// Runs the native startup hook explicitly for direct method execution.
+    /// [`Self::serve`] runs initialization itself before accepting requests.
     ///
     /// # Errors
     /// Returns hook/registration errors or rejects a Python ASGI factory.
     pub async fn initialize(&self) -> Result<()> {
         self.app.api_resource(self.index)?.body.initialize().await
+    }
+
+    /// Serve this resource's native routes after its initialization hook completes.
+    ///
+    /// Matches the Apps runtime's class adapter: GET calls have no arguments; other verbs
+    /// pass one positional argument for valid non-null JSON, or no arguments otherwise.
+    /// Query/path parameters are not forwarded. `/ping` reports healthy after initialization.
+    /// Shutdown stops acceptance and drains active requests. Python ASGI factory metadata
+    /// cannot execute in this native server. Live source loading is a separate runtime contract.
+    ///
+    /// # Errors
+    /// Returns invalid route patterns, initialization, registration, or listener errors.
+    pub async fn serve(
+        &self,
+        listener: tokio::net::TcpListener,
+        shutdown: impl std::future::Future<Output = ()> + Send + 'static,
+    ) -> Result<()> {
+        let resource = self.app.api_resource(self.index)?;
+        super::http::serve(
+            resource.definition.spec.name,
+            resource.body,
+            listener,
+            shutdown,
+        )
+        .await
+    }
+
+    /// Bind a native Apps HTTP worker and run until Ctrl-C or, on Unix, SIGTERM.
+    /// Use the platform's `PORT` value (normally 80) when binding a deployed API worker.
+    ///
+    /// # Errors
+    /// Returns bind, route, initialization, registration, or signal-registration errors.
+    pub async fn start(&self, host: &str, port: u16) -> Result<()> {
+        let listener = tokio::net::TcpListener::bind((host, port)).await?;
+        #[cfg(unix)]
+        let mut terminate =
+            tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())?;
+        self.serve(listener, async move {
+            #[cfg(unix)]
+            tokio::select! {
+                _ = terminate.recv() => {},
+                result = tokio::signal::ctrl_c() => {if let Err(error) = result {tracing::warn!(%error,"Ctrl-C listener failed");}}
+            }
+            #[cfg(not(unix))]
+            if let Err(error) = tokio::signal::ctrl_c().await {tracing::warn!(%error,"Ctrl-C listener failed");}
+        }).await
     }
     /// Calls a native method by its declared handler name without making an HTTP request.
     ///

@@ -34,6 +34,10 @@ the artifact environment. `build_artifact` and async `deploy_app` connect prefli
 validation, building, packaging, upload, activation, and endpoint reconciliation.
 `apps::App` registers native synchronous, asynchronous, and streaming queue/task functions,
 plus named HTTP routes through `NativeApi` and `ApiHandle`.
+`ApiHandle::serve` and `start` host native JSON-valued API routes, run initialization
+before accepting requests, expose `/ping` and API documentation, and drain requests
+on shutdown. Native factory hosting and live code loading remain in progress.
+See [examples/apps_http.rs](examples/apps_http.rs) for a runnable HTTP service.
 Handles support local calls, worker-local dispatch, remote calls, submission, reconnection,
 streaming, startup hooks, and per-job options. `AppRegistry` owns declaration membership;
 development target bindings and worker sibling lookup share the application's state.

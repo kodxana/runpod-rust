@@ -378,9 +378,13 @@ async fn dispatch(State(state): State<Arc<ApiState>>, request: Request) -> Respo
     }
     match route {
         Route::DocsRedirect => Redirect::temporary("/").into_response(),
-        Route::Docs => Html(DOCS).into_response(),
-        Route::Redoc => Html(REDOC).into_response(),
-        Route::OAuth => Html(OAUTH).into_response(),
+        Route::Docs => {
+            Html(crate::http_docs::swagger("Runpod | Development Worker API")).into_response()
+        }
+        Route::Redoc => {
+            Html(crate::http_docs::redoc("Runpod | Development Worker API")).into_response()
+        }
+        Route::OAuth => Html(crate::http_docs::OAUTH).into_response(),
         Route::Schema => Json(openapi(state.endpoint_id.as_deref())).into_response(),
         Route::Run | Route::RunSync | Route::Realtime => {
             let bytes = match to_bytes(body, usize::MAX).await {
@@ -550,7 +554,3 @@ fn openapi(endpoint: Option<&str>) -> Value {
     }
     schema
 }
-
-const DOCS: &str = r#"<!doctype html><html><head><title>Runpod | Development Worker API - Swagger UI</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css"></head><body><div id="swagger-ui"></div><script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script><script>SwaggerUIBundle({url:'/openapi.json',dom_id:'#swagger-ui',deepLinking:true,oauth2RedirectUrl:window.location.origin+'/docs/oauth2-redirect',presets:[SwaggerUIBundle.presets.apis,SwaggerUIBundle.SwaggerUIStandalonePreset]})</script></body></html>"#;
-const REDOC: &str = r#"<!doctype html><html><head><title>Runpod | Development Worker API - ReDoc</title></head><body><redoc spec-url="/openapi.json"></redoc><script src="https://cdn.jsdelivr.net/npm/redoc@2/bundles/redoc.standalone.js"></script></body></html>"#;
-const OAUTH: &str = include_str!("oauth.html");

@@ -16,6 +16,7 @@ mod function;
 pub mod gpu;
 pub mod graphql;
 mod handles;
+mod http;
 pub mod images;
 mod installer;
 mod job;

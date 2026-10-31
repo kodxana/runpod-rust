@@ -1,0 +1,33 @@
+{
+  "upstream": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "file": "src/runpod_sdk_runtime/api/server.py",
+  "scope": "Native JSON-valued class API hosting; separate from the runpod-python symbol inventory",
+  "verified_contracts": [
+    "Initialization completes before HTTP acceptance and healthy ping",
+    "GET forwards no arguments; other verbs forward one non-null JSON body or no arguments",
+    "Query and path parameters are not forwarded",
+    "Native handler errors return HTTP 500; returned error keys remain ordinary data",
+    "Handler-name route ordering, method precedence, path converters, and slash redirects",
+    "OpenAPI output and framework documentation-route precedence",
+    "Actual SDK client calls against the native HTTP host"
+  ],
+  "native_adaptations": [
+    "Closure-owned state replaces Python class construction and method binding",
+    "Owned registries and typed Rust errors replace interpreter globals and exceptions",
+    "Synchronous functions use the blocking executor; native streams collect into JSON arrays",
+    "Explicit listener/shutdown ownership replaces Uvicorn process management",
+    "JSON values use serde_json numeric and Unicode domains"
+  ],
+  "pending_contracts": [
+    "Arbitrary response body/status/header support for native API methods",
+    "Native framework factories corresponding to ASGI factories",
+    "Live dispatcher source synchronization and execution",
+    "Native binary artifact loading and manifest-based resource selection",
+    "Automatic runtime mount initialization before native application loading"
+  ],
+  "fixtures": "tests/fixtures/apps_http.json",
+  "fixture_scenarios": 18,
+  "fixture_requests": 150,
+  "tests": "tests/apps_http.rs"
+}

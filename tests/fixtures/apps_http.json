@@ -1,0 +1,3200 @@
+{
+  "repository": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "cases": [
+    {
+      "name": "body GET",
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/route",
+          "handler": "handle"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/route?query=ignored"
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": null
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": false
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": true
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": 0
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": 1.5
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": ""
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": "hi"
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": []
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": [
+            1,
+            null
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": {}
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "json": {
+            "a": null
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "raw": ""
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "raw": "not JSON"
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "raw": "{"
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "raw": "null"
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "raw": "42"
+        },
+        {
+          "method": "GET",
+          "path": "/route",
+          "raw": "{\"json\":\"without content type\"}"
+        },
+        {
+          "method": "POST",
+          "path": "/route"
+        },
+        {
+          "method": "HEAD",
+          "path": "/route"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/route"
+        },
+        {
+          "method": "GET",
+          "path": "/route/?a=1"
+        },
+        {
+          "method": "GET",
+          "path": "/missing"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "GET",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": "",
+          "allow": "GET",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "GET",
+          "location": null
+        },
+        {
+          "status": 307,
+          "body": "",
+          "allow": null,
+          "location": "http://testserver/route?a=1"
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "body POST",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/route",
+          "handler": "handle"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/route?query=ignored"
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": null
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": false
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": true
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": 0
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": 1.5
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": ""
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": "hi"
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": []
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": [
+            1,
+            null
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": {}
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "json": {
+            "a": null
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "raw": ""
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "raw": "not JSON"
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "raw": "{"
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "raw": "null"
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "raw": "42"
+        },
+        {
+          "method": "POST",
+          "path": "/route",
+          "raw": "{\"json\":\"without content type\"}"
+        },
+        {
+          "method": "GET",
+          "path": "/route"
+        },
+        {
+          "method": "HEAD",
+          "path": "/route"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/route"
+        },
+        {
+          "method": "POST",
+          "path": "/route/?a=1"
+        },
+        {
+          "method": "POST",
+          "path": "/missing"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              false
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              true
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              0
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              1.5
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              ""
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              "hi"
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              []
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              [
+                1,
+                null
+              ]
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {}
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "a": null
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              42
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "json": "without content type"
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "POST",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": "",
+          "allow": "POST",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "POST",
+          "location": null
+        },
+        {
+          "status": 307,
+          "body": "",
+          "allow": null,
+          "location": "http://testserver/route?a=1"
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            false
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            true
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            0
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            1.5
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            ""
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            "hi"
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            []
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            [
+              1,
+              null
+            ]
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {}
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "a": null
+            }
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            42
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "json": "without content type"
+            }
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "body PUT",
+      "routes": [
+        {
+          "method": "PUT",
+          "path": "/route",
+          "handler": "handle"
+        }
+      ],
+      "requests": [
+        {
+          "method": "PUT",
+          "path": "/route?query=ignored"
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": null
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": false
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": true
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": 0
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": 1.5
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": ""
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": "hi"
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": []
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": [
+            1,
+            null
+          ]
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": {}
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "json": {
+            "a": null
+          }
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "raw": ""
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "raw": "not JSON"
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "raw": "{"
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "raw": "null"
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "raw": "42"
+        },
+        {
+          "method": "PUT",
+          "path": "/route",
+          "raw": "{\"json\":\"without content type\"}"
+        },
+        {
+          "method": "GET",
+          "path": "/route"
+        },
+        {
+          "method": "POST",
+          "path": "/route"
+        },
+        {
+          "method": "HEAD",
+          "path": "/route"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/route"
+        },
+        {
+          "method": "PUT",
+          "path": "/route/?a=1"
+        },
+        {
+          "method": "PUT",
+          "path": "/missing"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              false
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              true
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              0
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              1.5
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              ""
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              "hi"
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              []
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              [
+                1,
+                null
+              ]
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {}
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "a": null
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              42
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "json": "without content type"
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "PUT",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "PUT",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": "",
+          "allow": "PUT",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "PUT",
+          "location": null
+        },
+        {
+          "status": 307,
+          "body": "",
+          "allow": null,
+          "location": "http://testserver/route?a=1"
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            false
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            true
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            0
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            1.5
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            ""
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            "hi"
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            []
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            [
+              1,
+              null
+            ]
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {}
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "a": null
+            }
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            42
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "json": "without content type"
+            }
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "body PATCH",
+      "routes": [
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "handler": "handle"
+        }
+      ],
+      "requests": [
+        {
+          "method": "PATCH",
+          "path": "/route?query=ignored"
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": null
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": false
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": true
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": 0
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": 1.5
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": ""
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": "hi"
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": []
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": [
+            1,
+            null
+          ]
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": {}
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "json": {
+            "a": null
+          }
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "raw": ""
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "raw": "not JSON"
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "raw": "{"
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "raw": "null"
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "raw": "42"
+        },
+        {
+          "method": "PATCH",
+          "path": "/route",
+          "raw": "{\"json\":\"without content type\"}"
+        },
+        {
+          "method": "GET",
+          "path": "/route"
+        },
+        {
+          "method": "POST",
+          "path": "/route"
+        },
+        {
+          "method": "HEAD",
+          "path": "/route"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/route"
+        },
+        {
+          "method": "PATCH",
+          "path": "/route/?a=1"
+        },
+        {
+          "method": "PATCH",
+          "path": "/missing"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              false
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              true
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              0
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              1.5
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              ""
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              "hi"
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              []
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              [
+                1,
+                null
+              ]
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {}
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "a": null
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              42
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "json": "without content type"
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "PATCH",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "PATCH",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": "",
+          "allow": "PATCH",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "PATCH",
+          "location": null
+        },
+        {
+          "status": 307,
+          "body": "",
+          "allow": null,
+          "location": "http://testserver/route?a=1"
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            false
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            true
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            0
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            1.5
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            ""
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            "hi"
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            []
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            [
+              1,
+              null
+            ]
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {}
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "a": null
+            }
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            42
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "json": "without content type"
+            }
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "body DELETE",
+      "routes": [
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "handler": "handle"
+        }
+      ],
+      "requests": [
+        {
+          "method": "DELETE",
+          "path": "/route?query=ignored"
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": null
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": false
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": true
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": 0
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": 1.5
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": ""
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": "hi"
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": []
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": [
+            1,
+            null
+          ]
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": {}
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "json": {
+            "a": null
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "raw": ""
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "raw": "not JSON"
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "raw": "{"
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "raw": "null"
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "raw": "42"
+        },
+        {
+          "method": "DELETE",
+          "path": "/route",
+          "raw": "{\"json\":\"without content type\"}"
+        },
+        {
+          "method": "GET",
+          "path": "/route"
+        },
+        {
+          "method": "POST",
+          "path": "/route"
+        },
+        {
+          "method": "HEAD",
+          "path": "/route"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/route"
+        },
+        {
+          "method": "DELETE",
+          "path": "/route/?a=1"
+        },
+        {
+          "method": "DELETE",
+          "path": "/missing"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              false
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              true
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              0
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              1.5
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              ""
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              "hi"
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              []
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              [
+                1,
+                null
+              ]
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {}
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "a": null
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              42
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "json": "without content type"
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "DELETE",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "DELETE",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": "",
+          "allow": "DELETE",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "DELETE",
+          "location": null
+        },
+        {
+          "status": 307,
+          "body": "",
+          "allow": null,
+          "location": "http://testserver/route?a=1"
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            false
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            true
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            0
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            1.5
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            ""
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            "hi"
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            []
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            [
+              1,
+              null
+            ]
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {}
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "a": null
+            }
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            42
+          ],
+          "ready": true
+        },
+        {
+          "handler": "handle",
+          "args": [
+            {
+              "json": "without content type"
+            }
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output null",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": null
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": null,
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output false",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": false
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": false,
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output 0",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": 0
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": 0,
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output 1.5",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": 1.5
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": 1.5,
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output \"\"",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": ""
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": "",
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output \"text\"",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": "text"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": "text",
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output []",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": []
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": [],
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output [null, {}]",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": [
+            null,
+            {}
+          ]
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": [
+            null,
+            {}
+          ],
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output {}",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": {}
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {},
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output {\"error\": \"ordinary data\"}",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": {
+            "error": "ordinary data"
+          }
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "error": "ordinary data"
+          },
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "output {\"refresh_worker\": true}",
+      "routes": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "handler": "result",
+          "output": {
+            "refresh_worker": true
+          }
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/result",
+          "json": {}
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "refresh_worker": true
+          },
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "result",
+          "args": [
+            {}
+          ],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "handler error",
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/error",
+          "handler": "error",
+          "error": true
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/error"
+        }
+      ],
+      "responses": [
+        {
+          "status": 500,
+          "body": "Internal Server Error",
+          "allow": null,
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "error",
+          "args": [],
+          "ready": true
+        }
+      ]
+    },
+    {
+      "name": "paths and route order",
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/str/{item}",
+          "handler": "string"
+        },
+        {
+          "method": "POST",
+          "path": "/int/{item:int}",
+          "handler": "integer"
+        },
+        {
+          "method": "GET",
+          "path": "/float/{item:float}",
+          "handler": "number"
+        },
+        {
+          "method": "GET",
+          "path": "/uuid/{item:uuid}",
+          "handler": "uuid"
+        },
+        {
+          "method": "GET",
+          "path": "/path/{item:path}",
+          "handler": "path"
+        },
+        {
+          "method": "GET",
+          "path": "/overlap/{item}",
+          "handler": "a_dynamic"
+        },
+        {
+          "method": "GET",
+          "path": "/overlap/static",
+          "handler": "z_static",
+          "output": "shadowed"
+        },
+        {
+          "method": "POST",
+          "path": "/same",
+          "handler": "a_post"
+        },
+        {
+          "method": "GET",
+          "path": "/same",
+          "handler": "z_get"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/str/text"
+        },
+        {
+          "method": "GET",
+          "path": "/str/%C3%A9"
+        },
+        {
+          "method": "GET",
+          "path": "/str/"
+        },
+        {
+          "method": "GET",
+          "path": "/float/1.5"
+        },
+        {
+          "method": "GET",
+          "path": "/float/.5"
+        },
+        {
+          "method": "GET",
+          "path": "/float/-1"
+        },
+        {
+          "method": "GET",
+          "path": "/float/12"
+        },
+        {
+          "method": "GET",
+          "path": "/uuid/12345678-1234-4234-8234-123456789abc"
+        },
+        {
+          "method": "GET",
+          "path": "/uuid/invalid"
+        },
+        {
+          "method": "GET",
+          "path": "/path/"
+        },
+        {
+          "method": "GET",
+          "path": "/path/a/b"
+        },
+        {
+          "method": "GET",
+          "path": "/overlap/static"
+        },
+        {
+          "method": "GET",
+          "path": "/same"
+        },
+        {
+          "method": "GET",
+          "path": "/ping"
+        },
+        {
+          "method": "POST",
+          "path": "/int/12",
+          "json": {
+            "x": 1
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/int/-1",
+          "json": {
+            "x": 1
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/int/no",
+          "json": {
+            "x": 1
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/same",
+          "json": {
+            "x": 1
+          }
+        },
+        {
+          "method": "DELETE",
+          "path": "/same"
+        },
+        {
+          "method": "HEAD",
+          "path": "/ping"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "status": "healthy"
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "x": 1
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 404,
+          "body": {
+            "detail": "Not Found"
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 200,
+          "body": {
+            "args": [
+              {
+                "x": 1
+              }
+            ],
+            "ready": true
+          },
+          "allow": null,
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": {
+            "detail": "Method Not Allowed"
+          },
+          "allow": "POST",
+          "location": null
+        },
+        {
+          "status": 405,
+          "body": "",
+          "allow": "GET",
+          "location": null
+        }
+      ],
+      "calls": [
+        {
+          "handler": "string",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "string",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "number",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "number",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "uuid",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "path",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "path",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "a_dynamic",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "z_get",
+          "args": [],
+          "ready": true
+        },
+        {
+          "handler": "integer",
+          "args": [
+            {
+              "x": 1
+            }
+          ],
+          "ready": true
+        },
+        {
+          "handler": "a_post",
+          "args": [
+            {
+              "x": 1
+            }
+          ],
+          "ready": true
+        }
+      ]
+    }
+  ]
+}
