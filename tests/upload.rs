@@ -449,10 +449,20 @@ async fn exact_multipart_threshold_and_ordered_completion() {
             .count(),
         1
     );
-    let parts: Vec<_> = sent
+    let mut parts: Vec<_> = sent
         .iter()
         .filter(|r| r.method == "PUT" && r.url.path() == "/bucket/large")
         .collect();
+    // Concurrent requests may arrive in any order; each part's number defines its body range.
+    parts.sort_by_key(|r| {
+        r.url
+            .query_pairs()
+            .find(|(key, _)| key == "partNumber")
+            .unwrap()
+            .1
+            .parse::<u32>()
+            .unwrap()
+    });
     assert_eq!(parts.len(), 3);
     assert_eq!(decoded_body(parts[0]).len(), 5 * 1024 * 1024);
     assert_eq!(decoded_body(parts[1]).len(), 5 * 1024 * 1024);
