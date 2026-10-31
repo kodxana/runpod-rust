@@ -1,20 +1,33 @@
 use super::{
-    App, AppError, FunctionArgs, NativeFunction, ResourceSpec, RouteSpec, app::ResolvedTarget,
-    deploy::SymbolReference, serialization::FunctionSource, targets::DEFAULT_TIMEOUT,
+    App, AppError, FunctionArgs, NativeFunction, NativeHttpApp, NativeHttpFunction, ResourceSpec,
+    RouteSpec, app::ResolvedTarget, deploy::SymbolReference, serialization::FunctionSource,
+    targets::DEFAULT_TIMEOUT,
 };
 use crate::{Error, Result, Value};
-use std::{collections::BTreeMap, fmt, time::Duration};
+use axum::{
+    Json,
+    response::{IntoResponse, Response},
+};
+use futures_util::future::BoxFuture;
+use std::{collections::BTreeMap, fmt, future::Future, sync::Arc, time::Duration};
+
+#[derive(Clone)]
+enum ApiMethod {
+    Json(NativeFunction),
+    Http(NativeHttpFunction),
+}
 
 #[derive(Clone)]
 enum ApiBody {
     Routes {
-        methods: BTreeMap<String, (RouteSpec, NativeFunction)>,
+        methods: BTreeMap<String, (RouteSpec, ApiMethod)>,
         init: Option<(String, NativeFunction)>,
     },
     AsgiFactory(String),
+    HttpFactory(Arc<dyn Fn() -> BoxFuture<'static, Result<NativeHttpApp>> + Send + Sync>),
 }
 
-/// Native route declarations and lifecycle hook, or explicit interoperable ASGI factory metadata.
+/// Native routes/lifecycle or an application factory, with explicit Python ASGI interoperability.
 ///
 /// Route handlers own their Rust state through closures. Registration does not instantiate
 /// Python classes or execute a factory. ASGI factory metadata is for existing Python workers.
@@ -56,6 +69,24 @@ impl NativeApi {
             body: ApiBody::AsgiFactory(qualname.into()),
         }
     }
+    /// Registers a native application factory, invoked once per [`ApiHandle::serve`] call.
+    ///
+    /// Perform asynchronous startup in the factory and return a ready [`NativeHttpApp`].
+    /// Requests are accepted only after success. Cancellation drops the startup future;
+    /// use RAII guards for resources acquired before returning the application.
+    /// Factory code is native only and is not serialized as Python ASGI metadata.
+    pub fn http_factory<F, Fut>(name: impl Into<String>, factory: F) -> Self
+    where
+        F: Fn() -> Fut + Send + Sync + 'static,
+        Fut: Future<Output = Result<NativeHttpApp>> + Send + 'static,
+    {
+        Self {
+            name: name.into(),
+            source: None,
+            symbol: None,
+            body: ApiBody::HttpFactory(Arc::new(move || Box::pin(factory()))),
+        }
+    }
     /// Returns the default resource name supplied by this declaration.
     #[must_use]
     pub fn name(&self) -> &str {
@@ -70,11 +101,26 @@ impl NativeApi {
     /// # Errors
     /// Returns invalid method/path, duplicate route, or incompatible factory declaration errors.
     pub fn route(&mut self, route: RouteSpec, handler: NativeFunction) -> Result<()> {
+        self.insert_route(route, ApiMethod::Json(handler))
+    }
+
+    /// Adds a method returning a native HTTP response instead of a JSON value.
+    ///
+    /// Uses the same body arguments, route ordering, replacement, and validation as [`Self::route`].
+    ///
+    /// # Errors
+    /// Returns invalid method/path, duplicate route, or incompatible factory declaration errors.
+    pub fn http_route(&mut self, route: RouteSpec, handler: NativeHttpFunction) -> Result<()> {
+        self.insert_route(route, ApiMethod::Http(handler))
+    }
+
+    fn insert_route(&mut self, route: RouteSpec, handler: ApiMethod) -> Result<()> {
         super::spec::validate_route(&route.method, &route.path)?;
         let ApiBody::Routes { methods, .. } = &mut self.body else {
-            return Err(
-                AppError::InvalidResource("ASGI factories define their own routes".into()).into(),
-            );
+            return Err(AppError::InvalidResource(
+                "application factories define their own routes".into(),
+            )
+            .into());
         };
         if let Some((other, _)) = methods.iter().find(|(name, (existing, _))| {
             *name != &route.handler_name
@@ -94,12 +140,12 @@ impl NativeApi {
     /// Registers one named startup hook; replacing that same name is allowed.
     ///
     /// # Errors
-    /// Rejects multiple differently named hooks or an ASGI factory's externally owned lifecycle.
+    /// Rejects multiple differently named hooks or a factory's externally owned lifecycle.
     pub fn init(&mut self, name: impl Into<String>, hook: NativeFunction) -> Result<()> {
         let name = name.into();
         let ApiBody::Routes { init, .. } = &mut self.body else {
             return Err(AppError::InvalidResource(
-                "ASGI factories define their own initialization".into(),
+                "application factories define their own initialization".into(),
             )
             .into());
         };
@@ -139,8 +185,18 @@ impl NativeApi {
                 spec.routes.clear();
                 spec.asgi_factory = Some(qualname.clone());
             }
+            ApiBody::HttpFactory(_) => {
+                spec.routes.clear();
+                spec.asgi_factory = None;
+            }
         }
         Ok(())
+    }
+    pub(super) fn build_factory(&self) -> Option<BoxFuture<'static, Result<NativeHttpApp>>> {
+        match &self.body {
+            ApiBody::HttpFactory(factory) => Some(factory()),
+            _ => None,
+        }
     }
     pub(super) fn http_routes(&self) -> Result<Vec<RouteSpec>> {
         match &self.body {
@@ -149,6 +205,10 @@ impl NativeApi {
             }
             ApiBody::AsgiFactory(_) => Err(AppError::InvalidResource(
                 "ASGI factories execute in a Python worker".into(),
+            )
+            .into()),
+            ApiBody::HttpFactory(_) => Err(AppError::InvalidResource(
+                "native factories define their own routes".into(),
             )
             .into()),
         }
@@ -165,19 +225,41 @@ impl NativeApi {
                 "ASGI factories execute in a Python worker".into(),
             )
             .into()),
+            ApiBody::HttpFactory(_) => Err(AppError::InvalidResource(
+                "native factories initialize during serve".into(),
+            )
+            .into()),
         }
     }
-    pub(super) async fn call_handler(&self, name: &str, args: FunctionArgs) -> Result<Value> {
+    fn handler(&self, name: &str) -> Result<&ApiMethod> {
         let ApiBody::Routes { methods, .. } = &self.body else {
             return Err(AppError::InvalidResource(
-                "ASGI factories execute in a Python worker".into(),
+                "application factories own their handler dispatch".into(),
             )
             .into());
         };
         let (_, handler) = methods.get(name).ok_or_else(|| {
             Error::InvalidInput(format!("unknown API handler '{name}' on {}", self.name))
         })?;
-        handler.call(args).await
+        Ok(handler)
+    }
+    pub(super) async fn call_handler(&self, name: &str, args: FunctionArgs) -> Result<Value> {
+        match self.handler(name)? {
+            ApiMethod::Json(handler) => handler.call(args).await,
+            ApiMethod::Http(_) => Err(Error::InvalidInput(format!(
+                "handler '{name}' returns an HTTP response; use call_http_handler"
+            ))),
+        }
+    }
+    pub(super) async fn call_http_handler(
+        &self,
+        name: &str,
+        args: FunctionArgs,
+    ) -> Result<Response> {
+        match self.handler(name)? {
+            ApiMethod::Json(handler) => Ok(Json(handler.call(args).await?).into_response()),
+            ApiMethod::Http(handler) => handler.call(args).await,
+        }
     }
 }
 
@@ -214,16 +296,18 @@ impl ApiHandle {
         self.app.api_resource(self.index)?.body.initialize().await
     }
 
-    /// Serve this resource's native routes after its initialization hook completes.
+    /// Serve this resource's native routes or factory after initialization completes.
     ///
     /// Matches the Apps runtime's class adapter: GET calls have no arguments; other verbs
     /// pass one positional argument for valid non-null JSON, or no arguments otherwise.
     /// Query/path parameters are not forwarded. `/ping` reports healthy after initialization.
+    /// Raw-response methods retain their status, headers, and streaming bodies. Native
+    /// factories own routing and use their explicit health policy instead of class routing.
     /// Shutdown stops acceptance and drains active requests. Python ASGI factory metadata
     /// cannot execute in this native server. Live source loading is a separate runtime contract.
     ///
     /// # Errors
-    /// Returns invalid route patterns, initialization, registration, or listener errors.
+    /// Returns invalid route patterns, initialization, cleanup, registration, or listener errors.
     pub async fn serve(
         &self,
         listener: tokio::net::TcpListener,
@@ -270,6 +354,19 @@ impl ApiHandle {
             .api_resource(self.index)?
             .body
             .call_handler(name, args)
+            .await
+    }
+
+    /// Calls a native method and retains its HTTP status, headers, and streaming body.
+    /// JSON-valued methods are returned as JSON responses. No route matching occurs.
+    ///
+    /// # Errors
+    /// Returns missing handler, user function, registration, or incompatible factory errors.
+    pub async fn call_http_handler(&self, name: &str, args: FunctionArgs) -> Result<Response> {
+        self.app
+            .api_resource(self.index)?
+            .body
+            .call_http_handler(name, args)
             .await
     }
 

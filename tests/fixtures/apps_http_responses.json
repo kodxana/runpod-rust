@@ -1,0 +1,665 @@
+{
+  "repository": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "responses": [
+    {
+      "name": "binary",
+      "status": 206,
+      "hex": "0001ff8041",
+      "media_type": "application/octet-stream",
+      "response": {
+        "status": 206,
+        "hex": "0001ff8041",
+        "headers": {
+          "content-type": [
+            "application/octet-stream"
+          ],
+          "content-length": [
+            "5"
+          ],
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "text",
+      "status": 201,
+      "text": "h\u00e9llo\n",
+      "media_type": "text/plain",
+      "response": {
+        "status": 201,
+        "hex": "68c3a96c6c6f0a",
+        "headers": {
+          "content-type": [
+            "text/plain; charset=utf-8"
+          ],
+          "content-length": [
+            "7"
+          ],
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "json",
+      "status": 202,
+      "json": {
+        "error": "ordinary data",
+        "n": 3
+      },
+      "response": {
+        "status": 202,
+        "hex": "7b226572726f72223a226f7264696e6172792064617461222c226e223a337d",
+        "headers": {
+          "content-type": [
+            "application/json"
+          ],
+          "content-length": [
+            "31"
+          ],
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "empty",
+      "status": 204,
+      "hex": "",
+      "response": {
+        "status": 204,
+        "hex": "",
+        "headers": {
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "not_modified",
+      "status": 304,
+      "hex": "",
+      "response": {
+        "status": 304,
+        "hex": "",
+        "headers": {
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "redirect",
+      "location": "/target?word=caf%C3%A9&n=1",
+      "response": {
+        "status": 307,
+        "hex": "",
+        "headers": {
+          "content-length": [
+            "0"
+          ],
+          "location": [
+            "/target?word=caf%C3%A9&n=1"
+          ],
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "cookies",
+      "text": "cookies",
+      "cookies": [
+        "first=one; Path=/; SameSite=lax",
+        "second=two; Path=/; SameSite=lax"
+      ],
+      "response": {
+        "status": 200,
+        "hex": "636f6f6b696573",
+        "headers": {
+          "content-length": [
+            "7"
+          ],
+          "set-cookie": [
+            "first=one; Path=/; SameSite=lax",
+            "second=two; Path=/; SameSite=lax"
+          ],
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "stream",
+      "chunks": [
+        "66697273740a",
+        "",
+        "00ff",
+        "6c617374"
+      ],
+      "media_type": "application/octet-stream",
+      "response": {
+        "status": 200,
+        "hex": "66697273740a00ff6c617374",
+        "headers": {
+          "content-type": [
+            "application/octet-stream"
+          ],
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    },
+    {
+      "name": "empty_stream",
+      "chunks": [],
+      "media_type": "text/event-stream",
+      "response": {
+        "status": 200,
+        "hex": "",
+        "headers": {
+          "content-type": [
+            "text/event-stream; charset=utf-8"
+          ],
+          "x-test": [
+            "passthrough"
+          ]
+        }
+      }
+    }
+  ],
+  "factories": [
+    {
+      "kind": "missing",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/ping"
+        },
+        {
+          "method": "POST",
+          "path": "/ping"
+        },
+        {
+          "method": "HEAD",
+          "path": "/ping"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/ping"
+        },
+        {
+          "method": "GET",
+          "path": "/%70ing?q=1"
+        },
+        {
+          "method": "POST",
+          "path": "/echo",
+          "raw": "opaque-body"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "hex": "7b22737461747573223a226865616c746879227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "20"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "7b2264657461696c223a224d6574686f64204e6f7420416c6c6f776564227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "GET"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "GET"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "7b2264657461696c223a224d6574686f64204e6f7420416c6c6f776564227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "GET"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "hex": "7b22737461747573223a226865616c746879227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "20"
+            ]
+          }
+        },
+        {
+          "status": 201,
+          "hex": "6f70617175652d626f6479",
+          "headers": {
+            "content-length": [
+              "11"
+            ],
+            "x-test": [
+              "custom"
+            ]
+          }
+        }
+      ],
+      "before": [
+        "factory"
+      ],
+      "during": [
+        "factory",
+        "startup"
+      ],
+      "after": [
+        "factory",
+        "startup",
+        "shutdown"
+      ]
+    },
+    {
+      "kind": "get",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/ping"
+        },
+        {
+          "method": "POST",
+          "path": "/ping"
+        },
+        {
+          "method": "HEAD",
+          "path": "/ping"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/ping"
+        },
+        {
+          "method": "GET",
+          "path": "/%70ing?q=1"
+        },
+        {
+          "method": "POST",
+          "path": "/echo",
+          "raw": "opaque-body"
+        }
+      ],
+      "responses": [
+        {
+          "status": 203,
+          "hex": "637573746f6d",
+          "headers": {
+            "content-length": [
+              "6"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "7b2264657461696c223a224d6574686f64204e6f7420416c6c6f776564227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "GET"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "GET"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "7b2264657461696c223a224d6574686f64204e6f7420416c6c6f776564227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "GET"
+            ]
+          }
+        },
+        {
+          "status": 203,
+          "hex": "637573746f6d",
+          "headers": {
+            "content-length": [
+              "6"
+            ]
+          }
+        },
+        {
+          "status": 201,
+          "hex": "6f70617175652d626f6479",
+          "headers": {
+            "content-length": [
+              "11"
+            ],
+            "x-test": [
+              "custom"
+            ]
+          }
+        }
+      ],
+      "before": [
+        "factory"
+      ],
+      "during": [
+        "factory",
+        "startup"
+      ],
+      "after": [
+        "factory",
+        "startup",
+        "shutdown"
+      ]
+    },
+    {
+      "kind": "post",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/ping"
+        },
+        {
+          "method": "POST",
+          "path": "/ping"
+        },
+        {
+          "method": "HEAD",
+          "path": "/ping"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/ping"
+        },
+        {
+          "method": "GET",
+          "path": "/%70ing?q=1"
+        },
+        {
+          "method": "POST",
+          "path": "/echo",
+          "raw": "opaque-body"
+        }
+      ],
+      "responses": [
+        {
+          "status": 405,
+          "hex": "7b2264657461696c223a224d6574686f64204e6f7420416c6c6f776564227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "POST"
+            ]
+          }
+        },
+        {
+          "status": 203,
+          "hex": "637573746f6d",
+          "headers": {
+            "content-length": [
+              "6"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "POST"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "7b2264657461696c223a224d6574686f64204e6f7420416c6c6f776564227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "POST"
+            ]
+          }
+        },
+        {
+          "status": 405,
+          "hex": "7b2264657461696c223a224d6574686f64204e6f7420416c6c6f776564227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "31"
+            ],
+            "allow": [
+              "POST"
+            ]
+          }
+        },
+        {
+          "status": 201,
+          "hex": "6f70617175652d626f6479",
+          "headers": {
+            "content-length": [
+              "11"
+            ],
+            "x-test": [
+              "custom"
+            ]
+          }
+        }
+      ],
+      "before": [
+        "factory"
+      ],
+      "during": [
+        "factory",
+        "startup"
+      ],
+      "after": [
+        "factory",
+        "startup",
+        "shutdown"
+      ]
+    },
+    {
+      "kind": "raw",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/ping"
+        },
+        {
+          "method": "POST",
+          "path": "/ping"
+        },
+        {
+          "method": "HEAD",
+          "path": "/ping"
+        },
+        {
+          "method": "OPTIONS",
+          "path": "/ping"
+        },
+        {
+          "method": "GET",
+          "path": "/%70ing?q=1"
+        },
+        {
+          "method": "POST",
+          "path": "/echo",
+          "raw": "opaque-body"
+        }
+      ],
+      "responses": [
+        {
+          "status": 200,
+          "hex": "7b22737461747573223a20226865616c746879227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "21"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "hex": "7b22737461747573223a20226865616c746879227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "21"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "hex": "",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "21"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "hex": "7b22737461747573223a20226865616c746879227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "21"
+            ]
+          }
+        },
+        {
+          "status": 200,
+          "hex": "7b22737461747573223a20226865616c746879227d",
+          "headers": {
+            "content-type": [
+              "application/json"
+            ],
+            "content-length": [
+              "21"
+            ]
+          }
+        },
+        {
+          "status": 209,
+          "hex": "726177",
+          "headers": {
+            "content-length": [
+              "3"
+            ]
+          }
+        }
+      ],
+      "before": [
+        "factory"
+      ],
+      "during": [
+        "factory",
+        "startup"
+      ],
+      "after": [
+        "factory",
+        "startup",
+        "shutdown"
+      ]
+    }
+  ]
+}

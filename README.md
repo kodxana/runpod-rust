@@ -34,9 +34,10 @@ the artifact environment. `build_artifact` and async `deploy_app` connect prefli
 validation, building, packaging, upload, activation, and endpoint reconciliation.
 `apps::App` registers native synchronous, asynchronous, and streaming queue/task functions,
 plus named HTTP routes through `NativeApi` and `ApiHandle`.
-`ApiHandle::serve` and `start` host native JSON-valued API routes, run initialization
+`ApiHandle::serve` and `start` host native JSON or raw HTTP API routes, run initialization
 before accepting requests, expose `/ping` and API documentation, and drain requests
-on shutdown. Native factory hosting and live code loading remain in progress.
+on shutdown. `NativeApi::http_factory` hosts an owned Axum router with startup and cleanup.
+Live code loading remains in progress.
 See [examples/apps_http.rs](examples/apps_http.rs) for a runnable HTTP service.
 Handles support local calls, worker-local dispatch, remote calls, submission, reconnection,
 streaming, startup hooks, and per-job options. `AppRegistry` owns declaration membership;
@@ -52,7 +53,7 @@ fresh verifier/challenge per attempt. Callbacks handle UI and code input; keys a
 without opening a browser or saving credentials automatically.
 `apps::entrypoint` provides an owned local-entrypoint registry and async execution, with
 `blocking::apps::run_entrypoint` for synchronous callers.
-Native binary deployment and HTTP server integration remain in progress.
+Native binary deployment and live HTTP runtime integration remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -131,8 +132,16 @@ global event-loop thread. Keep explicit task jobs until `wait` or `cancel` compl
 For HTTP APIs, add `RouteSpec`/`NativeFunction` pairs to a `NativeApi`, then call `App::api`.
 Routes are emitted in handler-name order, duplicates and runtime control paths are rejected,
 and one named startup hook is supported. `ApiHandle` sends GET/POST/PUT/DELETE/PATCH requests;
-`initialize` and `call_handler` expose native execution to a worker/router. HTTP hosting remains
-pending. `NativeApi::asgi_factory` describes a Python factory for interoperability; it does not
+`initialize` and `call_handler` expose direct native execution. `serve` or `start` hosts the
+registered routes. Use `http_route` with `NativeHttpFunction` for an Axum `Response`, preserving
+status, repeated headers, binary data, and `Body::from_stream` output. `call_http_handler`
+retains that response for direct calls. These integrations use Axum 0.8 types.
+`NativeApi::http_factory` instead accepts an async factory returning `NativeHttpApp`:
+the factory performs startup, and `on_shutdown` registers cleanup after requests drain.
+`FactoryHealth::Add` supplies GET health when the router has no `/ping` route;
+`Preserve` retains an existing route of any method, and `Wrap` intercepts every method.
+See [examples/apps_http_factory.rs](examples/apps_http_factory.rs).
+`NativeApi::asgi_factory` describes a Python factory for interoperability; it does not
 run Python locally. `App::resources` returns `ResourceHandle` values for mixed function/API apps.
 
 Serverless workers accept a `ConcurrencyModifier` in `WorkerConfig`. Returning zero pauses

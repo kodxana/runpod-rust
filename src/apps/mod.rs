@@ -17,6 +17,8 @@ pub mod gpu;
 pub mod graphql;
 mod handles;
 mod http;
+mod http_app;
+mod http_function;
 pub mod images;
 mod installer;
 mod job;
@@ -47,6 +49,8 @@ pub use context::{Context, ExecutionContext, current_context, in_discovery, is_l
 pub use errors::AppError;
 pub use function::{FunctionArgs, NativeFunction};
 pub use handles::{FunctionHandle, FunctionJob, ResourceHandle};
+pub use http_app::{FactoryHealth, NativeHttpApp};
+pub use http_function::NativeHttpFunction;
 pub use job::Job;
 pub use model::Model;
 pub use secret::{EnvValue, Secret, render_env, secret_names, validate_secrets};

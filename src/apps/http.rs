@@ -95,13 +95,20 @@ pub(super) async fn serve(
     listener: TcpListener,
     shutdown: impl Future<Output = ()> + Send + 'static,
 ) -> Result<()> {
+    let mut shutdown = Box::pin(shutdown);
+    if let Some(factory) = api.build_factory() {
+        let app = tokio::select! {
+            result = factory => result?,
+            () = &mut shutdown => return Ok(()),
+        };
+        return app.serve(listener, shutdown).await;
+    }
     let routes = api
         .http_routes()?
         .into_iter()
         .map(CompiledRoute::new)
         .collect::<Result<Vec<_>>>()?;
     let schema = openapi(&title, &routes);
-    let mut shutdown = Box::pin(shutdown);
     tokio::select! {
         result = api.initialize() => result?,
         () = &mut shutdown => return Ok(()),
@@ -171,8 +178,12 @@ async fn dispatch(State(state): State<Arc<ApiState>>, request: Request) -> Respo
         {
             args.args.push(value);
         }
-        return match state.api.call_handler(&route.spec.handler_name, args).await {
-            Ok(value) => Json(value).into_response(),
+        return match state
+            .api
+            .call_http_handler(&route.spec.handler_name, args)
+            .await
+        {
+            Ok(response) => response,
             Err(error) => {
                 tracing::error!(%error, handler=%route.spec.handler_name, "API handler failed");
                 (StatusCode::INTERNAL_SERVER_ERROR, "Internal Server Error").into_response()

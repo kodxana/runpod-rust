@@ -360,8 +360,8 @@ python tools/verify_pickle.py
 - `ApiHandle` HTTP methods always make client calls, including inside the resource's own
   worker. Explicit live source is attached to the shared target synchronization state;
   failed synchronization prevents the HTTP call and can be retried. Native `initialize` and
-  `call_handler` expose registered bodies to a future HTTP router; server hosting and response
-  binding remain pending. ASGI factories are explicit Python-worker metadata and cannot be
+  `call_handler` expose registered JSON bodies directly; `serve` hosts JSON and raw HTTP
+  methods, and `call_http_handler` preserves raw responses. ASGI factories are explicit Python-worker metadata and cannot be
   initialized/executed as native Rust closures. Factory lifespans own their initialization.
 - `blocking::apps::App` owns a multi-thread Tokio runtime and wraps existing native App state.
   Function/API handles, submitted jobs, reconnectable queue jobs, and output iterators retain
@@ -1198,9 +1198,9 @@ connections and drains accepted HTTP requests. Dropping the server future is not
 handler-cancellation API. Axum owns HTTP connection settings; Uvicorn's 600-second keepalive
 configuration and implicit proxy trust are not claimed as transport parity.
 
-This hosts the existing `NativeFunction` JSON contract. Arbitrary HTTP response bodies,
-status/header overrides, native framework factories, and live source/binary loading remain
-pending integration. `NativeApi::asgi_factory` is still explicit Python-worker metadata and
+The existing `NativeFunction` JSON contract remains available alongside raw HTTP handlers
+and native factories described below. Live source/binary loading remains pending integration.
+`NativeApi::asgi_factory` is still explicit Python-worker metadata and
 is rejected by the native host. Deployed class serving does not expose `/execute` or
 `/_runpod/sync`; those belong to the separate live dispatcher contract. Native binary
 packaging/bootstrap and automatic runtime mount setup also remain pending; owned mount
@@ -1214,9 +1214,51 @@ large bodies, streams, and calls through the SDK's actual `ApiHandle` client. Th
 additional runtime fixtures, separate from the **1,316 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
+### Raw responses and native factories
+
+`NativeHttpFunction::{new, sync}` returns an owned Axum 0.8 `Response`. Register it with
+`NativeApi::http_route` to retain status, repeated headers, cookies, redirects, and binary
+or streaming bodies. The class adapter's input-body convention and route validation/order
+are unchanged. `call_http_handler` also wraps existing JSON methods as JSON responses;
+`call_handler` rejects raw-response methods instead of consuming or reinterpreting their
+bodies. Synchronous response construction runs on Tokio's blocking pool. Streaming bodies
+remain lazy and flush before completion; a body error after headers aborts the transport,
+since the already-sent status cannot become an HTTP 500. Axum/Hyper retain responsibility
+for protocol framing and statuses that prohibit response bodies.
+
+`NativeApi::http_factory` is lazy at registration and called once per server invocation.
+It performs asynchronous startup and returns `NativeHttpApp` containing an owned Axum
+router. The router can contain ordinary Axum handlers/middleware or a Tower fallback
+service. Factory failures never open the request gate. Cancellation drops the startup
+future and owned guards. `on_shutdown` runs after accepted requests drain, and cleanup
+errors propagate; dropping the server future does not run asynchronous cleanup.
+
+The Python runtime detects a framework app's route inventory. Axum keeps that inventory
+private, so the factory explicitly chooses `FactoryHealth`: `Add` supplies GET `/ping`
+and 405 for other methods; `Preserve` delegates to an existing route even when it only
+accepts POST; `Wrap` intercepts every method, matching opaque ASGI health wrapping.
+Added/wrapped health handles decoded `/ping` before router dispatch, outside the router's
+middleware. Select `Preserve` and define the health route in the router when middleware
+must apply to it. Factory routes, redirects, method defaults, schemas, and middleware use
+the chosen native framework's behavior; this adapter does not recreate FastAPI or ASGI.
+Factories do not inherit the class adapter's route restrictions or generated docs.
+
+Native factories emit neither fabricated route inventory nor a Python `asgiFactory`
+qualified name. Compiled factory closures are not serializable Python deployment artifacts;
+native image/binary deployment remains pending. Explicit Python source/symbol metadata
+continues to describe separately supplied Python worker code.
+
+`tools/apps_http_response_fixtures.py` records **9 response cases and 4 factory scenarios
+(33 requests)** from the pinned runtime. Tests compare exact bytes/status, selected headers
+including repeated cookies, health ownership, and lifecycle events. Seven native integration
+tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
+draining, typed cleanup errors, and streaming transport failures. These fixtures remain
+separate from the SDK symbol inventory and its 1,316 differential cases.
+See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
+
 ## Remaining work
 
-The current milestone does not implement native binary deployment, the remaining Apps HTTP
-factory/response/live adapters, discovery or the CLI. Debugger integration and volume-cache
+The current milestone does not implement native binary deployment, the Apps HTTP live
+dispatcher, discovery or the CLI. Debugger integration and volume-cache
 operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.
