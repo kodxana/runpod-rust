@@ -1,5 +1,150 @@
 //! Capture policy and Unicode-aware bounds for worker logs and startup error fields.
-use std::borrow::Cow;
+use std::{
+    borrow::Cow,
+    fmt,
+    future::Future,
+    io,
+    sync::{Arc, Mutex},
+};
+
+tokio::task_local! {
+    static CURRENT: Option<Capture>;
+}
+
+/// Shared output tail whose scopes follow future polling rather than executor threads.
+/// Output must use [`TeeWriter`]; ordinary `println!` and external process output are not intercepted.
+#[derive(Clone, Default)]
+pub struct Capture {
+    buffer: Arc<Mutex<RingBuffer>>,
+}
+
+impl fmt::Debug for Capture {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Capture").finish_non_exhaustive()
+    }
+}
+
+impl Capture {
+    /// Create an empty shared buffer with the default captured-character limit.
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Copy the active context for explicit propagation into a new thread or spawned task.
+    /// Tokio task spawning does not inherit this context automatically.
+    pub fn current() -> Option<Self> {
+        CURRENT.try_with(Clone::clone).ok().flatten()
+    }
+
+    /// Capture writes while polling a future, restoring the outer context on yield or cancellation.
+    pub async fn scope<F: Future>(&self, future: F) -> F::Output {
+        CURRENT.scope(Some(self.clone()), future).await
+    }
+
+    /// Capture writes during a synchronous call, restoring the context even if it unwinds.
+    pub fn scope_sync<T>(&self, call: impl FnOnce() -> T) -> T {
+        CURRENT.sync_scope(Some(self.clone()), call)
+    }
+
+    /// Snapshot the retained output; an unavailable capture buffer is treated as empty.
+    pub fn text(&self) -> String {
+        self.buffer
+            .lock()
+            .map(|buffer| buffer.as_str().to_owned())
+            .unwrap_or_default()
+    }
+
+    fn record(&self, text: &str) {
+        // Capture is best effort and must never turn successful output into an I/O failure.
+        if let Ok(mut buffer) = self.buffer.lock() {
+            buffer.write(text);
+        }
+    }
+}
+
+/// Poll a future without mirroring its output, preserving any enclosing capture scope.
+pub async fn paused<F: Future>(future: F) -> F::Output {
+    CURRENT.scope(None, future).await
+}
+
+/// Run a synchronous diagnostic without mirroring its output into the active capture.
+pub fn paused_sync<T>(call: impl FnOnce() -> T) -> T {
+    CURRENT.sync_scope(None, call)
+}
+
+/// Forward UTF-8 text to an owned writer and mirror successful writes into the active capture.
+/// This text interface counts characters; the underlying writer still receives UTF-8 bytes.
+#[derive(Debug)]
+pub struct TeeWriter<W> {
+    inner: W,
+}
+
+impl<W: io::Write> TeeWriter<W> {
+    /// Wrap a destination without installing or changing process-wide output handles.
+    pub fn new(inner: W) -> Self {
+        Self { inner }
+    }
+
+    /// Forward all text, then capture it, returning the number of Unicode scalar values written.
+    ///
+    /// # Errors
+    /// Returns the destination's I/O error unchanged; a failed write is not mirrored.
+    pub fn write_text(&mut self, text: &str) -> io::Result<usize> {
+        self.inner.write_all(text.as_bytes())?;
+        if let Some(captured) = Capture::current() {
+            captured.record(text);
+        }
+        Ok(text.chars().count())
+    }
+
+    /// Forward and capture lines in order without adding line terminators.
+    ///
+    /// # Errors
+    /// Returns the first destination write error, preserving previously written lines.
+    pub fn write_lines<I, S>(&mut self, lines: I) -> io::Result<()>
+    where
+        I: IntoIterator<Item = S>,
+        S: AsRef<str>,
+    {
+        for line in lines {
+            self.write_text(line.as_ref())?;
+        }
+        Ok(())
+    }
+
+    /// Flush the underlying writer.
+    ///
+    /// # Errors
+    /// Returns the destination's flush error unchanged.
+    pub fn flush(&mut self) -> io::Result<()> {
+        self.inner.flush()
+    }
+
+    /// Borrow the destination for operations outside the text interface.
+    pub fn inner(&self) -> &W {
+        &self.inner
+    }
+
+    /// Mutably borrow the destination; direct writes bypass capture.
+    pub fn inner_mut(&mut self) -> &mut W {
+        &mut self.inner
+    }
+
+    /// Recover the owned destination without implicitly flushing it.
+    pub fn into_inner(self) -> W {
+        self.inner
+    }
+}
+
+/// Open a text writer forwarding to standard output and the active capture scope.
+pub fn stdout() -> TeeWriter<io::Stdout> {
+    TeeWriter::new(io::stdout())
+}
+
+/// Open a text writer forwarding to standard error and the active capture scope.
+pub fn stderr() -> TeeWriter<io::Stderr> {
+    TeeWriter::new(io::stderr())
+}
 
 /// Maximum number of Unicode scalar values retained in captured output by default.
 pub const MAX_CAPTURED_CHARS: usize = 16 * 1024;

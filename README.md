@@ -141,9 +141,15 @@ See the
 [worker notes](PORTING.md#worker-scaling-and-startup-coordination) for failure reporting and
 remaining runtime work.
 
-`serverless::capture` provides `CaptureMode`, the bounded `RingBuffer`, and `clip` for
-preparing log tails and startup error text. Scoped capture and automatic attachment to
-failure reports are still being ported; see the [capture notes](PORTING.md#capture-policy-and-text-bounds).
+Worker failures can include scoped log tails. Use `capture::stdout().write_text(...)`,
+`capture::stderr()`, or `capture::TeeWriter` to forward text and make it available to capture.
+The default `Auto` policy captures prestart output; `All` also attaches handler logs, and
+`Off` disables attachment. Set `WorkerConfig::capture_mode` explicitly, or read
+`RUNPOD_LOG_CAPTURE` through `WorkerConfig::from_env`. Ordinary `println!` and external
+process output are not intercepted. `Capture` exposes async/sync scopes and explicit context
+propagation for user-spawned tasks. See the [capture notes](PORTING.md#scoped-capture-and-failure-reports).
+`run_job_generator` yields partial output envelopes and a terminal error envelope;
+`run_job_with_capture` and `run_job_generator_with_capture` accept an owned capture policy.
 
 `serverless::health` exposes native GPU allocation/fallback probes and memory, disk, TCP,
 and CUDA-version checks. `GpuChecks::from_values` reads explicit environment values and

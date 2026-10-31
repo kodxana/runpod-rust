@@ -1,4 +1,7 @@
-use super::WorkerJob;
+use super::{
+    WorkerJob,
+    capture::{Capture, CaptureMode},
+};
 use crate::{Result, Value, client::truthy, json};
 use futures_util::{Stream, StreamExt, stream::BoxStream};
 use std::{fmt, future::Future, sync::Arc};
@@ -69,6 +72,27 @@ impl Handler {
     pub fn run(&self, job: WorkerJob) -> BoxStream<'static, Result<Value>> {
         (self.call)(job)
     }
+
+    pub(crate) fn captured(
+        self,
+        job: WorkerJob,
+        mode: CaptureMode,
+    ) -> (BoxStream<'static, Result<Value>>, Capture) {
+        let captured = Capture::new();
+        let context = captured.clone();
+        let handler = self;
+        let stream = async_stream::stream! {
+            let enabled = mode.handler_capture_enabled();
+            let mut stream = if enabled {
+                context.scope_sync(|| handler.run(job))
+            } else {handler.run(job)};
+            loop {
+                let next = if enabled {context.scope(stream.next()).await} else {stream.next().await};
+                match next {Some(value) => yield value, None => break}
+            }
+        }.boxed();
+        (stream, captured)
+    }
 }
 
 /// Moves reserved error and refresh fields into the Runpod result envelope.
@@ -96,18 +120,93 @@ where
     F: FnOnce(WorkerJob) -> Fut,
     Fut: Future<Output = Result<Value>>,
 {
-    match handler(job).await {
+    run_job_with_capture(job, CaptureMode::from_env(), handler).await
+}
+
+/// Run a handler with an explicit log-capture policy, without reading capture environment settings.
+/// Handler errors retain their full message and native traceback; only captured logs are bounded.
+pub async fn run_job_with_capture<F, Fut>(job: WorkerJob, mode: CaptureMode, handler: F) -> Value
+where
+    F: FnOnce(WorkerJob) -> Fut,
+    Fut: Future<Output = Result<Value>>,
+{
+    let captured = Capture::new();
+    let invocation = async { handler(job).await };
+    let result = if mode.handler_capture_enabled() {
+        captured.scope(invocation).await
+    } else {
+        invocation.await
+    };
+    match result {
         Ok(value) => normalize_output(value),
-        Err(error) => handler_error(&error),
+        Err(error) => handler_error(&error, &captured.text()),
     }
 }
 
-pub(crate) fn handler_error(error: &crate::Error) -> Value {
-    json!({"error":json!({
+/// Run a handler stream as output/error envelopes, reading capture policy when creating the stream.
+/// The first handler error ends the stream; panics retain Rust's panic semantics.
+pub fn run_job_generator(job: WorkerJob, handler: Handler) -> BoxStream<'static, Value> {
+    run_job_generator_with_capture(job, CaptureMode::from_env(), handler)
+}
+
+/// Stream output envelopes with an explicit capture policy and one terminal error envelope.
+/// Partial values are preserved, including caller-owned objects containing an `error` key.
+pub fn run_job_generator_with_capture(
+    job: WorkerJob,
+    mode: CaptureMode,
+    handler: Handler,
+) -> BoxStream<'static, Value> {
+    let job_id = job.id.clone();
+    let (mut stream, captured) = handler.captured(job, mode);
+    async_stream::stream! {
+        let completion = GeneratorCompletion(job_id);
+        while let Some(item) = stream.next().await {
+            match item {
+                Ok(value) => yield json!({"output":value}),
+                Err(error) => {
+                    tracing::error!(%error, job_id=%completion.0, "generator handler failed");
+                    yield stream_error(&error, &captured.text());
+                    break;
+                }
+            }
+        }
+    }
+    .boxed()
+}
+
+struct GeneratorCompletion(String);
+impl Drop for GeneratorCompletion {
+    fn drop(&mut self) {
+        tracing::info!(job_id=%self.0, "Finished running generator.");
+    }
+}
+
+pub(crate) fn handler_error(error: &crate::Error, logs: &str) -> Value {
+    let mut payload = json!({
         "error_type":"runpod::Error", "error_message":error.to_string(),
-        "error_traceback":std::backtrace::Backtrace::capture().to_string(),
+        "error_traceback":native_traceback(error),
         "hostname":std::env::var("RUNPOD_POD_HOSTNAME").unwrap_or_else(|_|"unknown".into()),
         "worker_id":std::env::var("RUNPOD_POD_ID").unwrap_or_else(|_|"unknown".into()),
         "runpod_version":env!("CARGO_PKG_VERSION")
-    }).to_string()})
+    });
+    if !logs.is_empty() {
+        payload["logs"] = json!(logs);
+    }
+    json!({"error":payload.to_string()})
+}
+
+pub(crate) fn stream_error(error: &crate::Error, logs: &str) -> Value {
+    let mut message = format!("handler: {error} \ntraceback: {}", native_traceback(error));
+    if !logs.is_empty() {
+        message.push_str("\nlogs:\n");
+        message.push_str(logs);
+    }
+    json!({"error":message})
+}
+
+fn native_traceback(error: &crate::Error) -> String {
+    format!(
+        "runpod::Error: {error}\n{}",
+        std::backtrace::Backtrace::force_capture()
+    )
 }

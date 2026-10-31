@@ -1,4 +1,4 @@
-use super::{ConcurrencyModifier, JobsProgress, WorkerJob};
+use super::{ConcurrencyModifier, JobsProgress, WorkerJob, capture::CaptureMode};
 use crate::{Error, Result, Value, json};
 use std::{collections::BTreeMap, fmt, time::Duration};
 
@@ -31,6 +31,8 @@ pub struct WorkerConfig {
     pub return_aggregate_stream: bool,
     /// Request worker refresh after each completed job.
     pub refresh_worker: bool,
+    /// Which failure reports may include text written through the SDK capture writers.
+    pub capture_mode: CaptureMode,
     /// Optional timeout for the entire prestart phase.
     pub prestart_timeout: Option<Duration>,
     /// Timeout for the one fallback claim when startup failed before any request was held.
@@ -51,6 +53,7 @@ impl fmt::Debug for WorkerConfig {
             .field("concurrency", &self.concurrency)
             .field("return_aggregate_stream", &self.return_aggregate_stream)
             .field("refresh_worker", &self.refresh_worker)
+            .field("capture_mode", &self.capture_mode)
             .finish_non_exhaustive()
     }
 }
@@ -70,6 +73,7 @@ impl Default for WorkerConfig {
             scale_wait_interval: Duration::from_secs(1),
             return_aggregate_stream: false,
             refresh_worker: false,
+            capture_mode: CaptureMode::Auto,
             prestart_timeout: None,
             prestart_claim_timeout: Duration::from_secs(10),
             prestart_failure_report_timeout: Duration::from_secs(15),
@@ -99,6 +103,10 @@ impl WorkerConfig {
             job_done_url: value("RUNPOD_WEBHOOK_POST_OUTPUT"),
             job_stream_url: value("RUNPOD_WEBHOOK_POST_STREAM"),
             ping_url: value("RUNPOD_WEBHOOK_PING"),
+            capture_mode: values
+                .get("RUNPOD_LOG_CAPTURE")
+                .map(|value| CaptureMode::from(value.as_str()))
+                .unwrap_or_default(),
             ..Self::default()
         };
         if let Some(ms) = value("RUNPOD_PING_INTERVAL") {

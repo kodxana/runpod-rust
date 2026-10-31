@@ -9209,7 +9209,7 @@
       "signature": "",
       "rust": "serverless::capture::RingBuffer",
       "status": "adapted",
-      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9220,7 +9220,7 @@
       "signature": "self, limit: int=MAX_CAPTURED_CHARS",
       "rust": "serverless::capture::RingBuffer::{new,default}",
       "status": "adapted",
-      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9231,7 +9231,7 @@
       "signature": "self, text: str",
       "rust": "serverless::capture::RingBuffer::write",
       "status": "adapted",
-      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9242,7 +9242,7 @@
       "signature": "self",
       "rust": "serverless::capture::RingBuffer::as_str",
       "status": "adapted",
-      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9251,8 +9251,9 @@
       "kind": "class",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::TeeWriter",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9261,8 +9262,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, real",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::TeeWriter::new",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9271,8 +9273,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, text",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::TeeWriter::write_text",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9281,8 +9284,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, lines",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::TeeWriter::write_lines",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9291,8 +9295,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::TeeWriter::flush",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9301,8 +9306,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, name",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::TeeWriter::{inner,inner_mut,into_inner}",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9313,7 +9319,7 @@
       "signature": "",
       "rust": "serverless::capture::CaptureMode::{from_env,from}",
       "status": "adapted",
-      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9324,7 +9330,7 @@
       "signature": "",
       "rust": "serverless::capture::CaptureMode::handler_capture_enabled",
       "status": "adapted",
-      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9333,8 +9339,9 @@
       "kind": "function",
       "public": true,
       "signature": "*, hooks_registered: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::WorkerConfig::capture_mode and explicit capture::{stdout,stderr,TeeWriter}",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9343,8 +9350,9 @@
       "kind": "function",
       "public": true,
       "signature": "*, enabled: bool=True",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::Capture::{scope,scope_sync,current,text}",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9353,8 +9361,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::{paused,paused_sync}",
+      "status": "adapted",
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_capture.py",
@@ -9365,7 +9374,7 @@
       "signature": "text: str, limit: int=MAX_CAPTURED_CHARS",
       "rust": "serverless::capture::clip",
       "status": "adapted",
-      "note": "Native owned text and a capture-mode enum preserve character counts and zero-limit quirks. Limits use usize; negative limits and unpaired Unicode surrogates are not representable. Stream installation, scoped capture, and failure-payload wiring remain pending. See PORTING.md#capture-policy-and-text-bounds."
+      "note": "Owned text writers and task-local scopes replace Python global stream proxies/contextvars. Use TeeWriter or capture::stdout/stderr; ordinary println! and external process output are not intercepted. Mode policy, Unicode limits, pause/restore, native hook propagation, and failure reporting are implemented. See PORTING.md#scoped-capture-and-failure-reports for native adaptations."
     },
     {
       "file": "runpod/serverless/modules/rp_fastapi.py",
@@ -9615,7 +9624,8 @@
       "public": true,
       "signature": "session: ClientSession, config: Dict[str, Any], job",
       "rust": "serverless::Worker::handle_job",
-      "status": "implemented"
+      "status": "adapted",
+      "notes": "Typed native handlers, explicit capture writers, owned capture policy, and native error/backtrace text replace Python callables and interpreter output. Handler errors remain untruncated; only optional log tails are bounded. Debugger augmentation of handle_job is still pending."
     },
     {
       "file": "runpod/serverless/modules/rp_job.py",
@@ -9625,7 +9635,8 @@
       "public": true,
       "signature": "handler: Callable, job: Dict[str, Any]",
       "rust": "serverless::run_job",
-      "status": "implemented"
+      "status": "adapted",
+      "notes": "Typed native handlers, explicit capture writers, owned capture policy, and native error/backtrace text replace Python callables and interpreter output. Handler errors remain untruncated; only optional log tails are bounded. Debugger augmentation of handle_job is still pending."
     },
     {
       "file": "runpod/serverless/modules/rp_job.py",
@@ -9634,8 +9645,9 @@
       "kind": "function",
       "public": true,
       "signature": "handler: Callable, job: Dict[str, Any]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::{run_job_generator,run_job_generator_with_capture}",
+      "status": "adapted",
+      "notes": "Typed native handlers, explicit capture writers, owned capture policy, and native error/backtrace text replace Python callables and interpreter output. Handler errors remain untruncated; only optional log tails are bounded. Debugger augmentation of handle_job is still pending."
     },
     {
       "file": "runpod/serverless/modules/rp_local.py",
@@ -9714,8 +9726,9 @@
       "kind": "function",
       "public": false,
       "signature": "message: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::capture::paused_sync around prestart tracing events",
+      "status": "adapted",
+      "notes": "Owned worker identity and native error/backtrace formatting replace Python globals and traceback objects. Bounded messages and logs preserve Unicode character counts; SDK progress is excluded from capture."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9839,8 +9852,9 @@
       "kind": "function",
       "public": true,
       "signature": "exc: BaseException, logs: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::build_prestart_failed_payload",
+      "status": "adapted",
+      "notes": "Owned worker identity and native error/backtrace formatting replace Python globals and traceback objects. Bounded messages and logs preserve Unicode character counts; SDK progress is excluded from capture."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9849,8 +9863,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::build_prestart_cancelled_payload",
+      "status": "adapted",
+      "notes": "Owned worker identity and native error/backtrace formatting replace Python globals and traceback objects. Bounded messages and logs preserve Unicode character counts; SDK progress is excluded from capture."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -9902,9 +9917,9 @@
       "kind": "function",
       "public": true,
       "signature": "hooks: Sequence[Callable[[], Any]], timeout: float | None=None",
-      "rust": "serverless::PrestartHooks::run_prestart_phase",
+      "rust": "serverless::PrestartHooks::run_prestart_phase plus Worker startup capture/reporting",
       "status": "adapted",
-      "notes": "Typed errors and explicit sync/async registration replace Python exceptions/reflection. Low-level runs return errors; process startup reports then hard-exits on prestart failure. Production startup installs a native process-global panic hook. See worker process lifecycle notes."
+      "notes": "Lower-level hook execution returns typed errors; Worker startup owns scoped capture, logs the structured report once, reports held jobs, then applies its existing exit policy. See scoped capture notes."
     },
     {
       "file": "runpod/serverless/modules/rp_progress.py",

@@ -1,7 +1,9 @@
 use super::{
-    Handler, HandlerKind, JobsProgress, PrestartHooks, ResultKind, WorkerConfig, WorkerControl,
-    WorkerJob, WorkerTransport,
-    handler::{handler_error, normalize_output},
+    Handler, HandlerKind, JobsProgress, PrestartError, PrestartHooks, ResultKind, WorkerConfig,
+    WorkerControl, WorkerJob, WorkerTransport, build_prestart_cancelled_payload,
+    build_prestart_failed_payload,
+    capture::{Capture, CaptureMode},
+    handler::{handler_error, normalize_output, stream_error},
     health::FitnessChecks,
     scaling::IntakeSchedule,
 };
@@ -124,14 +126,17 @@ impl Worker {
             job["id"] = json!("local_test");
         }
         let job: WorkerJob = serde_json::from_value(job)?;
-        self.hooks
-            .run_prestart_phase(self.transport.config().prestart_timeout)
-            .await?;
-        let mut stream = self.handler.run(job);
+        self.run_prestart()
+            .await
+            .map_err(|(error, _)| Error::Prestart(error))?;
+        let (mut stream, captured) = self
+            .handler
+            .clone()
+            .captured(job, self.transport.config().capture_mode);
         if self.handler.kind() == HandlerKind::Single {
             return Ok(match stream.next().await {
                 Some(Ok(value)) => normalize_output(value),
-                Some(Err(error)) => handler_error(&error),
+                Some(Err(error)) => handler_error(&error, &captured.text()),
                 None => normalize_output(Value::Null),
             });
         }
@@ -166,10 +171,7 @@ impl Worker {
         let mut intake = IntakeSchedule::new(config.concurrency);
         let mut take: Option<BoxFuture<'_, Result<Vec<WorkerJob>>>> = None;
         let mut stop = self.poll_stops(Duration::ZERO).boxed();
-        let mut prestart = self
-            .hooks
-            .run_prestart_phase(config.prestart_timeout)
-            .boxed();
+        let mut prestart = self.run_prestart().boxed();
         let mut prestart_done = !self.hooks.has_prestart_hooks();
         let mut took_request = false;
         let mut shutting_down = !self.control.is_alive();
@@ -219,17 +221,17 @@ impl Worker {
                     self.control.kill_worker();
                     take=None;
                     if !prestart_done {
-                        startup.send_replace(StartupState::Failed(Arc::new(self.startup_payload(true, "worker shutdown began before prestart completed"))));
+                        startup.send_replace(StartupState::Failed(Arc::new(build_prestart_cancelled_payload(&config.worker_id))));
                     }
                 },
                 result = &mut prestart, if !prestart_done && !shutting_down => {
                     prestart_done=true;
-                    if let Err(error)=result {
+                    if let Err((error, payload))=result {
                         // The failed worker stops both long polls before its bounded reporting phase.
                         drop(take.take());
                         drop(stop);
                         self.control.kill_worker();
-                        let payload=Arc::new(self.startup_payload(false, &error.to_string()));
+                        let payload=Arc::new(payload);
                         startup.send_replace(StartupState::Failed(payload.clone()));
                         let report=async {
                             while let Some((id,result))=running.next().await {
@@ -294,10 +296,21 @@ impl Worker {
             }
         }
     }
-    fn startup_payload(&self, cancelled: bool, message: &str) -> Value {
-        json!({"event":if cancelled {"prestart_cancelled"} else {"prestart_failed"},
-            "error_type":if cancelled {"PrestartCancelled"} else {"PrestartError"},
-            "error_message":message, "worker_id":self.transport.config().worker_id,"runpod_version":env!("CARGO_PKG_VERSION")})
+    async fn run_prestart(&self) -> std::result::Result<(), (PrestartError, Value)> {
+        let config = self.transport.config();
+        let captured = Capture::new();
+        let invocation = self.hooks.run_prestart_phase(config.prestart_timeout);
+        let result = if config.capture_mode == CaptureMode::Off {
+            invocation.await
+        } else {
+            captured.scope(invocation).await
+        };
+        result.map_err(|error| {
+            let payload =
+                build_prestart_failed_payload(&error, &captured.text(), &config.worker_id);
+            tracing::error!("prestart_failed | {payload}");
+            (error, payload)
+        })
     }
     async fn fail_startup_job(&self, job: &WorkerJob, payload: &Value) -> Result<()> {
         self.transport
@@ -364,12 +377,15 @@ impl Worker {
     /// Returns output delivery errors. Handler errors are reported as job failures.
     pub async fn handle_job(&self, job: WorkerJob) -> Result<()> {
         let config = self.transport.config();
-        let mut stream = self.handler.run(job.clone());
+        let (mut stream, captured) = self
+            .handler
+            .clone()
+            .captured(job.clone(), config.capture_mode);
         let (mut result, kind) = if self.handler.kind() == HandlerKind::Single {
             (
                 match stream.next().await {
                     Some(Ok(value)) => normalize_output(value),
-                    Some(Err(error)) => handler_error(&error),
+                    Some(Err(error)) => handler_error(&error, &captured.text()),
                     None => normalize_output(Value::Null),
                 },
                 ResultKind::Single,
@@ -380,7 +396,7 @@ impl Worker {
             while let Some(value) = stream.next().await {
                 match value {
                     Err(error) => {
-                        failure = Some(handler_error(&error));
+                        failure = Some(stream_error(&error, &captured.text()));
                         break;
                     }
                     Ok(value) => {

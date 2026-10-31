@@ -1,4 +1,5 @@
-use crate::{Error, Result};
+use super::capture::{Capture, MAX_CAPTURED_CHARS, RingBuffer, clip, paused_sync};
+use crate::{Error, Result, Value, json};
 use futures_util::{FutureExt, future::BoxFuture};
 use std::{fmt, future::Future, sync::Arc, time::Duration};
 
@@ -23,6 +24,41 @@ pub enum PrestartError {
         #[source]
         source: Box<Error>,
     },
+}
+
+/// Build a bounded startup failure report with the original error, hook, and captured log tail.
+/// Rust reports its native error type and a backtrace at the reporting boundary, not a Python traceback.
+pub fn build_prestart_failed_payload(error: &PrestartError, logs: &str, worker_id: &str) -> Value {
+    let (kind, message, hook) = match error {
+        PrestartError::Failed { hook, source } => ("runpod::Error", source.to_string(), hook),
+        PrestartError::Timeout { hook, .. } => ("PrestartTimeout", error.to_string(), hook),
+    };
+    let traceback = format!(
+        "{kind}: {message}\n{}",
+        std::backtrace::Backtrace::force_capture()
+    );
+    let mut payload = json!({
+        "event":"prestart_failed", "error_type":kind,
+        "error_message":clip(&message, MAX_CAPTURED_CHARS),
+        "error_traceback":clip(&traceback, MAX_CAPTURED_CHARS),
+        "worker_id":worker_id, "runpod_version":env!("CARGO_PKG_VERSION")
+    });
+    if !hook.is_empty() {
+        payload["hook"] = json!(hook);
+    }
+    if !logs.is_empty() {
+        let mut tail = RingBuffer::default();
+        tail.write(logs);
+        payload["logs"] = json!(tail.as_str());
+    }
+    payload
+}
+
+/// Build the reason returned to requests held when shutdown cancels startup.
+pub fn build_prestart_cancelled_payload(worker_id: &str) -> Value {
+    json!({"event":"prestart_cancelled", "error_type":"PrestartCancelled",
+        "error_message":"worker shutdown began before prestart completed",
+        "worker_id":worker_id, "runpod_version":env!("CARGO_PKG_VERSION")})
 }
 
 struct Hook {
@@ -70,11 +106,18 @@ impl PrestartHooks {
             let hook = hook.clone();
             async move {
                 let (completed, result) = tokio::sync::oneshot::channel();
+                let captured = Capture::current();
+                let dispatch = tracing::dispatcher::get_default(Clone::clone);
                 // A dedicated detached thread avoids Tokio joining a blocked hook during shutdown.
                 std::thread::Builder::new()
                     .name("rp-prestart".into())
                     .spawn(move || {
-                        let _ = completed.send(hook());
+                        let value =
+                            tracing::dispatcher::with_default(&dispatch, || match captured {
+                                Some(captured) => captured.scope_sync(|| hook()),
+                                None => hook(),
+                            });
+                        let _ = completed.send(value);
                     })?;
                 result.await.map_err(|_| {
                     Error::Io(std::io::Error::new(
@@ -120,7 +163,7 @@ impl PrestartHooks {
         timeout: Option<Duration>,
     ) -> std::result::Result<(), PrestartError> {
         let started = tokio::time::Instant::now();
-        tracing::info!("Prestart | phase started");
+        paused_sync(|| tracing::info!("Prestart | phase started"));
         if timeout.is_some_and(|timeout| timeout.is_zero()) {
             return Err(PrestartError::Timeout {
                 hook: "unknown".into(),
@@ -128,7 +171,7 @@ impl PrestartHooks {
             });
         }
         for hook in &self.hooks {
-            tracing::info!("Prestart | running hook: {}", hook.name);
+            paused_sync(|| tracing::info!("Prestart | running hook: {}", hook.name));
             let invocation = async { (hook.call)().await };
             let result = if let Some(timeout) = timeout {
                 let remaining = timeout.saturating_sub(started.elapsed());
@@ -152,7 +195,7 @@ impl PrestartHooks {
                 source: Box::new(source),
             })?;
         }
-        tracing::info!("Prestart | ready");
+        paused_sync(|| tracing::info!("Prestart | ready"));
         Ok(())
     }
 }

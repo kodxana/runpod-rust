@@ -10599,8 +10599,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_scopes.rs::records_and_passes_through",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10609,8 +10610,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_scopes.rs::writelines_is_captured_and_outer_scope_is_restored",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10639,8 +10641,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::local_worker_captures_synchronous_handler_factories_only_when_enabled",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10649,8 +10652,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::worker_mode_comes_from_owned_environment_values",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10659,8 +10663,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::prestart_failure_reports_all_hooks_and_respects_capture_off",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10669,8 +10674,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::local_worker_captures_synchronous_handler_factories_only_when_enabled",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10679,8 +10685,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::prestart_failure_reports_all_hooks_and_respects_capture_off",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10699,8 +10706,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::handler_capture_is_opt_in_and_does_not_clip_handler_errors",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10709,8 +10717,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::handler_capture_is_opt_in_and_does_not_clip_handler_errors",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10719,8 +10728,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::local_worker_captures_synchronous_handler_factories_only_when_enabled",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10729,8 +10739,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::generator_wrapper_preserves_partials_and_reports_errors_with_logs",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10739,8 +10750,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::successful_handler_output_is_unchanged",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10769,8 +10781,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::handler_capture_is_opt_in_and_does_not_clip_handler_errors",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10779,8 +10792,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::handler_capture_is_opt_in_and_does_not_clip_handler_errors",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10789,8 +10803,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::concurrent_jobs_and_streamed_failures_keep_their_own_log_tails",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_capture.py",
@@ -10809,8 +10824,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_scopes.rs::writelines_is_captured_and_outer_scope_is_restored",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_init.py",
@@ -13131,8 +13147,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::generator_wrapper_preserves_partials_and_reports_errors_with_logs",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_modules/test_job.py",
@@ -13141,8 +13158,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::generator_wrapper_preserves_partials_and_reports_errors_with_logs",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_modules/test_job.py",
@@ -13151,8 +13169,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::generator_wrapper_preserves_partials_and_reports_errors_with_logs",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_modules/test_local.py",
@@ -14059,8 +14078,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::prestart_payload_retains_original_failure_hook_and_bounded_unicode_fields",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14069,8 +14089,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::prestart_payload_retains_original_failure_hook_and_bounded_unicode_fields",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14079,8 +14100,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::prestart_payload_retains_original_failure_hook_and_bounded_unicode_fields",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",
@@ -14089,8 +14111,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "tests/capture_worker.rs::prestart_failure_reports_all_hooks_and_respects_capture_off",
+      "status": "adapted",
+      "notes": "Native text writers/scopes and typed Rust handlers replace Python stdout patches/callable reflection; native error types and backtraces are intentionally different. Output, policy, bounds, and ordering are checked."
     },
     {
       "file": "tests/test_serverless/test_prestart_lifecycle.py",

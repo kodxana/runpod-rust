@@ -25,7 +25,10 @@ by Python; the complete port remains in progress.
 | `rp_prestart` registration, enumeration, clearing, execution | owned `PrestartHooks` registry |
 | `rp_prestart` blocking-hook invocation and raw hook sequence | `PrestartHooks::{register_sync_prestart_hook,run_prestart_hooks_async}` |
 | `PrestartError`, `PrestartTimeout` | `PrestartError::{Failed,Timeout}` with hook name and typed cause, carried by `Error::Prestart` |
-| `rp_capture` mode selection, text buffer, and clipping | `serverless::capture::{CaptureMode,RingBuffer,clip}`; scoped capture and payload integration pending |
+| `rp_capture` mode selection, text buffer, and clipping | `serverless::capture::{CaptureMode,RingBuffer,clip}` |
+| `rp_capture` tee, capture scopes, and pause | explicit `TeeWriter`, `Capture::{scope,scope_sync,current,text}`, `paused`, and `paused_sync` |
+| `rp_prestart` failure/cancellation payloads and paused progress | `build_prestart_failed_payload`, `build_prestart_cancelled_payload`, and scoped progress exclusion |
+| `rp_job.run_job_generator` | `run_job_generator`, `run_job_generator_with_capture` using native `Handler` streams |
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
 | `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule` |
 | `JobScaler.start`, uncaught-exception logging, prestart process exit | `Worker::start`, native panic hook, and `Worker::start_local`; lower-level runs retain typed errors |
@@ -74,9 +77,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 380 implemented symbols, 205 adapted symbols, and 567 upstream
+This milestone maps 378 implemented symbols, 220 adapted symbols, and 590 upstream
 test functions; other entries remain pending.
-The test mapping includes 566 ported tests and one explicitly adapted Python import test.
+The test mapping includes 566 ported tests and 24 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -984,8 +987,8 @@ it, so Tokio runtime shutdown never waits for a stuck hook. Timeout/cancellation
 the blocking work itself may continue until completion or process termination. Spawn failures
 and returned hook errors retain their typed cause. If a hook thread panics before sending its
 result, the channel yields a broken-pipe failure; the panic's diagnostics follow the installed
-hook. Python context-variable capture and captured-output propagation remain with the pending
-capture module. Async factories should return promptly; blocking work belongs in the sync API.
+hook. Capture context and the current tracing dispatcher propagate into blocking hooks.
+Async factories should return promptly; blocking work belongs in the sync API.
 
 `run_prestart_hooks_async` executes an ordered hook sequence under one deadline and emits phase,
 hook, and ready progress. A zero timeout invokes neither the hook nor its factory and identifies
@@ -998,7 +1001,8 @@ execution are relabeled adapted to reflect the explicit native APIs and typed re
 The matching upstream worker/prestart lifecycle suite passes **60 tests**. Child processes
 exercise queued failure delivery, empty and stalled reporting, hook timeouts, background threads,
 local failure exit, panic-hook scope, and fallback-delivery error precedence. Native captured
-logs, full traceback payloads, hosted failure handling, and reflection cases remain pending.
+logs and bounded failure payloads are implemented below; hosted failure handling and reflection
+cases remain pending.
 See [reviews/worker-process.md](reviews/worker-process.md) for validation and review.
 
 ## Capture policy and text bounds
@@ -1021,14 +1025,70 @@ are not emulated.
 
 `tools/capture_fixtures.py` records 26 Python cases in `tests/fixtures/capture.json`, bringing
 the differential fixture total to **1,231**. Seven Rust tests cover these cases and four
-directly mapped upstream tests. The full upstream capture module passes **22 tests**;
-this does not mean all its behavior is ported. Stream tee installation, per-task scope,
-pause/resume, thread propagation, and attachment to handler/prestart payloads remain pending.
+directly mapped upstream tests. The full upstream capture module passes **22 tests**.
+The following milestone adds scopes and worker integration with explicit native adaptations.
 See [reviews/capture-bounds.md](reviews/capture-bounds.md) for the scoped review.
+
+## Scoped capture and failure reports
+
+`Capture` owns a shared bounded buffer. `scope` follows future polling, so concurrent jobs
+on one executor thread retain separate output. `scope_sync` covers blocking calls. Nested
+scopes, pause/resume, unwind, and canceled futures restore their enclosing context. Snapshots
+return owned strings; no lock is held across a callback or await. Capture bookkeeping is best
+effort and cannot replace a successful output write with a capture error.
+
+Python's replaceable `sys.stdout` and `sys.stderr` become explicit Rust text writers:
+`capture::stdout()`, `capture::stderr()`, or `TeeWriter<W>` around an `io::Write` destination.
+`write_text` forwards the complete UTF-8 text, then mirrors it and returns a character count.
+`write_lines` preserves order without inserting newlines; `flush` and I/O errors are forwarded.
+Direct access to the underlying destination replaces Python attribute forwarding. These writers
+do not replace process-wide stdout handles: ordinary `println!`, raw destination writes, and
+external-process output bypass capture. This is a native API adaptation that handler authors
+must adopt, not a claim to intercept all operating-system output. Python dynamic `TextIOBase`
+identity and global-proxy identity tests remain unmapped.
+
+Worker configuration owns capture policy. `Auto` captures a prestart phase with hooks;
+`All` additionally captures single and streaming handlers; `Off` attaches no captured logs.
+Public `run_job` reads the environment, while `run_job_with_capture` takes an explicit policy.
+`run_job_generator` and its explicit-policy counterpart yield output envelopes followed by at
+most one terminal error envelope. Sync factories and async stream polling both run in the
+appropriate scope. Caller-returned error objects retain their normal protocol meaning and are
+not treated as thrown failures. Generator policy is resolved when the Rust stream is created.
+
+Blocking prestart threads copy capture context and the current tracing dispatcher. User-created
+threads/tasks copy context explicitly through `Capture::current()` and `scope`/`scope_sync`;
+Tokio spawning does not automatically inherit Python-style context variables. SDK prestart
+progress is forwarded while capture is paused, so it does not obscure hook diagnostics. A
+timed-out detached thread may finish later; already-created payloads retain their earlier snapshot.
+
+Startup failures include the original error message, explicit hook name, worker identity,
+native SDK version, native backtrace, and optional log tail. Message and traceback are clipped;
+logs retain their latest 16,384 Unicode scalar values. Empty hook/log fields are omitted.
+Shutdown reports retain the separate `PrestartCancelled` event. Worker startup logs the report
+once and preserves report-before-exit ordering and transport-error precedence. Lower-level
+hook methods keep their typed-error contract, and local worker failures log the structured
+report before returning or applying process exit policy.
+
+Rust reports `runpod::Error` or `PrestartTimeout`, with native backtraces captured at the reporting
+boundary; it cannot reconstruct Python exception classes or interpreter traceback objects.
+Handler error messages and tracebacks remain untruncated. Single failures carry optional `logs`
+in their JSON error; streamed failures append `\nlogs:\n` and the captured tail to the native
+error text. Successful results and disabled/empty capture omit added logs.
+The native local stream collector retains its existing typed-error return contract; use
+`run_job_generator` or production worker execution for streamed error envelopes and log tails.
+
+This milestone maps 13 additional API symbols and 23 adapted upstream tests. `run_job` and
+`handle_job` are relabeled adapted to reflect native errors/output capture. The upstream
+capture/prestart/worker suites pass **96 tests**, and the job module passes **29 tests**.
+Native tests cover forwarding, isolation, cancellation, thread propagation, excluded progress,
+bounded fields, opt-in behavior, generators, and real mock-webhook reports. The prior MSRV CI
+failure exposed an upload-test assumption about concurrent request arrival order; commit
+`6005be8` fixes that assertion while retaining multipart completion-order checks.
+See [reviews/capture-context.md](reviews/capture-context.md) for validation and review.
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, HTTP server integration,
 discovery and the CLI. Hosted API,
-capture integration/debugging and volume-cache operations are also pending.
+debugger integration and volume-cache operations are also pending.
 All remain part of the requested full port, not exclusions from its scope.

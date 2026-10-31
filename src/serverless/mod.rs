@@ -8,8 +8,13 @@ mod state;
 mod transport;
 mod worker;
 
-pub use handler::{Handler, HandlerKind, normalize_output, run_job};
-pub use prestart::{PrestartError, PrestartHooks};
+pub use handler::{
+    Handler, HandlerKind, normalize_output, run_job, run_job_generator,
+    run_job_generator_with_capture, run_job_with_capture,
+};
+pub use prestart::{
+    PrestartError, PrestartHooks, build_prestart_cancelled_payload, build_prestart_failed_payload,
+};
 pub use scaling::{ConcurrencyModifier, WorkerControl};
 pub use state::{JobsProgress, WorkerJob};
 pub use transport::{ResultKind, WorkerConfig, WorkerTransport};
