@@ -7615,8 +7615,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint_id: str, *parts: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::path",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7645,8 +7646,9 @@
       "kind": "function",
       "public": true,
       "signature": "required: bool=True",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::options::id",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7655,8 +7657,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint_id: Optional[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::pick",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7665,8 +7668,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::kind",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7675,8 +7679,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::flashboot",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7685,8 +7690,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict, compact: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::compute",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7695,8 +7701,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::cuda",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7705,8 +7712,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict, compact: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::scaling",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7715,8 +7723,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::workers",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7725,8 +7734,9 @@
       "kind": "function",
       "public": false,
       "signature": "value: Optional[float]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::seconds",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7735,8 +7745,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::volumes",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7745,8 +7756,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::detail URL selection",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7755,8 +7767,9 @@
       "kind": "function",
       "public": false,
       "signature": "func",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::options::scale",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7765,8 +7778,9 @@
       "kind": "function",
       "public": false,
       "signature": "creating: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::options::config",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7775,8 +7789,9 @@
       "kind": "function",
       "public": false,
       "signature": "state: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::rollout",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7785,8 +7800,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint_id: str, previous_version: Optional[int], timeout: float, interval: float=2.0",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::watch::follow",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7795,8 +7811,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint_id: str, patch: dict, follow: bool, timeout: float, as_json: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::apply",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7805,8 +7822,9 @@
       "kind": "function",
       "public": false,
       "signature": "before: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::edit_document",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7815,8 +7833,9 @@
       "kind": "function",
       "public": false,
       "signature": "seconds: Optional[int]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::uptime",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7825,8 +7844,9 @@
       "kind": "function",
       "public": false,
       "signature": "worker: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::worker_version",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7835,8 +7855,9 @@
       "kind": "function",
       "public": false,
       "signature": "data: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::worker_view",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7905,8 +7926,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::command",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7915,8 +7937,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, endpoint_type, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / list",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7925,8 +7948,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / get",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7935,8 +7959,9 @@
       "kind": "function",
       "public": true,
       "signature": "as_json, **options",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / create",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7945,8 +7970,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, wait, timeout, as_json, **options",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / update",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7955,8 +7981,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, document, yes, no_follow, timeout, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / edit",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7965,8 +7992,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, as_json, **options",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / scale",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7975,8 +8003,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, yes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / delete",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7985,8 +8014,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, watch, interval, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::watch::workers",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7995,8 +8025,9 @@
       "kind": "function",
       "public": false,
       "signature": "release: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::releases diff selection",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8005,8 +8036,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::Options::execute_with_clock / releases",
+      "status": "adapted",
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",

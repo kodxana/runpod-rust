@@ -7,6 +7,8 @@ pub(super) trait Interaction {
     fn columns(&self) -> usize;
     fn select(&mut self, message: &str, labels: &[String]) -> CliResult<Option<usize>>;
     fn confirm_prompt(&mut self, message: &str) -> CliResult<bool>;
+    fn edit(&mut self, text: &str) -> CliResult<Option<String>>;
+    fn retry_edit(&mut self) -> CliResult<bool>;
 
     fn pick(
         &mut self,
@@ -50,6 +52,17 @@ pub(super) trait Interaction {
 
 pub(super) struct Terminal;
 impl Interaction for Terminal {
+    fn edit(&mut self, text: &str) -> CliResult<Option<String>> {
+        super::editor::edit(text)
+    }
+    fn retry_edit(&mut self) -> CliResult<bool> {
+        Ok(dialoguer::Confirm::new()
+            .with_prompt("re-open the editor?")
+            .default(true)
+            .wait_for_newline(true)
+            .interact_on_opt(&dialoguer::console::Term::stdout())?
+            .unwrap_or(false))
+    }
     fn interactive(&self) -> bool {
         std::io::stdin().is_terminal() && std::io::stdout().is_terminal()
     }
@@ -83,6 +96,9 @@ pub(super) mod tests {
         pub answer: bool,
         pub selections: Vec<(String, Vec<String>)>,
         pub confirmations: Vec<String>,
+        pub edits: std::collections::VecDeque<Option<String>>,
+        pub edit_inputs: Vec<String>,
+        pub retries: std::collections::VecDeque<bool>,
     }
     impl Default for Fake {
         fn default() -> Self {
@@ -93,10 +109,20 @@ pub(super) mod tests {
                 answer: true,
                 selections: Vec::new(),
                 confirmations: Vec::new(),
+                edits: std::collections::VecDeque::new(),
+                edit_inputs: Vec::new(),
+                retries: std::collections::VecDeque::new(),
             }
         }
     }
     impl Interaction for Fake {
+        fn edit(&mut self, text: &str) -> CliResult<Option<String>> {
+            self.edit_inputs.push(text.into());
+            Ok(self.edits.pop_front().expect("configured editor response"))
+        }
+        fn retry_edit(&mut self) -> CliResult<bool> {
+            Ok(self.retries.pop_front().unwrap_or(false))
+        }
         fn interactive(&self) -> bool {
             self.interactive
         }

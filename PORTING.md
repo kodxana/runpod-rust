@@ -46,6 +46,7 @@ by Python; the complete port remains in progress.
 | `rp_cli.options::{parse_env,container_fields}` | `configuration::parse_env`, async/blocking `Client::container_fields` |
 | `rp_cli.endpoint_config::{_gpu,_cpu,config_body}` | private hardware selection and async/blocking `Client::{create_endpoint_config,update_endpoint_config}` |
 | `rp_cli.endpoint_config::{scale_patch,mutable,_kind,validate,patch}` | `configuration::{scale_patch,mutable_endpoint,validate_endpoint_document,endpoint_patch}` and native type labels |
+| `rp_cli.endpoint` resource commands, formatting, editor and rollout/worker observation | native `rp endpoint` / `runpod endpoint`, private options, views, clock and streaming-output helpers; job/log commands and completers remain pending |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -84,9 +85,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 325 adapted symbols, and 772 upstream
+This milestone maps 397 implemented symbols, 357 adapted symbols, and 814 upstream
 test functions; other entries remain pending.
-The test mapping includes 708 ported tests and 64 explicitly adapted tests.
+The test mapping includes 748 ported tests and 66 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1219,7 +1220,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **1,861 SDK differential cases**.
+additional runtime fixtures, separate from the **1,977 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1261,7 +1262,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 1,861 differential cases.
+separate from the SDK symbol inventory and its 1,977 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1482,8 +1483,9 @@ Native counts are `u64`, timeout multiplication is checked, and queue delays mus
 finite. Python's arbitrary-size integers, Unicode count digits, and nonstandard NaN/
 Infinity JSON are not emulated. JSON parser diagnostics use Serde's wording. Malformed
 response records return typed errors rather than Python lookup/type exceptions. Helper
-APIs do not enforce CLI-required image/name flags or CLI numeric ranges; endpoint command
-parsing and orchestration are separate work and remain pending in the ledger.
+APIs do not enforce CLI-required image/name flags or CLI numeric ranges. The native
+endpoint resource CLI applies those constraints as described below; job/log orchestration
+remains pending in the ledger.
 
 `tools/endpoint_config_fixtures.py` captures **102 actual pinned Python cases**, bringing
 the SDK differential total to **1,861**. Fifteen named Rust counterparts map all ten
@@ -1492,6 +1494,70 @@ groups cover configuration payloads, scaling, quoting, and patch edge cases. Fou
 tests cover enum conversions, the blocking facade, numeric bounds, and malformed data.
 The unchanged upstream subset passes **30 parameterized cases**. No live resources are
 created or modified. See [reviews/configuration.md](reviews/configuration.md).
+
+## Native endpoint resource CLI
+
+Both executable names support `endpoint list`, `get`, `create`, `update`, `edit`, `scale`,
+`delete`, `workers`, and `releases`. Configuration flags preserve repeated selector order,
+last scalar value, required creation flags, numeric ranges, empty registry clearing and
+the shared payload builder's merge behavior. IDs are percent-encoded as path segments.
+List filters are case-insensitive name globs and endpoint type. Repeated stars, bracket
+classes, unmatched brackets and literal braces retain name-matching behavior; the native
+`glob` crate performs matching after a small normalization step.
+
+Missing IDs for `get` and `edit` use the existing native fuzzy selector. Noninteractive
+invocations fail before credential loading or listing endpoints. Deletion always reads
+the current name before confirmation, including when `--yes` is supplied. Fields, list/release tables and worker
+summaries retain source values and ordering, including compact GPU selection, stale
+versions, uptime, sorted environment keys and filtered release differences.
+
+Editing accepts a file or stdin, or invokes `$VISUAL`, then `$EDITOR`, then a native editor
+fallback. File options are opened during option processing before client construction or
+API requests. Native editor execution passes parsed arguments directly without a shell;
+quoted paths, save detection, nonzero exits, Windows BOM/newlines and unsaved changes are
+handled. Modified times are moved back two seconds before launch, preserving reliable
+save detection on coarse filesystems. Invalid documents can reopen with the invalid text
+retained and a default-yes retry prompt. Changed documents print their patch before the
+apply confirmation; unchanged documents return `no changes` or an empty JSON object.
+
+Updates flush their result before observation. Rollout failures therefore retain output
+from an already-applied update. Runtime-only changes (name, workers, scaling, timeout and
+FlashBoot) skip release queries. Otherwise `--wait` captures the old version, applies the
+patch, suppresses unchanged-version progress, and reports the new release until live or
+the observation deadline. A failed baseline read warns on stderr and still applies the
+update. JSON update results stay on stdout, with rollout progress on stderr. Deadline
+expiry and Ctrl-C detach successfully without cancelling the remote rollout. The rollout
+deadline does not shorten HTTP request timeouts, matching the source distinction.
+
+Worker watch refreshes at the requested interval and exits successfully on Ctrl-C,
+including while awaiting a request. JSON mode emits one complete object per line. Human
+terminal frames clear their previous physical rows, accounting for Unicode width and
+wrapping. Native unwrapped tables/prompts replace Rich layouts; nonterminal human watch
+prints successive snapshots, while JSON watch is the machine-readable interface. Compact
+JSON number/spacing/Unicode spellings follow Serde while preserving values.
+
+Counts are checked `u64` values; numeric CLI bounds are retained and floating durations
+must be finite. Arbitrary Python integers, non-ASCII integer spellings and nonstandard
+JSON numbers are not emulated. Native parser, filesystem and JSON diagnostics replace
+Click/Python wording where documented. Usage/file-option failures exit 2; API/editor/
+validation failures and declined confirmation exit 1. Successful observation detachment
+exits 0. Streams are flushed incrementally, and broken output pipes exit successfully.
+
+`tools/endpoint_cli_fixtures.py` runs **75 parameterized upstream cases** and captures
+their invocations, then adds direct rollout and edge characterizations. Its **116 pinned
+Python fixtures** regenerate byte-identically, bringing the SDK differential total to
+**1,977**. The ledger adds 32 adapted symbols and 42 mapped source tests. Tests compare
+requests, payloads, queries, exit codes, JSON values, table/field values, editor inputs,
+selection choices and polling sequences. Additional native checks cover a real editor
+child process, a real transport timeout, wrapped terminal row accounting, and argument
+validation without credentials. Windows terminal smoke checks exercise editor confirmation,
+rollout Ctrl-C and JSON worker watch
+against loopback mocks. No real Runpod resource is created or modified.
+See [reviews/endpoint-cli.md](reviews/endpoint-cli.md).
+
+The remaining endpoint log, run, job, purge and completion workflows are still part of
+the full goal. Their mappings and tests remain pending rather than being inferred from
+the resource-command implementation.
 
 ## Remaining work
 

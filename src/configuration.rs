@@ -194,7 +194,7 @@ pub fn parse_env<'a>(values: impl IntoIterator<Item = &'a str>) -> Result<Map<St
 
 // The CLI accepts shlex-style quoting, with comments and expansion disabled. A shell
 // parser would instead remove # comments, line continuations, and some dollar escapes.
-fn command_words(input: &str, option: &str) -> Result<Vec<String>> {
+pub(crate) fn command_words(input: &str, option: &str) -> Result<Vec<String>> {
     #[derive(PartialEq, Eq)]
     enum Quote {
         None,

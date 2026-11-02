@@ -25,12 +25,13 @@ Pod logs support snapshots, SSE cursors, and reconnect deduplication. Ephemeral 
 support runtime image selection, pod creation, runner requests, result polling, and
 cleanup after failure or cancellation. Advanced worker utilities and the CLI remain in progress.
 The native `rp` and `runpod` commands support catalog search and network/global volume
-listing, inspection, creation, renaming, expansion, and deletion, with JSON and terminal
-interaction. Other CLI commands remain pending.
+listing, inspection, creation, renaming, expansion, and deletion. Endpoint resource
+commands support configuration, editing, scaling, deletion, workers, releases and rollout
+tracking, with JSON and terminal interaction. Other CLI commands remain pending.
 `configuration` provides typed container, scaling, and endpoint options; async and
 blocking clients resolve selections into creation/update payloads. Editable JSON
 documents support validation and minimal patches. These helpers return payloads
-without modifying resources; endpoint command integration remains in progress.
+without modifying resources; the endpoint resource commands use these helpers.
 See [examples/configuration.rs](examples/configuration.rs).
 `apps::deploy` provides explicit application definitions, manifest generation, deployed
 endpoint payloads, endpoint reconciliation, and project archives with nested ignore rules,
@@ -236,6 +237,26 @@ Omitting an ID for `get` opens a fuzzy selector in an interactive terminal. Regi
 creation narrows by storage tier and selects a data center when several match. Deletion
 asks for confirmation; scripts must explicitly pass `--yes`. See `rp volume --help`
 and the [volume CLI notes](PORTING.md#native-volume-cli).
+
+Endpoint commands support queued and load-balanced resources:
+
+```sh
+rp endpoint list --name 'llama*' --type queue --json
+rp endpoint create --name inference --type queue --image IMAGE --gpu h100
+rp endpoint update ENDPOINT_ID --image IMAGE --wait
+rp endpoint edit ENDPOINT_ID
+rp endpoint edit ENDPOINT_ID --file config.json --yes
+rp endpoint scale ENDPOINT_ID --min-workers 0 --max-workers 4
+rp endpoint workers ENDPOINT_ID --watch --json
+rp endpoint releases ENDPOINT_ID
+```
+
+`edit` uses `$VISUAL` or `$EDITOR`, validates JSON, shows the patch, and asks before
+applying it. `--file -` reads stdin. Updates can follow the new release with `--wait`;
+Ctrl-C detaches while the remote rollout continues. With `--json`, update results go
+to stdout and rollout progress goes to stderr. Worker watch emits one JSON document
+per refresh. See `rp endpoint --help` and the [endpoint CLI notes](PORTING.md#native-endpoint-resource-cli).
+Endpoint log, run, job, purge and shell-completion commands remain in progress.
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults

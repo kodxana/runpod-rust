@@ -7827,8 +7827,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_list_shows_ids_and_summaries",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7837,8 +7838,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_list_filters_by_name_glob_and_type",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7847,8 +7849,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_get_shows_fields",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7857,8 +7860,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_get_without_id_needs_a_terminal",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7867,8 +7871,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_get_without_id_picks_interactively",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7877,8 +7882,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_api_errors_are_clean",
+      "status": "adapted",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7887,8 +7893,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_create_queue_endpoint_from_ticket",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7897,8 +7904,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_create_load_balancer_endpoint_from_ticket",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7907,8 +7915,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_create_cpu_endpoint_from_ticket",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7917,8 +7926,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_create_maps_container_and_placement_flags",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7927,8 +7937,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_create_exact_cuda_and_cpu_vcpu_suffix",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7937,8 +7948,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, args, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_create_rejects_bad_flags",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7947,8 +7959,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_update_merges_env_and_workers",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7957,8 +7970,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_update_gpu_replaces_pools_and_exclusions_together",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7967,8 +7981,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_update_cpu_vcpus_and_mounts",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7977,8 +7992,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, args, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_update_rejects_bad_flags",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7987,8 +8003,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_update_json_and_wait_follows_rollout",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -7997,8 +8014,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_wait_json_keeps_rollout_messages_on_stderr",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8007,8 +8025,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, failure",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_release_baseline_failure_does_not_block_update",
+      "status": "adapted",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8017,8 +8036,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, value, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_registry_selection_and_clearing",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8027,8 +8047,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_unset_missing_environment_variable_is_noop",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8037,8 +8058,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, option",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_invalid_container_quoting_is_usage_error",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8047,8 +8069,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, key, args, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_nullable_configuration_maps",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8079,8 +8102,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_edit_file_shows_patch_and_applies",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8089,8 +8113,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, tmp_path, command, options, changes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_runtime_only_changes_skip_rollout",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8099,8 +8124,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_mixed_edit_waits_for_delayed_release",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8120,8 +8146,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_edit_without_changes",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8130,8 +8157,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_edit_requires_yes_without_a_terminal",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8140,8 +8168,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_edit_needs_terminal_or_file",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8172,8 +8201,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_edit_in_editor_reopens_on_error_then_follows",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8182,8 +8212,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_edit_in_editor_gives_up_or_saves_nothing",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8192,8 +8223,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_follow_rollout_without_new_release",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8202,8 +8234,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_follow_rollout_waits_for_delayed_release",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8212,8 +8245,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_follow_rollout_reports_unobserved_release_at_deadline",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8222,8 +8256,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_follow_rollout_times_out_and_detaches",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8232,8 +8267,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_scale_sends_workers_and_scaler",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8242,8 +8278,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_scale_rejects_nothing_and_lb_queue_delay",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8252,8 +8289,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_delete_confirms",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8262,8 +8300,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_workers_table_and_json",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8272,8 +8311,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::tests::test_workers_empty_and_uptime",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8282,8 +8322,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::tests::test_workers_watch",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8292,8 +8333,9 @@
       "kind": "function",
       "public": true,
       "signature": "api",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint::test_releases",
+      "status": "ported",
+      "note": "Named native counterpart backed by pinned Python command/helper fixtures. API exception injection uses equivalent HTTP response fixtures; an additional real transport-timeout test verifies update-after-baseline-failure. Interactive and clock behavior uses native fakes; editor subprocess behavior has a real child-process test."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",

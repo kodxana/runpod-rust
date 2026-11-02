@@ -1,13 +1,20 @@
 //! Native `rp` and `runpod` command entry points.
 //!
-//! Implements catalog and volume commands. Other Python CLI commands are still pending.
+//! Implements catalog, volume and endpoint resource commands. Remaining commands are pending.
 mod api;
 mod catalog;
+mod editor;
+mod endpoint;
 mod interaction;
 mod output;
+mod streams;
 mod volume;
 
-use std::{ffi::OsString, io::Write, process::ExitCode};
+use std::{
+    ffi::OsString,
+    io::{IsTerminal, Write},
+    process::ExitCode,
+};
 
 #[derive(Debug, thiserror::Error)]
 enum CliError {
@@ -40,7 +47,8 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
         .subcommand_required(true)
         .arg_required_else_help(true)
         .subcommand(catalog::command())
-        .subcommand(volume::command());
+        .subcommand(volume::command())
+        .subcommand(endpoint::command());
     let matches = match command.try_get_matches_from(args) {
         Ok(matches) => matches,
         Err(error) => {
@@ -49,7 +57,11 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
             return ExitCode::from(code);
         }
     };
-    match dispatch(&matches).await {
+    let mut stdout = std::io::stdout();
+    let mut stderr = std::io::stderr();
+    let terminal = stdout.is_terminal();
+    let mut streams = streams::Streams::new(&mut stdout, &mut stderr, terminal);
+    match dispatch(&matches, &mut streams).await {
         Ok(output) => match std::io::stdout().lock().write_all(output.as_bytes()) {
             Ok(()) => ExitCode::SUCCESS,
             Err(error) if error.kind() == std::io::ErrorKind::BrokenPipe => ExitCode::SUCCESS,
@@ -58,6 +70,11 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
                 ExitCode::FAILURE
             }
         },
+        Err(CliError::Api(crate::Error::Io(error)))
+            if error.kind() == std::io::ErrorKind::BrokenPipe =>
+        {
+            ExitCode::SUCCESS
+        }
         Err(error) => {
             if matches!(error, CliError::Aborted) {
                 let _ = writeln!(std::io::stderr().lock(), "{error}");
@@ -69,7 +86,10 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
     }
 }
 
-async fn dispatch(matches: &clap::ArgMatches) -> CliResult<String> {
+async fn dispatch(
+    matches: &clap::ArgMatches,
+    streams: &mut streams::Streams<'_>,
+) -> CliResult<String> {
     match matches.subcommand() {
         Some(("catalog", args)) => Ok(catalog::Options::read(args)
             .map_err(CliError::Usage)?
@@ -80,6 +100,18 @@ async fn dispatch(matches: &clap::ArgMatches) -> CliResult<String> {
             options
                 .execute(&crate::Client::from_env()?, &mut interaction::Terminal)
                 .await
+        }
+        Some(("endpoint", args)) => {
+            let options = endpoint::Options::read(args)?;
+            options.validate_interaction(&interaction::Terminal)?;
+            options
+                .execute(
+                    &crate::Client::from_env()?,
+                    &mut interaction::Terminal,
+                    streams,
+                )
+                .await?;
+            Ok(String::new())
         }
         _ => Err(CliError::Usage("a command is required".into())),
     }
