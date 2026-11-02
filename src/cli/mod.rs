@@ -1,6 +1,6 @@
 //! Native `rp` and `runpod` command entry points.
 //!
-//! Implements catalog, volume, endpoint commands and pod logs. Remaining commands are pending.
+//! Implements catalog, volume, pod resource and endpoint commands. Remaining commands are pending.
 mod api;
 mod catalog;
 mod editor;
@@ -8,6 +8,7 @@ mod endpoint;
 mod interaction;
 mod logs;
 mod output;
+mod pod;
 mod streams;
 mod volume;
 
@@ -51,13 +52,7 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
         .arg_required_else_help(true)
         .subcommand(catalog::command())
         .subcommand(volume::command())
-        .subcommand(
-            clap::Command::new("pod")
-                .about("Pod commands (logs available)")
-                .subcommand_required(true)
-                .arg_required_else_help(true)
-                .subcommand(logs::command("pod-id")),
-        )
+        .subcommand(pod::command())
         .subcommand(endpoint::command());
     let matches = match command.try_get_matches_from(args) {
         Ok(matches) => matches,
@@ -102,9 +97,7 @@ async fn dispatch(
 ) -> CliResult<String> {
     match matches.subcommand() {
         Some(("pod", args)) => {
-            if let Some(args) = args.subcommand_matches("logs") {
-                logs::Options::read(args, "pod-id").execute(streams).await?;
-            }
+            pod::execute(args, streams).await?;
             Ok(String::new())
         }
         Some(("catalog", args)) => Ok(catalog::Options::read(args)

@@ -31,7 +31,10 @@ tracking, with JSON and terminal interaction. Job commands inspect, wait, stream
 queue purge confirms before removing queued jobs. `endpoint run` supports queue submission
 and load-balancer requests. `pod logs` and `endpoint logs` show snapshots or follow live SSE
 output, with cursor resumption, worker selection, source filters and JSON lines.
-Other pod commands and the remaining CLI groups remain pending.
+Pod resource commands list, inspect, create, update, start, stop, restart and terminate
+GPU/CPU pods, with hardware selection, mount/environment edits and readiness observation.
+Omitted pod IDs open a picker in a terminal, including for logs. SSH connect/sync,
+shell completion and the remaining CLI groups remain pending.
 `configuration` provides typed container, scaling, and endpoint options; async and
 blocking clients resolve selections into creation/update payloads. Editable JSON
 documents support validation and minimal patches. These helpers return payloads
@@ -266,6 +269,14 @@ rp endpoint run LB_ENDPOINT_ID --path /v1/models
 rp pod logs POD_ID --tail 100
 rp endpoint logs ENDPOINT_ID --worker WORKER_ID --source container
 rp endpoint logs ENDPOINT_ID --follow --json
+rp pod list --status starting --json
+rp pod get POD_ID
+rp pod create trainer --gpu h100:2 --image IMAGE --region eu --ssh --wait
+rp pod create box --cpu cpu3c --vcpu 4 --image ubuntu:24.04
+rp pod update POD_ID --env MODEL=qwen --unset-env OLD_MODEL --network-volume VOLUME_ID
+rp pod restart POD_ID --wait
+rp pod stop POD_ID
+rp pod terminate POD_ID --yes
 ```
 
 `edit` uses `$VISUAL` or `$EDITOR`, validates JSON, shows the patch, and asks before
@@ -284,6 +295,14 @@ Ctrl-C closes the streams and exits successfully. `--since` passes an earliest t
 to the API. Shell completion remains in progress.
 See [job observation notes](PORTING.md#native-job-waiting-and-streaming) and
 [log command notes](PORTING.md#native-pod-and-endpoint-log-commands).
+
+Pod creation selects matching GPUs by available stock in the requested data centers,
+then price and name. Updates preserve existing environment entries and omitted mount
+paths; `--lock` / `--unlock` and networking flags retain explicit false values.
+`start --wait`, `restart --wait` and `create --wait` check actual container readiness.
+Restart observation rejects stale pre-action runtime data. Termination identifies the
+pod before asking for confirmation; `--yes` skips that lookup and prompt.
+See [pod command notes](PORTING.md#native-pod-resource-commands).
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults

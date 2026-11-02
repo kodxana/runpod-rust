@@ -51,6 +51,7 @@ by Python; the complete port remains in progress.
 | `rp_cli.endpoint` job waiting, streaming and final output | native `endpoint job wait/stream`, private `cli::endpoint::job_follow::Follow` |
 | `rp_cli.endpoint` request-body loading, submission and load-balancer calls | native `endpoint run`, private `cli::endpoint::run::RunOptions` |
 | `rp_cli.logs::{_show_logs,show_logs}`, `rp_cli.endpoint.logs`, `rp_cli.pod.logs` | native `endpoint logs` / `pod logs`, private `cli::logs::Options` and SDK `LogsClient` |
+| `rp_cli.pod` resource commands, selection, payloads and readiness | native `pod list/get/create/update/start/stop/restart/terminate/delete`, private `cli::pod` modules |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -89,9 +90,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 377 adapted symbols, and 844 upstream
+This milestone maps 397 implemented symbols, 399 adapted symbols, and 892 upstream
 test functions; other entries remain pending.
-The test mapping includes 778 ported tests and 66 explicitly adapted tests.
+The test mapping includes 826 ported tests and 66 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1224,7 +1225,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,120 SDK differential cases**.
+additional runtime fixtures, separate from the **2,209 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1266,7 +1267,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,120 differential cases.
+separate from the SDK symbol inventory and its 2,209 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1707,7 +1708,8 @@ Native snapshots parse RFC3339 timestamps with explicit offsets. Python's additi
 date forms and malformed non-string source/line fields are not emulated. Native transport
 errors retain status and causes rather than aiohttp text. JSON lines use compact UTF-8
 serialization, preserving values and field order instead of Python's spaces/ASCII escapes.
-The public SDK API and dependencies are unchanged. Other pod commands remain pending.
+The public SDK API and dependencies are unchanged. Pod resource commands are covered by
+the later milestone below; SSH connect/sync and completion remain pending.
 
 `tools/cli_log_fixtures.py` runs **39 unchanged parameterized source cases** across shared
 log behavior and both command routers, then captures **14 deterministic snapshots**. Native
@@ -1718,6 +1720,68 @@ HTTP failures and closure on cancellation, idle timeout and the snapshot cutoff.
 adds four adapted symbols and fourteen ported source tests, bringing the SDK differential
 total to **2,120**. See [reviews/cli-logs.md](reviews/cli-logs.md).
 The final local suite passes **818 tests**, zero failures and three ignored child entry
+points exercised by parent tests. Build, strict Clippy, formatting and rustdoc pass.
+
+## Native pod resource commands
+
+`rp pod` and `runpod pod` support listing, inspection, creation, updates, start/stop/restart,
+termination (`delete` alias) and logs. Missing IDs open a terminal picker; action pickers
+offer only pods listing that action. Missing IDs in noninteractive mode fail before
+credential lookup. Creation can prompt for a missing name after validating hardware flags.
+The log command now shares optional-ID resolution, fixing the initially required pod ID.
+SSH connect/sync and shell completion remain pending.
+
+Listing paginates, optionally includes cluster pods, filters names by case-insensitive
+substring, and filters the displayed status. A RUNNING pod without nonzero uptime is
+displayed as `starting`, while JSON retains the original record. Human inspection includes
+resources, volume mounts, lifecycle timestamps, exposed URLs, SSH/TCP connection details
+and environment variable names without their values. Native rendering keeps field order
+and uses the existing table/field helpers.
+
+Creation reuses native container, registry, region, CUDA and catalog resolution. GPU
+selection preserves the source's stock/price/name ordering and cloud/count eligibility;
+a unique match bypasses the multi-match eligibility filter. Stock is restricted to the
+requested placement when present. Notices and no-stock/SSH-key warnings go to stderr in
+JSON mode. CPU requests use the selected flavor's minimum vCPU count when omitted.
+Regions merge with explicit data centers in order; a network volume supplies placement
+only when neither provided IDs. SSH setup checks keys through REST, with no GraphQL call.
+
+Updates read existing state only for environment or mount edits. Environment assignments
+merge before removals; ports replace the list; omitted mount paths preserve the current
+path. Persistent/network mounts default to `/workspace`; global paths remain absent when
+unspecified. Empty registry/CMD/argument options preserve clearing behavior, and explicit
+false lock/networking flags are retained. An explicitly empty name still counts as an
+update request but is omitted from the PATCH body, matching Python. Malformed truthy
+non-object current settings fail before PATCH; source exceptions become typed errors.
+
+Create/start/restart observation polls every five seconds with a 600-second wait deadline.
+The action start instant is captured before POST; the wait deadline starts afterward.
+Restart captures the prior record and requires a changed start timestamp plus evidence
+of reset runtime (a non-running observation or reduced uptime). The ready uptime must fit
+the time since the action plus one second. Readiness wins over an expired deadline on the
+same response. Error/terminated states fail immediately; other states eventually time out.
+Ctrl-C aborts observation with exit 1 without repeating or undoing the action. Async owned
+requests replace blocking sleep/HTTP; animated Rich status rendering remains pending with
+the console UI work.
+
+Termination fetches the name before confirmation and deletes only after approval. Lookup
+failure or rejection prevents DELETE. `--yes` bypasses lookup and confirmation. Native
+resource IDs are encoded as path segments; ordinary Runpod IDs retain their source routes.
+Credentials remain owned environment/profile configuration. Counts/sizes use `u64`, and
+mount sizes accept ASCII decimal digits rather than Python's wider Unicode integer forms.
+Human uptime uses nonnegative integral seconds. Native parser/transport/terminal diagnostics
+and plain warning rendering replace Click/Rich styling. Tests compare request payloads,
+JSON values, error classes/exit codes and read-before-write ordering.
+
+`tools/pod_cli_fixtures.py` runs **82 unchanged parameterized Python cases** and captures
+**89 invocations across 48 source functions**. It also verifies three malformed-state
+cases stop before PATCH. Native named counterparts replay every capture with controlled
+interaction and time; **71 noninteractive cases** additionally execute real binaries.
+The source's injected negative wait timeout becomes a zero `Duration` in native tests.
+Windows PTY checks cover name prompting, log selection, declined termination and Ctrl-C
+during restart observation. The ledger adds 22 adapted symbols and 48 ported tests; SDK
+differential captures total **2,209**. See [reviews/pod-cli.md](reviews/pod-cli.md).
+The final local suite passes **872 tests**, zero failures and three ignored child entry
 points exercised by parent tests. Build, strict Clippy, formatting and rustdoc pass.
 
 ## Remaining work

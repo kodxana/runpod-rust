@@ -10,7 +10,7 @@ mapping = {
     ("runpod/rp_cli/logs.py", "_show_logs"): "cli::logs::Options::show",
     ("runpod/rp_cli/logs.py", "show_logs"): "cli::logs::Options::execute",
     ("runpod/rp_cli/endpoint.py", "logs"): "cli::logs::command and Options::read (endpoint-id)",
-    ("runpod/rp_cli/pod.py", "logs"): "cli::logs::command and Options::read (pod-id)",
+    ("runpod/rp_cli/pod.py", "logs"): "cli::pod::show_logs and cli::logs::Options::execute_with_client",
 }
 count = 0
 for entry in data["entries"]:

@@ -7,6 +7,7 @@ pub(super) trait Interaction {
     fn columns(&self) -> usize;
     fn select(&mut self, message: &str, labels: &[String]) -> CliResult<Option<usize>>;
     fn confirm_prompt(&mut self, message: &str) -> CliResult<bool>;
+    fn text_prompt(&mut self, message: &str) -> CliResult<String>;
     fn edit(&mut self, text: &str) -> CliResult<Option<String>>;
     fn retry_edit(&mut self) -> CliResult<bool>;
 
@@ -52,6 +53,11 @@ pub(super) trait Interaction {
 
 pub(super) struct Terminal;
 impl Interaction for Terminal {
+    fn text_prompt(&mut self, message: &str) -> CliResult<String> {
+        Ok(dialoguer::Input::new()
+            .with_prompt(message)
+            .interact_text_on(&dialoguer::console::Term::stdout())?)
+    }
     fn edit(&mut self, text: &str) -> CliResult<Option<String>> {
         super::editor::edit(text)
     }
@@ -99,6 +105,7 @@ pub(super) mod tests {
         pub edits: std::collections::VecDeque<Option<String>>,
         pub edit_inputs: Vec<String>,
         pub retries: std::collections::VecDeque<bool>,
+        pub texts: std::collections::VecDeque<String>,
     }
     impl Default for Fake {
         fn default() -> Self {
@@ -112,10 +119,14 @@ pub(super) mod tests {
                 edits: std::collections::VecDeque::new(),
                 edit_inputs: Vec::new(),
                 retries: std::collections::VecDeque::new(),
+                texts: std::collections::VecDeque::new(),
             }
         }
     }
     impl Interaction for Fake {
+        fn text_prompt(&mut self, _: &str) -> CliResult<String> {
+            self.texts.pop_front().ok_or(CliError::Aborted)
+        }
         fn edit(&mut self, text: &str) -> CliResult<Option<String>> {
             self.edit_inputs.push(text.into());
             Ok(self.edits.pop_front().expect("configured editor response"))

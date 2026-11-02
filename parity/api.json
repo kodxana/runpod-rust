@@ -8744,8 +8744,9 @@
       "kind": "function",
       "public": false,
       "signature": "action: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::resolve_id (action-filtered choices)",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8754,8 +8755,9 @@
       "kind": "function",
       "public": false,
       "signature": "pod_id: Optional[str], action: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::resolve_id",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8764,8 +8766,9 @@
       "kind": "function",
       "public": false,
       "signature": "message: str, as_json: bool, warning: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::say",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8774,8 +8777,9 @@
       "kind": "function",
       "public": false,
       "signature": "pod: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::view::status",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8784,8 +8788,9 @@
       "kind": "function",
       "public": false,
       "signature": "pod: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::view::summary",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8794,8 +8799,9 @@
       "kind": "function",
       "public": false,
       "signature": "pod: dict, as_json: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::view::show",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8804,8 +8810,9 @@
       "kind": "function",
       "public": false,
       "signature": "pod_id: str, since: float, previous: Optional[dict]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::wait::Waiter::run",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8814,8 +8821,9 @@
       "kind": "function",
       "public": false,
       "signature": "options: dict, current: Optional[dict]=None, unset_env=()",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::config::Container::body",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8824,8 +8832,9 @@
       "kind": "function",
       "public": false,
       "signature": "command",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::container",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8834,8 +8843,9 @@
       "kind": "function",
       "public": false,
       "signature": "spec: str, count: Optional[int], cloud: str, cuda: tuple[str, ...], datacenter_ids: list[str], min_ram: Optional[int], min_vcpu: Optional[int], as_json: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Create::gpu",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8844,8 +8854,9 @@
       "kind": "function",
       "public": false,
       "signature": "regions, data_centers, network_volume",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Create::datacenters",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8854,8 +8865,9 @@
       "kind": "function",
       "public": false,
       "signature": "name, gpu, gpu_count, cpu, vcpu, cloud, regions, data_centers, cuda, min_ram_per_gpu, min_vcpu_per_gpu, ssh, jupyter, as_json, **container",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Create::body",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8864,8 +8876,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::command",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8874,8 +8887,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, statuses, include_cluster_pods, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8884,8 +8898,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8894,8 +8909,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, wait, as_json, **options",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8904,8 +8920,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, name, unset_env, locked, as_json, **container",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8914,8 +8931,9 @@
       "kind": "function",
       "public": false,
       "signature": "pod_id: Optional[str], action: str, done: str, as_json: bool, wait: bool=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8924,8 +8942,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, wait, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8934,8 +8953,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8944,8 +8964,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, wait, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8954,8 +8975,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, yes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::options::Options::execute",
+      "status": "adapted",
+      "note": "Native resource CLI with typed GPU/CPU selection, merged container/mount payloads, displayed-status filtering, action-aware pickers, restart readiness checks and confirmation before deletion. Owned credentials, bounded integers, async polling, plain terminal messages and typed errors are native adaptations. SSH connect/sync, completion and Rich-style console UI remain separately pending. See reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",
@@ -8964,9 +8986,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, follow, tail, source, since, as_json",
-      "rust": "cli::logs::command and Options::read (pod-id)",
+      "rust": "cli::pod::show_logs and cli::logs::Options::execute_with_client",
       "status": "adapted",
-      "note": "Native finite/follow log commands reuse the SDK SSE reader. Preserves worker filtering/discovery, cursor retries, snapshot cutoff/raw timestamp ordering, output modes, disappearing workers and cancellation. Owned streams replace asyncio tasks; RFC3339 timestamps, native transport errors and compact UTF-8 JSON are documented adaptations. See reviews/cli-logs.md."
+      "note": "Shared native SSE log command, now resolving omitted pod IDs through the same resource picker before streaming. Snapshot/reconnect adaptations remain documented in reviews/cli-logs.md; optional-ID parity is verified in reviews/pod-cli.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",

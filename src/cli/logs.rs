@@ -136,18 +136,25 @@ impl Options {
             .get_one::<String>(id)
             .expect("required resource ID")
             .clone();
+        let target = if id == "pod-id" {
+            Target::Pod(value)
+        } else {
+            Target::Endpoint {
+                id: value,
+                workers: args
+                    .get_many::<String>("worker")
+                    .map(|v| v.cloned().collect())
+                    .unwrap_or_default(),
+            }
+        };
+        Self::selection(args, target)
+    }
+    pub fn pod(args: &ArgMatches, id: String) -> Self {
+        Self::selection(args, Target::Pod(id))
+    }
+    fn selection(args: &ArgMatches, target: Target) -> Self {
         Self {
-            target: if id == "pod-id" {
-                Target::Pod(value)
-            } else {
-                Target::Endpoint {
-                    id: value,
-                    workers: args
-                        .get_many::<String>("worker")
-                        .map(|v| v.cloned().collect())
-                        .unwrap_or_default(),
-                }
-            },
+            target,
             follow: args.get_flag("follow"),
             source: args.get_one::<String>("source").cloned(),
             tail: *args.get_one::<i64>("tail").expect("default tail"),
@@ -156,7 +163,13 @@ impl Options {
         }
     }
     pub async fn execute(&self, streams: &mut Streams<'_>) -> CliResult<()> {
-        let client = Client::from_env()?;
+        self.execute_with_client(Client::from_env()?, streams).await
+    }
+    pub async fn execute_with_client(
+        &self,
+        client: Client,
+        streams: &mut Streams<'_>,
+    ) -> CliResult<()> {
         let reader = HttpReader {
             logs: LogsClient::new(client.clone())?,
             client,

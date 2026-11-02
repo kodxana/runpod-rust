@@ -9022,8 +9022,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_list_table",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9032,8 +9033,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_list_filters",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9042,8 +9044,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_list_cluster_pods_and_empty",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9052,8 +9055,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, runtime, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_list_filters_use_displayed_status",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9062,8 +9066,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_list_api_error_is_clean",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9072,8 +9077,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_get_fields_and_connection_info",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9082,8 +9088,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, runtime, status, uptime",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_get_status_follows_container",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9092,8 +9099,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_get_other_shapes",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9102,8 +9110,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_get_json",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9112,8 +9121,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_get_missing_id_without_tty",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9122,8 +9132,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_get_picker",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9132,8 +9143,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_gpu_ticket_example",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9142,8 +9154,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, options, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_gpu_selects_stock_then_price_within_placement",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9152,8 +9165,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_gpu_unique_match_used_directly",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9162,8 +9176,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_gpu_gpu_settings",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9172,8 +9187,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_gpu_exact_cuda",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9182,8 +9198,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_gpu_ssh_without_keys_warns",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9192,8 +9209,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, flavor, options, requested, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_cpu_vcpu_resolution",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9202,8 +9220,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_container_every_container_field",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9212,8 +9231,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_container_network_volume_sets_its_data_center",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9222,8 +9242,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_container_regions_and_data_centers_merge",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9232,8 +9253,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, option, value",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_validation_malformed_command_quoting",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9242,8 +9264,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, args, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_validation_usage_errors",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9252,8 +9275,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, options, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_validation_resolution_errors",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9262,8 +9286,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_create_validation_prompts_for_name",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9272,8 +9297,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_wait_create_waits_until_running",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9282,8 +9308,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_wait_error_status_fails",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9292,8 +9319,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_wait_timeout",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9302,8 +9330,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, kind, value, mount",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_update_null_mounts",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9312,8 +9341,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, option",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_update_malformed_command_quoting",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9322,8 +9352,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_update_nothing_to_update",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9332,8 +9363,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_update_simple_fields_skip_the_read",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9342,8 +9374,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_update_env_edits_existing",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9352,8 +9385,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_update_mount_path_defaults_to_current",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9362,8 +9396,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, action",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_action",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9372,8 +9407,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_start_wait",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9382,8 +9418,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_restart_wait_rejects_recent_pre_action_runtime",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9392,8 +9429,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch, started_at",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_restart_wait_requires_new_start_timestamp",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9402,8 +9440,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_restart_wait_rejects_stale_runtime_with_new_timestamp",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9412,8 +9451,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_restart_wait_rejects_recent_runtime_with_new_timestamp",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9422,8 +9462,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_picker_offers_pods_that_allow_the_action",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9432,8 +9473,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_actions_api_error",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9442,8 +9484,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, command, answer",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_terminate_confirmation_identifies_pod",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9452,8 +9495,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_terminate_yes_skips_name_lookup",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9462,8 +9506,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_terminate_lookup_failure_prevents_deletion",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9472,8 +9517,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, command",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_terminate_with_yes",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9482,8 +9528,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_terminate_needs_confirmation",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9492,8 +9539,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::pod::tests::test_terminate_interactive_confirm",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured REST/catalog sequences, JSON/human fields, notices, errors and interaction. 82 unchanged parameterized source cases yield 89 invocations; 71 also replay through native executables. Fake monotonic time preserves source no-op sleeps; zero Duration represents the source's injected negative timeout. Additional regressions verify optional log selection and rejection of malformed current settings before PATCH."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
