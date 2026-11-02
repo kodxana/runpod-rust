@@ -18,6 +18,7 @@
 
 pub mod apps;
 pub mod blocking;
+pub mod cli;
 pub mod client;
 pub mod compute;
 pub mod control;

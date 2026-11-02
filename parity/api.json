@@ -6677,8 +6677,9 @@
       "kind": "function",
       "public": false,
       "signature": "value: Optional[float], format_spec: str='.2f'",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::money / cli::output::general",
+      "status": "implemented",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6687,8 +6688,9 @@
       "kind": "function",
       "public": false,
       "signature": "entries: list[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::stock_cells",
+      "status": "implemented",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6697,8 +6699,9 @@
       "kind": "function",
       "public": false,
       "signature": "records: list[dict], regions: tuple[str, ...], available: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::Options::filter_stock",
+      "status": "implemented",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6707,8 +6710,9 @@
       "kind": "function",
       "public": false,
       "signature": "gpu: dict, product: str, cloud: Optional[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::Options::unit_price",
+      "status": "implemented",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6717,8 +6721,9 @@
       "kind": "function",
       "public": false,
       "signature": "query, product, count, regions, cloud, cuda, min_vram, max_price, available",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::Options::gpu_rows",
+      "status": "adapted",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6727,8 +6732,9 @@
       "kind": "function",
       "public": false,
       "signature": "product: str, count: int, cloud: Optional[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::Options::{gpu_headers,gpu_cells}",
+      "status": "adapted",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6737,8 +6743,9 @@
       "kind": "function",
       "public": false,
       "signature": "query, product, vcpu, regions, available",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::Options::cpu_rows",
+      "status": "adapted",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6747,8 +6754,9 @@
       "kind": "function",
       "public": false,
       "signature": "product: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::catalog::Options::cpu_cells",
+      "status": "adapted",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -6757,8 +6765,9 @@
       "kind": "function",
       "public": true,
       "signature": "query, product, cpu_mode, datacenters, count, vcpu, regions, cloud, cuda, min_vram, max_price, available, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::{run,catalog::Options} / rp and runpod binaries",
+      "status": "adapted",
+      "note": "Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -8574,8 +8583,9 @@
       "kind": "function",
       "public": true,
       "signature": "data: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::json",
+      "status": "adapted",
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8584,8 +8594,9 @@
       "kind": "function",
       "public": true,
       "signature": "value: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::cell",
+      "status": "adapted",
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8594,8 +8605,9 @@
       "kind": "function",
       "public": true,
       "signature": "rows: Sequence[dict], columns: Sequence[Column]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::table",
+      "status": "adapted",
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8604,8 +8616,9 @@
       "kind": "function",
       "public": true,
       "signature": "rows: Sequence[dict], columns: Sequence[Column], empty: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::table",
+      "status": "adapted",
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
     },
     {
       "file": "runpod/rp_cli/output.py",

@@ -5979,8 +5979,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, cloud, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_max_count_matches_cloud",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -5989,8 +5990,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_cpu_community_rejected_before_fetch",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -5999,8 +6001,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, floors",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_strongest_cuda_floor_is_sent",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6009,8 +6012,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_unavailable_gpu_omits_stock_fields",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6019,8 +6023,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_pod_table_sorted_by_stock_then_price",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6029,8 +6034,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_region_narrows_stock",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6039,8 +6045,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_cuda_and_cloud_filters",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6049,8 +6056,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_available_and_vram_filters",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6059,8 +6067,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_json_totals",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6069,8 +6078,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_serverless_shows_pools_only",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6079,8 +6089,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_unknown_gpu",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6089,8 +6100,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_empty",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6099,8 +6111,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_conflicting_flags",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6109,8 +6122,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_api_error_is_clean",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6119,8 +6133,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_table",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6129,8 +6144,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_query_region_and_available",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6139,8 +6155,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_unknown",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6149,8 +6166,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, product, price, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_per_vcpu_price_precision",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6159,8 +6177,9 @@
       "kind": "function",
       "public": true,
       "signature": "mode, options, offending_flag, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_inapplicable_flags_fail_before_fetch",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6169,8 +6188,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_all",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6179,8 +6199,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_catalog::test_query_is_a_region",
+      "status": "ported",
+      "note": "Named native executable test replays actual Python JSON, table cells, exit codes, errors and complete HTTP query maps; Rich visual layout is an explicit adaptation."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -6739,8 +6760,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::tests::test_cell",
+      "status": "ported",
+      "note": "Named native counterpart preserves cell values and whole identifiers; native tables are unwrapped and do not emulate Rich terminal folding."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -6749,8 +6771,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::tests::test_print_table_keeps_ids_and_values_whole",
+      "status": "adapted",
+      "note": "Named native counterpart preserves cell values and whole identifiers; native tables are unwrapped and do not emulate Rich terminal folding."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",

@@ -24,6 +24,8 @@ envelopes, result decoding, coordinated source synchronization, and worker metri
 Pod logs support snapshots, SSE cursors, and reconnect deduplication. Ephemeral tasks
 support runtime image selection, pod creation, runner requests, result polling, and
 cleanup after failure or cancellation. Advanced worker utilities and the CLI remain in progress.
+The native `rp catalog` and `runpod catalog` commands support GPU, CPU, and data-center
+search, stock and price filters, tables, and JSON. Other CLI commands remain pending.
 `apps::deploy` provides explicit application definitions, manifest generation, deployed
 endpoint payloads, endpoint reconciliation, and project archives with nested ignore rules,
 protected credential exclusions, and separately vendored dependency files. `apps::build`
@@ -201,6 +203,18 @@ with `Client::list_catalog_gpus`, `list_catalog_cpus`, or `list_catalog_datacent
 then use `resolve_gpus`, `resolve_cpu`, or `resolve_regions`. Blocking clients expose
 the same catalog methods. See [examples/compute.rs](examples/compute.rs) and the
 [compute porting notes](PORTING.md#compute-selection-and-catalog-requests).
+
+To install the native CLI from this checkout, run `cargo install --path . --locked`.
+Set `RUNPOD_API_KEY` or use an existing default credential profile, then run:
+
+```sh
+rp catalog h100 --count 2 --region eu --cuda '>=12.4'
+rp catalog --cpu --vcpu 8 --available --json
+runpod catalog --datacenters --region us
+```
+
+Catalog commands only query existing catalog data. See `rp catalog --help` and the
+[catalog CLI notes](PORTING.md#native-catalog-cli) for supported options and display adaptations.
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults

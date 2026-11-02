@@ -41,6 +41,7 @@ by Python; the complete port remains in progress.
 | `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
 | `rp_cli.compute` matching, parsing, catalog requests | `compute` helpers and `Client::list_catalog_*` / `blocking::Client::list_catalog_*` |
+| `rp_cli.catalog`, JSON and table output | native `rp catalog` / `runpod catalog`, `cli::run`, and private rendering helpers |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -79,9 +80,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 390 implemented symbols, 291 adapted symbols, and 705 upstream
+This milestone maps 394 implemented symbols, 300 adapted symbols, and 728 upstream
 test functions; other entries remain pending.
-The test mapping includes 647 ported tests and 58 explicitly adapted tests.
+The test mapping includes 669 ported tests and 59 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1214,7 +1215,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **1,581 SDK differential cases**.
+additional runtime fixtures, separate from the **1,701 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1256,7 +1257,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 1,581 differential cases.
+separate from the SDK symbol inventory and its 1,701 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1367,12 +1368,46 @@ map all source test functions, with four additional tests covering malformed rec
 numeric limits, API error causes, blocking calls, authentication, and unknown fields.
 `tools/compute_fixtures.py` records **111 actual Python cases**, bringing the SDK total
 to **1,581**. All requests are tested offline. See [reviews/compute.md](reviews/compute.md)
-and [examples/compute.rs](examples/compute.rs). The CLI command/parser/UI layer remains
-pending; these helpers provide its compute-selection behavior.
+and [examples/compute.rs](examples/compute.rs). The native catalog command now uses
+these helpers; other CLI commands remain pending.
+
+## Native catalog CLI
+
+`rp catalog` and `runpod catalog` implement GPU, CPU (`--cpu`), and data-center
+(`--datacenters`) queries through the existing owned client and credential store.
+All source catalog options are available. Explicit defaults still count as supplied
+options when rejecting flags in the wrong mode. Repeated scalar flags and pod/serverless
+flags use the last value; repeated region/CUDA filters retain their source order.
+Usage errors return 2 without network access, API/resolution errors return 1 on stderr,
+and successful JSON output contains only the result array on stdout.
+
+GPU prices retain source zero/null handling, per-device maximum-price filtering,
+four-decimal total-price rounding, and stock/price/name ordering. Region filters
+recompute stock from matching data centers. CPU rows retain stable stock ordering
+and four-significant-digit per-vCPU prices. Unknown JSON fields remain intact.
+CLI GPU/vCPU counts are checked `u32`, and minimum VRAM is checked `i32`; arbitrary
+Python integers and Unicode numeric spellings are not emulated. Invalid catalog
+field types return structured errors instead of Python type/lookup exceptions.
+
+Native Clap help and parser diagnostics replace Click's layout. Table headings,
+values, order, literal markup, and empty messages are retained in unwrapped columns
+using Unicode display widths; Rich colors, terminal folding, and Rich table objects
+are not reproduced. JSON uses two-space indentation and escapes Unicode; number
+spellings follow Serde while preserving JSON numeric values. General output helpers
+accept JSON data rather than arbitrary Python objects and their `str`/`repr` methods.
+Background update checks and shell completion remain pending with the other CLI work.
+
+`tools/catalog_fixtures.py` captures **120 actual pinned Python invocations**, bringing
+the SDK differential total to **1,701**. The 24 native executable tests cover all 21
+catalog source test functions plus added edge, alias/parser, and malformed-response
+checks. Two output-helper counterparts cover cell rendering and intact identifiers.
+The unchanged upstream file passes 69 parameterized cases, including its still-pending
+completion test; the two selected output-helper tests also pass. All API traffic in
+these tests uses local mocks and synthetic credentials. See [reviews/catalog.md](reviews/catalog.md).
 
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live
-dispatcher, discovery or the CLI. Debugger integration and remaining cache/platform
+dispatcher, discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
 fault-injection coverage are also pending.
 All remain part of the requested full port, not exclusions from its scope.
