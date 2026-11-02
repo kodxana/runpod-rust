@@ -7,10 +7,11 @@ use std::{
 };
 
 struct Fixture {
-    root: tempfile::TempDir,
     local: PathBuf,
     volume: PathBuf,
     cache: VolumeCache,
+    // Field drop order must join cache writers before removing their directory.
+    root: tempfile::TempDir,
 }
 impl Fixture {
     fn new() -> Self {

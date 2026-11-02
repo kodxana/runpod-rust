@@ -7089,8 +7089,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, query, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_queries",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7099,8 +7100,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_resolve_raises_with_known_names",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7109,8 +7111,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_gpu_spec",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7119,8 +7122,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, value",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_invalid_gpu_spec",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7129,8 +7133,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_cuda",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7139,8 +7144,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_invalid_cuda",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7149,8 +7155,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_excludes_unselected_pool_members",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7159,8 +7166,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_whole_pool",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7169,8 +7177,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_not_on_serverless",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7179,8 +7188,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, values, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_resolution",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7189,8 +7199,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_unknown_region_lists_options",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7199,8 +7210,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_match",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7209,8 +7221,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_resolve",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7219,8 +7232,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_best",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7229,8 +7243,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_list_gpus_with_availability",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7239,8 +7254,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_list_gpus_without_availability",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_compute.py",
@@ -7249,8 +7265,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::test_list_cpus_and_datacenters",
+      "status": "ported",
+      "note": "Named Rust counterpart using pinned Python differential fixtures; catalog request tests compare complete query maps and raw response records."
     },
     {
       "file": "tests/test_cli/test_console.py",

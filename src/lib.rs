@@ -19,6 +19,7 @@
 pub mod apps;
 pub mod blocking;
 pub mod client;
+pub mod compute;
 pub mod control;
 pub mod credentials;
 pub mod endpoint;

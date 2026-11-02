@@ -1,0 +1,3600 @@
+[
+  {
+    "operation": "match_gpus",
+    "args": [
+      "4090",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "4090",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "rtx 4090",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "rtx 4090",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "rtx4090",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "rtx4090",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "NVIDIA L4",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "NVIDIA L4",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "l4",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "l4",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "h100 sxm",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "h100 sxm",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "ADA_80_PRO",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "ADA_80_PRO",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "a100-sxm4",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "a100-sxm4",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "h100",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "h100",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "nvidia",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": []
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "nvidia",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "unknown gpu 'nvidia'. known gpus: A100 SXM 40GB, H100 NVL, H100 PCIe, H100 SXM, L4, L40, RTX 4090"
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "mi300x",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": []
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "mi300x",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "unknown gpu 'mi300x'. known gpus: A100 SXM 40GB, H100 NVL, H100 PCIe, H100 SXM, L4, L40, RTX 4090"
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "  H100_NVL  ",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "  H100_NVL  ",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "L40",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_gpus",
+    "args": [
+      "L40",
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "",
+      [
+        {
+          "id": "custom"
+        },
+        {
+          "id": "other",
+          "name": null,
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "custom"
+      },
+      {
+        "id": "other",
+        "name": null,
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "nvidia",
+      [
+        {
+          "id": "custom"
+        },
+        {
+          "id": "other",
+          "name": null,
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": []
+  },
+  {
+    "operation": "match_gpus",
+    "args": [
+      "custom",
+      [
+        {
+          "id": "custom"
+        },
+        {
+          "id": "other",
+          "name": null,
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "custom"
+      }
+    ]
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      "h100:2"
+    ],
+    "kwargs": {},
+    "output": [
+      "h100",
+      2
+    ]
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      " 4090 "
+    ],
+    "kwargs": {},
+    "output": [
+      "4090",
+      null
+    ]
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      "h100:0"
+    ],
+    "kwargs": {},
+    "error": "invalid gpu 'h100:0'. use a name with an optional count, like h100:2"
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      "h100:x"
+    ],
+    "kwargs": {},
+    "error": "invalid gpu 'h100:x'. use a name with an optional count, like h100:2"
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      ":2"
+    ],
+    "kwargs": {},
+    "error": "invalid gpu ':2'. use a name with an optional count, like h100:2"
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      ""
+    ],
+    "kwargs": {},
+    "output": [
+      "",
+      null
+    ]
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      "h100:0002"
+    ],
+    "kwargs": {},
+    "output": [
+      "h100",
+      2
+    ]
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      "h100 :2"
+    ],
+    "kwargs": {},
+    "output": [
+      "h100 ",
+      2
+    ]
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      "x:y:3"
+    ],
+    "kwargs": {},
+    "output": [
+      "x:y",
+      3
+    ]
+  },
+  {
+    "operation": "parse_gpu_spec",
+    "args": [
+      "h100: 2"
+    ],
+    "kwargs": {},
+    "error": "invalid gpu 'h100: 2'. use a name with an optional count, like h100:2"
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      []
+    ],
+    "kwargs": {},
+    "output": [
+      null,
+      []
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        ">=12.4"
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "12.4",
+      []
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        "12.4,12.8",
+        "13.0",
+        ""
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      null,
+      [
+        "12.4",
+        "12.8",
+        "13.0"
+      ]
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        "twelve"
+      ]
+    ],
+    "kwargs": {},
+    "error": "invalid cuda version 'twelve'. use 12.4, 12.4,12.8, or '>=12.4'"
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        ">=12.4",
+        "12.8"
+      ]
+    ],
+    "kwargs": {},
+    "error": "use either a cuda floor (>=) or exact versions, not both"
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        ">=12.4",
+        ">=12.10"
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "12.10",
+      []
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        ">=12.10",
+        ">=12.4"
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "12.10",
+      []
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        ">=0012.04",
+        ">=12.4"
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "0012.04",
+      []
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        "12.4",
+        "12.4"
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      null,
+      [
+        "12.4",
+        "12.4"
+      ]
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        " , , "
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      null,
+      []
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        ">= 12.4"
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "12.4",
+      []
+    ]
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        "12"
+      ]
+    ],
+    "kwargs": {},
+    "error": "invalid cuda version '12'. use 12.4, 12.4,12.8, or '>=12.4'"
+  },
+  {
+    "operation": "parse_cuda",
+    "args": [
+      [
+        "12.4.1"
+      ]
+    ],
+    "kwargs": {},
+    "error": "invalid cuda version '12.4.1'. use 12.4, 12.4,12.8, or '>=12.4'"
+  },
+  {
+    "operation": "endpoint_gpu_selection",
+    "args": [
+      [
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        }
+      ],
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      [
+        "ADA_80_PRO"
+      ],
+      [
+        "NVIDIA H100 80GB HBM3",
+        "NVIDIA H100 PCIe"
+      ]
+    ]
+  },
+  {
+    "operation": "endpoint_gpu_selection",
+    "args": [
+      [
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        }
+      ],
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      [
+        "ADA_80_PRO"
+      ],
+      []
+    ]
+  },
+  {
+    "operation": "endpoint_gpu_selection",
+    "args": [
+      [
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ],
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "A100 SXM 40GB is not offered on serverless"
+  },
+  {
+    "operation": "endpoint_gpu_selection",
+    "args": [
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        }
+      ],
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      [
+        "ADA_24"
+      ],
+      []
+    ]
+  },
+  {
+    "operation": "endpoint_gpu_selection",
+    "args": [
+      [],
+      [
+        {
+          "id": "NVIDIA GeForce RTX 4090",
+          "name": "RTX 4090",
+          "pool": "ADA_24"
+        },
+        {
+          "id": "NVIDIA H100 80GB HBM3",
+          "name": "H100 SXM",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 NVL",
+          "name": "H100 NVL",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA H100 PCIe",
+          "name": "H100 PCIe",
+          "pool": "ADA_80_PRO"
+        },
+        {
+          "id": "NVIDIA L4",
+          "name": "L4",
+          "pool": "AMPERE_24"
+        },
+        {
+          "id": "NVIDIA L40",
+          "name": "L40",
+          "pool": "ADA_48_PRO"
+        },
+        {
+          "id": "NVIDIA A100-SXM4-40GB",
+          "name": "A100 SXM 40GB",
+          "pool": null
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": " is not offered on serverless"
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "eu"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "EU-RO-1",
+      "EUR-IS-1"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "Europe"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "EU-RO-1",
+      "EUR-IS-1"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "north-america"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "US-TX-3",
+      "US-TX-4",
+      "CA-MTL-1"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "us"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "US-TX-3",
+      "US-TX-4"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "us-tx"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "US-TX-3",
+      "US-TX-4"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "eu_ro_1"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "EU-RO-1"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "ap",
+        "EU-RO-1",
+        "eu-ro"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "AP-JP-1",
+      "EU-RO-1"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "mars"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "unknown region 'mars'. use a region (eu, na, asia, europe, north-america), an id prefix like us or eu-ro, or a data center (AP-JP-1, CA-MTL-1, EU-RO-1, EUR-IS-1, US-TX-3, US-TX-4)"
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": []
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "na",
+        "us",
+        "asia"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "US-TX-3",
+      "US-TX-4",
+      "CA-MTL-1",
+      "AP-JP-1"
+    ]
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        ""
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "unknown region ''. use a region (eu, na, asia, europe, north-america), an id prefix like us or eu-ro, or a data center (AP-JP-1, CA-MTL-1, EU-RO-1, EUR-IS-1, US-TX-3, US-TX-4)"
+  },
+  {
+    "operation": "resolve_regions",
+    "args": [
+      [
+        "apac"
+      ],
+      [
+        {
+          "id": "EU-RO-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "EUR-IS-1",
+          "region": "EUROPE"
+        },
+        {
+          "id": "US-TX-3",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "US-TX-4",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "CA-MTL-1",
+          "region": "NORTH_AMERICA"
+        },
+        {
+          "id": "AP-JP-1",
+          "region": "ASIA"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      "AP-JP-1"
+    ]
+  },
+  {
+    "operation": "match_cpus",
+    "args": [
+      "CPU3",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "cpu3c",
+        "name": "Compute-Optimized",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu3g",
+        "name": "General Purpose",
+        "group": "CPU3"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_cpu",
+    "args": [
+      "CPU3",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "ambiguous cpu 'CPU3'. cpu flavors: cpu3c, cpu3g, cpu5c"
+  },
+  {
+    "operation": "match_cpus",
+    "args": [
+      "general purpose",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "cpu3g",
+        "name": "General Purpose",
+        "group": "CPU3"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_cpu",
+    "args": [
+      "general purpose",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": {
+      "id": "cpu3g",
+      "name": "General Purpose",
+      "group": "CPU3"
+    }
+  },
+  {
+    "operation": "match_cpus",
+    "args": [
+      "cpu5c",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "cpu5c",
+        "name": "Compute-Optimized",
+        "group": "CPU5"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_cpu",
+    "args": [
+      "cpu5c",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": {
+      "id": "cpu5c",
+      "name": "Compute-Optimized",
+      "group": "CPU5"
+    }
+  },
+  {
+    "operation": "match_cpus",
+    "args": [
+      "cpu9",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": []
+  },
+  {
+    "operation": "resolve_cpu",
+    "args": [
+      "cpu9",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "unknown cpu 'cpu9'. cpu flavors: cpu3c, cpu3g, cpu5c"
+  },
+  {
+    "operation": "match_cpus",
+    "args": [
+      "Compute Optimized",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "cpu3c",
+        "name": "Compute-Optimized",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu5c",
+        "name": "Compute-Optimized",
+        "group": "CPU5"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_cpu",
+    "args": [
+      "Compute Optimized",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "ambiguous cpu 'Compute Optimized'. cpu flavors: cpu3c, cpu3g, cpu5c"
+  },
+  {
+    "operation": "match_cpus",
+    "args": [
+      "",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": []
+  },
+  {
+    "operation": "resolve_cpu",
+    "args": [
+      "",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "error": "unknown cpu ''. cpu flavors: cpu3c, cpu3g, cpu5c"
+  },
+  {
+    "operation": "match_cpus",
+    "args": [
+      "  cpu3g  ",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": [
+      {
+        "id": "cpu3g",
+        "name": "General Purpose",
+        "group": "CPU3"
+      }
+    ]
+  },
+  {
+    "operation": "resolve_cpu",
+    "args": [
+      "  cpu3g  ",
+      [
+        {
+          "id": "cpu3c",
+          "name": "Compute-Optimized",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu3g",
+          "name": "General Purpose",
+          "group": "CPU3"
+        },
+        {
+          "id": "cpu5c",
+          "name": "Compute-Optimized",
+          "group": "CPU5"
+        }
+      ]
+    ],
+    "kwargs": {},
+    "output": {
+      "id": "cpu3g",
+      "name": "General Purpose",
+      "group": "CPU3"
+    }
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      null
+    ],
+    "kwargs": {},
+    "output": 0
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      "NONE"
+    ],
+    "kwargs": {},
+    "output": 0
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      "LOW"
+    ],
+    "kwargs": {},
+    "output": 1
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      "MEDIUM"
+    ],
+    "kwargs": {},
+    "output": 2
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      "HIGH"
+    ],
+    "kwargs": {},
+    "output": 3
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      "unknown"
+    ],
+    "kwargs": {},
+    "output": 0
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      "high"
+    ],
+    "kwargs": {},
+    "output": 0
+  },
+  {
+    "operation": "availability_rank",
+    "args": [
+      ""
+    ],
+    "kwargs": {},
+    "output": 0
+  },
+  {
+    "operation": "best_availability",
+    "args": [
+      []
+    ],
+    "kwargs": {},
+    "output": "NONE"
+  },
+  {
+    "operation": "best_availability",
+    "args": [
+      [
+        "LOW",
+        null,
+        "HIGH",
+        "MEDIUM"
+      ]
+    ],
+    "kwargs": {},
+    "output": "HIGH"
+  },
+  {
+    "operation": "best_availability",
+    "args": [
+      [
+        "unknown",
+        "NONE"
+      ]
+    ],
+    "kwargs": {},
+    "output": "unknown"
+  },
+  {
+    "operation": "best_availability",
+    "args": [
+      [
+        null,
+        "unknown"
+      ]
+    ],
+    "kwargs": {},
+    "output": "NONE"
+  },
+  {
+    "operation": "best_availability",
+    "args": [
+      [
+        "MEDIUM",
+        "MEDIUM"
+      ]
+    ],
+    "kwargs": {},
+    "output": "MEDIUM"
+  },
+  {
+    "operation": "list_gpus",
+    "args": [],
+    "kwargs": {},
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/gpus",
+      "params": {}
+    },
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      },
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      },
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      },
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "list_gpus",
+    "args": [],
+    "kwargs": {
+      "count": 2,
+      "min_cuda_version": "12.4"
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/gpus",
+      "params": {}
+    },
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      },
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      },
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      },
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "list_gpus",
+    "args": [],
+    "kwargs": {
+      "product": "POD",
+      "count": 2,
+      "cloud": "SECURE",
+      "cuda_versions": [
+        "12.4",
+        "12.8"
+      ]
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/gpus",
+      "params": {
+        "include": "AVAILABILITY",
+        "product": "POD",
+        "count": 2,
+        "cloud": "SECURE",
+        "cudaVersions": "12.4,12.8"
+      }
+    },
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      },
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      },
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      },
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "list_gpus",
+    "args": [],
+    "kwargs": {
+      "product": "SERVERLESS",
+      "cuda_versions": [],
+      "min_cuda_version": "12.4"
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/gpus",
+      "params": {
+        "include": "AVAILABILITY",
+        "product": "SERVERLESS",
+        "minCudaVersion": "12.4"
+      }
+    },
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      },
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      },
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      },
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "list_gpus",
+    "args": [],
+    "kwargs": {
+      "product": "",
+      "count": 2
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/gpus",
+      "params": {
+        "product": ""
+      }
+    },
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      },
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      },
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      },
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "list_gpus",
+    "args": [],
+    "kwargs": {
+      "product": "POD",
+      "count": 0,
+      "cloud": ""
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/gpus",
+      "params": {
+        "include": "AVAILABILITY",
+        "product": "POD",
+        "count": 0,
+        "cloud": ""
+      }
+    },
+    "output": [
+      {
+        "id": "NVIDIA GeForce RTX 4090",
+        "name": "RTX 4090",
+        "pool": "ADA_24"
+      },
+      {
+        "id": "NVIDIA H100 80GB HBM3",
+        "name": "H100 SXM",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 NVL",
+        "name": "H100 NVL",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA H100 PCIe",
+        "name": "H100 PCIe",
+        "pool": "ADA_80_PRO"
+      },
+      {
+        "id": "NVIDIA L4",
+        "name": "L4",
+        "pool": "AMPERE_24"
+      },
+      {
+        "id": "NVIDIA L40",
+        "name": "L40",
+        "pool": "ADA_48_PRO"
+      },
+      {
+        "id": "NVIDIA A100-SXM4-40GB",
+        "name": "A100 SXM 40GB",
+        "pool": null
+      }
+    ]
+  },
+  {
+    "operation": "list_cpus",
+    "args": [],
+    "kwargs": {},
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/cpus",
+      "params": {}
+    },
+    "output": [
+      {
+        "id": "cpu3c",
+        "name": "Compute-Optimized",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu3g",
+        "name": "General Purpose",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu5c",
+        "name": "Compute-Optimized",
+        "group": "CPU5"
+      }
+    ]
+  },
+  {
+    "operation": "list_cpus",
+    "args": [],
+    "kwargs": {
+      "product": "SERVERLESS",
+      "vcpu_count": 4
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/cpus",
+      "params": {
+        "include": "AVAILABILITY",
+        "product": "SERVERLESS",
+        "vcpuCount": 4
+      }
+    },
+    "output": [
+      {
+        "id": "cpu3c",
+        "name": "Compute-Optimized",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu3g",
+        "name": "General Purpose",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu5c",
+        "name": "Compute-Optimized",
+        "group": "CPU5"
+      }
+    ]
+  },
+  {
+    "operation": "list_cpus",
+    "args": [],
+    "kwargs": {
+      "vcpu_count": 4
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/cpus",
+      "params": {}
+    },
+    "output": [
+      {
+        "id": "cpu3c",
+        "name": "Compute-Optimized",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu3g",
+        "name": "General Purpose",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu5c",
+        "name": "Compute-Optimized",
+        "group": "CPU5"
+      }
+    ]
+  },
+  {
+    "operation": "list_cpus",
+    "args": [],
+    "kwargs": {
+      "product": ""
+    },
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/cpus",
+      "params": {
+        "product": ""
+      }
+    },
+    "output": [
+      {
+        "id": "cpu3c",
+        "name": "Compute-Optimized",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu3g",
+        "name": "General Purpose",
+        "group": "CPU3"
+      },
+      {
+        "id": "cpu5c",
+        "name": "Compute-Optimized",
+        "group": "CPU5"
+      }
+    ]
+  },
+  {
+    "operation": "list_datacenters",
+    "args": [
+      null
+    ],
+    "kwargs": {},
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/datacenters",
+      "params": {}
+    },
+    "output": [
+      {
+        "id": "EU-RO-1",
+        "region": "EUROPE"
+      },
+      {
+        "id": "EUR-IS-1",
+        "region": "EUROPE"
+      },
+      {
+        "id": "US-TX-3",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "US-TX-4",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "CA-MTL-1",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "AP-JP-1",
+        "region": "ASIA"
+      }
+    ]
+  },
+  {
+    "operation": "list_datacenters",
+    "args": [
+      []
+    ],
+    "kwargs": {},
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/datacenters",
+      "params": {}
+    },
+    "output": [
+      {
+        "id": "EU-RO-1",
+        "region": "EUROPE"
+      },
+      {
+        "id": "EUR-IS-1",
+        "region": "EUROPE"
+      },
+      {
+        "id": "US-TX-3",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "US-TX-4",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "CA-MTL-1",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "AP-JP-1",
+        "region": "ASIA"
+      }
+    ]
+  },
+  {
+    "operation": "list_datacenters",
+    "args": [
+      [
+        "STOCK",
+        "PRICES"
+      ]
+    ],
+    "kwargs": {},
+    "request": {
+      "method": "GET",
+      "path": "/v2/catalog/datacenters",
+      "params": {
+        "include": "STOCK,PRICES"
+      }
+    },
+    "output": [
+      {
+        "id": "EU-RO-1",
+        "region": "EUROPE"
+      },
+      {
+        "id": "EUR-IS-1",
+        "region": "EUROPE"
+      },
+      {
+        "id": "US-TX-3",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "US-TX-4",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "CA-MTL-1",
+        "region": "NORTH_AMERICA"
+      },
+      {
+        "id": "AP-JP-1",
+        "region": "ASIA"
+      }
+    ]
+  }
+]

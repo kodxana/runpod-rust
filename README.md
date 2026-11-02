@@ -196,6 +196,12 @@ policy/filesystem failures propagate. The default single-file operation does not
 `job_id` is a trusted path and ZIP expansion is unbounded, matching Python; see the
 [porting notes](PORTING.md#file-downloads-and-zip-extraction).
 
+GPU/CPU/region selection is available through `runpod::compute`. Fetch live records
+with `Client::list_catalog_gpus`, `list_catalog_cpus`, or `list_catalog_datacenters`,
+then use `resolve_gpus`, `resolve_cpu`, or `resolve_regions`. Blocking clients expose
+the same catalog methods. See [examples/compute.rs](examples/compute.rs) and the
+[compute porting notes](PORTING.md#compute-selection-and-catalog-requests).
+
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults
 use `/runpod-volume` and `RUNPOD_ENDPOINT_ID`. `hydrate` restores files, `sync_inline`

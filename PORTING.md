@@ -40,6 +40,7 @@ by Python; the complete port remains in progress.
 | `_binary_helpers.get_binary_path`, serverless/early eligibility, environment flags | `serverless::health::{get_binary_path, is_serverless_environment, is_early_check_eligible}` and private flag helper |
 | `rp_validator.validate` | `utils::validator::validate` with typed ordered rules |
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
+| `rp_cli.compute` matching, parsing, catalog requests | `compute` helpers and `Client::list_catalog_*` / `blocking::Client::list_catalog_*` |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -78,9 +79,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 382 implemented symbols, 282 adapted symbols, and 688 upstream
+This milestone maps 390 implemented symbols, 291 adapted symbols, and 705 upstream
 test functions; other entries remain pending.
-The test mapping includes 630 ported tests and 58 explicitly adapted tests.
+The test mapping includes 647 ported tests and 58 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1213,7 +1214,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **1,470 SDK differential cases**.
+additional runtime fixtures, separate from the **1,581 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1255,7 +1256,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 1,470 differential cases.
+separate from the SDK symbol inventory and its 1,581 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1331,6 +1332,43 @@ was used. The ledger maps all 48 module symbols as native adaptations and 84 sou
 functions; 13 source tests remain pending, including additional filesystem fault injection,
 interrupted-wait behavior, and environment/path-type cases. See
 [reviews/volume-cache.md](reviews/volume-cache.md) for validation evidence.
+
+## Compute selection and catalog requests
+
+`compute` ports the helpers shared by Python's catalog, pod, and endpoint commands.
+`Client::list_catalog_gpus`, `list_catalog_cpus`, and `list_catalog_datacenters` query
+REST v2 using owned credentials and service URLs; matching blocking-client methods
+use the existing owned runtime. `GpuCatalogOptions` groups the optional GPU filters.
+Without a nonempty product, stock/count/cloud/CUDA filters are omitted. An explicitly
+empty product still sends `product=`, and empty include/CUDA lists are omitted.
+Raw JSON records preserve unknown fields, null values, and absent fields for CLI output.
+
+GPU matching prefers exact IDs/names, then pools, token inclusion, and compact ID
+substrings. Matching preserves catalog order; vendor noise tokens are ignored only
+at the token stage. Endpoint selection deduplicates pools in first-seen order and
+excludes unselected members of those pools. CPU resolution distinguishes unknown
+and ambiguous queries. Region aliases, ID-prefix matching, ordered deduplication,
+and error messages listing known choices are retained. Unknown availability labels
+rank zero; ties preserve the first label, including an unknown nonempty label.
+Empty GPU/CPU queries retain Python's matches against absent/empty optional fields.
+
+GPU counts and CUDA components use checked `u64` ASCII parsing. Unicode digits,
+Python's unbounded integers, and its additional control-character whitespace are
+native adaptations rather than runtime emulation. Ordinary Unicode text uses Rust's
+case conversion and whitespace rules. CUDA floors compare numeric major/minor values;
+equal floors keep the first spelling and exact versions retain duplicates and order.
+Mixed floor/exact filters still fail. Resolution errors have a distinct typed
+`Error::Compute(ResolutionError)`; malformed JSON records produce `InvalidResponse`
+errors rather than Python lookup/type exceptions. Record validation can occur earlier
+than Python's short-circuit matching on malformed data.
+
+The original compute tests pass **35 parameterized cases**. Seventeen named Rust tests
+map all source test functions, with four additional tests covering malformed records,
+numeric limits, API error causes, blocking calls, authentication, and unknown fields.
+`tools/compute_fixtures.py` records **111 actual Python cases**, bringing the SDK total
+to **1,581**. All requests are tested offline. See [reviews/compute.md](reviews/compute.md)
+and [examples/compute.rs](examples/compute.rs). The CLI command/parser/UI layer remains
+pending; these helpers provide its compute-selection behavior.
 
 ## Remaining work
 

@@ -57,6 +57,36 @@ impl Client {
         self.runtime
             .block_on(self.inner.run_graphql_query(query, variables))
     }
+    /// Lists GPU catalog records using this client's owned runtime.
+    ///
+    /// # Errors
+    /// Returns transport, API, or invalid-response errors.
+    pub fn list_catalog_gpus(
+        &self,
+        options: &crate::compute::GpuCatalogOptions,
+    ) -> Result<Vec<Value>> {
+        self.runtime.block_on(self.inner.list_catalog_gpus(options))
+    }
+    /// Lists CPU flavors with optional product availability and vCPU count.
+    ///
+    /// # Errors
+    /// Returns transport, API, or invalid-response errors.
+    pub fn list_catalog_cpus(
+        &self,
+        product: Option<&str>,
+        vcpu_count: Option<u64>,
+    ) -> Result<Vec<Value>> {
+        self.runtime
+            .block_on(self.inner.list_catalog_cpus(product, vcpu_count))
+    }
+    /// Lists data centers with optional include flags.
+    ///
+    /// # Errors
+    /// Returns transport, API, or invalid-response errors.
+    pub fn list_catalog_datacenters(&self, include: &[&str]) -> Result<Vec<Value>> {
+        self.runtime
+            .block_on(self.inner.list_catalog_datacenters(include))
+    }
     /// Creates a blocking endpoint sharing the connection pool.
     pub fn endpoint(&self, id: impl Into<String>) -> Endpoint {
         Endpoint {

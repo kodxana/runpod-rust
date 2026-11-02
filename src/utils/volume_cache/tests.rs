@@ -2,10 +2,11 @@ use super::*;
 use std::fs::{File, FileTimes};
 
 struct Fixture {
-    root: tempfile::TempDir,
     cache: VolumeCache,
     local: PathBuf,
     volume: PathBuf,
+    // Keep the directory alive until the cache has joined background syncs.
+    root: tempfile::TempDir,
 }
 impl Fixture {
     fn new() -> Self {

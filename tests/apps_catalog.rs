@@ -76,21 +76,46 @@ async fn test_failed_catalog_retries_after_cooldown() {
 #[tokio::test]
 async fn test_catalog_wait_respects_provisioning_deadline() {
     let server = MockServer::start().await;
+    let received = std::sync::Arc::new(tokio::sync::Notify::new());
+    let signal = received.clone();
+    Mock::given(path("/v2/catalog/gpus"))
+        .respond_with(move |_: &wiremock::Request| {
+            signal.notify_one();
+            ResponseTemplate::new(200)
+                .set_body_json(json!({"gpus":[{"id":"L4","pool":"AMPERE_24"}]}))
+                .set_delay(Duration::from_secs(3600))
+        })
+        .up_to_n_times(1)
+        .expect(1)
+        .mount(&server)
+        .await;
     Mock::given(path("/v2/catalog/gpus"))
         .respond_with(
             ResponseTemplate::new(200)
-                .set_body_json(json!({"gpus":[{"id":"L4","pool":"AMPERE_24"}]}))
-                .set_delay(Duration::from_millis(80)),
+                .set_body_json(json!({"gpus":[{"id":"L4","pool":"AMPERE_24"}]})),
         )
-        .expect(2)
+        .expect(1)
         .mount(&server)
         .await;
     let c = client(&server, "key");
-    assert!(
-        tokio::time::timeout(Duration::from_millis(20), c.gpu_pool_members())
-            .await
-            .is_err()
-    );
+    {
+        let first = c.gpu_pool_members();
+        tokio::pin!(first);
+        // Start the deadline only after the request reached the server. Slow CI
+        // scheduling must not turn this into cancellation before any request.
+        tokio::time::timeout(Duration::from_secs(5), async {
+            tokio::select! {
+                () = received.notified() => {},
+                result = &mut first => panic!("catalog completed before cancellation: {result:?}"),
+            }
+        })
+        .await
+        .unwrap();
+        tokio::time::pause();
+        let result = tokio::time::timeout(Duration::from_millis(20), &mut first).await;
+        tokio::time::resume();
+        assert!(result.is_err());
+    }
     // Cancellation must release the in-flight lock without caching a failure.
     assert!(c.gpu_pool_members().await.unwrap()["AMPERE_24"].contains("L4"));
 }

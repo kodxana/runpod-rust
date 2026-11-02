@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// A hardware, region, or CUDA selection did not resolve.
+    #[error(transparent)]
+    Compute(#[from] crate::compute::ResolutionError),
     /// A worker startup hook failed or exhausted its deadline, retaining the named cause.
     #[error(transparent)]
     Prestart(#[from] crate::serverless::PrestartError),

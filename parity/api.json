@@ -6767,8 +6767,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::ResolutionError / Error::Compute",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6777,8 +6778,9 @@
       "kind": "function",
       "public": false,
       "signature": "**values: Any",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::product_params / Client::list_catalog_*",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6787,8 +6789,9 @@
       "kind": "function",
       "public": true,
       "signature": "product: Optional[str]=None, count: Optional[int]=None, cloud: Optional[str]=None, cuda_versions: Optional[list[str]]=None, min_cuda_version: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "Client::list_catalog_gpus / blocking::Client::list_catalog_gpus",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6797,8 +6800,9 @@
       "kind": "function",
       "public": true,
       "signature": "product: Optional[str]=None, vcpu_count: Optional[int]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "Client::list_catalog_cpus / blocking::Client::list_catalog_cpus",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6807,8 +6811,9 @@
       "kind": "function",
       "public": true,
       "signature": "include: Optional[list[str]]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "Client::list_catalog_datacenters / blocking::Client::list_catalog_datacenters",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6817,8 +6822,9 @@
       "kind": "function",
       "public": false,
       "signature": "text: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::tokens",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6827,8 +6833,9 @@
       "kind": "function",
       "public": false,
       "signature": "text: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::compact",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6837,8 +6844,9 @@
       "kind": "function",
       "public": true,
       "signature": "query: str, gpus: Iterable[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::match_gpus",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6847,8 +6855,9 @@
       "kind": "function",
       "public": true,
       "signature": "query: str, gpus: Iterable[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::resolve_gpus",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6857,8 +6866,9 @@
       "kind": "function",
       "public": true,
       "signature": "value: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::parse_gpu_spec",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6867,8 +6877,9 @@
       "kind": "function",
       "public": true,
       "signature": "values: Iterable[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::parse_cuda",
+      "status": "adapted",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6877,8 +6888,9 @@
       "kind": "function",
       "public": true,
       "signature": "matches: Iterable[dict], gpus: Iterable[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::endpoint_gpu_selection",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6887,8 +6899,9 @@
       "kind": "function",
       "public": true,
       "signature": "values: Iterable[str], datacenters: Iterable[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::resolve_regions",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6897,8 +6910,9 @@
       "kind": "function",
       "public": true,
       "signature": "query: str, cpus: Iterable[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::match_cpus",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6907,8 +6921,9 @@
       "kind": "function",
       "public": true,
       "signature": "query: str, cpus: Iterable[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::resolve_cpu",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6917,8 +6932,9 @@
       "kind": "function",
       "public": true,
       "signature": "level: Optional[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::availability_rank",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/compute.py",
@@ -6927,8 +6943,9 @@
       "kind": "function",
       "public": true,
       "signature": "levels: Iterable[Optional[str]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "compute::best_availability",
+      "status": "implemented",
+      "note": "Owned clients and typed errors replace globals/exceptions; JSON catalog fields remain intact. ASCII counts/version components are checked u64 values. Native Unicode whitespace follows Rust. See reviews/compute.md and PORTING.md."
     },
     {
       "file": "runpod/rp_cli/console.py",
