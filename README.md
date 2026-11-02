@@ -158,11 +158,26 @@ before loading application declarations. `load_queue` and `load_api` select the 
 matching handle from an explicit compiled-module callback; start it with the queue or
 HTTP methods above. `load_task` requires exactly one matching app/task/qualified name
 and awaits its init hook. The callback receives owned-context mount bindings, which
-handlers can clone for their lifetime. Task HTTP serving remains in progress.
+handlers can clone for their lifetime.
 See [examples/deployed_queue.rs](examples/deployed_queue.rs) for an already-unpacked
 manifest selecting module `deployed_queue`, resource `hello`, with a network mount named
 `data`. Set `RUNPOD_APP_DIR`, `FLASH_RESOURCE_NAME` and `RUNPOD_MOUNTS` for the worker;
 the example also supports compiled metadata discovery.
+
+`apps::task_runner::start` hosts a deployed task on `RUNPOD_TASK_PORT` (default 8080).
+Pass an initializer that calls `DeployedContext::load_task`; `/ping` reports readiness
+while initialization runs. `/execute`, `/submit`, `/result` and `/timeout` require
+`Authorization: Bearer $RUNPOD_TASK_TOKEN`. One execution is accepted per process, and
+request timeouts can only shorten its deadline. Initialization/execution caps and idle
+cleanup use the runtime environment settings. Pod deletion requires acknowledgement
+using the pod-scoped `RUNPOD_API_KEY` and `RUNPOD_POD_ID` before the process exits.
+See [examples/deployed_task.rs](examples/deployed_task.rs).
+
+For embedded hosting, `TaskRunner::serve` takes a listener, initializer, deletion callback
+and shutdown future; it returns `TaskExit` instead of exiting the process. Response stdout
+uses `serverless::capture::stdout()` or `TeeWriter`, including synchronous functions and
+streams. Ordinary `println!` is not intercepted. Native artifact packaging/deployment and
+live-source dispatch remain in progress.
 
 For synchronous registered functions/APIs, construct `blocking::apps::App` outside Tokio,
 or wrap existing declarations with `::from_app`. Register resources with the same inputs.

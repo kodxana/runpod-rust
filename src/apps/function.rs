@@ -74,8 +74,13 @@ impl NativeFunction {
         match &self.body {
             FunctionBody::Sync(function) => {
                 let function = function.clone();
+                let capture = crate::serverless::capture::Capture::current();
                 Box::pin(futures_util::stream::once(async move {
-                    tokio::task::spawn_blocking(move || function(args)).await?
+                    tokio::task::spawn_blocking(move || match capture {
+                        Some(capture) => capture.scope_sync(|| function(args)),
+                        None => function(args),
+                    })
+                    .await?
                 }))
             }
             FunctionBody::Async(function) => Box::pin(futures_util::stream::once(function(args))),

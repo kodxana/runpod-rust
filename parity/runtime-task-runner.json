@@ -1,0 +1,54 @@
+{
+  "upstream": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "scope": "Deployed task HTTP execution, lifecycle, stdout and pod deletion; separate from SDK inventory",
+  "source_files": ["src/runpod_sdk_runtime/task/runner.py", "src/runpod_sdk_runtime/task/deployed.py", "src/runpod_sdk_runtime/executor.py"],
+  "fixtures": "tests/fixtures/task_runner.json",
+  "fixture_cases": 48,
+  "fixture_sha256": "bcfd3100b0a1828ff2f6b7f579bea017abaefeb9b6ad5094f9a3949dee90f89d",
+  "native_tests": ["src/apps/task_runner/tests.rs", "tests/task_runner.rs", "tests/task_runner_lifecycle.rs", "tests/task_runner_process.rs", "tests/task_termination.rs"],
+  "test_mapping": {
+    "test_deployed_task.py::test_registered_task_submit_result_and_single_shot": "test_registered_task_submit_result_and_single_shot",
+    "test_deployed_task.py::test_registered_task_errors_preserve_stdout": "test_registered_task_errors_preserve_stdout",
+    "test_deployed_task.py::test_production_rejects_request_overrides": "test_production_rejects_request_overrides",
+    "test_deployed_task.py::test_production_rejects_malformed_body": "test_production_rejects_malformed_body",
+    "test_deployed_task.py::test_production_readiness_waits_for_init": "test_production_readiness_waits_for_init",
+    "test_deployed_task.py::test_init_failure_has_task_error_surface": "test_init_failure_has_task_error_surface",
+    "test_deployed_task.py::test_invalid_configured_cap_fails_readiness": "test_invalid_configured_cap_fails_readiness",
+    "test_deployed_task.py::test_no_policy_cap_does_not_add_deadline": "test_no_policy_cap_does_not_add_deadline",
+    "test_deployed_task.py::test_production_self_termination_uses_pod_auth": "test_production_self_termination_uses_pod_auth",
+    "test_deployed_task.py::test_registered_generators_aggregate_json": "test_registered_generators_aggregate_json",
+    "test_deployed_task.py::test_real_bootstrap_archive_http_and_deadline_cleanup": "test_real_bootstrap_archive_http_and_deadline_cleanup",
+    "test_deployed_task.py::test_idle_watchdog_waits_for_initialization": "test_idle_watchdog_waits_for_initialization",
+    "test_deployed_task.py::test_invalid_initialization_timeout_fails_before_loading": "test_invalid_initialization_timeout_fails_before_loading",
+    "test_deployed_task.py::test_readiness_error_details_require_authenticated_route": "test_readiness_error_details_require_authenticated_route",
+    "test_task_runner_http.py::test_ping_unauthenticated": "test_ping_unauthenticated",
+    "test_task_runner_http.py::test_execute_requires_auth": "test_execute_requires_auth",
+    "test_task_runner_http.py::test_unknown_path_404": "test_unknown_path_404",
+    "test_task_runner_http.py::test_invalid_timeout_is_rejected": "test_invalid_timeout_is_rejected",
+    "test_task_runner_http.py::test_timeout_requires_auth": "test_timeout_requires_auth",
+    "test_task_runner_http.py::test_timeout_cannot_be_extended_by_requests": "test_timeout_cannot_be_extended_by_requests",
+    "test_task_runner_http.py::test_deletion_requires_acknowledgment_and_recovers": "test_deletion_requires_acknowledgment_and_recovers"
+  },
+  "source_validation": {
+    "unchanged_passed_cases": 144,
+    "failed_cases": {
+      "test_task_runner_http.py::test_mounts_survive_threaded_execution": "Windows pathlib renders backslashes instead of the expected POSIX strings",
+      "test_deployed_task.py::test_real_bootstrap_archive_http_and_deadline_cleanup": "Source subprocess exits zero after extraction before opening the listener; native subprocess counterpart passes"
+    }
+  },
+  "native_adaptations": [
+    "Owned deployed runner and explicit initializer replace globals and live-source fallback",
+    "NativeFunction returns JSON values or typed Rust errors, without Python traceback/non-JSON objects",
+    "SDK capture writers replace process stdout interception; synchronous calls propagate capture",
+    "Owned job futures and sockets are cancelled; caller-owned Tokio tasks require caller-owned cleanup",
+    "serve returns TaskExit; process start exits only after acknowledged pod deletion",
+    "Duration/Instant limits and strict JSON parsing replace exotic Python float inputs",
+    "Native HTTP framing, unsupported-method body and JSON whitespace"
+  ],
+  "pending_contracts": [
+    "Live task request source resolution, dependency installation and pickle execution",
+    "Native binary artifact packaging and automatic platform launch",
+    "Full bootstrap dispatch, dependency verification and queue/API bootstrap error responders"
+  ]
+}

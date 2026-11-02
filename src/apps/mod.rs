@@ -42,6 +42,7 @@ pub mod shim;
 pub mod spec;
 mod stubs;
 pub mod targets;
+pub mod task_runner;
 pub mod tasks;
 pub mod volume;
 mod worker;

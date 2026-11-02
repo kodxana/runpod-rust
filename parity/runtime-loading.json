@@ -39,7 +39,7 @@
   "pending_contracts": [
     "Native binary artifact packaging and automatic launch",
     "Live source dispatch and runtime dependency setup",
-    "Deployed task HTTP transport, execution policy and lifecycle",
+    "Live task source dispatch (deployed HTTP/policy/lifecycle are tracked in runtime-task-runner.json)",
     "Full bootstrap orchestration and error responders"
   ]
 }

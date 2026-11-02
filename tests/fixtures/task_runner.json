@@ -1,0 +1,799 @@
+{
+  "repository": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "cases": [
+    {
+      "name": "execute JSON",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"args\": [42], \"kwargs\": {\"name\": \"x\"}}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "success": true,
+        "stdout": "",
+        "json_result": {
+          "args": [
+            42
+          ],
+          "kwargs": {
+            "name": "x"
+          }
+        }
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "execute defaults",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "success": true,
+        "stdout": "",
+        "json_result": {
+          "args": [],
+          "kwargs": {}
+        }
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "unauthorized /execute",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{}",
+      "token": "wrong",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 401,
+      "output": {
+        "error": "unauthorized"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "unauthorized /submit",
+      "path": "/submit",
+      "method": "POST",
+      "raw": "{}",
+      "token": "wrong",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 401,
+      "output": {
+        "error": "unauthorized"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "unauthorized /timeout",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{}",
+      "token": "wrong",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 401,
+      "output": {
+        "error": "unauthorized"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "unauthorized /unknown",
+      "path": "/unknown",
+      "method": "POST",
+      "raw": "{}",
+      "token": "wrong",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 401,
+      "output": {
+        "error": "unauthorized"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "ready GET /ping",
+      "path": "/ping",
+      "method": "GET",
+      "raw": "{}",
+      "token": null,
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "ready": true
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "ready GET /result",
+      "path": "/result",
+      "method": "GET",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "status": "NONE",
+        "response": null
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "ready GET /unknown",
+      "path": "/unknown",
+      "method": "GET",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 404,
+      "output": {
+        "error": "not found"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "ready POST",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "timeout": null
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "initializing GET /ping",
+      "path": "/ping",
+      "method": "GET",
+      "raw": "{}",
+      "token": null,
+      "phase": "initializing",
+      "job": "NONE",
+      "inline": false,
+      "status": 503,
+      "output": {
+        "ready": false
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "initializing GET /result",
+      "path": "/result",
+      "method": "GET",
+      "raw": "{}",
+      "token": "token",
+      "phase": "initializing",
+      "job": "NONE",
+      "inline": false,
+      "status": 503,
+      "output": {
+        "ready": false
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "initializing GET /unknown",
+      "path": "/unknown",
+      "method": "GET",
+      "raw": "{}",
+      "token": "token",
+      "phase": "initializing",
+      "job": "NONE",
+      "inline": false,
+      "status": 404,
+      "output": {
+        "error": "not found"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "initializing POST",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "initializing",
+      "job": "NONE",
+      "inline": false,
+      "status": 503,
+      "output": {
+        "ready": false
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "failed GET /ping",
+      "path": "/ping",
+      "method": "GET",
+      "raw": "{}",
+      "token": null,
+      "phase": "failed",
+      "job": "NONE",
+      "inline": false,
+      "status": 500,
+      "output": {
+        "ready": false,
+        "error_type": "BootstrapError"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "failed GET /result",
+      "path": "/result",
+      "method": "GET",
+      "raw": "{}",
+      "token": "token",
+      "phase": "failed",
+      "job": "NONE",
+      "inline": false,
+      "status": 500,
+      "output": {
+        "ready": false,
+        "error_type": "BootstrapError",
+        "error_message": "private failure"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "failed GET /unknown",
+      "path": "/unknown",
+      "method": "GET",
+      "raw": "{}",
+      "token": "token",
+      "phase": "failed",
+      "job": "NONE",
+      "inline": false,
+      "status": 404,
+      "output": {
+        "error": "not found"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "failed POST",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "failed",
+      "job": "NONE",
+      "inline": false,
+      "status": 500,
+      "output": {
+        "ready": false,
+        "error_type": "BootstrapError",
+        "error_message": "private failure"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "query does not match",
+      "path": "/ping?x=1",
+      "method": "GET",
+      "raw": "{}",
+      "token": null,
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 404,
+      "output": {
+        "error": "not found"
+      },
+      "touched": false,
+      "deadline": false
+    },
+    {
+      "name": "POST unknown",
+      "path": "/unknown",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 404,
+      "output": {
+        "error": "not found"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "nonobject []",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "[]",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "invalid request"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "nonobject None",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "null",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "invalid request"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "nonobject 'text'",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "\"text\"",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "invalid request"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "nonobject 4",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "4",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "invalid request"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "bad JSON",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{bad",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "invalid request"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "empty body",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "success": true,
+        "stdout": "",
+        "json_result": {
+          "args": [],
+          "kwargs": {}
+        }
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"function_code\": \"bad\"}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"function_code\": \"bad\"}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "deployed tasks accept only json args, kwargs and timeout"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"function_name\": \"other\"}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"function_name\": \"other\"}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "deployed tasks accept only json args, kwargs and timeout"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"dependencies\": []}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"dependencies\": []}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "deployed tasks accept only json args, kwargs and timeout"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"mounts\": []}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"mounts\": []}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "deployed tasks accept only json args, kwargs and timeout"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"serialization_format\": \"cloudpickle\"}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"serialization_format\": \"cloudpickle\"}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "deployed tasks require json serialization"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"args\": null}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"args\": null}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "args must be a json array"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"args\": {}}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"args\": {}}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "args must be a json array"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"kwargs\": null}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"kwargs\": null}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "kwargs must be a json object"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "override {\"kwargs\": []}",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{\"kwargs\": []}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "kwargs must be a json object"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "timeout -1",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{\"timeout\": -1}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "timeout must be a finite non-negative number"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "timeout True",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{\"timeout\": true}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "timeout must be a finite non-negative number"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "timeout '60'",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{\"timeout\": \"60\"}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "timeout must be a finite non-negative number"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "timeout None",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{\"timeout\": null}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "timeout": null
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "timeout 0",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{\"timeout\": 0}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "timeout": 0
+      },
+      "touched": true,
+      "deadline": true
+    },
+    {
+      "name": "timeout 2.5",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{\"timeout\": 2.5}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 200,
+      "output": {
+        "timeout": 2.5
+      },
+      "touched": true,
+      "deadline": true
+    },
+    {
+      "name": "timeout rejects args",
+      "path": "/timeout",
+      "method": "POST",
+      "raw": "{\"args\": []}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": false,
+      "status": 400,
+      "output": {
+        "error": "deployed tasks accept only json args, kwargs and timeout"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "/execute conflict DONEFalse",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "DONE",
+      "inline": false,
+      "status": 409,
+      "output": {
+        "error": "this task has already been submitted"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "/execute conflict RUNNINGFalse",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "RUNNING",
+      "inline": false,
+      "status": 409,
+      "output": {
+        "error": "this task has already been submitted"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "/execute conflict NONETrue",
+      "path": "/execute",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": true,
+      "status": 409,
+      "output": {
+        "error": "this task has already been submitted"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "/submit conflict DONEFalse",
+      "path": "/submit",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "DONE",
+      "inline": false,
+      "status": 409,
+      "output": {
+        "error": "a job is already running"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "/submit conflict RUNNINGFalse",
+      "path": "/submit",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "RUNNING",
+      "inline": false,
+      "status": 409,
+      "output": {
+        "error": "a job is already running"
+      },
+      "touched": true,
+      "deadline": false
+    },
+    {
+      "name": "/submit conflict NONETrue",
+      "path": "/submit",
+      "method": "POST",
+      "raw": "{}",
+      "token": "token",
+      "phase": "ready",
+      "job": "NONE",
+      "inline": true,
+      "status": 409,
+      "output": {
+        "error": "a job is already running"
+      },
+      "touched": true,
+      "deadline": false
+    }
+  ]
+}

@@ -13,9 +13,18 @@ tokio::task_local! {
 
 /// Shared output tail whose scopes follow future polling rather than executor threads.
 /// Output must use [`TeeWriter`]; ordinary `println!` and external process output are not intercepted.
-#[derive(Clone, Default)]
+#[derive(Clone)]
 pub struct Capture {
     buffer: Arc<Mutex<RingBuffer>>,
+    include_stderr: bool,
+}
+impl Default for Capture {
+    fn default() -> Self {
+        Self {
+            buffer: Arc::new(Mutex::new(RingBuffer::default())),
+            include_stderr: true,
+        }
+    }
 }
 
 impl fmt::Debug for Capture {
@@ -25,6 +34,12 @@ impl fmt::Debug for Capture {
 }
 
 impl Capture {
+    pub(crate) fn task_stdout() -> Self {
+        Self {
+            buffer: Arc::new(Mutex::new(RingBuffer::new(0))),
+            include_stderr: false,
+        }
+    }
     /// Create an empty shared buffer with the default captured-character limit.
     pub fn new() -> Self {
         Self::default()
@@ -77,21 +92,36 @@ pub fn paused_sync<T>(call: impl FnOnce() -> T) -> T {
 #[derive(Debug)]
 pub struct TeeWriter<W> {
     inner: W,
+    stderr: bool,
 }
 
 impl<W: io::Write> TeeWriter<W> {
     /// Wrap a destination without installing or changing process-wide output handles.
     pub fn new(inner: W) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            stderr: false,
+        }
     }
 
     /// Forward all text, then capture it, returning the number of Unicode scalar values written.
     ///
     /// # Errors
     /// Returns the destination's I/O error unchanged; a failed write is not mirrored.
+    /// Deployed task stdout instead retains text and ignores failed console writes/flushes,
+    /// matching its response tee. Stderr keeps the normal writer contract.
     pub fn write_text(&mut self, text: &str) -> io::Result<usize> {
+        let captured = Capture::current().filter(|capture| !self.stderr || capture.include_stderr);
+        if let Some(capture) = &captured
+            && !capture.include_stderr
+        {
+            capture.record(text);
+            let _ = self.inner.write_all(text.as_bytes());
+            let _ = self.inner.flush();
+            return Ok(text.chars().count());
+        }
         self.inner.write_all(text.as_bytes())?;
-        if let Some(captured) = Capture::current() {
+        if let Some(captured) = captured {
             captured.record(text);
         }
         Ok(text.chars().count())
@@ -143,7 +173,10 @@ pub fn stdout() -> TeeWriter<io::Stdout> {
 
 /// Open a text writer forwarding to standard error and the active capture scope.
 pub fn stderr() -> TeeWriter<io::Stderr> {
-    TeeWriter::new(io::stderr())
+    TeeWriter {
+        inner: io::stderr(),
+        stderr: true,
+    }
 }
 
 /// Maximum number of Unicode scalar values retained in captured output by default.

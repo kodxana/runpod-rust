@@ -2172,7 +2172,8 @@ before the callback. Exactly one task handle must match name, kind, owning app a
 name. Aliases of one application instance deduplicate; separate instances with identical
 names are ambiguous. No hook runs after missing/ambiguous selection. Task initialization
 is awaited on the caller's Tokio runtime and its typed failure propagates unchanged.
-Task HTTP serving, execution policy and lifecycle orchestration remain pending.
+The subsequent task runner milestone covers deployed HTTP serving, timeout policy and
+pod-deletion acknowledgement.
 
 Missing `RUNPOD_MOUNTS` means an empty array, while an explicitly empty value fails JSON
 parsing. Malformed JSON retains its native cause. Record/path validation and reference/ID
@@ -2201,6 +2202,91 @@ gates loading and retains usable state; native registration/init IO failures kee
 This runtime milestone does not inflate SDK inventory coverage: **818/1,135 symbols (72.1%)**,
 **928/1,659 source test functions**, and **2,328 SDK differential fixtures**. See the
 [Rust review](reviews/apps-runtime-loading.md) for final validation results.
+
+## Deployed task HTTP runner
+
+`apps::task_runner` ports deployed task execution from sdk-runtime
+`14f70227008c1ec317e3fe1865a4688b14f5d432`. `TaskRunner` owns token, policy and state;
+`serve` accepts a listener, task initializer, deletion callback and shutdown future.
+The process-level `start` reads worker settings, binds port 8080 by default, loads the
+pod-scoped deletion client and exits only after acknowledged deletion. It supports the
+compiled manifest loader; native artifact build/launch orchestration remains pending.
+
+| Source runtime contract | Native counterpart |
+| --- | --- |
+| `Handler.do_GET`, `do_POST`, auth/readiness/request helpers | task runner HTTP dispatch |
+| `deployed.validate_request`, `deployed.execute` | strict JSON validation and registered native execution |
+| `_configured_timeout`, initialization/readiness in `main` | `TaskRunner::from_env/from_values`, `serve` |
+| `_set_timeout`, `_start_execution`, `_watchdog`, idle/contact state | owned deadline/contact state and watchdog |
+| `_terminate_self` | `PodTermination::terminate` |
+| runner process `main` | `task_runner::start` with an explicit native initializer |
+| executor stdout tee and prepared-result aggregation | task-scoped `Capture`, native sync/async/stream functions |
+
+Readiness is public; error details require an authenticated route. Authenticated POSTs
+touch contact before route/body validation, and `/result` polling touches contact; `/ping`
+and unknown GETs do not. Query strings remain part of exact route matching. The runner
+rejects source, dependency, mount and serializer overrides, non-object bodies and invalid
+args/kwargs. No content-type header is required and an empty body means an empty object.
+
+An accepted execution reserves the sole slot before user code starts. `/submit` returns
+RUNNING and retains the eventual response; `/execute` waits for the response, then leaves
+DONE with a null `/result` response. While inline work runs, `/result` remains NONE but
+further submissions conflict. Client disconnects do not cancel accepted work. Synchronous,
+asynchronous and streaming functions execute natively; streams aggregate to one JSON result.
+Ordinary `Result` failures use a failure response and retain captured stdout.
+
+Initialization/execution caps must be positive. Invalid configured caps fail readiness
+before polling the initializer. An initialization deadline is independent of the execution
+cap, which starts only at the first accepted call. Client deadlines accept zero and can
+shorten, but never extend or clear, an earlier deadline. Recent contact and active work
+prevent idle cleanup but do not defeat an execution deadline. Idle monitoring starts after
+initialization succeeds or fails; initialization expiry starts deletion retries directly.
+Late initialization cannot restore readiness. Bootstrap errors can be supplied explicitly.
+
+Deletion sends `flashTaskTerminate` plus `X-RunPod-Pod-Id` in task mode and requires exactly
+true. The legacy pod variant uses `podTerminate` and requires an explicitly present null.
+Both use a Bearer key. Missing credentials make no request. Transport failures, HTTP 429/5xx
+and exclusively transient GraphQL error codes retry up to three times, with 0.5/1 second
+backoff and five-second request limits. Rejection/malformed responses return false; exhausted
+transport failures retain a native error. The watchdog retries unacknowledged deletion later.
+
+Shutdown aborts owned job futures and cancels accepted sockets, including incomplete request
+bodies and blocked response writes. This prevents graceful HTTP draining from indefinitely
+delaying acknowledged deletion. `serve` returns a typed reason; `start` exits with code zero
+after deletion so blocking user work cannot keep a terminated pod process alive. The caller's
+Tokio runtime and arbitrary tasks it owns are not globally shut down by the embedded server.
+User-created background tasks should use owned cancellation/RAII guards.
+
+Task stdout is unbounded, excludes the SDK stderr writer, flushes writes, and survives a
+closed container log. Synchronous NativeFunction calls propagate the capture into their
+blocking thread. Ordinary process `println!` and independently spawned user tasks are not
+intercepted; use the SDK writers and explicit Capture scopes. This avoids Python's global
+stdout redirection. The existing bounded core-worker capture contract remains unchanged.
+
+Native adaptations: task error messages use typed Rust diagnostics rather than Python
+tracebacks. NativeFunction already requires JSON values, so Python non-JSON return objects
+have no equivalent. NaN/Infinity and out-of-range JSON numbers are rejected by the parser;
+HTTP status is 400, while incidental parser wording differs. Duration/Instant limits apply
+instead of unbounded floating-point deadlines; exotic numeric spellings, nonfinite idle
+timeouts and Python's huge finite durations are not emulated. Unsupported HTTP methods use
+a native JSON 501 response. Native HTTP framing/header behavior and JSON whitespace differ.
+The deployed runner always uses registered native code; live-source task mode is still pending.
+
+The unchanged source suites passed **144 cases** locally. One test has the known Windows
+`pathlib` slash-rendering mismatch; the source archive/bootstrap subprocess test exits with
+code zero immediately after extraction, before its listener opens. Neither is counted as a
+pass. The native counterpart verifies artifact extraction, manifest selection, mount binding,
+HTTP execution, exact deletion request and process exit, including blocking user code.
+
+There are **48 HTTP captures**, compared by status, JSON body, contact and deadline state.
+The capture harness waits for each source request to finish before resetting global state;
+this fixes a regeneration race after inline responses. Additional native tests cover concurrent
+submission, disconnected clients, initialization expiry, failed-deletion retries, stdout and
+socket cancellation. See [parity/runtime-task-runner.json](parity/runtime-task-runner.json) and
+[reviews/apps-task-runner.md](reviews/apps-task-runner.md) for mappings and validation.
+
+Runtime coverage remains separate: SDK inventory stays **818/1,135 symbols (72.1%)**,
+**928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
 
 ## Remaining work
 
