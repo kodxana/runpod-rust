@@ -53,6 +53,7 @@ by Python; the complete port remains in progress.
 | `rp_cli.logs::{_show_logs,show_logs}`, `rp_cli.endpoint.logs`, `rp_cli.pod.logs` | native `endpoint logs` / `pod logs`, private `cli::logs::Options` and SDK `LogsClient` |
 | `rp_cli.pod` resource commands, selection, payloads and readiness | native `pod list/get/create/update/start/stop/restart/terminate/delete`, private `cli::pod` modules |
 | `rp_cli.main` registry/secret groups and add/list/delete commands | native `registry` / `secret`, private `cli::credentials::{Kind,Operation}` |
+| `rp_cli.main.login` | native `rp login` / `runpod login`, private `cli::login::Options` and SDK auth/storage helpers |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -91,9 +92,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 407 adapted symbols, and 902 upstream
+This milestone maps 397 implemented symbols, 408 adapted symbols, and 913 upstream
 test functions; other entries remain pending.
-The test mapping includes 836 ported tests and 66 explicitly adapted tests.
+The test mapping includes 846 ported tests and 67 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1226,7 +1227,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,253 SDK differential cases**.
+additional runtime fixtures, separate from the **2,282 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1268,7 +1269,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,253 differential cases.
+separate from the SDK symbol inventory and its 2,282 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1829,6 +1830,56 @@ The final Windows suite passes **887 tests**, zero failures and three ignored ch
 entry points exercised by parents. Locked build, formatting, strict all-target/all-feature
 Clippy and rustdoc pass. Pedantic review leaves only test-harness length advisories in
 the new code; string assembly and assertion advisories were fixed.
+
+## Native login command
+
+`rp login` / `runpod login` supports direct `--api-key`, browser approval with optional
+`--no-open`, named `--profile`, and `--agent --email` authentication. It reuses native
+anonymous browser/email transports and `CredentialStore` atomic writes. No Python process
+or credentials from the existing account are involved in authentication requests.
+
+Conflicting options fail before authentication or storage changes, without echoing supplied
+keys. Presence of `--api-key` conflicts with `--agent` even when its value is empty; an
+empty key without `--agent` instead selects browser login. Whitespace-only direct keys,
+empty profile names and repeated options retain Python behavior. Email is trimmed; codes
+are trimmed and must be six ASCII digits. Local format errors do not submit a request.
+An API rejection prompts again within the same attempt and proof-of-possession verifier,
+prints the rejection notice once per retry, and does not repeat the initial email notice.
+
+Success writes only the selected profile with overwrite enabled. Authentication errors,
+EOF, Ctrl-C, malformed existing TOML and write failures do not print success or replace
+existing credentials. Native Unix writes retain mode 0600 through the existing temporary
+file implementation. Windows uses native file permissions instead of Unix mode semantics.
+Browser approval displays its URL before polling. Default launching uses `rundll32` on
+Windows, `open` on macOS and `xdg-open` elsewhere, with separate arguments and no shell
+command interpolation; launcher failures are ignored like Click's return status. The
+printed URL remains available. `--no-open` does not start a launcher. Ctrl-C during network
+waiting or hidden code entry exits 1 with `Aborted!` and leaves the credential file intact.
+
+Native adaptations: email login requires a real terminal instead of accepting Click's
+piped prompt input, terminal styling/spinners and EOF blank lines use native rendering,
+and filesystem/transport errors retain native diagnostic types. Platforms without the
+standard desktop opener can use the printed URL; Python's additional desktop/browser
+fallbacks are not emulated. Rich's progress UI remains a separate pending console item.
+
+The fixture generator executes **18 unchanged source cases across 11 functions**. On
+Windows, **17 pass** and one reaches a final Unix permission assertion that reports 0666
+instead of 0600 after all its behavior assertions pass. The generator accepts only that
+exact known failure; any additional failure stops generation. That test is mapped as a
+platform adaptation, and its native counterpart checks mode 0600 on Unix. Eleven further
+source characterizations bring the fixture set to **29**, regenerated byte-identically.
+Eleven named native counterparts plus a characterization test check prompts, warnings,
+browser callbacks, auth calls, stored profiles and failure paths. Three process tests use
+both executable aliases and real loopback transports. Windows terminal checks verify
+hidden code validation/retry with PKCE, selected-profile storage, and interruption of email
+and browser login. All auth traffic uses local mocks and synthetic keys; existing user
+credential files are never accessed by the fixture generator or process tests.
+
+The ledger now maps **805/1,135 API symbols (70.9%)** and **913/1,659 test functions**.
+SDK differential fixtures total **2,282**. See [reviews/login-cli.md](reviews/login-cli.md).
+The Windows suite passes **902 tests**, zero failures and three ignored child entry
+points exercised by parents. Formatting, locked build, strict all-target/all-feature
+Clippy and rustdoc pass. Pedantic review is recorded with the native review report.
 
 ## Remaining work
 

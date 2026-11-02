@@ -8394,8 +8394,9 @@
       "kind": "function",
       "public": true,
       "signature": "no_open, api_key_opt, profile, agent, email",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::Options::{read,run,execute}",
+      "status": "adapted",
+      "note": "Native direct-key, browser and email-code login with anonymous transports, hidden validation/retry prompts, interruption and atomic selected-profile writes. Native terminal/browser launch and diagnostics are adaptations; see reviews/login-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",

@@ -1,6 +1,7 @@
 //! Native `rp` and `runpod` command entry points.
 //!
-//! Implements catalog, volume, pod, endpoint, registry and secret commands. Remaining commands are pending.
+//! Implements login, catalog, volume, pod, endpoint, registry and secret commands.
+//! Remaining commands are pending.
 mod api;
 mod catalog;
 #[cfg(test)]
@@ -9,6 +10,7 @@ mod credentials;
 mod editor;
 mod endpoint;
 mod interaction;
+mod login;
 mod logs;
 mod output;
 mod pod;
@@ -58,6 +60,7 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
         .subcommand(pod::command())
         .subcommand(credentials::Kind::Registry.command())
         .subcommand(credentials::Kind::Secret.command())
+        .subcommand(login::command())
         .subcommand(endpoint::command());
     let matches = match command.try_get_matches_from(args) {
         Ok(matches) => matches,
@@ -101,6 +104,10 @@ async fn dispatch(
     streams: &mut streams::Streams<'_>,
 ) -> CliResult<String> {
     match matches.subcommand() {
+        Some(("login", args)) => {
+            login::Options::read(args)?.run(streams).await?;
+            Ok(String::new())
+        }
         Some((name @ ("registry" | "secret"), args)) => {
             let kind = if name == "registry" {
                 credentials::Kind::Registry

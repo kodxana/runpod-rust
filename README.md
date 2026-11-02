@@ -304,6 +304,21 @@ Restart observation rejects stale pre-action runtime data. Termination identifie
 pod before asking for confirmation; `--yes` skips that lookup and prompt.
 See [pod command notes](PORTING.md#native-pod-resource-commands).
 
+Authenticate with browser approval, an API key, or an emailed verification code:
+
+```sh
+rp login
+rp login --no-open
+rp login --api-key YOUR_API_KEY --profile staging
+rp login --agent --email owner@example.com --profile agent
+```
+
+Email sign-in requires an interactive terminal. Keep the same process running until
+the code is accepted. Codes stay hidden; invalid formats are rejected before submission.
+Login replaces only the selected profile in `~/.runpod/config.toml`. Cancellation or
+authentication failure preserves existing credentials. See the
+[login notes](PORTING.md#native-login-command).
+
 Registry credentials and platform secrets have native `add`, `list`, and `delete` commands:
 
 ```sh

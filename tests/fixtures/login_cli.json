@@ -1,0 +1,869 @@
+[
+  {
+    "name": "test_agent_saves_named_profile_and_hides_code_and_key",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      " owner@example.com ",
+      "--profile",
+      "agent"
+    ],
+    "auth": [
+      {
+        "mode": "agent",
+        "email": "owner@example.com",
+        "reads": 1,
+        "codes": [
+          "012345"
+        ],
+        "key": "rpa_new-agent-key"
+      }
+    ],
+    "prompts": [
+      {
+        "message": "Verification code",
+        "hidden": true,
+        "answer": "012345"
+      }
+    ],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_new-agent-key",
+        "profile": "agent",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 0,
+    "stdout": "A verification code was sent to your email.\nVerification code: \n\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"rpa_new-agent-key\"\n"
+  },
+  {
+    "name": "test_invalid_options_have_no_auth_or_storage_side_effects",
+    "args": [
+      "login",
+      "--agent"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli login [OPTIONS]\nTry 'cli login --help' for help.\n\nError: --agent requires --email\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_invalid_options_have_no_auth_or_storage_side_effects",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      " "
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli login [OPTIONS]\nTry 'cli login --help' for help.\n\nError: --agent requires --email\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_invalid_options_have_no_auth_or_storage_side_effects",
+    "args": [
+      "login",
+      "--email",
+      "owner@example.com"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli login [OPTIONS]\nTry 'cli login --help' for help.\n\nError: --email requires --agent\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_invalid_options_have_no_auth_or_storage_side_effects",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      "owner@example.com",
+      "--api-key",
+      "rpa_input"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli login [OPTIONS]\nTry 'cli login --help' for help.\n\nError: --agent cannot be combined with --api-key\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_invalid_options_have_no_auth_or_storage_side_effects",
+    "args": [
+      "login",
+      "--email",
+      "owner@example.com",
+      "--api-key",
+      "rpa_input"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli login [OPTIONS]\nTry 'cli login --help' for help.\n\nError: --email requires --agent\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_code_format_is_validated_without_echoing_input",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      "owner@example.com",
+      "--no-open"
+    ],
+    "auth": [
+      {
+        "mode": "agent",
+        "email": "owner@example.com",
+        "reads": 1,
+        "codes": [
+          "012345"
+        ],
+        "key": "rpa_test"
+      }
+    ],
+    "prompts": [
+      {
+        "message": "Verification code",
+        "hidden": true,
+        "answer": "abcdef"
+      },
+      {
+        "message": "Verification code",
+        "hidden": true,
+        "answer": "12345"
+      },
+      {
+        "message": "Verification code",
+        "hidden": true,
+        "answer": "\uff11\uff12\uff13\uff14\uff15\uff16"
+      },
+      {
+        "message": "Verification code",
+        "hidden": true,
+        "answer": " 012345 "
+      }
+    ],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_test",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 0,
+    "stdout": "A verification code was sent to your email.\nVerification code: \nVerification code: \nVerification code: \nVerification code: \n\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "Enter the six-digit code from your email.\nEnter the six-digit code from your email.\nEnter the six-digit code from your email.\n",
+    "after": "[default]\napi_key = \"rpa_test\"\n\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_eof_during_code_prompt_preserves_credentials",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      "owner@example.com"
+    ],
+    "auth": [
+      {
+        "mode": "agent",
+        "email": "owner@example.com",
+        "reads": 1,
+        "codes": []
+      }
+    ],
+    "prompts": [
+      {
+        "message": "Verification code",
+        "hidden": true
+      }
+    ],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 1,
+    "stdout": "A verification code was sent to your email.\nVerification code: \n\n",
+    "stderr": "Aborted!\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_auth_error_preserves_credentials",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      "owner@example.com"
+    ],
+    "auth": [
+      {
+        "mode": "agent",
+        "email": "owner@example.com",
+        "reads": 0,
+        "codes": [],
+        "error": "code rejected"
+      }
+    ],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: code rejected\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_credential_write_failure_is_reported",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      "owner@example.com"
+    ],
+    "auth": [
+      {
+        "mode": "agent",
+        "email": "owner@example.com",
+        "reads": 0,
+        "codes": [],
+        "key": "rpa_test"
+      }
+    ],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_test",
+        "profile": "default",
+        "overwrite": true,
+        "error": "disk full"
+      }
+    ],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: disk full\n",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_direct_key_login_does_not_start_email_flow",
+    "args": [
+      "login",
+      "--api-key",
+      "rpa_direct"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_direct",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 0,
+    "stdout": "\u2713 credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"rpa_direct\"\n\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_agent_retry_explains_rejection_without_resending_notice",
+    "args": [
+      "login",
+      "--agent",
+      "--email",
+      "owner@example.com"
+    ],
+    "auth": [
+      {
+        "mode": "agent",
+        "email": "owner@example.com",
+        "reads": 2,
+        "codes": [
+          "123456",
+          "012345"
+        ],
+        "key": "rpa_test"
+      }
+    ],
+    "prompts": [
+      {
+        "message": "Verification code",
+        "hidden": true,
+        "answer": "123456"
+      },
+      {
+        "message": "Verification code",
+        "hidden": true,
+        "answer": "012345"
+      }
+    ],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_test",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 0,
+    "stdout": "A verification code was sent to your email.\nVerification code: \nVerification code: \n\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "Verification code rejected. Try again.\n",
+    "after": "[default]\napi_key = \"rpa_test\"\n\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "test_agent_help_explains_interactive_process_requirement",
+    "args": [
+      "login",
+      "--help"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n",
+    "code": 0,
+    "stdout": "Usage: cli login [OPTIONS]\n\n  Authenticate with Runpod and store the API key.\n\n  Opens the Runpod console for browser approval by default; pass --api-key to\n  store a key directly. Use --agent --email ADDRESS to receive a verification\n  code by email and enter it at the prompt in an interactive terminal. Keep this\n  process running until sign-in completes; the code must be entered in the same\n  process that requested it.\n\nOptions:\n  --no-open       Print the url instead of opening a browser.\n  --api-key TEXT  Store this API key directly (skips the browser flow).\n  --profile TEXT  Credential profile.  [default: default]\n  --agent         Sign in with an emailed code; requires an interactive\n                  terminal, not a browser.\n  --email TEXT    Email address for --agent sign-in.\n  --help          Show this message and exit.\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"keep-default\"\n[agent]\napi_key = \"old-agent\"\n"
+  },
+  {
+    "name": "TestLoginCommand.test_login_updates_only_selected_profile",
+    "args": [
+      "login",
+      "--api-key",
+      "new-key"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "new-key",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old-default\"\n[staging]\napi_key = \"old-staging\"\n[production]\napi_key = \"keep-production\"\n",
+    "code": 0,
+    "stdout": "\u2713 credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"new-key\"\n\n[staging]\napi_key = \"old-staging\"\n[production]\napi_key = \"keep-production\"\n"
+  },
+  {
+    "name": "TestLoginCommand.test_login_updates_only_selected_profile",
+    "args": [
+      "login",
+      "--no-open"
+    ],
+    "auth": [
+      {
+        "mode": "browser",
+        "key": "new-key"
+      }
+    ],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "new-key",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old-default\"\n[staging]\napi_key = \"old-staging\"\n[production]\napi_key = \"keep-production\"\n",
+    "code": 0,
+    "stdout": "\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"new-key\"\n\n[staging]\napi_key = \"old-staging\"\n[production]\napi_key = \"keep-production\"\n"
+  },
+  {
+    "name": "TestLoginCommand.test_login_updates_only_selected_profile",
+    "args": [
+      "login",
+      "--profile",
+      "staging",
+      "--api-key",
+      "new-key"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "new-key",
+        "profile": "staging",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old-default\"\n[staging]\napi_key = \"old-staging\"\n[production]\napi_key = \"keep-production\"\n",
+    "code": 0,
+    "stdout": "\u2713 credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"old-default\"\n[staging]\napi_key = \"new-key\"\n\n[production]\napi_key = \"keep-production\"\n"
+  },
+  {
+    "name": "TestLoginCommand.test_login_updates_only_selected_profile",
+    "args": [
+      "login",
+      "--profile",
+      "staging",
+      "--no-open"
+    ],
+    "auth": [
+      {
+        "mode": "browser",
+        "key": "new-key"
+      }
+    ],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "new-key",
+        "profile": "staging",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old-default\"\n[staging]\napi_key = \"old-staging\"\n[production]\napi_key = \"keep-production\"\n",
+    "code": 0,
+    "stdout": "\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"old-default\"\n[staging]\napi_key = \"new-key\"\n\n[production]\napi_key = \"keep-production\"\n"
+  },
+  {
+    "name": "TestLoginCommand.test_browser_flow_error",
+    "args": [
+      "login",
+      "--no-open"
+    ],
+    "auth": [
+      {
+        "mode": "browser",
+        "error": "expired"
+      }
+    ],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": null,
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: expired\n",
+    "after": null
+  },
+  {
+    "name": "characterization.browser_open",
+    "args": [
+      "login"
+    ],
+    "auth": [
+      {
+        "mode": "browser",
+        "key": "rpa_granted"
+      }
+    ],
+    "prompts": [],
+    "urls": [
+      "https://console.example/flash/login?request=req-1"
+    ],
+    "opened": [
+      "https://console.example/flash/login?request=req-1"
+    ],
+    "writes": [
+      {
+        "key": "rpa_granted",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "",
+      " authorize in your browser:",
+      " https://console.example/flash/login?request=req-1",
+      "",
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 0,
+    "stdout": "\n authorize in your browser:\n https://console.example/flash/login?request=req-1\n\n\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"rpa_granted\"\n\n[other]\napi_key = \"keep\"\n"
+  },
+  {
+    "name": "characterization.browser_no_open",
+    "args": [
+      "login",
+      "--no-open"
+    ],
+    "auth": [
+      {
+        "mode": "browser",
+        "key": "rpa_granted"
+      }
+    ],
+    "prompts": [],
+    "urls": [
+      "https://console.example/flash/login?request=req-1"
+    ],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_granted",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "",
+      " authorize in your browser:",
+      " https://console.example/flash/login?request=req-1",
+      "",
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 0,
+    "stdout": "\n authorize in your browser:\n https://console.example/flash/login?request=req-1\n\n\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"rpa_granted\"\n\n[other]\napi_key = \"keep\"\n"
+  },
+  {
+    "name": "characterization.empty_key_uses_browser",
+    "args": [
+      "login",
+      "--api-key",
+      "",
+      "--no-open"
+    ],
+    "auth": [
+      {
+        "mode": "browser",
+        "key": "rpa_granted"
+      }
+    ],
+    "prompts": [],
+    "urls": [
+      "https://console.example/flash/login?request=req-1"
+    ],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_granted",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "",
+      " authorize in your browser:",
+      " https://console.example/flash/login?request=req-1",
+      "",
+      "\u2713 logged in, credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 0,
+    "stdout": "\n authorize in your browser:\n https://console.example/flash/login?request=req-1\n\n\u2713 logged in, credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"rpa_granted\"\n\n[other]\napi_key = \"keep\"\n"
+  },
+  {
+    "name": "characterization.whitespace_key",
+    "args": [
+      "login",
+      "--api-key",
+      " "
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": " ",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 0,
+    "stdout": "\u2713 credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \" \"\n\n[other]\napi_key = \"keep\"\n"
+  },
+  {
+    "name": "characterization.repeated_key",
+    "args": [
+      "login",
+      "--api-key",
+      "old",
+      "--api-key",
+      "new"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "new",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 0,
+    "stdout": "\u2713 credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"new\"\n\n[other]\napi_key = \"keep\"\n"
+  },
+  {
+    "name": "characterization.key_with_dashes",
+    "args": [
+      "login",
+      "--api-key",
+      "--synthetic-key"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "--synthetic-key",
+        "profile": "default",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 0,
+    "stdout": "\u2713 credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"--synthetic-key\"\n\n[other]\napi_key = \"keep\"\n"
+  },
+  {
+    "name": "characterization.bad_toml_direct",
+    "args": [
+      "login",
+      "--api-key",
+      "key"
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "key",
+        "profile": "default",
+        "overwrite": true,
+        "error": "~/.runpod/config.toml is not a valid TOML file."
+      }
+    ],
+    "messages": [],
+    "before": "not[valid",
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: ~/.runpod/config.toml is not a valid TOML file.\n",
+    "after": "not[valid"
+  },
+  {
+    "name": "characterization.bad_toml_browser",
+    "args": [
+      "login",
+      "--no-open"
+    ],
+    "auth": [
+      {
+        "mode": "browser",
+        "key": "rpa_granted"
+      }
+    ],
+    "prompts": [],
+    "urls": [
+      "https://console.example/flash/login?request=req-1"
+    ],
+    "opened": [],
+    "writes": [
+      {
+        "key": "rpa_granted",
+        "profile": "default",
+        "overwrite": true,
+        "error": "~/.runpod/config.toml is not a valid TOML file."
+      }
+    ],
+    "messages": [
+      "",
+      " authorize in your browser:",
+      " https://console.example/flash/login?request=req-1",
+      ""
+    ],
+    "before": "not[valid",
+    "code": 1,
+    "stdout": "\n authorize in your browser:\n https://console.example/flash/login?request=req-1\n\n",
+    "stderr": "Error: ~/.runpod/config.toml is not a valid TOML file.\n",
+    "after": "not[valid"
+  },
+  {
+    "name": "characterization.empty_profile",
+    "args": [
+      "login",
+      "--api-key",
+      "key",
+      "--profile",
+      ""
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [
+      {
+        "key": "key",
+        "profile": "",
+        "overwrite": true
+      }
+    ],
+    "messages": [
+      "\u2713 credentials saved to ~/.runpod/config.toml"
+    ],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 0,
+    "stdout": "\u2713 credentials saved to ~/.runpod/config.toml\n",
+    "stderr": "",
+    "after": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n\n[\"\"]\napi_key = \"key\"\n"
+  },
+  {
+    "name": "characterization.agent_empty_key_conflict",
+    "args": [
+      "login",
+      "--agent",
+      "--api-key",
+      ""
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli login [OPTIONS]\nTry 'cli login --help' for help.\n\nError: --agent cannot be combined with --api-key\n",
+    "after": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n"
+  },
+  {
+    "name": "characterization.empty_email_requires_agent",
+    "args": [
+      "login",
+      "--email",
+      ""
+    ],
+    "auth": [],
+    "prompts": [],
+    "urls": [],
+    "opened": [],
+    "writes": [],
+    "messages": [],
+    "before": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n",
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli login [OPTIONS]\nTry 'cli login --help' for help.\n\nError: --email requires --agent\n",
+    "after": "[default]\napi_key = \"old\"\n[other]\napi_key = \"keep\"\n"
+  }
+]

@@ -5889,8 +5889,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_agent_saves_named_profile_and_hides_code_and_key",
+      "status": "adapted",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. Source functional assertions pass on Windows before its Unix mode assertion fails (0666 vs 0600); Rust checks 0600 only on Unix. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5899,8 +5900,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch, args, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_invalid_options_have_no_auth_or_storage_side_effects",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5909,8 +5911,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_code_format_is_validated_without_echoing_input",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5919,8 +5922,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_eof_during_code_prompt_preserves_credentials",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5929,8 +5933,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_auth_error_preserves_credentials",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5939,8 +5944,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_credential_write_failure_is_reported",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5949,8 +5955,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_direct_key_login_does_not_start_email_flow",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5959,8 +5966,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_agent_retry_explains_rejection_without_resending_notice",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_agent_login.py",
@@ -5969,8 +5977,9 @@
       "kind": "function",
       "public": true,
       "signature": "login_env",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_agent_help_explains_interactive_process_requirement",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_catalog_command.py",
@@ -9012,8 +9021,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch, browser, profile",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_login_updates_only_selected_profile",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -9022,8 +9032,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::login::tests::test_browser_flow_error",
+      "status": "ported",
+      "note": "Captured source login invocation replaying authentication callbacks, hidden code prompts, stdout/stderr and selected-profile persistence; native process tests and loopback terminal checks cover real SDK transport. 18 source invocations plus 11 characterizations regenerate deterministically. See reviews/login-cli.md."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
