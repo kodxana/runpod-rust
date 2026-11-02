@@ -27,6 +27,11 @@ cleanup after failure or cancellation. Advanced worker utilities and the CLI rem
 The native `rp` and `runpod` commands support catalog search and network/global volume
 listing, inspection, creation, renaming, expansion, and deletion, with JSON and terminal
 interaction. Other CLI commands remain pending.
+`configuration` provides typed container, scaling, and endpoint options; async and
+blocking clients resolve selections into creation/update payloads. Editable JSON
+documents support validation and minimal patches. These helpers return payloads
+without modifying resources; endpoint command integration remains in progress.
+See [examples/configuration.rs](examples/configuration.rs).
 `apps::deploy` provides explicit application definitions, manifest generation, deployed
 endpoint payloads, endpoint reconciliation, and project archives with nested ignore rules,
 protected credential exclusions, and separately vendored dependency files. `apps::build`

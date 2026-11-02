@@ -5,7 +5,9 @@ use super::{
     gpu::{PoolMembers, gpu_ids_value, resolve_gpu_string},
     images::RuntimeImages,
 };
-use crate::{Client, Error, Result, Value, client::truthy, control::python_string, json};
+use crate::{
+    Client, Error, Result, Value, client::truthy, control::python_string, json, json_value,
+};
 pub use session::DevSession;
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -213,44 +215,6 @@ pub fn comparable_payload(payload: &Value) -> Result<Value> {
     Ok(payload)
 }
 
-// Python compares booleans and integers/floats numerically, including nested JSON values.
-// The guarded float-to-i128 conversions are exact for integral values in JSON's i64/u64
-// range. Out-of-range floats saturate outside that range and cannot compare equal.
-#[allow(clippy::cast_possible_truncation)]
-fn equivalent(a: &Value, b: &Value) -> bool {
-    match (a, b) {
-        (Value::Number(a), Value::Number(b)) => {
-            let integer = |v: &serde_json::Number| {
-                v.as_i64()
-                    .map(i128::from)
-                    .or_else(|| v.as_u64().map(i128::from))
-            };
-            match (integer(a), integer(b)) {
-                (Some(a), Some(b)) => a == b,
-                (Some(i), None) => b
-                    .as_f64()
-                    .is_some_and(|f| f.fract() == 0.0 && f as i128 == i),
-                (None, Some(i)) => a
-                    .as_f64()
-                    .is_some_and(|f| f.fract() == 0.0 && f as i128 == i),
-                (None, None) => a == b,
-            }
-        }
-        (Value::Bool(a), Value::Number(b)) | (Value::Number(b), Value::Bool(a)) => {
-            b.as_f64() == Some(f64::from(u8::from(*a)))
-        }
-        (Value::Array(a), Value::Array(b)) => {
-            a.len() == b.len() && a.iter().zip(b).all(|(a, b)| equivalent(a, b))
-        }
-        (Value::Object(a), Value::Object(b)) => {
-            a.len() == b.len()
-                && a.iter()
-                    .all(|(k, a)| b.get(k).is_some_and(|b| equivalent(a, b)))
-        }
-        _ => a == b,
-    }
-}
-
 /// Lists changed fields in sorted order, flattening template keys and naming `imageName` image.
 ///
 /// Missing and null fields compare equally, as do Python-compatible numeric JSON values.
@@ -267,7 +231,7 @@ pub fn changed_fields(old: &Value, new: &Value) -> Result<Vec<String>> {
     for key in old.keys().chain(new.keys()).collect::<BTreeSet<_>>() {
         let a = old.get(key).unwrap_or(&Value::Null);
         let b = new.get(key).unwrap_or(&Value::Null);
-        if equivalent(a, b) {
+        if json_value::equivalent(a, b) {
             continue;
         }
         if key == "template" {
@@ -275,7 +239,7 @@ pub fn changed_fields(old: &Value, new: &Value) -> Result<Vec<String>> {
             let a = if truthy(a) { objects(a)? } else { &empty };
             let b = if truthy(b) { objects(b)? } else { &empty };
             for sub in a.keys().chain(b.keys()).collect::<BTreeSet<_>>() {
-                if !equivalent(
+                if !json_value::equivalent(
                     a.get(sub).unwrap_or(&Value::Null),
                     b.get(sub).unwrap_or(&Value::Null),
                 ) {

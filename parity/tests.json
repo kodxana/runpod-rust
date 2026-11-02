@@ -6662,8 +6662,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_env_values_preserve_equals_and_allow_empty_values",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6672,8 +6673,9 @@
       "kind": "function",
       "public": true,
       "signature": "value",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_env_error_does_not_echo_the_value",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6682,8 +6684,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_preserve_omitted_values",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6692,8 +6695,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_map_options_and_parse_commands",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6702,8 +6706,9 @@
       "kind": "function",
       "public": true,
       "signature": "option",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_reject_malformed_shell_quoting",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6712,8 +6717,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, registry",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_resolve_registry_id_or_name",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6722,8 +6728,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_clear_registry_without_lookup",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6732,8 +6739,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_reject_unknown_registry",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6742,8 +6750,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_merge_then_unset_environment",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -6752,8 +6761,9 @@
       "kind": "function",
       "public": true,
       "signature": "current",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_container_fields_allow_empty_current_environment",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -8047,8 +8057,9 @@
       "kind": "function",
       "public": true,
       "signature": "excluded",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_partial_gpu_edit_preserves_omitted_exclusions",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8057,8 +8068,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_mutable_document_holds_update_fields_only",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8097,8 +8109,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_edit_clears_cuda_floor_with_empty_string",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8137,8 +8150,9 @@
       "kind": "function",
       "public": true,
       "signature": "text, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_edit_validation",
+      "status": "adapted",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8147,8 +8161,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::test_edit_rejects_switching_cpu_to_gpu",
+      "status": "ported",
+      "note": "Named native counterpart with actual pinned Python JSON fixtures and complete request comparison. Only invalid-JSON parser diagnostic text is native. Command-level endpoint tests remain pending."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",

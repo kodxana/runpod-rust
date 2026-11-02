@@ -8125,8 +8125,9 @@
       "kind": "function",
       "public": false,
       "signature": "specs, count, cuda, updating: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::gpu_config",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",
@@ -8135,8 +8136,9 @@
       "kind": "function",
       "public": false,
       "signature": "specs, vcpu_count, current: Optional[dict]",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::cpu_config",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",
@@ -8145,8 +8147,9 @@
       "kind": "function",
       "public": true,
       "signature": "options: dict, current: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::scale_patch",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",
@@ -8155,8 +8158,9 @@
       "kind": "function",
       "public": true,
       "signature": "options: dict, current: Optional[dict]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "Client::{create_endpoint_config,update_endpoint_config} / blocking::Client",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",
@@ -8165,8 +8169,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::mutable_endpoint",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",
@@ -8175,8 +8180,9 @@
       "kind": "function",
       "public": false,
       "signature": "kind: type",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::validate_endpoint_document type labels",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",
@@ -8185,8 +8191,9 @@
       "kind": "function",
       "public": true,
       "signature": "text: str, before: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::validate_endpoint_document",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",
@@ -8195,8 +8202,9 @@
       "kind": "function",
       "public": true,
       "signature": "before: dict, after: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::endpoint_patch",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/logs.py",
@@ -8565,8 +8573,9 @@
       "kind": "function",
       "public": true,
       "signature": "values: Iterable[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "configuration::parse_env",
+      "status": "implemented",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/options.py",
@@ -8575,8 +8584,9 @@
       "kind": "function",
       "public": true,
       "signature": "options: dict, current: dict | None=None, unset_env: Iterable[str]=()",
-      "rust": null,
-      "status": "pending"
+      "rust": "Client::container_fields / blocking::Client::container_fields",
+      "status": "adapted",
+      "note": "Owned async/blocking clients and typed options/errors replace globals and option dictionaries. Builders only resolve catalogs/registries and return payloads. Numeric bounds and native JSON diagnostics are documented in reviews/configuration.md. Endpoint CLI integration remains pending."
     },
     {
       "file": "runpod/rp_cli/output.py",

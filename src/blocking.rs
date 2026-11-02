@@ -57,6 +57,43 @@ impl Client {
         self.runtime
             .block_on(self.inner.run_graphql_query(query, variables))
     }
+    /// Resolves container options and merges environment changes without applying them.
+    ///
+    /// # Errors
+    /// Returns invalid assignments/quoting, resolution, API/transport, or malformed-record errors.
+    pub fn container_fields(
+        &self,
+        options: &crate::configuration::ContainerOptions,
+        current: Option<&Value>,
+        unset_env: &[String],
+    ) -> Result<Value> {
+        self.runtime
+            .block_on(self.inner.container_fields(options, current, unset_env))
+    }
+    /// Builds an endpoint creation payload using the owned runtime for catalog lookups.
+    ///
+    /// # Errors
+    /// Returns incompatible options, numeric overflow, resolution, or API/transport errors.
+    pub fn create_endpoint_config(
+        &self,
+        options: &crate::configuration::EndpointOptions,
+        kind: crate::configuration::EndpointType,
+    ) -> Result<Value> {
+        self.runtime
+            .block_on(self.inner.create_endpoint_config(options, kind))
+    }
+    /// Builds an endpoint update payload without applying changes to the service.
+    ///
+    /// # Errors
+    /// Returns incompatible options, numeric overflow, resolution, or API/transport errors.
+    pub fn update_endpoint_config(
+        &self,
+        options: &crate::configuration::EndpointOptions,
+        current: &Value,
+    ) -> Result<Value> {
+        self.runtime
+            .block_on(self.inner.update_endpoint_config(options, current))
+    }
     /// Lists GPU catalog records using this client's owned runtime.
     ///
     /// # Errors

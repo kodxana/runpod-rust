@@ -358,7 +358,7 @@ impl DevSession {
             self.record(&name, &resource.spec.name, id).payload = Some(comparable.clone());
             self.bind_target(&resource, id)?;
             if let Some(previous) = previous.and_then(|r| r.payload) {
-                if !super::equivalent(&previous, &comparable) {
+                if !crate::json_value::equivalent(&previous, &comparable) {
                     let fields = changed_fields(&previous, &comparable)?;
                     self.emit(
                         "resource_changed",

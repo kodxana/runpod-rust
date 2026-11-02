@@ -21,11 +21,14 @@ pub mod blocking;
 pub mod cli;
 pub mod client;
 pub mod compute;
+pub mod configuration;
 pub mod control;
 pub mod credentials;
 pub mod endpoint;
 pub mod error;
 mod http_docs;
+mod json_value;
+mod pagination;
 pub mod serverless;
 pub mod utils;
 

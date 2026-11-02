@@ -43,6 +43,9 @@ by Python; the complete port remains in progress.
 | `rp_cli.compute` matching, parsing, catalog requests | `compute` helpers and `Client::list_catalog_*` / `blocking::Client::list_catalog_*` |
 | `rp_cli.catalog`, JSON and table output | native `rp catalog` / `runpod catalog`, `cli::run`, and private rendering helpers |
 | `rp_cli.volume`, CLI pagination, fields and terminal interaction | native `rp volume` / `runpod volume`, private owned options, pagination and prompt helpers |
+| `rp_cli.options::{parse_env,container_fields}` | `configuration::parse_env`, async/blocking `Client::container_fields` |
+| `rp_cli.endpoint_config::{_gpu,_cpu,config_body}` | private hardware selection and async/blocking `Client::{create_endpoint_config,update_endpoint_config}` |
+| `rp_cli.endpoint_config::{scale_patch,mutable,_kind,validate,patch}` | `configuration::{scale_patch,mutable_endpoint,validate_endpoint_document,endpoint_patch}` and native type labels |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -81,9 +84,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 396 implemented symbols, 316 adapted symbols, and 757 upstream
+This milestone maps 397 implemented symbols, 325 adapted symbols, and 772 upstream
 test functions; other entries remain pending.
-The test mapping includes 694 ported tests and 63 explicitly adapted tests.
+The test mapping includes 708 ported tests and 64 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1216,7 +1219,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **1,759 SDK differential cases**.
+additional runtime fixtures, separate from the **1,861 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1258,7 +1261,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 1,759 differential cases.
+separate from the SDK symbol inventory and its 1,861 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1443,6 +1446,52 @@ source run also includes completion tests whose native mappings remain pending.
 A real Windows terminal smoke check exercised declined/accepted deletion and fuzzy
 selection against a local mock HTTP server. No real Runpod resource was changed.
 See [reviews/volume-cli.md](reviews/volume-cli.md).
+
+## Endpoint configuration and shared options
+
+`configuration::{ContainerOptions,ScaleOptions,EndpointOptions}` replace untyped option
+bags. Async and blocking clients resolve GPU pools, CPU flavors, regions, and registry
+names into request payloads. They do not apply changes to resources. `EndpointType`
+and `Flashboot` supply typed choices, CLI-spelling `Display`/`FromStr`, and explicit API
+wire values. `parse_env`, `scale_patch`, `mutable_endpoint`,
+`validate_endpoint_document`, and `endpoint_patch` are also available independently.
+See [examples/configuration.rs](examples/configuration.rs).
+
+Omitted values remain omitted; explicit zero/false/empty container values are retained.
+Assignments split only at the first equals sign, later keys win, and removals happen
+after environment merging. Invalid assignment errors never echo the value. Empty registry
+strings clear credentials without lookup; nonempty values use ordered, paginated lookup.
+Container command strings preserve the source's quoting, empty arguments, literal `#`,
+and escaped-newline behavior without executing a shell or expanding variables.
+
+Queue endpoints receive the source default queue-delay scaler; load balancers require
+request-count scaling. Partial worker changes preserve other worker fields. GPU counts
+must agree across selectors; pool/exclusion order and CUDA floor/exact/`any` transitions
+are preserved. Existing CPU/GPU endpoints cannot switch hardware kind. Network/global
+mount replacements retain the other mount class and unknown current mount keys.
+
+Editable documents drop runtime fields and mount metadata while retaining mutable values.
+Validation checks allowed top-level types, nested field names, string environment values,
+FlashBoot spelling, and hardware-kind restrictions. It deliberately leaves nested value
+types/ranges to the service, matching Python. Missing edited fields are unchanged; missing
+and null values compare equally. Numeric JSON equality includes `4` versus `4.0` and
+boolean versus integer values, without losing distinctions between large integers.
+GPU pools/exclusions are updated together, and a null CUDA floor clears it with `""`.
+
+Native counts are `u64`, timeout multiplication is checked, and queue delays must be
+finite. Python's arbitrary-size integers, Unicode count digits, and nonstandard NaN/
+Infinity JSON are not emulated. JSON parser diagnostics use Serde's wording. Malformed
+response records return typed errors rather than Python lookup/type exceptions. Helper
+APIs do not enforce CLI-required image/name flags or CLI numeric ranges; endpoint command
+parsing and orchestration are separate work and remain pending in the ledger.
+
+`tools/endpoint_config_fixtures.py` captures **102 actual pinned Python cases**, bringing
+the SDK differential total to **1,861**. Fifteen named Rust counterparts map all ten
+shared-option source tests and five direct endpoint-document helper tests; additional
+groups cover configuration payloads, scaling, quoting, and patch edge cases. Four native
+tests cover enum conversions, the blocking facade, numeric bounds, and malformed data.
+The unchanged upstream subset passes **30 parameterized cases**. No live resources are
+created or modified. See [reviews/configuration.md](reviews/configuration.md).
 
 ## Remaining work
 

@@ -1,0 +1,5434 @@
+[
+  {
+    "name": "test_env_values_preserve_equals_and_allow_empty_values",
+    "operation": "parse_env",
+    "args": [
+      [
+        "TOKEN=a=b",
+        "EMPTY=",
+        "TOKEN=c=d"
+      ]
+    ],
+    "requests": [],
+    "result": {
+      "TOKEN": "c=d",
+      "EMPTY": ""
+    }
+  },
+  {
+    "name": "test_env_error_does_not_echo_the_value",
+    "operation": "parse_env",
+    "args": [
+      [
+        "secret-without-equals"
+      ]
+    ],
+    "requests": [],
+    "error": "invalid --env value; use KEY=VALUE",
+    "code": 2
+  },
+  {
+    "name": "test_env_error_does_not_echo_the_value",
+    "operation": "parse_env",
+    "args": [
+      [
+        "=secret"
+      ]
+    ],
+    "requests": [],
+    "error": "invalid --env value; use KEY=VALUE",
+    "code": 2
+  },
+  {
+    "name": "test_container_fields_preserve_omitted_values",
+    "operation": "container_fields",
+    "args": [
+      {}
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "test_container_fields_preserve_omitted_values",
+    "operation": "container_fields",
+    "args": [
+      {
+        "env": [],
+        "ports": [],
+        "registry": null
+      }
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "test_container_fields_map_options_and_parse_commands",
+    "operation": "container_fields",
+    "args": [
+      {
+        "image": "image:tag",
+        "template": "tpl1",
+        "args": "bash start.sh",
+        "disk": 0,
+        "global_networking": false,
+        "cmd": "python -c 'print(1)'",
+        "entrypoint": "",
+        "ports": [
+          "8000/http",
+          "22/tcp"
+        ]
+      }
+    ],
+    "requests": [],
+    "result": {
+      "image": "image:tag",
+      "templateId": "tpl1",
+      "args": "bash start.sh",
+      "disk": 0,
+      "globalNetworking": false,
+      "cmd": [
+        "python",
+        "-c",
+        "print(1)"
+      ],
+      "entrypoint": [],
+      "ports": [
+        "8000/http",
+        "22/tcp"
+      ]
+    }
+  },
+  {
+    "name": "test_container_fields_reject_malformed_shell_quoting",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "python 'unterminated"
+      }
+    ],
+    "requests": [],
+    "error": "Invalid value for --cmd: No closing quotation",
+    "code": 2
+  },
+  {
+    "name": "test_container_fields_reject_malformed_shell_quoting",
+    "operation": "container_fields",
+    "args": [
+      {
+        "entrypoint": "python 'unterminated"
+      }
+    ],
+    "requests": [],
+    "error": "Invalid value for --entrypoint: No closing quotation",
+    "code": 2
+  },
+  {
+    "name": "test_container_fields_resolve_registry_id_or_name",
+    "operation": "container_fields",
+    "args": [
+      {
+        "registry": "reg1"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/registries",
+        "params": {},
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "registry": "reg1"
+    }
+  },
+  {
+    "name": "test_container_fields_resolve_registry_id_or_name",
+    "operation": "container_fields",
+    "args": [
+      {
+        "registry": "private"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/registries",
+        "params": {},
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "registry": "reg1"
+    }
+  },
+  {
+    "name": "test_container_fields_clear_registry_without_lookup",
+    "operation": "container_fields",
+    "args": [
+      {
+        "registry": ""
+      }
+    ],
+    "requests": [],
+    "result": {
+      "registry": null
+    }
+  },
+  {
+    "name": "test_container_fields_reject_unknown_registry",
+    "operation": "container_fields",
+    "args": [
+      {
+        "registry": "missing"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/registries",
+        "params": {},
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "error": "unknown registry credential 'missing'. list them with rp registry list",
+    "code": 1
+  },
+  {
+    "name": "test_container_fields_merge_then_unset_environment",
+    "operation": "container_fields",
+    "args": [
+      {
+        "env": [
+          "EDIT=new",
+          "DROP=new",
+          "EMPTY="
+        ]
+      },
+      {
+        "env": {
+          "KEEP": "old",
+          "EDIT": "old",
+          "DROP": "old"
+        }
+      },
+      [
+        "DROP",
+        "MISSING"
+      ]
+    ],
+    "requests": [],
+    "result": {
+      "env": {
+        "KEEP": "old",
+        "EDIT": "new",
+        "EMPTY": ""
+      }
+    }
+  },
+  {
+    "name": "test_container_fields_merge_then_unset_environment",
+    "operation": "container_fields",
+    "args": [
+      {},
+      {
+        "env": {
+          "DROP": "old"
+        }
+      },
+      [
+        "DROP"
+      ]
+    ],
+    "requests": [],
+    "result": {
+      "env": {}
+    }
+  },
+  {
+    "name": "test_container_fields_allow_empty_current_environment",
+    "operation": "container_fields",
+    "args": [
+      {
+        "env": [
+          "KEY=value"
+        ]
+      },
+      null
+    ],
+    "requests": [],
+    "result": {
+      "env": {
+        "KEY": "value"
+      }
+    }
+  },
+  {
+    "name": "test_container_fields_allow_empty_current_environment",
+    "operation": "container_fields",
+    "args": [
+      {
+        "env": [
+          "KEY=value"
+        ]
+      },
+      {}
+    ],
+    "requests": [],
+    "result": {
+      "env": {
+        "KEY": "value"
+      }
+    }
+  },
+  {
+    "name": "test_container_fields_allow_empty_current_environment",
+    "operation": "container_fields",
+    "args": [
+      {
+        "env": [
+          "KEY=value"
+        ]
+      },
+      {
+        "env": null
+      }
+    ],
+    "requests": [],
+    "result": {
+      "env": {
+        "KEY": "value"
+      }
+    }
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "echo # literal"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cmd": [
+        "echo",
+        "#",
+        "literal"
+      ]
+    }
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "echo a\rb"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cmd": [
+        "echo",
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "a\\\nb"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cmd": [
+        "a\nb"
+      ]
+    }
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "echo \"\\$x \\`x \\q\""
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cmd": [
+        "echo",
+        "\\$x \\`x \\q"
+      ]
+    }
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "'' a\"b\"c 'x y'"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cmd": [
+        "",
+        "abc",
+        "x y"
+      ]
+    }
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "echo trailing\\"
+      }
+    ],
+    "requests": [],
+    "error": "Invalid value for --cmd: No escaped character",
+    "code": 2
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "\"unterminated"
+      }
+    ],
+    "requests": [],
+    "error": "Invalid value for --cmd: No closing quotation",
+    "code": 2
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "echo \"a\\\"b\""
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cmd": [
+        "echo",
+        "a\"b"
+      ]
+    }
+  },
+  {
+    "name": "command_quoting_edges",
+    "operation": "container_fields",
+    "args": [
+      {
+        "cmd": "echo a\\ b"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cmd": [
+        "echo",
+        "a b"
+      ]
+    }
+  },
+  {
+    "name": "test_mutable_document_holds_update_fields_only",
+    "operation": "mutable",
+    "args": [
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "name": "llama-prod",
+      "image": "ghcr.io/acme/llama:latest",
+      "args": "",
+      "env": {
+        "A": "1",
+        "B": "2"
+      },
+      "disk": 10,
+      "ports": [],
+      "registry": null,
+      "gpu": {
+        "pools": [
+          "ADA_80_PRO"
+        ],
+        "excludedTypes": [
+          "NVIDIA A100 80GB PCIe"
+        ],
+        "count": 1,
+        "allowedCudaVersions": [],
+        "minCudaVersion": null
+      },
+      "workers": {
+        "min": 0,
+        "max": 3,
+        "idleTimeout": 5
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      },
+      "timeout": 300000,
+      "flashboot": "FLASHBOOT",
+      "dataCenterIds": [
+        "EU-RO-1"
+      ],
+      "mounts": {
+        "network": [
+          {
+            "volumeId": "vol1"
+          }
+        ],
+        "global": []
+      }
+    }
+  },
+  {
+    "name": "test_mutable_document_holds_update_fields_only",
+    "operation": "mutable",
+    "args": [
+      {
+        "id": "ep2",
+        "name": "embeddings",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/embeddings:latest",
+        "env": {},
+        "cpu": [
+          {
+            "id": "cpu3c",
+            "vcpuCount": 4,
+            "memory": 8
+          }
+        ],
+        "workers": {
+          "min": 0,
+          "max": 3
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 2
+        },
+        "timeout": 0,
+        "flashboot": "OFF",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": [
+            {
+              "volumeId": "gv1"
+            }
+          ]
+        },
+        "createdAt": "2026-07-11T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "name": "embeddings",
+      "image": "ghcr.io/acme/embeddings:latest",
+      "env": {},
+      "registry": null,
+      "cpu": [
+        {
+          "id": "cpu3c",
+          "vcpuCount": 4
+        }
+      ],
+      "workers": {
+        "min": 0,
+        "max": 3
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 2
+      },
+      "timeout": 0,
+      "flashboot": "OFF",
+      "dataCenterIds": [],
+      "mounts": {
+        "network": [],
+        "global": [
+          {
+            "volumeId": "gv1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "test_mutable_document_holds_update_fields_only",
+    "operation": "mutable",
+    "args": [
+      {
+        "id": "lb1",
+        "name": "openai-api",
+        "type": "LOAD_BALANCER",
+        "image": "ghcr.io/acme/openai-server:latest",
+        "gpu": {
+          "pools": [
+            "ADA_24"
+          ],
+          "excludedTypes": [],
+          "count": 2,
+          "allowedCudaVersions": [],
+          "minCudaVersion": "12.4"
+        },
+        "workers": {
+          "min": 1,
+          "max": 10
+        },
+        "scaling": {
+          "type": "REQUEST_COUNT",
+          "requestCount": 4
+        },
+        "timeout": 0,
+        "flashboot": "PRIORITY_FLASHBOOT",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": []
+        },
+        "requestUrls": {
+          "base": "https://lb1.api.runpod.ai",
+          "health": "x"
+        },
+        "createdAt": "2026-07-12T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "name": "openai-api",
+      "image": "ghcr.io/acme/openai-server:latest",
+      "registry": null,
+      "gpu": {
+        "pools": [
+          "ADA_24"
+        ],
+        "excludedTypes": [],
+        "count": 2,
+        "allowedCudaVersions": [],
+        "minCudaVersion": "12.4"
+      },
+      "workers": {
+        "min": 1,
+        "max": 10
+      },
+      "scaling": {
+        "type": "REQUEST_COUNT",
+        "requestCount": 4
+      },
+      "timeout": 0,
+      "flashboot": "PRIORITY_FLASHBOOT",
+      "dataCenterIds": [],
+      "mounts": {
+        "network": [],
+        "global": []
+      }
+    }
+  },
+  {
+    "name": "test_mutable_document_holds_update_fields_only",
+    "operation": "mutable",
+    "args": [
+      {}
+    ],
+    "requests": [],
+    "result": {
+      "registry": null,
+      "mounts": {
+        "network": [],
+        "global": []
+      }
+    }
+  },
+  {
+    "name": "test_mutable_document_holds_update_fields_only",
+    "operation": "mutable",
+    "args": [
+      {
+        "gpu": {
+          "count": 0
+        },
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "v",
+              "extra": 1
+            }
+          ]
+        },
+        "env": null
+      }
+    ],
+    "requests": [],
+    "result": {
+      "registry": null,
+      "gpu": {
+        "pools": [],
+        "excludedTypes": [],
+        "count": 1,
+        "allowedCudaVersions": [],
+        "minCudaVersion": null
+      },
+      "mounts": {
+        "network": [
+          {
+            "volumeId": "v"
+          }
+        ],
+        "global": []
+      }
+    }
+  },
+  {
+    "name": "test_partial_gpu_edit_preserves_omitted_exclusions",
+    "operation": "patch",
+    "args": [
+      {
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "excluded"
+          ]
+        }
+      },
+      {
+        "gpu": {
+          "pools": [
+            "ADA_24"
+          ]
+        }
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {
+        "pools": [
+          "ADA_24"
+        ],
+        "excludedTypes": [
+          "excluded"
+        ]
+      }
+    }
+  },
+  {
+    "name": "test_partial_gpu_edit_preserves_omitted_exclusions",
+    "operation": "patch",
+    "args": [
+      {
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "excluded"
+          ]
+        }
+      },
+      {
+        "gpu": {
+          "pools": [
+            "ADA_24"
+          ],
+          "excludedTypes": []
+        }
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {
+        "pools": [
+          "ADA_24"
+        ],
+        "excludedTypes": []
+      }
+    }
+  },
+  {
+    "name": "test_edit_clears_cuda_floor_with_empty_string",
+    "operation": "patch",
+    "args": [
+      {
+        "name": "openai-api",
+        "image": "ghcr.io/acme/openai-server:latest",
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_24"
+          ],
+          "excludedTypes": [],
+          "count": 2,
+          "allowedCudaVersions": [],
+          "minCudaVersion": "12.4"
+        },
+        "workers": {
+          "min": 1,
+          "max": 10
+        },
+        "scaling": {
+          "type": "REQUEST_COUNT",
+          "requestCount": 4
+        },
+        "timeout": 0,
+        "flashboot": "PRIORITY_FLASHBOOT",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": []
+        }
+      },
+      {
+        "name": "openai-api",
+        "image": "ghcr.io/acme/openai-server:latest",
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_24"
+          ],
+          "excludedTypes": [],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 1,
+          "max": 10
+        },
+        "scaling": {
+          "type": "REQUEST_COUNT",
+          "requestCount": 4
+        },
+        "timeout": 0,
+        "flashboot": "PRIORITY_FLASHBOOT",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {
+        "count": 1,
+        "minCudaVersion": ""
+      }
+    }
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{not json",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "invalid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "[]",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "the document must be a JSON object",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"bogus\": 1}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "unknown field 'bogus'",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"disk\": \"big\"}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "'disk' must be an integer",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"disk\": true}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "'disk' must be an integer",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"registry\": 1}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "'registry' must be a string or null",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"workers\": {\"maximum\": 1}}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "unknown field 'workers.maximum'",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"env\": {\"A\": 1}}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "env values must be strings",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"flashboot\": \"ON\"}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "'flashboot' must be one of OFF, FLASHBOOT, PRIORITY_FLASHBOOT",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"cpu\": [{\"id\": \"cpu3c\", \"vcpuCount\": 2}]}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "a GPU endpoint cannot switch to CPUs",
+    "code": 1
+  },
+  {
+    "name": "test_edit_validation",
+    "operation": "validate",
+    "args": [
+      "{\"gpu\": {\"unknown\": 1}, \"mounts\": {\"extra\": []}, \"timeout\": false}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "error": "unknown field 'gpu.unknown'; unknown field 'mounts.extra'; 'timeout' must be an integer",
+    "code": 1
+  },
+  {
+    "name": "test_edit_rejects_switching_cpu_to_gpu",
+    "operation": "validate",
+    "args": [
+      "{\"gpu\": {}}",
+      {
+        "name": "embeddings",
+        "image": "ghcr.io/acme/embeddings:latest",
+        "env": {},
+        "registry": null,
+        "cpu": [
+          {
+            "id": "cpu3c",
+            "vcpuCount": 4
+          }
+        ],
+        "workers": {
+          "min": 0,
+          "max": 3
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 2
+        },
+        "timeout": 0,
+        "flashboot": "OFF",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": [
+            {
+              "volumeId": "gv1"
+            }
+          ]
+        }
+      }
+    ],
+    "requests": [],
+    "error": "a CPU endpoint cannot switch to GPUs",
+    "code": 1
+  },
+  {
+    "name": "valid_edit_documents",
+    "operation": "validate",
+    "args": [
+      "{}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "valid_edit_documents",
+    "operation": "validate",
+    "args": [
+      "{\"image\": \"i\", \"env\": {}, \"registry\": null, \"gpu\": {\"minCudaVersion\": null}}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "result": {
+      "image": "i",
+      "env": {},
+      "registry": null,
+      "gpu": {
+        "minCudaVersion": null
+      }
+    }
+  },
+  {
+    "name": "valid_edit_documents",
+    "operation": "validate",
+    "args": [
+      "{\"name\": \"llama-prod\", \"image\": \"ghcr.io/acme/llama:latest\", \"args\": \"\", \"env\": {\"A\": \"1\", \"B\": \"2\"}, \"disk\": 10, \"ports\": [], \"registry\": null, \"gpu\": {\"pools\": [\"ADA_80_PRO\"], \"excludedTypes\": [\"NVIDIA A100 80GB PCIe\"], \"count\": 1, \"allowedCudaVersions\": [], \"minCudaVersion\": null}, \"workers\": {\"min\": 0, \"max\": 3, \"idleTimeout\": 5}, \"scaling\": {\"type\": \"QUEUE_DELAY\", \"queueDelay\": 4}, \"timeout\": 300000, \"flashboot\": \"FLASHBOOT\", \"dataCenterIds\": [\"EU-RO-1\"], \"mounts\": {\"network\": [{\"volumeId\": \"vol1\"}], \"global\": []}}",
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      }
+    ],
+    "requests": [],
+    "result": {
+      "name": "llama-prod",
+      "image": "ghcr.io/acme/llama:latest",
+      "args": "",
+      "env": {
+        "A": "1",
+        "B": "2"
+      },
+      "disk": 10,
+      "ports": [],
+      "registry": null,
+      "gpu": {
+        "pools": [
+          "ADA_80_PRO"
+        ],
+        "excludedTypes": [
+          "NVIDIA A100 80GB PCIe"
+        ],
+        "count": 1,
+        "allowedCudaVersions": [],
+        "minCudaVersion": null
+      },
+      "workers": {
+        "min": 0,
+        "max": 3,
+        "idleTimeout": 5
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      },
+      "timeout": 300000,
+      "flashboot": "FLASHBOOT",
+      "dataCenterIds": [
+        "EU-RO-1"
+      ],
+      "mounts": {
+        "network": [
+          {
+            "volumeId": "vol1"
+          }
+        ],
+        "global": []
+      }
+    }
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      },
+      {}
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      },
+      {
+        "registry": null
+      }
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      },
+      {
+        "gpu": {
+          "excludedTypes": []
+        }
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {
+        "excludedTypes": [],
+        "pools": [
+          "ADA_80_PRO"
+        ]
+      }
+    }
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      },
+      {
+        "gpu": {
+          "count": 3
+        }
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {
+        "count": 3
+      }
+    }
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      },
+      {
+        "gpu": {}
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {}
+    }
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "name": "llama-prod",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "registry": null,
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        }
+      },
+      {
+        "env": {}
+      }
+    ],
+    "requests": [],
+    "result": {
+      "env": {}
+    }
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "scaling": {
+          "queueDelay": 4.0
+        }
+      },
+      {
+        "scaling": {
+          "queueDelay": 4
+        }
+      }
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "gpu": {
+          "count": 1
+        }
+      },
+      {
+        "gpu": {
+          "count": true
+        }
+      }
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "timeout": 9007199254740993
+      },
+      {
+        "timeout": 9007199254740992.0
+      }
+    ],
+    "requests": [],
+    "result": {
+      "timeout": 9007199254740992.0
+    }
+  },
+  {
+    "name": "patch_edges",
+    "operation": "patch",
+    "args": [
+      {
+        "timeout": 18446744073709551615
+      },
+      {
+        "timeout": 1.8446744073709552e+19
+      }
+    ],
+    "requests": [],
+    "result": {
+      "timeout": 1.8446744073709552e+19
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "H100"
+        ],
+        "gpu_count": 1,
+        "min_workers": 0,
+        "max_workers": 4,
+        "queue_delay_seconds": 4.0,
+        "idle_timeout_seconds": 10,
+        "request_timeout_seconds": 300,
+        "data_center": [
+          "EU-RO-1"
+        ],
+        "network_volume": [
+          "vol1"
+        ],
+        "env": [
+          "MODEL_ID=m"
+        ],
+        "flashboot": "standard"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "image": "i",
+      "env": {
+        "MODEL_ID": "m"
+      },
+      "type": "QUEUE",
+      "name": "x",
+      "flashboot": "FLASHBOOT",
+      "timeout": 300000,
+      "gpu": {
+        "pools": [
+          "ADA_80_PRO"
+        ],
+        "excludedTypes": [
+          "NVIDIA A100 80GB PCIe"
+        ],
+        "count": 1
+      },
+      "workers": {
+        "min": 0,
+        "max": 4,
+        "idleTimeout": 10
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4.0
+      },
+      "dataCenterIds": [
+        "EU-RO-1"
+      ],
+      "mounts": {
+        "network": [
+          {
+            "volumeId": "vol1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "LOAD_BALANCER",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "h100",
+          "4090"
+        ],
+        "requests_per_worker": 4,
+        "env": [
+          "PORT=8000"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "image": "i",
+      "env": {
+        "PORT": "8000"
+      },
+      "type": "LOAD_BALANCER",
+      "name": "x",
+      "gpu": {
+        "pools": [
+          "ADA_80_PRO",
+          "ADA_24"
+        ],
+        "excludedTypes": [
+          "NVIDIA A100 80GB PCIe"
+        ]
+      },
+      "scaling": {
+        "type": "REQUEST_COUNT",
+        "requestCount": 4
+      }
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "cpu": [
+          "cpu3c"
+        ],
+        "vcpu_count": 8,
+        "max_workers": 3,
+        "queue_delay_seconds": 2.0
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/cpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "image": "i",
+      "type": "QUEUE",
+      "name": "x",
+      "cpu": [
+        {
+          "id": "cpu3c",
+          "vcpuCount": 8
+        }
+      ],
+      "workers": {
+        "max": 3
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 2.0
+      }
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "h100:2"
+        ],
+        "cuda": [
+          ">=12.4"
+        ],
+        "region": [
+          "eu"
+        ],
+        "global_volume": [
+          "gv1"
+        ],
+        "port": [
+          "8000/http"
+        ],
+        "disk": 20,
+        "template": "tpl1",
+        "args": "python main.py",
+        "entrypoint": "python -m 'my app'",
+        "cmd": "--port 1",
+        "registry": "reg1"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/registries",
+        "params": {},
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "image": "i",
+      "templateId": "tpl1",
+      "args": "python main.py",
+      "disk": 20,
+      "cmd": [
+        "--port",
+        "1"
+      ],
+      "entrypoint": [
+        "python",
+        "-m",
+        "my app"
+      ],
+      "ports": [
+        "8000/http"
+      ],
+      "registry": "reg1",
+      "type": "QUEUE",
+      "name": "x",
+      "gpu": {
+        "pools": [
+          "ADA_80_PRO"
+        ],
+        "excludedTypes": [
+          "NVIDIA A100 80GB PCIe"
+        ],
+        "count": 2,
+        "minCudaVersion": "12.4"
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      },
+      "dataCenterIds": [
+        "EU-RO-1",
+        "EU-CZ-1"
+      ],
+      "mounts": {
+        "global": [
+          {
+            "volumeId": "gv1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "4090"
+        ],
+        "cuda": [
+          "12.4,12.8"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "image": "i",
+      "type": "QUEUE",
+      "name": "x",
+      "gpu": {
+        "pools": [
+          "ADA_24"
+        ],
+        "allowedCudaVersions": [
+          "12.4",
+          "12.8"
+        ]
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      }
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "cpu": [
+          "cpu5g:4"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/cpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "image": "i",
+      "type": "QUEUE",
+      "name": "x",
+      "cpu": [
+        {
+          "id": "cpu5g",
+          "vcpuCount": 4
+        }
+      ],
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      }
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "image": "i",
+      "type": "QUEUE",
+      "name": "x",
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      }
+    }
+  },
+  {
+    "name": "configuration_create",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "cuda": [
+          "any"
+        ]
+      }
+    ],
+    "requests": [],
+    "result": {
+      "image": "i",
+      "type": "QUEUE",
+      "name": "x",
+      "gpu": {
+        "allowedCudaVersions": []
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      }
+    }
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "h100"
+        ],
+        "cpu": [
+          "cpu3c"
+        ]
+      }
+    ],
+    "requests": [],
+    "error": "use either --gpu or --cpu",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "h100:2"
+        ],
+        "gpu_count": 1
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "error": "conflicting gpu counts; use one count per worker",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "LOAD_BALANCER",
+        "name": "x",
+        "image": "i"
+      }
+    ],
+    "requests": [],
+    "error": "load-balancer endpoints need --requests-per-worker",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "LOAD_BALANCER",
+        "name": "x",
+        "image": "i",
+        "queue_delay_seconds": 2.0
+      }
+    ],
+    "requests": [],
+    "error": "load-balancer endpoints scale on --requests-per-worker",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "queue_delay_seconds": 2.0,
+        "requests_per_worker": 2
+      }
+    ],
+    "requests": [],
+    "error": "use either --queue-delay-seconds or --requests-per-worker",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "env": [
+          "NOVALUE"
+        ]
+      }
+    ],
+    "requests": [],
+    "error": "invalid --env value; use KEY=VALUE",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "cpu": [
+          "cpu3c"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/cpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "error": "pass --vcpu-count or --cpu cpu3c:VCPUS",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "cpu": [
+          "cpu3c:x"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/cpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "error": "invalid --cpu 'cpu3c:x'. use a flavor like cpu3c or cpu3c:8",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "vcpu_count": 4
+      }
+    ],
+    "requests": [],
+    "error": "--vcpu-count applies to CPU endpoints (pass --cpu)",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "cpu": [
+          "cpu3c:4"
+        ],
+        "cuda": [
+          "12.4"
+        ]
+      }
+    ],
+    "requests": [],
+    "error": "--cuda and --gpu-count apply to GPU endpoints",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "b200"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "error": "unknown gpu 'b200'. known gpus: A100 PCIe, H100 NVL, H100 SXM, RTX 4090",
+    "code": 1
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "region": [
+          "mars"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "error": "unknown region 'mars'. use a region (eu, na, europe, north-america), an id prefix like us or eu-ro, or a data center (EU-CZ-1, EU-RO-1, US-TX-3)",
+    "code": 1
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "cpu": [
+          "cpu3c:0"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/cpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "error": "pass --vcpu-count or --cpu cpu3c:VCPUS",
+    "code": 2
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu": [
+          "h100",
+          "h100"
+        ]
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "image": "i",
+      "type": "QUEUE",
+      "name": "x",
+      "gpu": {
+        "pools": [
+          "ADA_80_PRO"
+        ],
+        "excludedTypes": [
+          "NVIDIA A100 80GB PCIe"
+        ]
+      },
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      }
+    }
+  },
+  {
+    "name": "configuration_create_errors",
+    "operation": "config_body",
+    "args": [
+      {
+        "endpoint_type": "QUEUE",
+        "name": "x",
+        "image": "i",
+        "gpu_count": 0
+      }
+    ],
+    "requests": [],
+    "result": {
+      "image": "i",
+      "type": "QUEUE",
+      "name": "x",
+      "scaling": {
+        "type": "QUEUE_DELAY",
+        "queueDelay": 4
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "env": [
+          "C=3"
+        ],
+        "unset_env": [
+          "A"
+        ],
+        "max_workers": 8
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "env": {
+        "B": "2",
+        "C": "3"
+      },
+      "workers": {
+        "min": 0,
+        "max": 8,
+        "idleTimeout": 5
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "gpu": [
+          "4090"
+        ],
+        "cuda": [
+          "any"
+        ]
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/gpus",
+        "params": {
+          "include": "AVAILABILITY",
+          "product": "SERVERLESS"
+        },
+        "response": {
+          "gpus": [
+            {
+              "id": "NVIDIA H100 80GB HBM3",
+              "name": "H100 SXM",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA H100 NVL",
+              "name": "H100 NVL",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA A100 80GB PCIe",
+              "name": "A100 PCIe",
+              "pool": "ADA_80_PRO"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 4090",
+              "name": "RTX 4090",
+              "pool": "ADA_24"
+            },
+            {
+              "id": "NVIDIA GeForce RTX 3070",
+              "name": "RTX 3070",
+              "pool": null
+            }
+          ],
+          "cpus": [
+            {
+              "id": "cpu3c",
+              "name": "Compute-Optimized",
+              "group": "CPU3"
+            },
+            {
+              "id": "cpu5g",
+              "name": "General Purpose",
+              "group": "CPU5"
+            }
+          ],
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE"
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA"
+            }
+          ],
+          "registries": [
+            {
+              "id": "reg1",
+              "name": "private"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "result": {
+      "gpu": {
+        "pools": [
+          "ADA_24"
+        ],
+        "excludedTypes": [],
+        "allowedCudaVersions": [],
+        "minCudaVersion": ""
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "cuda": [
+          ">=12.8"
+        ]
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {
+        "minCudaVersion": "12.8",
+        "allowedCudaVersions": []
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "cuda": [
+          "12.8"
+        ]
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "gpu": {
+        "allowedCudaVersions": [
+          "12.8"
+        ],
+        "minCudaVersion": ""
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "vcpu_count": 8,
+        "network_volume": [
+          "vol9"
+        ]
+      },
+      {
+        "id": "ep2",
+        "name": "embeddings",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/embeddings:latest",
+        "env": {},
+        "cpu": [
+          {
+            "id": "cpu3c",
+            "vcpuCount": 4,
+            "memory": 8
+          }
+        ],
+        "workers": {
+          "min": 0,
+          "max": 3
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 2
+        },
+        "timeout": 0,
+        "flashboot": "OFF",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": [
+            {
+              "volumeId": "gv1"
+            }
+          ]
+        },
+        "createdAt": "2026-07-11T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "cpu": [
+        {
+          "id": "cpu3c",
+          "vcpuCount": 8
+        }
+      ],
+      "mounts": {
+        "network": [
+          {
+            "volumeId": "vol9"
+          }
+        ],
+        "global": [
+          {
+            "volumeId": "gv1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "cpu": [
+          "cpu3c:4"
+        ]
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "error": "a GPU endpoint cannot switch to CPUs",
+    "code": 2
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "gpu": [
+          "h100"
+        ]
+      },
+      {
+        "id": "ep2",
+        "name": "embeddings",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/embeddings:latest",
+        "env": {},
+        "cpu": [
+          {
+            "id": "cpu3c",
+            "vcpuCount": 4,
+            "memory": 8
+          }
+        ],
+        "workers": {
+          "min": 0,
+          "max": 3
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 2
+        },
+        "timeout": 0,
+        "flashboot": "OFF",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": [
+            {
+              "volumeId": "gv1"
+            }
+          ]
+        },
+        "createdAt": "2026-07-11T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "error": "a CPU endpoint cannot switch to GPUs",
+    "code": 2
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "cuda": [
+          "12.4"
+        ]
+      },
+      {
+        "id": "ep2",
+        "name": "embeddings",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/embeddings:latest",
+        "env": {},
+        "cpu": [
+          {
+            "id": "cpu3c",
+            "vcpuCount": 4,
+            "memory": 8
+          }
+        ],
+        "workers": {
+          "min": 0,
+          "max": 3
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 2
+        },
+        "timeout": 0,
+        "flashboot": "OFF",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": [
+            {
+              "volumeId": "gv1"
+            }
+          ]
+        },
+        "createdAt": "2026-07-11T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "error": "--cuda and --gpu-count apply to GPU endpoints",
+    "code": 2
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "gpu_count": 1
+      },
+      {
+        "id": "ep2",
+        "name": "embeddings",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/embeddings:latest",
+        "env": {},
+        "cpu": [
+          {
+            "id": "cpu3c",
+            "vcpuCount": 4,
+            "memory": 8
+          }
+        ],
+        "workers": {
+          "min": 0,
+          "max": 3
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 2
+        },
+        "timeout": 0,
+        "flashboot": "OFF",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": [
+            {
+              "volumeId": "gv1"
+            }
+          ]
+        },
+        "createdAt": "2026-07-11T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "error": "--cuda and --gpu-count apply to GPU endpoints",
+    "code": 2
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "queue_delay_seconds": 3.0
+      },
+      {
+        "id": "lb1",
+        "name": "openai-api",
+        "type": "LOAD_BALANCER",
+        "image": "ghcr.io/acme/openai-server:latest",
+        "gpu": {
+          "pools": [
+            "ADA_24"
+          ],
+          "excludedTypes": [],
+          "count": 2,
+          "allowedCudaVersions": [],
+          "minCudaVersion": "12.4"
+        },
+        "workers": {
+          "min": 1,
+          "max": 10
+        },
+        "scaling": {
+          "type": "REQUEST_COUNT",
+          "requestCount": 4
+        },
+        "timeout": 0,
+        "flashboot": "PRIORITY_FLASHBOOT",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": []
+        },
+        "requestUrls": {
+          "base": "https://lb1.api.runpod.ai",
+          "health": "x"
+        },
+        "createdAt": "2026-07-12T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "error": "load-balancer endpoints scale on --requests-per-worker",
+    "code": 2
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {},
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "unset_env": [
+          "MISSING"
+        ]
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "env": {
+        "A": "1",
+        "B": "2"
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "env": [
+          "A=1"
+        ]
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": null,
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "env": {
+        "A": "1"
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "max_workers": 2
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": null,
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "workers": {
+        "max": 2
+      }
+    }
+  },
+  {
+    "name": "configuration_update",
+    "operation": "config_body",
+    "args": [
+      {
+        "network_volume": [
+          "vol1"
+        ]
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": null,
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "mounts": {
+        "network": [
+          {
+            "volumeId": "vol1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "scale_changes",
+    "operation": "scale_patch",
+    "args": [
+      {
+        "min_workers": 1,
+        "requests_per_worker": 3
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {
+      "workers": {
+        "min": 1,
+        "max": 3,
+        "idleTimeout": 5
+      },
+      "scaling": {
+        "type": "REQUEST_COUNT",
+        "requestCount": 3
+      }
+    }
+  },
+  {
+    "name": "scale_changes",
+    "operation": "scale_patch",
+    "args": [
+      {},
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "result": {}
+  },
+  {
+    "name": "scale_changes",
+    "operation": "scale_patch",
+    "args": [
+      {
+        "queue_delay_seconds": 2.0
+      },
+      {
+        "id": "lb1",
+        "name": "openai-api",
+        "type": "LOAD_BALANCER",
+        "image": "ghcr.io/acme/openai-server:latest",
+        "gpu": {
+          "pools": [
+            "ADA_24"
+          ],
+          "excludedTypes": [],
+          "count": 2,
+          "allowedCudaVersions": [],
+          "minCudaVersion": "12.4"
+        },
+        "workers": {
+          "min": 1,
+          "max": 10
+        },
+        "scaling": {
+          "type": "REQUEST_COUNT",
+          "requestCount": 4
+        },
+        "timeout": 0,
+        "flashboot": "PRIORITY_FLASHBOOT",
+        "dataCenterIds": [],
+        "mounts": {
+          "network": [],
+          "global": []
+        },
+        "requestUrls": {
+          "base": "https://lb1.api.runpod.ai",
+          "health": "x"
+        },
+        "createdAt": "2026-07-12T00:00:00Z"
+      }
+    ],
+    "requests": [],
+    "error": "load-balancer endpoints scale on --requests-per-worker",
+    "code": 2
+  },
+  {
+    "name": "scale_changes",
+    "operation": "scale_patch",
+    "args": [
+      {
+        "queue_delay_seconds": 2.0,
+        "requests_per_worker": 3
+      },
+      {
+        "id": "ep1",
+        "name": "llama-prod",
+        "type": "QUEUE",
+        "image": "ghcr.io/acme/llama:latest",
+        "args": "",
+        "env": {
+          "A": "1",
+          "B": "2"
+        },
+        "disk": 10,
+        "ports": [],
+        "gpu": {
+          "pools": [
+            "ADA_80_PRO"
+          ],
+          "excludedTypes": [
+            "NVIDIA A100 80GB PCIe"
+          ],
+          "count": 1,
+          "allowedCudaVersions": [],
+          "minCudaVersion": null
+        },
+        "workers": {
+          "min": 0,
+          "max": 3,
+          "idleTimeout": 5
+        },
+        "scaling": {
+          "type": "QUEUE_DELAY",
+          "queueDelay": 4
+        },
+        "timeout": 300000,
+        "flashboot": "FLASHBOOT",
+        "dataCenterIds": [
+          "EU-RO-1"
+        ],
+        "networkVolumes": [
+          "vol1"
+        ],
+        "mounts": {
+          "network": [
+            {
+              "volumeId": "vol1"
+            }
+          ],
+          "global": []
+        },
+        "requestUrls": {
+          "run": "https://api.runpod.ai/v2/ep1/run"
+        },
+        "createdAt": "2026-07-10T22:38:43Z"
+      }
+    ],
+    "requests": [],
+    "error": "use either --queue-delay-seconds or --requests-per-worker",
+    "code": 2
+  },
+  {
+    "name": "scale_changes",
+    "operation": "scale_patch",
+    "args": [
+      {
+        "min_workers": 0,
+        "max_workers": 0,
+        "idle_timeout_seconds": 1
+      },
+      {
+        "workers": null
+      }
+    ],
+    "requests": [],
+    "result": {
+      "workers": {
+        "min": 0,
+        "max": 0,
+        "idleTimeout": 1
+      }
+    }
+  }
+]

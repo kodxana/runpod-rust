@@ -7,7 +7,7 @@ use crate::{Client, Error, Result, Value};
 pub struct ResolutionError {
     message: String,
 }
-fn resolution(message: String) -> Error {
+pub(crate) fn resolution(message: String) -> Error {
     ResolutionError { message }.into()
 }
 
