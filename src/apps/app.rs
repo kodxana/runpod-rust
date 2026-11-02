@@ -109,6 +109,9 @@ impl fmt::Debug for App {
     }
 }
 impl App {
+    pub(super) fn same_instance(&self, other: &Self) -> bool {
+        Arc::ptr_eq(&self.inner, &other.inner)
+    }
     /// Creates an application with the default environment and lazily resolved credentials.
     ///
     /// # Errors

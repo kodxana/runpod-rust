@@ -1,0 +1,45 @@
+{
+  "upstream": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "scope": "Deployed queue/API/task handle loading and pre-import mounts, separate from the Python SDK inventory",
+  "fixtures": "tests/fixtures/runtime_loading.json",
+  "fixture_cases": 57,
+  "fixture_sha256": "7c782aeb852c424cd6d953e34af28d19cab85a9afc8554e8013bd3e7b59fd546",
+  "native_tests": ["tests/runtime_loading.rs", "tests/runtime_startup.rs"],
+  "test_mapping": {
+    "test_queue_worker.py::TestModeDetection.test_resource_name_flash_env": "test_resource_name_flash_env",
+    "test_queue_worker.py::TestModeDetection.test_resource_name_runpod_env": "test_resource_name_runpod_env",
+    "test_queue_worker.py::TestModeDetection.test_resource_name_empty": "test_resource_name_empty",
+    "test_queue_worker.py::TestModeDetection.test_is_deployed_requires_name_and_manifest": "test_is_deployed_requires_name_and_manifest",
+    "test_queue_worker.py::TestDeployedHandle.test_load_deployed_handle": "test_load_deployed_handle",
+    "test_queue_worker.py::TestDeployedHandle.test_load_deployed_handle_missing_resource": "test_load_deployed_handle_missing_resource",
+    "test_queue_worker.py::TestDeployedHandle.test_load_deployed_handle_missing_handle": "test_load_deployed_handle_missing_handle",
+    "test_queue_worker.py::TestMain.test_deployed_mode": "test_deployed_mode",
+    "test_api_server.py::TestDeployedClassApi.test_missing_resource_errors": "test_missing_resource_errors",
+    "test_api_server.py::TestDeployedClassApi.test_routes_and_init": "test_routes_and_init",
+    "test_deployed_task.py::test_invalid_production_identity_never_falls_back": "test_invalid_production_identity_never_falls_back",
+    "test_deployed_task.py::test_manifest_must_identify_registered_task": "test_manifest_must_identify_registered_task",
+    "test_deployed_task.py::test_duplicate_task_manifest_rejected": "test_duplicate_task_manifest_rejected",
+    "test_deployed_task.py::test_manifest_qualname_resolves_class_attribute": "test_manifest_qualname_resolves_class_attribute",
+    "test_deployed_task.py::test_task_identity_accepts_host_artifact_path": "test_task_identity_accepts_host_artifact_path"
+  },
+  "source_validation": {
+    "unchanged_passed_cases": 21,
+    "unchanged_passed_functions": 13,
+    "windows_path_rendering_failures": ["TestMain.test_deployed_mode", "TestDeployedClassApi.test_routes_and_init"]
+  },
+  "native_adaptations": [
+    "Explicit compiled-module callbacks and ordered AppRegistry replace Python module introspection",
+    "Owned bindings replace global mount state; worker paths remain POSIX on Windows",
+    "Task initialization uses the caller's Tokio runtime",
+    "Manifest IO/JSON failures retain native attach-phase causes",
+    "Malformed queue/API manifest diagnostics and available-name JSON spelling are native",
+    "Non-Unicode environment values are treated as absent"
+  ],
+  "pending_contracts": [
+    "Native binary artifact packaging and automatic launch",
+    "Live source dispatch and runtime dependency setup",
+    "Deployed task HTTP transport, execution policy and lifecycle",
+    "Full bootstrap orchestration and error responders"
+  ]
+}

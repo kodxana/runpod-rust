@@ -245,6 +245,11 @@ impl MountBindings {
             .ok_or_else(|| Error::InvalidInput("worker mount bindings must be a list".into()))?;
         let mut result = Self::default();
         for binding in values {
+            if !binding.is_object() {
+                return Err(Error::InvalidInput(
+                    "worker mount bindings must be objects".into(),
+                ));
+            }
             let get = |key: &str| {
                 binding
                     .get(key)
@@ -264,7 +269,10 @@ impl MountBindings {
                     "worker mount bindings require kind, reference, and id".into(),
                 ));
             }
-            let path = mount_path(get("path")?)?;
+            let path =
+                mount_path(binding.get("path").and_then(Value::as_str).ok_or_else(|| {
+                    Error::InvalidInput("mount paths must be absolute paths without '..'".into())
+                })?)?;
             for key in [reference, id] {
                 let paths = result
                     .bindings

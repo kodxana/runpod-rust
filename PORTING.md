@@ -1221,8 +1221,8 @@ and native factories described below. Live source/binary loading remains pending
 `NativeApi::asgi_factory` is still explicit Python-worker metadata and
 is rejected by the native host. Deployed class serving does not expose `/execute` or
 `/_runpod/sync`; those belong to the separate live dispatcher contract. Native binary
-packaging/bootstrap and automatic runtime mount setup also remain pending; owned mount
-bindings already exist for callers that initialize native state explicitly.
+packaging/launch remains pending. Artifact extraction and manifest-selected native
+declarations with mount bindings are covered by the later bootstrap/loading milestones.
 
 `tools/apps_http_fixtures.py ../assets/sdk-runtime` captures **18 scenarios / 150 requests**
 from the pinned runtime. Real TCP tests compare response status/body, Allow/Location headers,
@@ -2047,10 +2047,9 @@ for the mapping and [reviews/apps-queue-worker.md](reviews/apps-queue-worker.md)
 
 These runtime contracts are separate from the pinned Python SDK inventory, so SDK
 coverage remains **818/1,135 symbols (72.1%)**, **928/1,659 upstream test functions** and
-**2,328 SDK differential fixtures**. Manifest-based function selection, automatic mounts,
-native binary packaging/deployment, and the queue live-source executor remain pending.
-The example performs discovery export before entering the worker; the caller must select
-the compiled function and supply any owned mount bindings.
+**2,328 SDK differential fixtures**. Native binary packaging/deployment and the queue
+live-source executor remain pending. Manifest selection and mount configuration are
+covered by the later deployed resource loading milestone.
 
 Validation: the complete Windows suite passes **958 tests**, with zero failures and four
 ignored child entry points exercised by parents. Locked build, formatting, strict
@@ -2130,13 +2129,78 @@ and rejection of an existing symlink pointing outside the extraction root. See
 
 This separate runtime coverage does not change the SDK inventory: **818/1,135 symbols
 (72.1%)**, **928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
-Native binary packaging/launch, manifest resource selection, automatic mount setup,
-system dependency installation, and bootstrap error-serving orchestration remain pending.
+Native binary packaging/launch, system dependency installation and bootstrap error-serving
+orchestration remain pending. Manifest selection and mount configuration are covered below.
 
 The complete Windows suite passes **974 tests**, with zero failures and four ignored child
 entry points exercised by their parents. Formatting, locked build, strict Clippy and
 rustdoc pass. Focused bootstrap tests and strict Clippy were repeated after review changes.
 Unix-only extraction tests run in CI; local Windows checks do not prove Unix permissions.
+
+## Deployed native resource loading
+
+`apps::runtime::DeployedContext` ports deployed selection and pre-import mount setup from
+sdk-runtime `14f70227008c1ec317e3fe1865a4688b14f5d432`. It captures only worker settings,
+never changes process environment, and validates mounts before calling native declarations.
+
+| Runtime Python function | Rust counterpart |
+| --- | --- |
+| queue/API `_resource_name`, `_is_deployed` | `resource_name`, `is_deployed` |
+| `mounts.configure_mounts` | `DeployedContext::from_env` / `from_values`, `mounts` |
+| queue `_load_deployed_handle` | `load_queue` |
+| API `_load_api_handle` | `load_api` |
+| bootstrap `_validate_task_environment`, `_task_resource` | task validation inside `load_task` |
+| task `deployed.load_handle`, `_initialize` | `load_task` and native handle initialization |
+
+A compiled-module callback receives the selected module name and validated `MountBindings`,
+then returns an `AppRegistry` containing that module's exposed declarations. Applications
+and resources retain registration order. The callback replaces Python import/reflection;
+native tasks use explicit `SymbolReference` metadata, including dotted qualified names.
+Callbacks must finish registration before returning and expose only the selected module's
+resources. No Python interpreter, mutable global mount table, or dynamic Rust code loading
+is involved. Captured binding clones keep paths usable after the context is dropped.
+
+Preserved quirks: a nonempty Flash name takes precedence over the Runpod fallback, including
+whitespace. Deployment detection checks only name and manifest-file existence. Queue/API
+selection takes the first matching manifest entry and the first matching handle. Queue
+loading also accepts task handles and ignores manifest kind, app owner and qualified name.
+Neither queue nor API loading initializes the handle; worker/HTTP startup does that.
+
+Tasks require runtime kind `task` and four nonblank identity fields before manifest access.
+Manifest app, unique matching task entry and nonblank module/qualified name are validated
+before the callback. Exactly one task handle must match name, kind, owning app and qualified
+name. Aliases of one application instance deduplicate; separate instances with identical
+names are ambiguous. No hook runs after missing/ambiguous selection. Task initialization
+is awaited on the caller's Tokio runtime and its typed failure propagates unchanged.
+Task HTTP serving, execution policy and lifecycle orchestration remain pending.
+
+Missing `RUNPOD_MOUNTS` means an empty array, while an explicitly empty value fails JSON
+parsing. Malformed JSON retains its native cause. Record/path validation and reference/ID
+lookup match source diagnostics; duplicate identical paths deduplicate and distinct paths
+are ambiguous. The older standalone `MountBindings::from_env` keeps its existing treatment
+of an empty value; deployed runtime configuration uses the stricter source contract.
+
+Native differences: worker paths remain POSIX on all hosts. The source's `pathlib.Path`
+renders backslashes on Windows; two unchanged source integration tests consequently fail
+only their expected `/shared` or `/data` output. Native integration tests preserve their
+POSIX worker expectations. Missing-resource available names use JSON spelling rather than
+Python repr. Malformed queue/API manifest shapes use typed native diagnostics, and file/JSON
+failures retain the bootstrap reader's attach-phase wrapper. Non-Unicode environment values
+are treated as absent; Python surrogate-escape environment behavior is not emulated.
+
+Twenty-one unchanged source cases (thirteen test functions) pass. The two Windows path
+failures above are recorded separately, not counted as source passes. The fifteen mapped
+test functions and additional native checks are listed in
+[parity/runtime-loading.json](parity/runtime-loading.json). The deterministic capture has
+**57 cases**: 34 selections, 13 mount configurations and 10 deployment detections. Tests
+compare selected values, error phase/message, module calls and init events. Queue startup
+uses real loopback transport to verify both stream chunks and the aggregate; API startup
+uses real HTTP to verify readiness, initialized routes and mounted paths. Async task init
+gates loading and retains usable state; native registration/init IO failures keep their kind.
+
+This runtime milestone does not inflate SDK inventory coverage: **818/1,135 symbols (72.1%)**,
+**928/1,659 source test functions**, and **2,328 SDK differential fixtures**. See the
+[Rust review](reviews/apps-runtime-loading.md) for final validation results.
 
 ## Remaining work
 

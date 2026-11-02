@@ -41,8 +41,7 @@
   "pending_contracts": [
     "System dependencies and excluded-package verification",
     "Live runtime dependency setup",
-    "Native binary packaging/launch and manifest resource selection",
-    "Automatic runtime mounts",
+    "Native binary packaging/launch (manifest selection and mounts are tracked in runtime-loading.json)",
     "Bootstrap error queue/HTTP responders and full main orchestration"
   ]
 }

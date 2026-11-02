@@ -145,14 +145,24 @@ arguments; `__empty` is removed. Streaming functions send partial results and a 
 aggregate. For explicit configuration and shutdown, await `queue_worker(WorkerConfig)`
 then call `Worker::run`. Apps initialization completes before intake, independently of
 the core worker's later prestart hooks. See [examples/queue_worker.rs](examples/queue_worker.rs).
-Native artifact deployment, manifest selection, mount bootstrap and live source loading
-remain pending; this adapter runs the compiled function selected by the caller.
+Native artifact deployment and live source loading remain in progress.
 
 `apps::bootstrap::BootstrapConfig` prepares a platform-mounted artifact before worker
 startup. `locate` prefers a prebuilt tree or warm unpack marker, otherwise waits for and
 extracts tar/gzip/bzip2/xz content. `read_manifest` reads its JSON and `dependency_paths`
 returns vendored-environment/source order. These are blocking operations; use a blocking
-executor from async code. They do not yet select or launch a native resource.
+executor from async code. Native binary packaging and automatic launch remain in progress.
+
+`apps::runtime::DeployedContext` reads the worker identity and validates `RUNPOD_MOUNTS`
+before loading application declarations. `load_queue` and `load_api` select the first
+matching handle from an explicit compiled-module callback; start it with the queue or
+HTTP methods above. `load_task` requires exactly one matching app/task/qualified name
+and awaits its init hook. The callback receives owned-context mount bindings, which
+handlers can clone for their lifetime. Task HTTP serving remains in progress.
+See [examples/deployed_queue.rs](examples/deployed_queue.rs) for an already-unpacked
+manifest selecting module `deployed_queue`, resource `hello`, with a network mount named
+`data`. Set `RUNPOD_APP_DIR`, `FLASH_RESOURCE_NAME` and `RUNPOD_MOUNTS` for the worker;
+the example also supports compiled metadata discovery.
 
 For synchronous registered functions/APIs, construct `blocking::apps::App` outside Tokio,
 or wrap existing declarations with `::from_app`. Register resources with the same inputs.

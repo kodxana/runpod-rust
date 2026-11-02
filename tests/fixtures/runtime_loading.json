@@ -1,0 +1,1322 @@
+{
+  "repository": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "selection": [
+    {
+      "name": "queue",
+      "kind": "queue",
+      "declarations": [
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": true
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "queue",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "queue accepts task handle",
+      "kind": "queue",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "queue",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "queue skips API",
+      "kind": "queue",
+      "declarations": [
+        {
+          "kind": "api",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        },
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "queue",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "queue",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "queue",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "queue first handle wins",
+      "kind": "queue",
+      "declarations": [
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "one",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        },
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "two",
+          "qualname": "work",
+          "tag": "second",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "queue",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "queue missing handle",
+      "kind": "queue",
+      "declarations": [
+        {
+          "kind": "queue",
+          "name": "different",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "queue",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "no @app.queue/@app.task handle named 'work' found in module 'user'",
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "API",
+      "kind": "api",
+      "declarations": [
+        {
+          "kind": "api",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "api",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "API skips function",
+      "kind": "api",
+      "declarations": [
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        },
+        {
+          "kind": "api",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "api",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "api",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "api",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "API missing handle",
+      "kind": "api",
+      "declarations": [
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "api",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "no @app.api handle named 'work' found in module 'user'",
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "task initializes",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": true
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": [
+        "first"
+      ]
+    },
+    {
+      "name": "task aliases deduplicate",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": true
+        },
+        {
+          "alias": 0
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": [
+        "first"
+      ]
+    },
+    {
+      "name": "task ambiguity",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": true
+        },
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "second",
+          "init": true
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "module must expose exactly one matching @app.task handle",
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "task wrong owner",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "other",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "module must expose exactly one matching @app.task handle",
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "task wrong qualname",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "other",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "module must expose exactly one matching @app.task handle",
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "task rejects queue",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "module must expose exactly one matching @app.task handle",
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "queue missing manifest resource",
+      "kind": "queue",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "other",
+            "module": "user"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "resource 'work' not in manifest",
+      "phase": null,
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "queue unknown module",
+      "kind": "queue",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "queue",
+            "module": "absent",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "unknown module: absent",
+      "phase": null,
+      "imports": [
+        "absent"
+      ],
+      "init": []
+    },
+    {
+      "name": "api missing manifest resource",
+      "kind": "api",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "other",
+            "module": "user"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "resource 'work' not in manifest",
+      "phase": null,
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "api unknown module",
+      "kind": "api",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "api",
+            "module": "absent",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "unknown module: absent",
+      "phase": null,
+      "imports": [
+        "absent"
+      ],
+      "init": []
+    },
+    {
+      "name": "task missing manifest resource",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "other",
+            "module": "user"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "attach: manifest must contain exactly one matching task",
+      "phase": "attach",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task unknown module",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "absent",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "unknown module: absent",
+      "phase": null,
+      "imports": [
+        "absent"
+      ],
+      "init": []
+    },
+    {
+      "name": "queue first manifest entry wins",
+      "kind": "queue",
+      "declarations": [
+        {
+          "kind": "queue",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]"
+      },
+      "manifest": {
+        "resources": [
+          {
+            "name": "work",
+            "module": "user"
+          },
+          {
+            "name": "work",
+            "module": "absent"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "task nested qualified name",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "Tasks.work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "Tasks.work"
+          }
+        ]
+      },
+      "selected": "first",
+      "error": null,
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "task manifest qualified name mismatch",
+      "kind": "task",
+      "declarations": [
+        {
+          "kind": "task",
+          "name": "work",
+          "app": "example",
+          "qualname": "work",
+          "tag": "first",
+          "init": false
+        }
+      ],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "other"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "module must expose exactly one matching @app.task handle",
+      "phase": null,
+      "imports": [
+        "user"
+      ],
+      "init": []
+    },
+    {
+      "name": "task identity FLASH_APP_NAME",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": " ",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "identity: FLASH_APP_NAME is required for deployed tasks",
+      "phase": "identity",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task identity FLASH_ENVIRONMENT",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": " ",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "identity: FLASH_ENVIRONMENT is required for deployed tasks",
+      "phase": "identity",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task identity FLASH_RESOURCE_NAME",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": " ",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "identity: FLASH_RESOURCE_NAME is required for deployed tasks",
+      "phase": "identity",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task identity RUNPOD_BUILD_ID",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": " "
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "identity: RUNPOD_BUILD_ID is required for deployed tasks",
+      "phase": "identity",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task runtime kind",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "queue",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "identity: RUNPOD_RUNTIME_KIND must be task",
+      "phase": "identity",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task wrong manifest app",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "wrong",
+        "resources": []
+      },
+      "selected": null,
+      "error": "attach: manifest app does not match FLASH_APP_NAME",
+      "phase": "attach",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task duplicate manifest",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task"
+          },
+          {
+            "name": "work",
+            "kind": "task"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "attach: manifest must contain exactly one matching task",
+      "phase": "attach",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task nonobject manifest",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": [],
+      "selected": null,
+      "error": "attach: manifest must be an object",
+      "phase": "attach",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task nonobject resource",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          1
+        ]
+      },
+      "selected": null,
+      "error": "attach: manifest resources must be an array of objects",
+      "phase": "attach",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task wrong manifest kind",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "queue",
+            "module": "user",
+            "qualname": "work"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "attach: manifest must contain exactly one matching task",
+      "phase": "attach",
+      "imports": [],
+      "init": []
+    },
+    {
+      "name": "task missing symbol",
+      "kind": "task",
+      "declarations": [],
+      "values": {
+        "FLASH_RESOURCE_NAME": "work",
+        "RUNPOD_MOUNTS": "[]",
+        "RUNPOD_RUNTIME_KIND": "task",
+        "FLASH_APP_NAME": "example",
+        "FLASH_ENVIRONMENT": "default",
+        "RUNPOD_BUILD_ID": "build"
+      },
+      "manifest": {
+        "app": "example",
+        "resources": [
+          {
+            "name": "work",
+            "kind": "task"
+          }
+        ]
+      },
+      "selected": null,
+      "error": "attach: task module and qualname are required",
+      "phase": "attach",
+      "imports": [],
+      "init": []
+    }
+  ],
+  "mounts": [
+    {
+      "raw": null,
+      "lookup": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "raw": "[]",
+      "lookup": null,
+      "result": null,
+      "error": null
+    },
+    {
+      "raw": "",
+      "lookup": null,
+      "result": null,
+      "error": "RUNPOD_MOUNTS must contain a valid JSON array"
+    },
+    {
+      "raw": "bad",
+      "lookup": null,
+      "result": null,
+      "error": "RUNPOD_MOUNTS must contain a valid JSON array"
+    },
+    {
+      "raw": "{}",
+      "lookup": null,
+      "result": null,
+      "error": "worker mount bindings must be a list"
+    },
+    {
+      "raw": "[1]",
+      "lookup": null,
+      "result": null,
+      "error": "worker mount bindings must be objects"
+    },
+    {
+      "raw": "[{}]",
+      "lookup": null,
+      "result": null,
+      "error": "worker mount bindings require kind, reference, and id"
+    },
+    {
+      "raw": "[{\"kind\":\"network\",\"reference\":\"data\",\"id\":\"nv-1\"}]",
+      "lookup": null,
+      "result": null,
+      "error": "mount paths must be absolute paths without '..'"
+    },
+    {
+      "raw": "[{\"kind\": \"network\", \"reference\": \"data\", \"id\": \"nv-1\", \"path\": \"/data//./cache\"}]",
+      "lookup": [
+        "network",
+        "data"
+      ],
+      "result": "/data/cache",
+      "error": null
+    },
+    {
+      "raw": "[{\"kind\": \"network\", \"reference\": \"data\", \"id\": \"nv-1\", \"path\": \"/data//./cache\"}]",
+      "lookup": [
+        "network",
+        "nv-1"
+      ],
+      "result": "/data/cache",
+      "error": null
+    },
+    {
+      "raw": "[{\"kind\": \"network\", \"reference\": \"data\", \"id\": \"nv-1\", \"path\": \"/data//./cache\"}]",
+      "lookup": [
+        "network",
+        "missing"
+      ],
+      "result": null,
+      "error": "network volume 'missing' is not mounted in the current execution"
+    },
+    {
+      "raw": "[{\"kind\": \"network\", \"reference\": \"data\", \"id\": \"nv-1\", \"path\": \"/data//./cache\"}, {\"kind\": \"network\", \"reference\": \"data\", \"id\": \"nv-1\", \"path\": \"/data//./cache\"}]",
+      "lookup": [
+        "network",
+        "data"
+      ],
+      "result": "/data/cache",
+      "error": null
+    },
+    {
+      "raw": "[{\"kind\": \"network\", \"reference\": \"data\", \"id\": \"nv-1\", \"path\": \"/data//./cache\"}, {\"kind\": \"network\", \"reference\": \"data\", \"id\": \"nv-1\", \"path\": \"/other\"}]",
+      "lookup": [
+        "network",
+        "data"
+      ],
+      "result": null,
+      "error": "network volume 'data' has multiple mounts; use an explicit mount path"
+    }
+  ],
+  "detection": [
+    {
+      "values": {},
+      "manifest": false,
+      "name": "",
+      "deployed": false
+    },
+    {
+      "values": {},
+      "manifest": true,
+      "name": "",
+      "deployed": false
+    },
+    {
+      "values": {
+        "FLASH_RESOURCE_NAME": "flash"
+      },
+      "manifest": false,
+      "name": "flash",
+      "deployed": false
+    },
+    {
+      "values": {
+        "FLASH_RESOURCE_NAME": "flash"
+      },
+      "manifest": true,
+      "name": "flash",
+      "deployed": true
+    },
+    {
+      "values": {
+        "RUNPOD_RESOURCE_NAME": "fallback"
+      },
+      "manifest": false,
+      "name": "fallback",
+      "deployed": false
+    },
+    {
+      "values": {
+        "RUNPOD_RESOURCE_NAME": "fallback"
+      },
+      "manifest": true,
+      "name": "fallback",
+      "deployed": true
+    },
+    {
+      "values": {
+        "FLASH_RESOURCE_NAME": "",
+        "RUNPOD_RESOURCE_NAME": "fallback"
+      },
+      "manifest": false,
+      "name": "fallback",
+      "deployed": false
+    },
+    {
+      "values": {
+        "FLASH_RESOURCE_NAME": "",
+        "RUNPOD_RESOURCE_NAME": "fallback"
+      },
+      "manifest": true,
+      "name": "fallback",
+      "deployed": true
+    },
+    {
+      "values": {
+        "FLASH_RESOURCE_NAME": " ",
+        "RUNPOD_RESOURCE_NAME": "fallback"
+      },
+      "manifest": false,
+      "name": " ",
+      "deployed": false
+    },
+    {
+      "values": {
+        "FLASH_RESOURCE_NAME": " ",
+        "RUNPOD_RESOURCE_NAME": "fallback"
+      },
+      "manifest": true,
+      "name": " ",
+      "deployed": true
+    }
+  ]
+}

@@ -45,8 +45,7 @@
     "Typed native errors, serde_json values and closure-owned state"
   ],
   "pending_contracts": [
-    "Resource/manifest loading and deployed/live selection",
-    "Automatic runtime mount initialization",
+    "Automatic deployed/live startup orchestration (loading and mounts are tracked in runtime-loading.json)",
     "Native binary packaging and deployment",
     "Live-source request executor and serialization"
   ]

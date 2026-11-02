@@ -35,6 +35,7 @@ pub mod protocol;
 mod queue;
 pub mod registry;
 mod resolution;
+pub mod runtime;
 mod secret;
 pub mod serialization;
 pub mod shim;
