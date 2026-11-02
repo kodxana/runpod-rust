@@ -6657,8 +6657,9 @@
       "kind": "function",
       "public": true,
       "signature": "path: str, collection: str, params: dict | None=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::api::list_all",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/api.py",
@@ -6667,8 +6668,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::CliError / cli::run",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/catalog.py",
@@ -8585,7 +8587,7 @@
       "signature": "data: Any",
       "rust": "cli::output::json",
       "status": "adapted",
-      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. See the current ledger for other output and prompt helpers."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8596,7 +8598,7 @@
       "signature": "value: Any",
       "rust": "cli::output::cell",
       "status": "adapted",
-      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. See the current ledger for other output and prompt helpers."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8607,7 +8609,7 @@
       "signature": "rows: Sequence[dict], columns: Sequence[Column]",
       "rust": "cli::output::table",
       "status": "adapted",
-      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. See the current ledger for other output and prompt helpers."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8618,7 +8620,7 @@
       "signature": "rows: Sequence[dict], columns: Sequence[Column], empty: str",
       "rust": "cli::output::table",
       "status": "adapted",
-      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending."
+      "note": "Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. See the current ledger for other output and prompt helpers."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8627,8 +8629,9 @@
       "kind": "function",
       "public": true,
       "signature": "record: dict, fields: Sequence[Column]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::fields",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8637,8 +8640,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::Terminal::interactive",
+      "status": "implemented",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8647,8 +8651,9 @@
       "kind": "function",
       "public": true,
       "signature": "message: str, choices: Sequence[tuple[str, str]], missing: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::Interaction::pick",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -8657,8 +8662,9 @@
       "kind": "function",
       "public": true,
       "signature": "message: str, yes: bool",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::Interaction::confirm",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/output.py",
@@ -9047,8 +9053,9 @@
       "kind": "function",
       "public": false,
       "signature": "record",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::label",
+      "status": "implemented",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9057,8 +9064,9 @@
       "kind": "function",
       "public": false,
       "signature": "kind",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::choices",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9077,8 +9085,9 @@
       "kind": "function",
       "public": false,
       "signature": "record, kind, as_json, action=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Options::show",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9087,8 +9096,9 @@
       "kind": "function",
       "public": false,
       "signature": "regions, volume_type",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::select_data_center",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9097,8 +9107,9 @@
       "kind": "function",
       "public": false,
       "signature": "volume_id, size, expand=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Growth::{parse,resolve}",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9107,8 +9118,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::command",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9117,8 +9129,9 @@
       "kind": "function",
       "public": true,
       "signature": "kind, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Options::execute / Action::List",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9127,8 +9140,9 @@
       "kind": "function",
       "public": true,
       "signature": "volume_id, kind, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Options::execute / Action::Get",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9137,8 +9151,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, size, regions, data_center, volume_type, kind, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Options::execute / Action::Create",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9147,8 +9162,9 @@
       "kind": "function",
       "public": true,
       "signature": "volume_id, name, size, kind, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Options::execute / Action::Update",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9157,8 +9173,9 @@
       "kind": "function",
       "public": true,
       "signature": "volume_id, size, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Options::execute / Action::Expand",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/rp_cli/volume.py",
@@ -9167,8 +9184,9 @@
       "kind": "function",
       "public": true,
       "signature": "volume_id, yes, kind",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::Options::execute / Action::Delete",
+      "status": "adapted",
+      "note": "Native CLI with owned client, typed usage/API/abort errors, terminal fuzzy selection and confirmation. Requests, growth checks and output values preserve Python contracts; display and bounded numeric adaptations are in reviews/volume-cli.md. Shell completion is still pending."
     },
     {
       "file": "runpod/serverless/__init__.py",

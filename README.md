@@ -24,8 +24,9 @@ envelopes, result decoding, coordinated source synchronization, and worker metri
 Pod logs support snapshots, SSE cursors, and reconnect deduplication. Ephemeral tasks
 support runtime image selection, pod creation, runner requests, result polling, and
 cleanup after failure or cancellation. Advanced worker utilities and the CLI remain in progress.
-The native `rp catalog` and `runpod catalog` commands support GPU, CPU, and data-center
-search, stock and price filters, tables, and JSON. Other CLI commands remain pending.
+The native `rp` and `runpod` commands support catalog search and network/global volume
+listing, inspection, creation, renaming, expansion, and deletion, with JSON and terminal
+interaction. Other CLI commands remain pending.
 `apps::deploy` provides explicit application definitions, manifest generation, deployed
 endpoint payloads, endpoint reconciliation, and project archives with nested ignore rules,
 protected credential exclusions, and separately vendored dependency files. `apps::build`
@@ -215,6 +216,21 @@ runpod catalog --datacenters --region us
 
 Catalog commands only query existing catalog data. See `rp catalog --help` and the
 [catalog CLI notes](PORTING.md#native-catalog-cli) for supported options and display adaptations.
+
+Volume commands support network volumes by default and global volumes with `--global`:
+
+```sh
+rp volume list --json
+rp volume get VOLUME_ID
+rp volume create --name models --size 100 --data-center EU-RO-1
+rp volume expand VOLUME_ID --size +50
+rp volume create --name shared --global
+```
+
+Omitting an ID for `get` opens a fuzzy selector in an interactive terminal. Region-based
+creation narrows by storage tier and selects a data center when several match. Deletion
+asks for confirmation; scripts must explicitly pass `--yes`. See `rp volume --help`
+and the [volume CLI notes](PORTING.md#native-volume-cli).
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults

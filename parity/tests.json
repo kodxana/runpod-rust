@@ -6220,8 +6220,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, failure",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::api::tests::test_api_errors_are_click_errors",
+      "status": "adapted",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_api.py",
@@ -6230,8 +6231,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::api::tests::test_list_all_follows_cursors",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_groups/test_config_functions.py",
@@ -6782,8 +6784,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::output::tests::test_print_fields",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -6792,8 +6795,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::tests::test_pick_requires_tty",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -6802,8 +6806,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::tests::test_pick_with_no_choices",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -6812,8 +6817,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::tests::test_pick_uses_fuzzy_prompt",
+      "status": "adapted",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -6822,8 +6828,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::tests::test_confirm",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -6832,8 +6839,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, message, width",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::interaction::tests::test_pick_truncates_labels_to_terminal_cells",
+      "status": "adapted",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_cli_output.py",
@@ -9739,8 +9747,9 @@
       "kind": "function",
       "public": true,
       "signature": "resource, listing",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_list_table_and_json",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9749,8 +9758,9 @@
       "kind": "function",
       "public": true,
       "signature": "listing",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_list_empty",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9759,8 +9769,9 @@
       "kind": "function",
       "public": true,
       "signature": "resource, rest",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_get_fields_and_json",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9769,8 +9780,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, listing",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::tests::test_get_picker",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9779,8 +9791,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, listing",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_missing_id_requires_terminal",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9789,8 +9802,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, command, exception",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_api_errors_are_clean",
+      "status": "adapted",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9799,8 +9813,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, datacenters",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_create_exact_data_center",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9809,8 +9824,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, datacenters, options, candidates",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::tests::test_create_filters_picker_candidates",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9819,8 +9835,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, datacenters",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_create_single_region_match_uses_default_tier",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9829,8 +9846,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, datacenters, options, code, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_create_rejects_invalid_placement_and_size",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9839,8 +9857,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_create_requires_network_size",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9849,8 +9868,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_create_global",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9859,8 +9879,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, command, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_invalid_updates_and_global_options",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9869,8 +9890,9 @@
       "kind": "function",
       "public": true,
       "signature": "resource, rest",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_rename_without_fetching",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9879,8 +9901,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, command, target",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_resize_requests",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9889,8 +9912,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_expand_human_output",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9899,8 +9923,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, command, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_resize_rejects_shrink_no_growth_and_overflow",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9909,8 +9934,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, size",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_expand_rejects_malformed_size_without_fetching",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9919,8 +9945,9 @@
       "kind": "function",
       "public": true,
       "signature": "resource, rest",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_delete_yes",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9929,8 +9956,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest, answer, code",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::volume::tests::test_delete_confirmation",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",
@@ -9939,8 +9967,9 @@
       "kind": "function",
       "public": true,
       "signature": "rest",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_volume::test_delete_requires_yes_without_terminal",
+      "status": "ported",
+      "note": "Named native counterpart; actual Python fixtures compare requests, payloads, choices, fields and errors. Native terminal backend replaces InquirerPy/Click. HTTP 401 tests use the source transport's fixed authentication error; completion tests remain pending."
     },
     {
       "file": "tests/test_cli/test_volume_command.py",

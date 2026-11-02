@@ -64,6 +64,22 @@ pub(super) fn table(headers: &[String], rows: &[Vec<String>], empty: &str) -> St
     output
 }
 
+pub(super) fn fields(values: &[(String, String)]) -> String {
+    let width = values
+        .iter()
+        .map(|(name, _)| name.width())
+        .max()
+        .unwrap_or(0);
+    let mut output = String::new();
+    for (name, value) in values {
+        output.push_str(name);
+        output.extend(std::iter::repeat_n(' ', width - name.width() + 2));
+        output.push_str(value);
+        output.push('\n');
+    }
+    output
+}
+
 // Python's general format uses significant digits and switches to scientific notation
 // for an exponent below -4 or at least the precision, after rounding.
 pub(super) fn general(value: f64, precision: usize) -> String {
@@ -99,6 +115,16 @@ mod tests {
         assert_eq!(cell(&json!(true)), "yes");
         assert_eq!(cell(&json!(["a", "b"])), "a, b");
         assert_eq!(cell(&json!(3)), "3");
+    }
+
+    #[test]
+    fn test_print_fields() {
+        let output = fields(&[
+            ("id".into(), "abc".into()),
+            ("tags".into(), cell(&json!([]))),
+        ]);
+        assert!(output.contains("id    abc"));
+        assert!(output.contains("tags  -"));
     }
 
     #[test]

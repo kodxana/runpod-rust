@@ -42,6 +42,7 @@ by Python; the complete port remains in progress.
 | `rp_model_cache` path helper, `rp_cleanup.clean`, CUDA availability | `utils` functions |
 | `rp_cli.compute` matching, parsing, catalog requests | `compute` helpers and `Client::list_catalog_*` / `blocking::Client::list_catalog_*` |
 | `rp_cli.catalog`, JSON and table output | native `rp catalog` / `runpod catalog`, `cli::run`, and private rendering helpers |
+| `rp_cli.volume`, CLI pagination, fields and terminal interaction | native `rp volume` / `runpod volume`, private owned options, pagination and prompt helpers |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -80,9 +81,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 394 implemented symbols, 300 adapted symbols, and 728 upstream
+This milestone maps 396 implemented symbols, 316 adapted symbols, and 757 upstream
 test functions; other entries remain pending.
-The test mapping includes 669 ported tests and 59 explicitly adapted tests.
+The test mapping includes 694 ported tests and 63 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1215,7 +1216,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **1,701 SDK differential cases**.
+additional runtime fixtures, separate from the **1,759 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1257,7 +1258,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 1,701 differential cases.
+separate from the SDK symbol inventory and its 1,759 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1404,6 +1405,44 @@ checks. Two output-helper counterparts cover cell rendering and intact identifie
 The unchanged upstream file passes 69 parameterized cases, including its still-pending
 completion test; the two selected output-helper tests also pass. All API traffic in
 these tests uses local mocks and synthetic credentials. See [reviews/catalog.md](reviews/catalog.md).
+
+## Native volume CLI
+
+Both executable names now support `volume list`, `get`, `create`, `update`, `expand`,
+and `delete`. Network/global selection, paginated listing, JSON, fields, table values,
+creation payloads, name-only updates, and size checks retain the source behavior.
+Creating at an exact data center skips catalog lookup; region-based placement filters
+by offered storage tiers, picks a sole match, or asks the user when several remain.
+Updating to the current size is allowed, while `expand` requires growth. Expansion
+accepts either a total or `+N`; neither update nor expansion can shrink storage or
+exceed 4096 GB. Deletion fetches the current record before confirmation unless `--yes`
+is supplied, and sends no DELETE when confirmation is declined or unavailable.
+
+Shared pagination follows cursor pages with original query parameters and no added
+retry policy, matching the CLI helper rather than the SDK's retrying pagination API.
+Malformed collections/cursor fields return typed errors. Native usage errors return 2,
+API errors return 1, and declined/cancelled prompts return 1 with `Aborted!`.
+Network tests use Python's real HTTP error conversion; in particular, 401 responses
+produce the fixed authentication message rather than a mocked arbitrary exception text.
+
+Terminal eligibility requires both stdin and stdout to be terminals. Dialoguer provides
+native fuzzy selection and confirmation, and selected IDs remain separate from display
+labels. Labels truncate to available Unicode display cells, retaining complete IDs for
+requests. Native prompt layout, terminal styling and key handling replace InquirerPy
+and Click; field/table values remain intact. Counts use checked native integers: create
+and update sizes are `u32` constrained to 10..4096, and expansion syntax uses ASCII
+`u64` with checked addition. Arbitrary Python integers/Unicode digits are not emulated.
+
+`tools/volume_cli_fixtures.py` captures **58 pinned Python invocations**, bringing the
+SDK differential total to **1,759**. Nineteen process tests cover 18 named source tests
+and additional edges; three native interaction tests cover the remaining command
+contracts with recorded choices/confirmations. Eight new shared-helper tests map cursor
+pagination, error conversion, field rendering, terminal checks, selection and confirmation.
+The unchanged upstream volume/API/output files pass **67 parameterized cases**; that
+source run also includes completion tests whose native mappings remain pending.
+A real Windows terminal smoke check exercised declined/accepted deletion and fuzzy
+selection against a local mock HTTP server. No real Runpod resource was changed.
+See [reviews/volume-cli.md](reviews/volume-cli.md).
 
 ## Remaining work
 

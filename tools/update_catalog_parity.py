@@ -26,7 +26,7 @@ for entry in data["entries"]:
                      note="Native Clap CLI preserves catalog filtering, query parameters, row order, values and errors. Sized counts and native table/help layout are documented in reviews/catalog.md and PORTING.md.")
     elif entry["file"] == "runpod/rp_cli/output.py" and entry["name"] in output:
         entry.update(rust="cli::output::" + output[entry["name"]], status="adapted",
-                     note="Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. Other output/prompt/completion helpers remain pending.")
+                     note="Native JSON-value rendering and unwrapped Unicode-width tables; no Python object repr/default=str or Rich object/style emulation. See the current ledger for other output and prompt helpers.")
 path.write_text(json.dumps(data, indent=2) + "\n")
 print("API", dict(Counter(e["status"] for e in data["entries"])))
 path = ROOT / "parity/tests.json"

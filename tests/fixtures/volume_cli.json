@@ -1,0 +1,2637 @@
+[
+  {
+    "name": "test_list_table_and_json",
+    "args": [
+      "list"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "networkVolumes": [
+            {
+              "id": "vol1",
+              "name": "models",
+              "size": 100,
+              "dataCenter": "EU-RO-1",
+              "type": "STANDARD"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "table": {
+      "headers": [
+        "ID",
+        "NAME",
+        "SIZE",
+        "DATA CENTER",
+        "TYPE"
+      ],
+      "cells": [
+        [
+          "vol1",
+          "models",
+          "100 GB",
+          "EU-RO-1",
+          "standard"
+        ]
+      ],
+      "empty": "no network volumes. create one with rp volume create"
+    },
+    "code": 0
+  },
+  {
+    "name": "test_get_fields_and_json",
+    "args": [
+      "get",
+      "vol1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "fields": [
+      [
+        "id",
+        "vol1"
+      ],
+      [
+        "name",
+        "models"
+      ],
+      [
+        "size",
+        "100 GB"
+      ],
+      [
+        "data center",
+        "EU-RO-1"
+      ],
+      [
+        "type",
+        "standard"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_list_table_and_json",
+    "args": [
+      "list",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "networkVolumes": [
+            {
+              "id": "vol1",
+              "name": "models",
+              "size": 100,
+              "dataCenter": "EU-RO-1",
+              "type": "STANDARD"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": [
+      {
+        "id": "vol1",
+        "name": "models",
+        "size": 100,
+        "dataCenter": "EU-RO-1",
+        "type": "STANDARD"
+      }
+    ]
+  },
+  {
+    "name": "test_get_fields_and_json",
+    "args": [
+      "get",
+      "vol1",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 100,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_rename_without_fetching",
+    "args": [
+      "update",
+      "vol1",
+      "--name",
+      "renamed"
+    ],
+    "requests": [
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "name": "renamed"
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "updated network volume vol1"
+    ],
+    "fields": [
+      [
+        "id",
+        "vol1"
+      ],
+      [
+        "name",
+        "models"
+      ],
+      [
+        "size",
+        "100 GB"
+      ],
+      [
+        "data center",
+        "EU-RO-1"
+      ],
+      [
+        "type",
+        "standard"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_delete_yes",
+    "args": [
+      "delete",
+      "vol1",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "deleted network volume vol1"
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_list_table_and_json",
+    "args": [
+      "list",
+      "--global"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/global-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "globalVolumes": [
+            {
+              "id": "cmvfsn771000007jp15tn8esm",
+              "name": "capy-test-global-renamed",
+              "createdAt": "2026-09-24T00:00:00Z",
+              "createdByUserId": "user_example"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "table": {
+      "headers": [
+        "ID",
+        "NAME",
+        "CREATED"
+      ],
+      "cells": [
+        [
+          "cmvfsn771000007jp15tn8esm",
+          "capy-test-global-renamed",
+          "2026-09-24"
+        ]
+      ],
+      "empty": "no global volumes. create one with rp volume create"
+    },
+    "code": 0
+  },
+  {
+    "name": "test_get_fields_and_json",
+    "args": [
+      "get",
+      "cmvfsn771000007jp15tn8esm",
+      "--global"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/global-volumes/cmvfsn771000007jp15tn8esm",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "cmvfsn771000007jp15tn8esm",
+          "name": "capy-test-global-renamed",
+          "createdAt": "2026-09-24T00:00:00Z",
+          "createdByUserId": "user_example"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "fields": [
+      [
+        "id",
+        "cmvfsn771000007jp15tn8esm"
+      ],
+      [
+        "name",
+        "capy-test-global-renamed"
+      ],
+      [
+        "created",
+        "2026-09-24T00:00:00Z"
+      ],
+      [
+        "created by",
+        "user_example"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_list_table_and_json",
+    "args": [
+      "list",
+      "--global",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/global-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "globalVolumes": [
+            {
+              "id": "cmvfsn771000007jp15tn8esm",
+              "name": "capy-test-global-renamed",
+              "createdAt": "2026-09-24T00:00:00Z",
+              "createdByUserId": "user_example"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": [
+      {
+        "id": "cmvfsn771000007jp15tn8esm",
+        "name": "capy-test-global-renamed",
+        "createdAt": "2026-09-24T00:00:00Z",
+        "createdByUserId": "user_example"
+      }
+    ]
+  },
+  {
+    "name": "test_get_fields_and_json",
+    "args": [
+      "get",
+      "cmvfsn771000007jp15tn8esm",
+      "--global",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/global-volumes/cmvfsn771000007jp15tn8esm",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "cmvfsn771000007jp15tn8esm",
+          "name": "capy-test-global-renamed",
+          "createdAt": "2026-09-24T00:00:00Z",
+          "createdByUserId": "user_example"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "cmvfsn771000007jp15tn8esm",
+      "name": "capy-test-global-renamed",
+      "createdAt": "2026-09-24T00:00:00Z",
+      "createdByUserId": "user_example"
+    }
+  },
+  {
+    "name": "test_rename_without_fetching",
+    "args": [
+      "update",
+      "cmvfsn771000007jp15tn8esm",
+      "--global",
+      "--name",
+      "renamed"
+    ],
+    "requests": [
+      {
+        "method": "PATCH",
+        "path": "/v2/global-volumes/cmvfsn771000007jp15tn8esm",
+        "params": {},
+        "body": {
+          "name": "renamed"
+        },
+        "status": 200,
+        "response": {
+          "id": "cmvfsn771000007jp15tn8esm",
+          "name": "capy-test-global-renamed",
+          "createdAt": "2026-09-24T00:00:00Z",
+          "createdByUserId": "user_example"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "updated global volume cmvfsn771000007jp15tn8esm"
+    ],
+    "fields": [
+      [
+        "id",
+        "cmvfsn771000007jp15tn8esm"
+      ],
+      [
+        "name",
+        "capy-test-global-renamed"
+      ],
+      [
+        "created",
+        "2026-09-24T00:00:00Z"
+      ],
+      [
+        "created by",
+        "user_example"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_delete_yes",
+    "args": [
+      "delete",
+      "cmvfsn771000007jp15tn8esm",
+      "--global",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/global-volumes/cmvfsn771000007jp15tn8esm",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "cmvfsn771000007jp15tn8esm",
+          "name": "capy-test-global-renamed",
+          "createdAt": "2026-09-24T00:00:00Z",
+          "createdByUserId": "user_example"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "deleted global volume cmvfsn771000007jp15tn8esm"
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_list_empty",
+    "args": [
+      "list"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "networkVolumes": [],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "table": {
+      "headers": [
+        "ID",
+        "NAME",
+        "SIZE",
+        "DATA CENTER",
+        "TYPE"
+      ],
+      "cells": [],
+      "empty": "no network volumes. create one with rp volume create"
+    },
+    "code": 0
+  },
+  {
+    "name": "test_get_picker",
+    "args": [
+      "get"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "networkVolumes": [
+            {
+              "id": "vol1",
+              "name": "models",
+              "size": 100,
+              "dataCenter": "EU-RO-1",
+              "type": "STANDARD"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [
+      {
+        "message": "network volume",
+        "choices": [
+          [
+            "vol1",
+            "models  100 GB  EU-RO-1  standard"
+          ]
+        ],
+        "missing": "pass VOLUME_ID"
+      }
+    ],
+    "confirms": [],
+    "success": [],
+    "selected": "vol1",
+    "fields": [
+      [
+        "id",
+        "vol1"
+      ],
+      [
+        "name",
+        "models"
+      ],
+      [
+        "size",
+        "100 GB"
+      ],
+      [
+        "data center",
+        "EU-RO-1"
+      ],
+      [
+        "type",
+        "standard"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_missing_id_requires_terminal",
+    "args": [
+      "get"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "networkVolumes": [
+            {
+              "id": "vol1",
+              "name": "models",
+              "size": 100,
+              "dataCenter": "EU-RO-1",
+              "type": "STANDARD"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [
+      {
+        "message": "network volume",
+        "choices": [
+          [
+            "vol1",
+            "models  100 GB  EU-RO-1  standard"
+          ]
+        ],
+        "missing": "pass VOLUME_ID"
+      }
+    ],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "pass VOLUME_ID"
+  },
+  {
+    "name": "test_api_errors_are_clean",
+    "args": [
+      "get",
+      "vol1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 404,
+        "response": {
+          "detail": "not found"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 1,
+    "error": "not found"
+  },
+  {
+    "name": "test_api_errors_are_clean",
+    "args": [
+      "get",
+      "vol1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 401,
+        "response": {
+          "detail": "bad key"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 1,
+    "error": "Unauthorized request, please check your API key."
+  },
+  {
+    "name": "test_api_errors_are_clean",
+    "args": [
+      "delete",
+      "vol1",
+      "--global",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/global-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 409,
+        "response": {
+          "detail": "still mounted"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 1,
+    "error": "still mounted"
+  },
+  {
+    "name": "test_create_exact_data_center",
+    "args": [
+      "create",
+      "--name",
+      "models",
+      "--size",
+      "100",
+      "--data-center",
+      "EU-RO-1",
+      "--type",
+      "standard"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": {
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "created network volume vol1"
+    ],
+    "fields": [
+      [
+        "id",
+        "vol1"
+      ],
+      [
+        "name",
+        "models"
+      ],
+      [
+        "size",
+        "100 GB"
+      ],
+      [
+        "data center",
+        "EU-RO-1"
+      ],
+      [
+        "type",
+        "standard"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_create_filters_picker_candidates",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "eu",
+      "--type",
+      "high_performance",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": {
+          "name": "m",
+          "size": 10,
+          "dataCenter": "EU-FR-1",
+          "type": "HIGH_PERFORMANCE"
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [
+      {
+        "message": "data center",
+        "choices": [
+          [
+            "EU-FR-1",
+            "EU-FR-1  europe  high_performance"
+          ],
+          [
+            "EU-CZ-1",
+            "EU-CZ-1  europe  standard, high_performance"
+          ]
+        ],
+        "missing": "several data centers in region eu offer high_performance network volumes (EU-FR-1, EU-CZ-1). pass one with --data-center"
+      }
+    ],
+    "confirms": [],
+    "success": [],
+    "selected": "EU-FR-1",
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 100,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_create_filters_picker_candidates",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--type",
+      "standard",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": {
+          "name": "m",
+          "size": 10,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [
+      {
+        "message": "data center",
+        "choices": [
+          [
+            "EU-RO-1",
+            "EU-RO-1  europe  standard"
+          ],
+          [
+            "EU-CZ-1",
+            "EU-CZ-1  europe  standard, high_performance"
+          ],
+          [
+            "US-TX-3",
+            "US-TX-3  north america  standard"
+          ]
+        ],
+        "missing": "several data centers in the catalog offer standard network volumes (EU-RO-1, EU-CZ-1, US-TX-3). pass one with --data-center"
+      }
+    ],
+    "confirms": [],
+    "success": [],
+    "selected": "EU-RO-1",
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 100,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_create_filters_picker_candidates",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "eu",
+      "--region",
+      "na",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": {
+          "name": "m",
+          "size": 10,
+          "dataCenter": "EU-RO-1"
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [
+      {
+        "message": "data center",
+        "choices": [
+          [
+            "EU-RO-1",
+            "EU-RO-1  europe  standard"
+          ],
+          [
+            "EU-FR-1",
+            "EU-FR-1  europe  high_performance"
+          ],
+          [
+            "EU-CZ-1",
+            "EU-CZ-1  europe  standard, high_performance"
+          ],
+          [
+            "US-TX-3",
+            "US-TX-3  north america  standard"
+          ]
+        ],
+        "missing": "several data centers in region eu, na offer network volumes (EU-RO-1, EU-FR-1, EU-CZ-1, US-TX-3). pass one with --data-center"
+      }
+    ],
+    "confirms": [],
+    "success": [],
+    "selected": "EU-RO-1",
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 100,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_create_single_region_match_uses_default_tier",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "na"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": {
+          "name": "m",
+          "size": 10,
+          "dataCenter": "US-TX-3"
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "created network volume vol1"
+    ],
+    "fields": [
+      [
+        "id",
+        "vol1"
+      ],
+      [
+        "name",
+        "models"
+      ],
+      [
+        "size",
+        "100 GB"
+      ],
+      [
+        "data center",
+        "EU-RO-1"
+      ],
+      [
+        "type",
+        "standard"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_create_rejects_invalid_placement_and_size",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "eu"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "picks": [
+      {
+        "message": "data center",
+        "choices": [
+          [
+            "EU-RO-1",
+            "EU-RO-1  europe  standard"
+          ],
+          [
+            "EU-FR-1",
+            "EU-FR-1  europe  high_performance"
+          ],
+          [
+            "EU-CZ-1",
+            "EU-CZ-1  europe  standard, high_performance"
+          ]
+        ],
+        "missing": "several data centers in region eu offer network volumes (EU-RO-1, EU-FR-1, EU-CZ-1). pass one with --data-center"
+      }
+    ],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "several data centers in region eu offer network volumes (EU-RO-1, EU-FR-1, EU-CZ-1). pass one with --data-center"
+  },
+  {
+    "name": "test_create_rejects_invalid_placement_and_size",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "na",
+      "--type",
+      "high_performance"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 1,
+    "error": "no data center in region na offers high_performance network volumes"
+  },
+  {
+    "name": "test_create_rejects_invalid_placement_and_size",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "mars"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 1,
+    "error": "unknown region 'mars'. use a region (eu, na, europe, north-america), an id prefix like us or eu-ro, or a data center (EU-CZ-1, EU-FR-1, EU-RO-1, EU-SE-1, US-TX-3)"
+  },
+  {
+    "name": "test_create_rejects_invalid_placement_and_size",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "eu",
+      "--data-center",
+      "EU-RO-1"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "use either --region or --data-center"
+  },
+  {
+    "name": "test_create_rejects_invalid_placement_and_size",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--size",
+      "5000"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "Invalid value for '--size': 5000 is not in the range 10<=x<=4096."
+  },
+  {
+    "name": "test_create_requires_network_size",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--data-center",
+      "EU-RO-1"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "pass --size in GB for a network volume"
+  },
+  {
+    "name": "test_create_global",
+    "args": [
+      "create",
+      "--name",
+      "shared",
+      "--global"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/global-volumes",
+        "params": {},
+        "body": {
+          "name": "shared"
+        },
+        "status": 200,
+        "response": {
+          "id": "cmvfsn771000007jp15tn8esm",
+          "name": "capy-test-global-renamed",
+          "createdAt": "2026-09-24T00:00:00Z",
+          "createdByUserId": "user_example"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "created global volume cmvfsn771000007jp15tn8esm"
+    ],
+    "fields": [
+      [
+        "id",
+        "cmvfsn771000007jp15tn8esm"
+      ],
+      [
+        "name",
+        "capy-test-global-renamed"
+      ],
+      [
+        "created",
+        "2026-09-24T00:00:00Z"
+      ],
+      [
+        "created by",
+        "user_example"
+      ]
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_invalid_updates_and_global_options",
+    "args": [
+      "create",
+      "--name",
+      "s",
+      "--global",
+      "--size",
+      "10",
+      "--region",
+      "eu"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "--size, --region do not apply to global volumes"
+  },
+  {
+    "name": "test_invalid_updates_and_global_options",
+    "args": [
+      "update",
+      "vol1",
+      "--global",
+      "--size",
+      "20"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "global volumes have no size to change"
+  },
+  {
+    "name": "test_invalid_updates_and_global_options",
+    "args": [
+      "update",
+      "vol1"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "pass --name and/or --size"
+  },
+  {
+    "name": "test_resize_requests",
+    "args": [
+      "update",
+      "vol1",
+      "--size",
+      "200",
+      "--name",
+      "renamed",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "name": "renamed",
+          "size": 200
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 200,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 200,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_resize_requests",
+    "args": [
+      "update",
+      "vol1",
+      "--size",
+      "100",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "size": 100
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 100,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_resize_requests",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "250",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "size": 250
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 250,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 250,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_resize_requests",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "+50",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "size": 150
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 150,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 150,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "test_expand_human_output",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "+1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "size": 101
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 101,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "expanded vol1 from 100 GB to 101 GB"
+    ],
+    "code": 0
+  },
+  {
+    "name": "test_resize_rejects_shrink_no_growth_and_overflow",
+    "args": [
+      "update",
+      "vol1",
+      "--size",
+      "50"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "network volumes can only grow: vol1 is 100 GB, requested 50 GB"
+  },
+  {
+    "name": "test_resize_rejects_shrink_no_growth_and_overflow",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "50"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "network volumes can only grow: vol1 is 100 GB, requested 50 GB"
+  },
+  {
+    "name": "test_resize_rejects_shrink_no_growth_and_overflow",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "+0"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "network volumes can only grow: vol1 is 100 GB, requested 100 GB"
+  },
+  {
+    "name": "test_resize_rejects_shrink_no_growth_and_overflow",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "+4000"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "network volumes hold at most 4096 GB, requested 4100 GB"
+  },
+  {
+    "name": "test_expand_rejects_malformed_size_without_fetching",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "abc"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "Invalid value for --size: 'abc' is not a size. use N for a total or +N to add N GB"
+  },
+  {
+    "name": "test_expand_rejects_malformed_size_without_fetching",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "-5"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "Invalid value for --size: '-5' is not a size. use N for a total or +N to add N GB"
+  },
+  {
+    "name": "test_expand_rejects_malformed_size_without_fetching",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "1.5"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "Invalid value for --size: '1.5' is not a size. use N for a total or +N to add N GB"
+  },
+  {
+    "name": "test_delete_confirmation",
+    "args": [
+      "delete",
+      "vol1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [
+      "delete network volume vol1 (models  100 GB  EU-RO-1  standard) and all its data?"
+    ],
+    "success": [
+      "deleted network volume vol1"
+    ],
+    "answer": "y",
+    "code": 0
+  },
+  {
+    "name": "test_delete_confirmation",
+    "args": [
+      "delete",
+      "vol1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [
+      "delete network volume vol1 (models  100 GB  EU-RO-1  standard) and all its data?"
+    ],
+    "success": [],
+    "answer": "n",
+    "code": 1,
+    "error": "Aborted!"
+  },
+  {
+    "name": "test_delete_requires_yes_without_terminal",
+    "args": [
+      "delete",
+      "vol1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [
+      "delete network volume vol1 (models  100 GB  EU-RO-1  standard) and all its data?"
+    ],
+    "success": [],
+    "code": 2,
+    "error": "pass --yes to confirm in a non-interactive shell"
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "create",
+      "--name",
+      "",
+      "--global",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/v2/global-volumes",
+        "params": {},
+        "body": {
+          "name": ""
+        },
+        "status": 200,
+        "response": {
+          "id": "cmvfsn771000007jp15tn8esm",
+          "name": "capy-test-global-renamed",
+          "createdAt": "2026-09-24T00:00:00Z",
+          "createdByUserId": "user_example"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "cmvfsn771000007jp15tn8esm",
+      "name": "capy-test-global-renamed",
+      "createdAt": "2026-09-24T00:00:00Z",
+      "createdByUserId": "user_example"
+    }
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "update",
+      "vol1",
+      "--name",
+      "",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "name": ""
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 100,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--region",
+      "eu-se"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 1,
+    "error": "no data center in region eu-se offers network volumes"
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "create",
+      "--name",
+      "m",
+      "--size",
+      "10",
+      "--data-center",
+      ""
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/catalog/datacenters",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "dataCenters": [
+            {
+              "id": "EU-RO-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            },
+            {
+              "id": "EU-FR-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-CZ-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": [
+                "STANDARD",
+                "HIGH_PERFORMANCE"
+              ]
+            },
+            {
+              "id": "EU-SE-1",
+              "region": "EUROPE",
+              "networkVolumeTypes": []
+            },
+            {
+              "id": "US-TX-3",
+              "region": "NORTH_AMERICA",
+              "networkVolumeTypes": [
+                "STANDARD"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "picks": [
+      {
+        "message": "data center",
+        "choices": [
+          [
+            "EU-RO-1",
+            "EU-RO-1  europe  standard"
+          ],
+          [
+            "EU-FR-1",
+            "EU-FR-1  europe  high_performance"
+          ],
+          [
+            "EU-CZ-1",
+            "EU-CZ-1  europe  standard, high_performance"
+          ],
+          [
+            "US-TX-3",
+            "US-TX-3  north america  standard"
+          ]
+        ],
+        "missing": "several data centers in the catalog offer network volumes (EU-RO-1, EU-FR-1, EU-CZ-1, US-TX-3). pass one with --data-center"
+      }
+    ],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "several data centers in the catalog offer network volumes (EU-RO-1, EU-FR-1, EU-CZ-1, US-TX-3). pass one with --data-center"
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      " +0001 ",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      },
+      {
+        "method": "PATCH",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": {
+          "size": 101
+        },
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": {
+      "id": "vol1",
+      "name": "models",
+      "size": 100,
+      "dataCenter": "EU-RO-1",
+      "type": "STANDARD"
+    }
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "4097"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "network volumes hold at most 4096 GB, requested 4097 GB"
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "expand",
+      "vol1",
+      "--size",
+      "+"
+    ],
+    "requests": [],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 2,
+    "error": "Invalid value for --size: '+' is not a size. use N for a total or +N to add N GB"
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "delete",
+      "vol1",
+      "-y"
+    ],
+    "requests": [
+      {
+        "method": "DELETE",
+        "path": "/v2/network-volumes/vol1",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "vol1",
+          "name": "models",
+          "size": 100,
+          "dataCenter": "EU-RO-1",
+          "type": "STANDARD"
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [
+      "deleted network volume vol1"
+    ],
+    "code": 0
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "list",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "networkVolumes": [
+            {
+              "id": "vol1",
+              "name": "models",
+              "size": 100,
+              "dataCenter": "EU-RO-1",
+              "type": "STANDARD"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": true,
+            "nextCursor": "page-2"
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v2/network-volumes",
+        "params": {
+          "cursor": "page-2"
+        },
+        "body": null,
+        "status": 200,
+        "response": {
+          "networkVolumes": [
+            {
+              "id": "vol2",
+              "name": "models",
+              "size": 100,
+              "dataCenter": "EU-RO-1",
+              "type": "STANDARD"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "code": 0,
+    "json": [
+      {
+        "id": "vol1",
+        "name": "models",
+        "size": 100,
+        "dataCenter": "EU-RO-1",
+        "type": "STANDARD"
+      },
+      {
+        "id": "vol2",
+        "name": "models",
+        "size": 100,
+        "dataCenter": "EU-RO-1",
+        "type": "STANDARD"
+      }
+    ]
+  },
+  {
+    "name": "additional_volume_edges",
+    "args": [
+      "list",
+      "--global"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v2/global-volumes",
+        "params": {},
+        "body": null,
+        "status": 200,
+        "response": {
+          "globalVolumes": [
+            {
+              "id": "cmvfsn771000007jp15tn8esm",
+              "name": "capy-test-global-renamed",
+              "createdAt": "2026-09-24T00:00:00Z"
+            }
+          ],
+          "pagination": {
+            "hasNextPage": false,
+            "nextCursor": null
+          }
+        }
+      }
+    ],
+    "picks": [],
+    "confirms": [],
+    "success": [],
+    "table": {
+      "headers": [
+        "ID",
+        "NAME",
+        "CREATED"
+      ],
+      "cells": [
+        [
+          "cmvfsn771000007jp15tn8esm",
+          "capy-test-global-renamed",
+          "2026-09-24"
+        ]
+      ],
+      "empty": "no global volumes. create one with rp volume create"
+    },
+    "code": 0
+  }
+]
