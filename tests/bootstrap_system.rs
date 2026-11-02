@@ -201,7 +201,9 @@ async fn dropping_installation_kills_the_active_package_manager() {
         )
         .await
     });
-    let pid = tokio::time::timeout(Duration::from_secs(5), async {
+    // PowerShell can take several seconds to start on a loaded Windows runner.
+    // This bounds fixture readiness; the cancellation deadline below stays separate.
+    let pid = tokio::time::timeout(Duration::from_secs(30), async {
         loop {
             if let Ok(text) = fs::read_to_string(root.path().join("pid"))
                 && let Ok(pid) = text.parse::<u32>()
@@ -211,10 +213,10 @@ async fn dropping_installation_kills_the_active_package_manager() {
             tokio::time::sleep(Duration::from_millis(20)).await;
         }
     })
-    .await
-    .unwrap();
+    .await;
     task.abort();
     assert!(task.await.unwrap_err().is_cancelled());
+    let pid = pid.expect("package-manager fixture did not report readiness within 30 seconds");
     tokio::time::timeout(Duration::from_secs(5), async {
         let mut system = sysinfo::System::new();
         loop {
