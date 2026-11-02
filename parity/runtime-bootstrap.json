@@ -42,6 +42,6 @@
     "System dependencies and excluded-package verification",
     "Live runtime dependency setup",
     "Native binary packaging/launch (manifest selection and mounts are tracked in runtime-loading.json)",
-    "Bootstrap error queue/HTTP responders and full main orchestration"
+    "Full main orchestration (error responders are tracked in runtime-bootstrap-reporting.json)"
   ]
 }

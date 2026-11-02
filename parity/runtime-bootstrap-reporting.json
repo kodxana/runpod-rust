@@ -1,0 +1,41 @@
+{
+  "upstream": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "file": "src/runpod_sdk_runtime/bootstrap.py",
+  "scope": "Queue/API bootstrap failure responders and environment-based error dispatch; separate from SDK inventory",
+  "fixtures": "tests/fixtures/bootstrap_reporting.json",
+  "fixture_cases": 26,
+  "fixture_sha256": "0ed6fb6f0374768f9a7f3be75e05bc088c61707a095fbe8565a696cfda20e38a",
+  "native_tests": ["src/apps/bootstrap/reporting/tests.rs", "tests/bootstrap_reporting.rs", "tests/bootstrap_reporting_process.rs"],
+  "test_mapping": {
+    "test_bootstrap.py::TestErrorSurface.test_queue_error_loop_exits_without_webhooks": "test_queue_error_loop_exits_without_webhooks",
+    "test_bootstrap.py::TestErrorSurface.test_queue_error_loop_reports_jobs": "test_queue_error_loop_reports_jobs",
+    "test_bootstrap.py::TestErrorSurface.test_report_error_routes_by_kind": "test_report_error_routes_by_kind",
+    "test_deployed_task.py::test_task_bootstrap_error_never_enters_queue_loop": "task_bootstrap_error_never_enters_queue_loop"
+  },
+  "source_validation": {
+    "unchanged_passed_cases": 5,
+    "note": "Includes the already-ported error-payload shape test; four additional source functions are mapped here"
+  },
+  "verified_contracts": [
+    "Raw queue authorization, repeated $ID substitution, JSON-encoded error inside JSON with form content type",
+    "GET 90-second and POST 30-second request limits; 2-second non-200 and 5-second failure backoff",
+    "Empty polls, false IDs, malformed bodies, failed reports and recovery without worker initialization",
+    "Unauthenticated API error responses for GET/POST/PUT/DELETE/PATCH on all paths",
+    "Exact task/API routing and queue fallback for absent or unrecognized runtime kind",
+    "Task bootstrap error privacy, authenticated diagnostics, idle deletion acknowledgement and process exit",
+    "Shutdown during network polling, partial HTTP requests, and drop of embedded serving futures"
+  ],
+  "native_adaptations": [
+    "Owned clients and explicit shutdown futures replace globals and infinite blocking loops",
+    "Missing webhooks return a typed error; process callers choose the nonzero exit",
+    "Native JSON whitespace/escaping, HTTP framing and unsupported-method JSON replace Python formatting/HTML",
+    "Reqwest uses total request deadlines in place of urllib socket-operation timeouts",
+    "Non-Unicode environment values are treated as absent; native port parsing is limited to u16"
+  ],
+  "pending_contracts": [
+    "Complete bootstrap startup orchestration, including dependency setup and verification",
+    "Native binary packaging and automatic platform launch",
+    "Live source resolution and executor integration"
+  ]
+}

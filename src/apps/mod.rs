@@ -44,6 +44,7 @@ mod stubs;
 pub mod targets;
 pub mod task_runner;
 pub mod tasks;
+mod transport;
 pub mod volume;
 mod worker;
 pub use api::AppsApiClient;

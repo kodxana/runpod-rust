@@ -16,7 +16,6 @@ use std::{
     time::Duration,
 };
 mod termination;
-mod transport;
 pub use termination::PodTermination;
 use tokio::{
     net::TcpListener,
@@ -216,11 +215,14 @@ impl TaskRunner {
             .with_state(shared.clone());
         let (stop, stopped) = oneshot::channel();
         let (closing, closed) = tokio::sync::watch::channel(());
-        let server = axum::serve(transport::TaskListener::new(listener, closed), router)
-            .with_graceful_shutdown(async {
-                let _ = stopped.await;
-            })
-            .into_future();
+        let server = axum::serve(
+            super::transport::ClosingListener::new(listener, closed),
+            router,
+        )
+        .with_graceful_shutdown(async {
+            let _ = stopped.await;
+        })
+        .into_future();
         tokio::pin!(server, initialize, shutdown);
         let watchdog = watchdog(&shared, &mut terminate);
         tokio::pin!(watchdog);
@@ -302,7 +304,21 @@ pub async fn start<F>(initialize: F) -> Result<()>
 where
     F: Future<Output = Result<FunctionHandle>> + Send,
 {
-    let runner = TaskRunner::from_env()?;
+    start_runner(TaskRunner::from_env()?, initialize).await
+}
+
+pub(super) async fn start_failed(error: &super::bootstrap::PhaseError) -> Result<()> {
+    start_runner(
+        TaskRunner::from_env()?.with_bootstrap_error(error),
+        std::future::pending(),
+    )
+    .await
+}
+
+async fn start_runner<F>(runner: TaskRunner, initialize: F) -> Result<()>
+where
+    F: Future<Output = Result<FunctionHandle>> + Send,
+{
     let port = std::env::var("RUNPOD_TASK_PORT")
         .unwrap_or_else(|_| "8080".into())
         .trim()

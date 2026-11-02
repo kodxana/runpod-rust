@@ -23,7 +23,7 @@ its correction and passed afterward:
    return Ok(text.chars().count());
    ```
 
-2. `src/apps/task_runner/transport.rs:49`: graceful HTTP shutdown could wait indefinitely
+2. `src/apps/transport.rs:49`: graceful HTTP shutdown could wait indefinitely
    for an incomplete request body after deletion was acknowledged. **Rule:** cancellation
    must release owned I/O and allow lifecycle completion (rust-best-practices section 7).
    Accepted sockets now poll a shared close notification before reads, writes and flushes;

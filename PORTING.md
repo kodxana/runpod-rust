@@ -2288,6 +2288,48 @@ socket cancellation. See [parity/runtime-task-runner.json](parity/runtime-task-r
 Runtime coverage remains separate: SDK inventory stays **818/1,135 symbols (72.1%)**,
 **928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
 
+## Bootstrap failure reporting
+
+`apps::bootstrap::QueueErrorReporter`, `serve_api_error` and `report_error` port the
+pinned runtime's `_queue_error_loop`, `_api_error_server` and `_report_error` contracts.
+They can report a startup failure before application declarations or normal worker
+initialization. Artifact location, native resource selection and task serving remain
+separate operations; full startup orchestration and native deployment are still pending.
+
+Queue reporting preserves raw `RUNPOD_AI_API_KEY` authorization, both webhook settings,
+all `$ID` replacements and the nested JSON error string. The POST's content type remains
+`application/x-www-form-urlencoded` despite its JSON body. GET requests allow ninety
+seconds and POST requests thirty. Non-200 successful polls wait two seconds; transport,
+HTTP and decoding failures wait five. Empty responses become empty objects. False job
+IDs and successful reports poll again immediately; non-string truthy IDs fail and retry.
+No synthetic completion is sent on cancellation, and no application code is initialized.
+
+API failures answer GET/POST/PUT/DELETE/PATCH on any path with HTTP 500 and the structured
+phase error, without authentication or request body parsing. Other methods return 501;
+native JSON replaces Python's incidental HTML diagnostic. Closing the embedded server
+releases its caller-owned shutdown future and accepted connections. Socket cancellation
+is shared with the task runner, including partial request bodies and blocked writes.
+
+The process dispatcher selects task mode only for `RUNPOD_RUNTIME_KIND=task`, API mode
+only for `api`, and queue mode otherwise. APIs bind `PORT` (default 80); task failures use
+the existing task port/token, privacy rules and pod deletion policy. Their initializer
+never runs, and only acknowledged deletion exits the task process. Queue/API responders
+run until Ctrl+C. Missing webhooks produce a typed error for the process caller rather
+than an unconditional library exit. Native total-request deadlines differ from urllib's
+socket-operation timeouts; JSON whitespace/escaping and HTTP framing are adaptations.
+
+Five unchanged source cases pass, including the already-ported phase-error payload test.
+The new ledger maps four additional source functions. Nineteen queue traces characterize
+job envelopes, empty/malformed responses, status failures and timeout behavior; seven
+captures characterize dispatch. Tests also exercise real request timeouts, backoff/recovery,
+all three process routes, task idle deletion and embedded cancellation. Source captures
+regenerate identically with explicit LF output. See
+[parity/runtime-bootstrap-reporting.json](parity/runtime-bootstrap-reporting.json) and
+[reviews/apps-bootstrap-reporting.md](reviews/apps-bootstrap-reporting.md).
+
+Runtime coverage is tracked separately; SDK inventory remains **818/1,135 symbols**,
+**928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live

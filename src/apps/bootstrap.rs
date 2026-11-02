@@ -1,8 +1,11 @@
-//! Artifact location and attachment for application worker startup.
+//! Artifact location, attachment and startup failure reporting for application workers.
 //!
 //! These blocking filesystem operations prepare the platform artifact; they do not
 //! install packages, import source, select a registered function, or start a worker.
+//! [`report_error`] starts the appropriate queue/API/task responder after a bootstrap failure.
 use crate::{Error, Value, json};
+mod reporting;
+pub use reporting::{QueueErrorReporter, report_error, serve_api_error};
 use std::{
     collections::BTreeMap,
     fs::{self, File},

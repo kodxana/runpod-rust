@@ -164,6 +164,12 @@ manifest selecting module `deployed_queue`, resource `hello`, with a network mou
 `data`. Set `RUNPOD_APP_DIR`, `FLASH_RESOURCE_NAME` and `RUNPOD_MOUNTS` for the worker;
 the example also supports compiled metadata discovery.
 
+When artifact preparation returns a `PhaseError`, call `apps::bootstrap::report_error(&error).await`
+to keep startup failures visible through the worker's transport. Queue workers report the
+error for each job; APIs return HTTP 500; tasks retain public readiness and authenticated
+error details. Embedded callers can use `QueueErrorReporter::run` or `serve_api_error`
+with their own shutdown future. These responders require no application registration.
+
 `apps::task_runner::start` hosts a deployed task on `RUNPOD_TASK_PORT` (default 8080).
 Pass an initializer that calls `DeployedContext::load_task`; `/ping` reports readiness
 while initialization runs. `/execute`, `/submit`, `/result` and `/timeout` require

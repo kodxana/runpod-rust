@@ -1,0 +1,471 @@
+{
+  "repository": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "cases": [
+    {
+      "name": "report job",
+      "body": "{\"id\":\"job-1\"}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        },
+        {
+          "method": "POST",
+          "url": "http://fixture/out/job-1/again/job-1",
+          "timeout": 30,
+          "headers": {
+            "authorization": "fixture-secret",
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "error": {
+              "error_type": "BootstrapError",
+              "error_message": "worker bootstrap failed during 'attach': manifest missing"
+            }
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "empty response",
+      "body": "",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "missing id",
+      "body": "{}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "null id",
+      "body": "{\"id\":null}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "empty id",
+      "body": "{\"id\":\"\"}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "zero id",
+      "body": "{\"id\":0}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "false id",
+      "body": "{\"id\":false}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "empty array id",
+      "body": "{\"id\":[]}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": []
+    },
+    {
+      "name": "numeric id",
+      "body": "{\"id\":42}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "array body",
+      "body": "[]",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "null body",
+      "body": "null",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "invalid JSON",
+      "body": "{invalid",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "GET accepted",
+      "body": "{}",
+      "get_status": 202,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        2
+      ]
+    },
+    {
+      "name": "GET no content",
+      "body": "{}",
+      "get_status": 204,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        2
+      ]
+    },
+    {
+      "name": "GET denied",
+      "body": "{}",
+      "get_status": 401,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "GET unavailable",
+      "body": "{}",
+      "get_status": 503,
+      "post_status": 200,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "GET timeout",
+      "body": "{}",
+      "get_status": 200,
+      "post_status": 200,
+      "network_error": true,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "POST rejected",
+      "body": "{\"id\":\"job-1\"}",
+      "get_status": 200,
+      "post_status": 500,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        },
+        {
+          "method": "POST",
+          "url": "http://fixture/out/job-1/again/job-1",
+          "timeout": 30,
+          "headers": {
+            "authorization": "fixture-secret",
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "error": {
+              "error_type": "BootstrapError",
+              "error_message": "worker bootstrap failed during 'attach': manifest missing"
+            }
+          }
+        }
+      ],
+      "delays": [
+        5
+      ]
+    },
+    {
+      "name": "POST accepted",
+      "body": "{\"id\":\"job-1\"}",
+      "get_status": 200,
+      "post_status": 202,
+      "network_error": false,
+      "requests": [
+        {
+          "method": "GET",
+          "url": "http://fixture/get",
+          "timeout": 90,
+          "headers": {
+            "authorization": "fixture-secret"
+          }
+        },
+        {
+          "method": "POST",
+          "url": "http://fixture/out/job-1/again/job-1",
+          "timeout": 30,
+          "headers": {
+            "authorization": "fixture-secret",
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          "body": {
+            "error": {
+              "error_type": "BootstrapError",
+              "error_message": "worker bootstrap failed during 'attach': manifest missing"
+            }
+          }
+        }
+      ],
+      "delays": []
+    }
+  ],
+  "routes": [
+    {
+      "kind": null,
+      "route": "queue",
+      "payload": {
+        "error_type": "BootstrapError",
+        "error_message": "worker bootstrap failed during 'locate': missing"
+      }
+    },
+    {
+      "kind": "queue",
+      "route": "queue",
+      "payload": {
+        "error_type": "BootstrapError",
+        "error_message": "worker bootstrap failed during 'locate': missing"
+      }
+    },
+    {
+      "kind": "api",
+      "route": "api",
+      "payload": {
+        "error_type": "BootstrapError",
+        "error_message": "worker bootstrap failed during 'locate': missing"
+      }
+    },
+    {
+      "kind": "task",
+      "route": "task",
+      "payload": {
+        "error_type": "BootstrapError",
+        "error_message": "worker bootstrap failed during 'locate': missing"
+      }
+    },
+    {
+      "kind": "",
+      "route": "queue",
+      "payload": {
+        "error_type": "BootstrapError",
+        "error_message": "worker bootstrap failed during 'locate': missing"
+      }
+    },
+    {
+      "kind": "unknown",
+      "route": "queue",
+      "payload": {
+        "error_type": "BootstrapError",
+        "error_message": "worker bootstrap failed during 'locate': missing"
+      }
+    },
+    {
+      "kind": "API",
+      "route": "queue",
+      "payload": {
+        "error_type": "BootstrapError",
+        "error_message": "worker bootstrap failed during 'locate': missing"
+      }
+    }
+  ]
+}
