@@ -37,6 +37,9 @@ impl<'a> Streams<'a> {
         stream.flush().map_err(crate::Error::from)?;
         Ok(())
     }
+    pub fn finish_frame(&mut self) {
+        self.frame_lines = 0;
+    }
     pub fn frame(&mut self, text: &str) -> CliResult<()> {
         if self.terminal && self.frame_lines > 0 {
             dialoguer::console::Term::stdout()

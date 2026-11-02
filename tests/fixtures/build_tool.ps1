@@ -2,6 +2,10 @@ $root = $args[0]
 $mode = $args[1]
 $command = @($args | Select-Object -Skip 2)
 Add-Content -LiteralPath (Join-Path $root 'commands.txt') -Value ($command -join '|') -Encoding UTF8
+if ($command[0] -eq '-c') {
+    if ($mode -eq 'version-39') { [Console]::WriteLine('3.9') } else { [Console]::WriteLine('3.13') }
+    exit 0
+}
 if ($command -contains '--version') {
     if ($mode -eq 'bootstrap' -or $mode -eq 'bootstrap-fail') { exit 1 }
     exit 0

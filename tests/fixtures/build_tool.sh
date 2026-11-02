@@ -3,6 +3,10 @@ root=$1
 mode=$2
 shift 2
 (IFS='|'; printf '%s\n' "$*") >> "$root/commands.txt"
+if [ "$1" = "-c" ]; then
+    if [ "$mode" = "version-39" ]; then echo 3.9; else echo 3.13; fi
+    exit 0
+fi
 for arg in "$@"; do
     if [ "$arg" = '--version' ]; then
         case "$mode" in bootstrap|bootstrap-fail) exit 1;; esac

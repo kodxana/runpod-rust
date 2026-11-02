@@ -69,7 +69,7 @@ fresh verifier/challenge per attempt. Callbacks handle UI and code input; keys a
 without opening a browser or saving credentials automatically.
 `apps::entrypoint` provides an owned local-entrypoint registry and async execution, with
 `blocking::apps::run_entrypoint` for synchronous callers.
-Native task deployment, native CLI commands and live HTTP runtime integration remain in progress.
+Native task deployment, the remaining CLI commands and live HTTP runtime integration remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -182,8 +182,39 @@ trees and warm markers; cold starts extract a separate bootstrap copy before Rus
 the full archive. Prelaunch failures appear on stderr; structured error reporting starts
 inside the worker. This path is covered by local HTTP and process tests; live Runpod
 compatibility still needs validation. Native task resources are rejected before mutations
-until coordinator task launch is wired. Cargo/cross-compilation and native CLI commands
-remain pending. `deploy_app` continues to build Python-compatible artifacts.
+until coordinator task launch is wired. `deploy_app` continues to build Python-compatible artifacts.
+
+`rp flash deploy [TARGET]` (also `runpod flash deploy`) discovers Cargo app declarations,
+builds their workers, and deploys each app in order. TARGET is a Cargo directory, manifest,
+or binary source; it defaults to the current directory. The binary must call
+`discovery::export_if_requested` after registration and use `start_deployed` for deployed
+startup. Assets are taken from each owning Cargo package directory.
+
+```sh
+# Requires an installed target standard library, linker and compatible native libraries.
+rp flash deploy ./my-worker --env production
+rp flash deploy ./my-worker --build-only
+# Supply a worker already built for the intended Linux x86_64 container.
+rp flash deploy ./my-worker --worker ./dist/worker
+```
+
+The worker build defaults to `--target-triple x86_64-unknown-linux-gnu --profile release`.
+Cargo runs with `--locked` and each binary's required features. No toolchains or linkers
+are installed automatically. `--worker` cannot be combined with target/profile flags and
+requires declarations from a single binary. `--build-only` writes `<app>-artifact.tar.gz`
+in the current directory without credentials or cloud requests. Packaging accepts a host
+target for local checks; deployment separately requires Linux x86_64. Both retain Cargo's
+cache, and native artifacts exclude the root `target/` directory. Library callers can use
+`DiscoveredApp::build_worker(&WorkerBuildOptions)` to obtain Cargo's reported executable.
+
+`--runtime python` selects the existing Python-compatible artifact builder for explicit
+Python symbols/assets exported by Cargo metadata. It accepts `--python-version` and
+`--exclude torch,numpy`; otherwise it probes the configured Python executable and falls
+back to 3.12 for an unsupported version. It does not translate Rust handlers into Python.
+Exclude `target/` through `.gitignore` or `.runpodignore` in these mixed-language projects.
+The native default requires no Python interpreter. Deployment stops on the first failure;
+apps already deployed remain active. See [reviews/deploy-cli.md](reviews/deploy-cli.md)
+for validation and remaining platform limits.
 
 `apps::runtime::DeployedContext` reads the worker identity and validates `RUNPOD_MOUNTS`
 before loading application declarations. `load_queue` and `load_api` select the first

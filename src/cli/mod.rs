@@ -7,6 +7,7 @@ mod catalog;
 #[cfg(test)]
 mod credential_tests;
 mod credentials;
+mod deployment;
 mod editor;
 mod endpoint;
 mod environment;

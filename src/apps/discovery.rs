@@ -5,6 +5,7 @@
 //! fresh processes. The returned definitions are metadata; live Rust handles remain inside
 //! the project executable. Cargo's normal target directory is reused between scans.
 use super::{AppRegistry, deploy::AppDefinition};
+mod worker_build;
 use crate::{Result, Value};
 use serde::{Deserialize, Serialize};
 use std::{
@@ -14,6 +15,7 @@ use std::{
     process::{Output, Stdio},
 };
 use tokio::{io::AsyncReadExt, process::Command};
+pub use worker_build::WorkerBuildOptions;
 
 const SCAN: &str = "RUNPOD_DISCOVERY_SCAN";
 const OUTPUT: &str = "RUNPOD_DISCOVERY_OUTPUT";
@@ -62,6 +64,7 @@ pub struct DiscoveredApp {
     pub executable: PathBuf,
     /// Directory containing the owning package's Cargo manifest.
     pub project_root: PathBuf,
+    binary: Binary,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -108,7 +111,7 @@ struct Package {
     manifest_path: PathBuf,
     targets: Vec<CargoTarget>,
 }
-#[derive(Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 struct CargoTarget {
     name: String,
     kind: Vec<String>,
@@ -116,6 +119,7 @@ struct CargoTarget {
     #[serde(default, rename = "required-features")]
     features: Vec<String>,
 }
+#[derive(Debug, Clone)]
 struct Binary {
     package: String,
     manifest: PathBuf,
@@ -320,44 +324,7 @@ async fn load_target(cargo: &OsStr, binary: &Binary) -> Result<Vec<DiscoveredApp
             "Cargo manifest has no parent directory".into(),
         )
     })?;
-    let mut build = Command::new(cargo);
-    build
-        .args(["build", "--message-format=json", "--manifest-path"])
-        .arg(&binary.manifest)
-        .arg("--package")
-        .arg(&binary.package)
-        .arg("--bin")
-        .arg(&binary.target.name)
-        .current_dir(root);
-    if !binary.target.features.is_empty() {
-        build
-            .arg("--features")
-            .arg(binary.target.features.join(","));
-    }
-    let result = output(&mut build).await?;
-    if !result.status.success() {
-        return Err(load_error(&binary.target.src_path, diagnostic(&result)).into());
-    }
-    let executable = result
-        .stdout
-        .split(|b| *b == b'\n')
-        .filter_map(|line| serde_json::from_slice::<Value>(line).ok())
-        .find_map(|value| {
-            if value["reason"] == "compiler-artifact"
-                && value["package_id"] == binary.package
-                && value["target"]["name"] == binary.target.name
-            {
-                value["executable"].as_str().map(PathBuf::from)
-            } else {
-                None
-            }
-        })
-        .ok_or_else(|| {
-            load_error(
-                &binary.target.src_path,
-                "Cargo did not report an executable".into(),
-            )
-        })?;
+    let executable = worker_build::compile(cargo, binary, None).await?;
     let scratch = tempfile::tempdir()?;
     let export = scratch.path().join("apps.json");
     let result = output(
@@ -401,6 +368,7 @@ async fn load_target(cargo: &OsStr, binary: &Binary) -> Result<Vec<DiscoveredApp
             source: binary.target.src_path.clone(),
             executable: executable.clone(),
             project_root: root.into(),
+            binary: binary.clone(),
         })
         .collect())
 }

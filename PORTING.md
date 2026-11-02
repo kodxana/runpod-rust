@@ -56,6 +56,7 @@ by Python; the complete port remains in progress.
 | `rp_cli.main.login` | native `rp login` / `runpod login`, private `cli::login::Options` and SDK auth/storage helpers |
 | `rp_cli.main` app group and list/get/delete commands | native `flash app`, private `cli::flash` and existing `apps::manage` helpers |
 | `rp_cli.main` environment commands, undeploy, timestamp formatting and app-name resolution | native `flash env` / `flash undeploy`, private `cli::environment` and compiled metadata discovery |
+| `rp_cli.main.deploy`, `_app_source`, deployment console progress/banners | native `flash deploy`, private `cli::deployment`, target-aware `DiscoveredApp::build_worker` |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -94,9 +95,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 398 implemented symbols, 420 adapted symbols, and 928 upstream
+This milestone maps 398 implemented symbols, 434 adapted symbols, and 943 upstream
 test functions; other entries remain pending.
-The test mapping includes 861 ported tests and 67 explicitly adapted tests.
+The test mapping includes 866 ported tests and 77 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -2456,10 +2457,63 @@ See [parity/native-deploy.json](parity/native-deploy.json) and
 SDK functions, so counts remain **818/1,135 symbols**, **928/1,659 source test functions**,
 and **2,328 SDK differential fixtures**.
 
+## Deployment CLI and native Cargo builds
+
+`rp flash deploy` and `runpod flash deploy` now connect compiled metadata discovery to
+native queue/API deployment. Fourteen previously pending SDK symbols are mapped in
+[parity/deploy-cli.json](parity/deploy-cli.json), including the command, source names,
+plan/banner formatting and deployment progress sink. The native default compiles selected
+Cargo binaries with their package identity, required features, `--locked`, target and
+profile. The executable comes from Cargo's JSON artifact stream; it is never run on the
+host during this deployment build. Host discovery remains a separate compile/run step.
+Cargo owns build caching, and the CLI compiles once per binary shared by multiple apps.
+
+The default target/profile is `x86_64-unknown-linux-gnu` / `release`. Callers supply the
+target standard library, linker and native libraries; no container or cross-toolchain
+installation is implied. `--worker` accepts an existing executable for one selected
+binary's apps. Native upload enforces its existing ELF-header check; build-only accepts
+other targets for local use. Keep project inputs and target-conditional declarations
+consistent between host discovery and worker build. Cargo scripts run with caller rights.
+
+`--build-only` writes each app's artifact in the current directory without authentication.
+Assets use the owning package root, including workspace members. Native archives omit
+root `target/` and previous artifacts. `--runtime python` retains the prior source/wheel
+builder, explicit Python symbol metadata, comma-split exclusions and interpreter fallback.
+Mixed-language projects must ignore `target/` in `.gitignore` or `.runpodignore`.
+Native-specific flags and Python-specific flags reject incompatible modes before discovery.
+Missing target checks precede the Python interpreter probe in this Rust CLI.
+
+Plans, banners, output basenames, environment precedence and clean errors retain the
+source contracts. Apps run sequentially and failures do not roll back earlier deployments.
+Progress retains source phase completion on failure, ignored out-of-phase updates and
+persistent counters. Owned native frames replace Rich's threads, colors and styling;
+redirected output shows final summaries. The unfilled bar uses a thin glyph so progress
+remains distinguishable without color. Zero-byte totals render an empty bar rather than
+the source's suppressed callback exception. Endpoint links use OSC 8 on terminals.
+Ctrl-C cancels later work and kills direct Cargo children. Already-running blocking
+packaging finishes before releasing its owned inputs; child process trees are not a new
+platform-independent process-group guarantee.
+
+Nine unchanged source command cases are captured in `tests/fixtures/deploy_cli.json` by
+`tools/deploy_cli_fixtures.py`. Argument/banners and stable error contracts are replayed;
+real Rust CLI process tests inspect mock HTTP calls and archive bytes. The six relevant
+source console cases and eleven discovery regressions also pass. Fifteen source test
+functions gain named Rust counterparts. Additional tests cover required features/custom
+profiles, no execution of worker builds, stale executables after compiler errors, locked
+dependency changes, native flag conflicts, both executable aliases, shared-binary caching,
+and Python artifact version/exclusion/fallback behavior with fake installer processes.
+
+Run the capture generator with the pinned SDK and runtime on `PYTHONPATH`, then
+`python tools/update_deploy_cli_parity.py` to reproduce these mappings. Source revisions
+remain unchanged. See [reviews/deploy-cli.md](reviews/deploy-cli.md) for review and checks.
+The current SDK ledger is **832/1,135 symbols (73.3%)**, **943/1,659 source test functions**,
+and **2,337 SDK differential fixtures**. Counts in earlier milestone sections record their
+historical state; separate runtime tests do not increase SDK inventory credit.
+
 ## Remaining work
 
-The current milestone does not implement native task deployment, Cargo/cross-compilation
-or native CLI build/deploy commands, the Apps HTTP live dispatcher, full live-handle Apps
-discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
+The current milestone does not implement native coordinator task deployment, the Apps
+HTTP live dispatcher, full live-handle Apps discovery or the remaining CLI commands.
+Live Runpod/container compatibility, debugger integration and remaining cache/platform
 fault-injection coverage are also pending.
 All remain part of the requested full port, not exclusions from its scope.

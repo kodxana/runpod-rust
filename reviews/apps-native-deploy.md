@@ -30,7 +30,7 @@ the pinned SDK's coordinator task path does not establish a native command contr
 Queue/API deployment uses the existing endpoint `dockerArgs` field. Built-in and custom
 images both receive the native command and one authoritative `RUNPOD_RUNTIME_KIND` value.
 Rule: make unsupported runtime boundaries explicit rather than report false parity
-(rust-port sections 1?4).
+(rust-port sections 1 through 4).
 
 The original Python-compatible deployment retains its preparation/configuration behavior.
 Both paths share the same lookup/create, upload, finalization, activation and endpoint

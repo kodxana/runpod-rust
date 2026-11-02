@@ -215,3 +215,116 @@ async fn invalid_export_rejects_the_entire_target() {
         "{error}"
     );
 }
+
+#[path = "common/cargo_target.rs"]
+mod cargo_target;
+use cargo_target::host_target;
+
+#[tokio::test]
+async fn discovered_worker_builds_the_selected_binary_for_an_explicit_target_and_profile() {
+    use runpod::apps::discovery::WorkerBuildOptions;
+    let root = tempfile::tempdir().unwrap();
+    project(root.path());
+    binary(root.path(), "worker", &["demo"], false);
+    // Required features and a custom profile must survive the host-discovery/worker-build boundary.
+    let manifest = root.path().join("Cargo.toml");
+    let mut content = fs::read_to_string(&manifest).unwrap();
+    content.push_str("\n[features]\nworker-feature=[]\n[[bin]]\nname=\"worker\"\npath=\"src/bin/worker.rs\"\nrequired-features=[\"worker-feature\"]\n[profile.worker]\ninherits=\"release\"\ndebug=0\n");
+    fs::write(&manifest, content).unwrap();
+    let source = root.path().join("src/bin/worker.rs");
+    let code = fs::read_to_string(&source).unwrap();
+    fs::write(&source,format!("#[cfg(not(feature=\"worker-feature\"))]\ncompile_error!(\"missing required feature\");\n{code}")).unwrap();
+    let apps = discover_apps(&source).await.unwrap();
+    let options = WorkerBuildOptions {
+        target: host_target(),
+        profile: "worker".into(),
+    };
+    let executable = apps[0].build_worker(&options).await.unwrap();
+    assert!(executable.is_file());
+    let expected = fs::canonicalize(
+        root.path()
+            .join("target")
+            .join(&options.target)
+            .join("worker"),
+    )
+    .unwrap();
+    assert!(
+        fs::canonicalize(&executable)
+            .unwrap()
+            .starts_with(&expected),
+        "reported executable: {}; expected parent: {}",
+        executable.display(),
+        expected.display()
+    );
+    assert_ne!(executable, apps[0].executable);
+    // Building must not execute the worker or try to load a cross-target executable.
+    fs::write(
+        &source,
+        "fn main() { panic!(\"worker must not run during build\"); }\n",
+    )
+    .unwrap();
+    let rebuilt = apps[0].build_worker(&options).await.unwrap();
+    assert_eq!(rebuilt, executable);
+}
+
+#[tokio::test]
+async fn worker_build_failures_do_not_return_stale_executables_or_change_lockfiles() {
+    use runpod::apps::discovery::{DiscoveryError, WorkerBuildOptions};
+    let root = tempfile::tempdir().unwrap();
+    project(root.path());
+    binary(root.path(), "worker", &["demo"], false);
+    let source = root.path().join("src/bin/worker.rs");
+    let apps = discover_apps(&source).await.unwrap();
+    let options = WorkerBuildOptions {
+        target: host_target(),
+        profile: "release".into(),
+    };
+    let executable = apps[0].build_worker(&options).await.unwrap();
+    fs::write(&source, "fn main() { unresolved_native_worker(); }\n").unwrap();
+    let error = apps[0].build_worker(&options).await.unwrap_err();
+    assert!(matches!(
+        error,
+        runpod::Error::Discovery(DiscoveryError::Load { .. })
+    ));
+    assert!(error.to_string().contains("unresolved_native_worker"));
+    assert!(
+        executable.is_file(),
+        "Cargo owns its cache; a previous artifact may remain but must not be returned"
+    );
+    binary(root.path(), "worker", &["demo"], false);
+    let lock = root.path().join("Cargo.lock");
+    let before = fs::read(&lock).unwrap();
+    let manifest = root.path().join("Cargo.toml");
+    fs::create_dir(root.path().join("new-dependency")).unwrap();
+    fs::write(root.path().join("new-dependency/Cargo.toml"),"[package]\nname=\"local-build-dependency\"\nversion=\"0.0.0\"\nedition=\"2024\"\n[lib]\npath=\"lib.rs\"\n").unwrap();
+    fs::write(root.path().join("new-dependency/lib.rs"), "").unwrap();
+    let mut content = fs::read_to_string(&manifest).unwrap();
+    content.push_str("\n[dependencies]\nlocal-build-dependency={path=\"new-dependency\"}\n");
+    fs::write(&manifest, content).unwrap();
+    let error = apps[0].build_worker(&options).await.unwrap_err();
+    assert!(error.to_string().contains("locked"), "{error}");
+    assert_eq!(fs::read(lock).unwrap(), before);
+}
+
+#[tokio::test]
+async fn worker_build_rejects_empty_target_or_profile_before_starting_cargo() {
+    use runpod::apps::discovery::WorkerBuildOptions;
+    let root = tempfile::tempdir().unwrap();
+    project(root.path());
+    binary(root.path(), "worker", &["demo"], false);
+    let apps = discover_apps(root.path()).await.unwrap();
+    fs::remove_file(root.path().join("Cargo.toml")).unwrap();
+    for options in [
+        WorkerBuildOptions {
+            target: String::new(),
+            profile: "release".into(),
+        },
+        WorkerBuildOptions {
+            target: host_target(),
+            profile: String::new(),
+        },
+    ] {
+        let error = apps[0].build_worker(&options).await.unwrap_err();
+        assert!(error.to_string().contains("must not be empty"), "{error}");
+    }
+}

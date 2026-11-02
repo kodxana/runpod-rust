@@ -1,0 +1,289 @@
+[
+  {
+    "name": "TestDeploy.test_deploys_discovered_app",
+    "args": [
+      "flash",
+      "deploy"
+    ],
+    "messages": [
+      "deploy demo \u2192 default from main.py, chat",
+      "\u2713 demo/default is live <ELAPSED>s",
+      "",
+      "  chat  ep1 \u2197",
+      ""
+    ],
+    "calls": [
+      {
+        "operation": "deploy_app",
+        "app": "demo",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "chat",
+            "kind": "queue"
+          }
+        ],
+        "environment": null,
+        "python_version": "3.13",
+        "exclude": null,
+        "output": null
+      }
+    ],
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "TestDeploy.test_env_flag",
+    "args": [
+      "flash",
+      "deploy",
+      "--env",
+      "prod"
+    ],
+    "messages": [
+      "deploy demo \u2192 prod from main.py, chat",
+      "\u2713 demo/prod is live <ELAPSED>s",
+      "",
+      "  chat  ep1 \u2197",
+      ""
+    ],
+    "calls": [
+      {
+        "operation": "deploy_app",
+        "app": "demo",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "chat",
+            "kind": "queue"
+          }
+        ],
+        "environment": "prod",
+        "python_version": "3.13",
+        "exclude": null,
+        "output": null
+      }
+    ],
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "TestDeploy.test_multi_app_plan",
+    "args": [
+      "flash",
+      "deploy"
+    ],
+    "messages": [
+      "deploy 2 apps",
+      "  demo   main.py, 1 resource",
+      "  other  main.py, 1 resource",
+      "",
+      "deploy demo \u2192 default from main.py, chat",
+      "\u2713 demo/default is live <ELAPSED>s",
+      "",
+      "  chat  ep1 \u2197",
+      "",
+      "deploy other \u2192 default from main.py, embed",
+      "\u2713 other/default is live <ELAPSED>s",
+      "",
+      "  embed  ep2 \u2197",
+      ""
+    ],
+    "calls": [
+      {
+        "operation": "deploy_app",
+        "app": "demo",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "chat",
+            "kind": "queue"
+          }
+        ],
+        "environment": null,
+        "python_version": "3.13",
+        "exclude": null,
+        "output": null
+      },
+      {
+        "operation": "deploy_app",
+        "app": "other",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "embed",
+            "kind": "queue"
+          }
+        ],
+        "environment": null,
+        "python_version": "3.13",
+        "exclude": null,
+        "output": null
+      }
+    ],
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "TestDeploy.test_missing_target",
+    "args": [
+      "flash",
+      "deploy",
+      "missing_dir"
+    ],
+    "messages": [],
+    "calls": [],
+    "code": 1,
+    "stderr": "Error: <PROJECT>/missing_dir does not exist\n"
+  },
+  {
+    "name": "TestDeploy.test_no_apps_found",
+    "args": [
+      "flash",
+      "deploy"
+    ],
+    "messages": [],
+    "calls": [],
+    "code": 1,
+    "stderr": "Error: no runpod.App found. define one with:\n\n    from runpod import App\n    app = App(\"my-app\")\n"
+  },
+  {
+    "name": "TestDeploy.test_engine_error_is_clean",
+    "args": [
+      "flash",
+      "deploy"
+    ],
+    "messages": [
+      "deploy demo \u2192 default from main.py, chat"
+    ],
+    "calls": [
+      {
+        "operation": "deploy_app",
+        "app": "demo",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "chat",
+            "kind": "queue"
+          }
+        ],
+        "environment": null,
+        "python_version": "3.13",
+        "exclude": null,
+        "output": null
+      }
+    ],
+    "code": 1,
+    "stderr": "Error: upload failed\n"
+  },
+  {
+    "name": "TestDeploy.test_build_only",
+    "args": [
+      "flash",
+      "deploy",
+      "--build-only"
+    ],
+    "messages": [
+      "\u2713 built demo demo-artifact.tar.gz (0.0 MB)"
+    ],
+    "calls": [
+      {
+        "operation": "build_artifact",
+        "app": "demo",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "chat",
+            "kind": "queue"
+          }
+        ],
+        "environment": null,
+        "python_version": "3.13",
+        "exclude": null,
+        "output": "demo-artifact.tar.gz"
+      }
+    ],
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "TestDeploy.test_exclude_passthrough",
+    "args": [
+      "flash",
+      "deploy",
+      "--exclude",
+      "torch,numpy"
+    ],
+    "messages": [
+      "deploy demo \u2192 default from main.py, chat",
+      "\u2713 demo/default is live <ELAPSED>s",
+      "",
+      "  chat  ep1 \u2197",
+      ""
+    ],
+    "calls": [
+      {
+        "operation": "deploy_app",
+        "app": "demo",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "chat",
+            "kind": "queue"
+          }
+        ],
+        "environment": null,
+        "python_version": "3.13",
+        "exclude": [
+          "torch",
+          "numpy"
+        ],
+        "output": null
+      }
+    ],
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "TestDeploy.test_python_version_fallback_warns",
+    "args": [
+      "flash",
+      "deploy"
+    ],
+    "messages": [
+      "! local python has no runtime image; building for 3.12 (override with --python-version)",
+      "deploy demo \u2192 default from main.py, chat",
+      "\u2713 demo/default is live <ELAPSED>s",
+      "",
+      "  chat  ep1 \u2197",
+      ""
+    ],
+    "calls": [
+      {
+        "operation": "deploy_app",
+        "app": "demo",
+        "app_environment": "default",
+        "source": "main.py",
+        "resources": [
+          {
+            "name": "chat",
+            "kind": "queue"
+          }
+        ],
+        "environment": null,
+        "python_version": "3.12",
+        "exclude": null,
+        "output": null
+      }
+    ],
+    "code": 0,
+    "stderr": ""
+  }
+]

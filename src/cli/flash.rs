@@ -25,6 +25,7 @@ pub(super) fn command() -> Command {
         .about("Manage Runpod applications")
         .subcommand_required(true)
         .arg_required_else_help(true)
+        .subcommand(super::deployment::command())
         .subcommand(super::environment::command())
         .subcommand(super::environment::undeploy_command())
         .subcommand(
@@ -104,6 +105,9 @@ impl Operation {
 }
 
 pub(super) async fn execute(args: &ArgMatches, streams: &mut Streams<'_>) -> CliResult<()> {
+    if let Some(args) = args.subcommand_matches("deploy") {
+        return super::deployment::execute(args, streams).await;
+    }
     if matches!(args.subcommand_name(), Some("env" | "undeploy")) {
         return super::environment::execute(args, streams).await;
     }

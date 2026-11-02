@@ -7427,8 +7427,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_bar_bounds",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_console.py",
@@ -7457,8 +7458,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, capture_console",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_deploy_plan",
+      "status": "ported",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_console.py",
@@ -7467,8 +7469,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, capture_console",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_deploy_banner",
+      "status": "ported",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_console.py",
@@ -7477,8 +7480,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, capture_console",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_deploy_banner_no_resources",
+      "status": "ported",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_console.py",
@@ -7527,8 +7531,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, capture_console",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_phase_lifecycle",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_console.py",
@@ -7537,8 +7542,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_progress_updates_ignored_outside_phase",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_console.py",
@@ -7617,8 +7623,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_deploy::test_deploys_discovered_app",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7627,8 +7634,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_deploy::test_env_flag",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7637,8 +7645,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_deploy::test_multi_app_plan",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7647,8 +7656,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_deploy::test_missing_target",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7657,8 +7667,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_deploy::test_no_apps_found",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7667,8 +7678,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_deploy::test_engine_error_is_clean",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7677,8 +7689,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_deploy::test_build_only",
+      "status": "adapted",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7687,8 +7700,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_exclude_passthrough",
+      "status": "ported",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",
@@ -7697,8 +7711,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::tests::test_python_version_fallback_warns",
+      "status": "ported",
+      "note": "Named Rust counterpart; nine unchanged command invocations captured for arguments, banners and error codes. Native process cases use compiled Cargo metadata and a local HTTP backend; native progress replaces Rich styling. Six unchanged console tests also pass. See reviews/deploy-cli.md."
     },
     {
       "file": "tests/test_cli/test_deploy_command.py",

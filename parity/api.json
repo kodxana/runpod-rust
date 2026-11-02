@@ -7131,8 +7131,9 @@
       "kind": "function",
       "public": true,
       "signature": "apps: Iterable[Tuple[str, str, int]]",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::plan",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7141,8 +7142,9 @@
       "kind": "function",
       "public": true,
       "signature": "app_name: str, env: str, resources: Iterable[Tuple[str, str]], source: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::banner",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7171,8 +7173,9 @@
       "kind": "function",
       "public": false,
       "signature": "fraction: float",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::bar",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7181,8 +7184,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7191,8 +7195,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress::default",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7201,8 +7206,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::observe",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7211,8 +7217,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress::close",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7221,8 +7228,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str, detail: str=''",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress::event",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7231,8 +7239,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, count: int, package: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress::event",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7241,8 +7250,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, sent: int, total: int",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress::event",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7251,8 +7261,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, name: str, endpoint_id: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress::event",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -7261,8 +7272,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::progress::Progress::close",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/console.py",
@@ -8320,8 +8332,9 @@
       "kind": "function",
       "public": false,
       "signature": "found, project_root: Path",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::source_name",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8350,8 +8363,9 @@
       "kind": "function",
       "public": true,
       "signature": "target, env, python_version, exclude, build_only",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::deployment::{Options,run_operation,observe}",
+      "status": "adapted",
+      "note": "Native Cargo discovery/build and queue/API deployment; explicit --runtime python retains the Python artifact pipeline with compiled metadata. Owned terminal progress replaces Rich. Cross-target tools are caller-installed; native task/cloud validation and other Flash commands remain pending. See reviews/deploy-cli.md and parity/deploy-cli.json."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8424,7 +8438,7 @@
       "signature": "",
       "rust": "cli::flash::command",
       "status": "adapted",
-      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery and deployment are covered by later milestones; remaining console helpers stay pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8435,7 +8449,7 @@
       "signature": "",
       "rust": "cli::flash::Operation::execute (List)",
       "status": "adapted",
-      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery and deployment are covered by later milestones; remaining console helpers stay pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8446,7 +8460,7 @@
       "signature": "app_name",
       "rust": "cli::flash::Operation::execute (Get)",
       "status": "adapted",
-      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery and deployment are covered by later milestones; remaining console helpers stay pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8457,7 +8471,7 @@
       "signature": "app_name, yes",
       "rust": "cli::flash::Operation::execute (Delete)",
       "status": "adapted",
-      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery and deployment are covered by later milestones; remaining console helpers stay pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",

@@ -3,6 +3,7 @@
   "commit": "ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5",
   "file": "runpod/apps/deploy.py",
   "scope": "Native compiled-worker deployment adaptation of already-mapped SDK functions; no additional inventory credit",
+  "cli_and_build_coverage": "deploy-cli.json",
   "api_mapping": {
     "deploy_app": "apps::deploy::deploy_native_app",
     "_endpoint_input": "shared endpoint formatter with native command selection",
@@ -37,7 +38,6 @@
   "pending_contracts": [
     "Live Runpod/container validation",
     "Native coordinator task launch",
-    "Cargo/cross-compilation and native CLI build/deploy commands",
     "Native live source loading and worker dispatch"
   ]
 }

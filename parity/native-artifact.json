@@ -3,6 +3,7 @@
   "commit": "ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5",
   "file": "runpod/apps/deploy.py",
   "scope": "Native compiled-worker packaging adaptation of already-mapped SDK functions; no additional inventory credit",
+  "cli_and_build_coverage": "deploy-cli.json",
   "api_mapping": {
     "build_artifact": "apps::deploy::build_native_artifact",
     "package_project": "shared apps::package archive implementation",
@@ -37,7 +38,6 @@
     "No platform mutation or coordinator compatibility is implied by packaging"
   ],
   "pending_contracts": [
-    "Cargo build/cross-compilation integration and native CLI build/deploy commands",
     "Live Runpod/container validation (queue/API upload, image selection and launcher wiring tracked in native-deploy.json)",
     "Native task deployment through the coordinator"
   ]

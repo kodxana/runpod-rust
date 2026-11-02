@@ -1,0 +1,74 @@
+{
+  "upstream": "https://github.com/runpod/runpod-python",
+  "commit": "ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5",
+  "api_mapping": {
+    "runpod/rp_cli/main.py": {
+      "deploy": "cli::deployment::{Options,run_operation,observe}",
+      "_app_source": "cli::deployment::source_name"
+    },
+    "runpod/rp_cli/console.py": {
+      "deploy_plan": "cli::deployment::plan",
+      "deploy_banner": "cli::deployment::banner",
+      "_bar": "cli::deployment::progress::bar",
+      "DeployEvents": "cli::deployment::progress::Progress",
+      "DeployEvents.__init__": "cli::deployment::progress::Progress::default",
+      "DeployEvents._ensure_started": "cli::deployment::observe",
+      "DeployEvents._finish_current": "cli::deployment::progress::Progress::close",
+      "DeployEvents.phase": "cli::deployment::progress::Progress::event",
+      "DeployEvents.vendor_progress": "cli::deployment::progress::Progress::event",
+      "DeployEvents.upload_progress": "cli::deployment::progress::Progress::event",
+      "DeployEvents.endpoint_ready": "cli::deployment::progress::Progress::event",
+      "DeployEvents.close": "cli::deployment::progress::Progress::close"
+    }
+  },
+  "test_mapping": {
+    "tests/test_cli/test_console.py::TestHelpers.test_bar_bounds": "cli::deployment::tests::test_bar_bounds",
+    "tests/test_cli/test_console.py::TestBanners.test_deploy_plan": "cli::deployment::tests::test_deploy_plan",
+    "tests/test_cli/test_console.py::TestBanners.test_deploy_banner": "cli::deployment::tests::test_deploy_banner",
+    "tests/test_cli/test_console.py::TestBanners.test_deploy_banner_no_resources": "cli::deployment::tests::test_deploy_banner_no_resources",
+    "tests/test_cli/test_console.py::TestDeployEvents.test_phase_lifecycle": "cli::deployment::tests::test_phase_lifecycle",
+    "tests/test_cli/test_console.py::TestDeployEvents.test_progress_updates_ignored_outside_phase": "cli::deployment::tests::test_progress_updates_ignored_outside_phase",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_deploys_discovered_app": "cli_deploy::test_deploys_discovered_app",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_env_flag": "cli_deploy::test_env_flag",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_multi_app_plan": "cli_deploy::test_multi_app_plan",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_missing_target": "cli_deploy::test_missing_target",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_no_apps_found": "cli_deploy::test_no_apps_found",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_engine_error_is_clean": "cli_deploy::test_engine_error_is_clean",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_build_only": "cli_deploy::test_build_only",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_exclude_passthrough": "cli::deployment::tests::test_exclude_passthrough",
+    "tests/test_cli/test_deploy_command.py::TestDeploy.test_python_version_fallback_warns": "cli::deployment::tests::test_python_version_fallback_warns"
+  },
+  "source_capture": {
+    "file": "tests/fixtures/deploy_cli.json",
+    "cases": 9,
+    "sha256": "c07cce5d1ceaf24d79fbbd8ab2576e99e2951c11723eb1e3402dc45f53ea403a",
+    "generator": "tools/deploy_cli_fixtures.py",
+    "normalization": "Project path replaced by <PROJECT>; elapsed live time by <ELAPSED>s"
+  },
+  "source_validation": {
+    "command_cases": 9,
+    "console_cases": 6,
+    "discovery_regressions": 11
+  },
+  "additional_native_tests": [
+    "tests/apps_discovery.rs",
+    "tests/cli_deploy.rs",
+    "src/cli/deployment_tests.rs"
+  ],
+  "adaptations": [
+    "Cargo declarations replace Python imports; package roots own assets in workspaces",
+    "Native is the default; --runtime python selects legacy source/wheel artifact building",
+    "Cargo build --locked with explicit target/profile and required features; parse compiler-artifact executable, never run the deployment binary",
+    "Caller installs target standard library, linker and native dependencies; --worker bypasses deployment compilation",
+    "Terminal spinner frames and plain glyphs replace Rich colors; redirected output prints final phase summaries",
+    "Zero upload totals render empty progress instead of a suppressed source callback exception",
+    "Source quirks retained: sequential apps, no rollback, completed phase on failure, comma-split excludes, persistent progress counters",
+    "Blocking packaging already running at cancellation finishes; later cloud operations do not run"
+  ],
+  "pending": [
+    "Live Runpod/container validation",
+    "Native coordinator task deployment",
+    "Native live source loading/dispatch",
+    "Other Flash commands and remaining console helpers"
+  ]
+}
