@@ -7617,7 +7617,7 @@
       "signature": "endpoint_id: str, *parts: str",
       "rust": "cli::endpoint::path",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7648,7 +7648,7 @@
       "signature": "required: bool=True",
       "rust": "cli::endpoint::options::id",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7659,7 +7659,7 @@
       "signature": "endpoint_id: Optional[str]",
       "rust": "cli::endpoint::pick",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7670,7 +7670,7 @@
       "signature": "endpoint: dict",
       "rust": "cli::endpoint::view::kind",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7681,7 +7681,7 @@
       "signature": "endpoint: dict",
       "rust": "cli::endpoint::view::flashboot",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7692,7 +7692,7 @@
       "signature": "endpoint: dict, compact: bool=False",
       "rust": "cli::endpoint::view::compute",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7703,7 +7703,7 @@
       "signature": "endpoint: dict",
       "rust": "cli::endpoint::view::cuda",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7714,7 +7714,7 @@
       "signature": "endpoint: dict, compact: bool=False",
       "rust": "cli::endpoint::view::scaling",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7725,7 +7725,7 @@
       "signature": "endpoint: dict",
       "rust": "cli::endpoint::view::workers",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7736,7 +7736,7 @@
       "signature": "value: Optional[float]",
       "rust": "cli::endpoint::view::seconds",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7747,7 +7747,7 @@
       "signature": "endpoint: dict",
       "rust": "cli::endpoint::view::volumes",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7758,7 +7758,7 @@
       "signature": "endpoint: dict",
       "rust": "cli::endpoint::view::detail URL selection",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7769,7 +7769,7 @@
       "signature": "func",
       "rust": "cli::endpoint::options::scale",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7780,7 +7780,7 @@
       "signature": "creating: bool",
       "rust": "cli::endpoint::options::config",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7791,7 +7791,7 @@
       "signature": "state: dict",
       "rust": "cli::endpoint::view::rollout",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7802,7 +7802,7 @@
       "signature": "endpoint_id: str, previous_version: Optional[int], timeout: float, interval: float=2.0",
       "rust": "cli::endpoint::watch::follow",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7813,7 +7813,7 @@
       "signature": "endpoint_id: str, patch: dict, follow: bool, timeout: float, as_json: bool",
       "rust": "cli::endpoint::Options::apply",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7824,7 +7824,7 @@
       "signature": "before: dict",
       "rust": "cli::endpoint::edit_document",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7835,7 +7835,7 @@
       "signature": "seconds: Optional[int]",
       "rust": "cli::endpoint::view::uptime",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7846,7 +7846,7 @@
       "signature": "worker: dict",
       "rust": "cli::endpoint::view::worker_version",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7857,7 +7857,7 @@
       "signature": "data: dict",
       "rust": "cli::endpoint::view::worker_view",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7934,7 +7934,7 @@
       "signature": "",
       "rust": "cli::endpoint::command",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7945,7 +7945,7 @@
       "signature": "name, endpoint_type, as_json",
       "rust": "cli::endpoint::Options::execute_with_clock / list",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7956,7 +7956,7 @@
       "signature": "endpoint_id, as_json",
       "rust": "cli::endpoint::Options::execute_with_clock / get",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7967,7 +7967,7 @@
       "signature": "as_json, **options",
       "rust": "cli::endpoint::Options::execute_with_clock / create",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7978,7 +7978,7 @@
       "signature": "endpoint_id, wait, timeout, as_json, **options",
       "rust": "cli::endpoint::Options::execute_with_clock / update",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7989,7 +7989,7 @@
       "signature": "endpoint_id, document, yes, no_follow, timeout, as_json",
       "rust": "cli::endpoint::Options::execute_with_clock / edit",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8000,7 +8000,7 @@
       "signature": "endpoint_id, as_json, **options",
       "rust": "cli::endpoint::Options::execute_with_clock / scale",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8011,7 +8011,7 @@
       "signature": "endpoint_id, yes",
       "rust": "cli::endpoint::Options::execute_with_clock / delete",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8022,7 +8022,7 @@
       "signature": "endpoint_id, watch, interval, as_json",
       "rust": "cli::endpoint::watch::workers",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8033,7 +8033,7 @@
       "signature": "release: dict",
       "rust": "cli::endpoint::view::releases diff selection",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8044,7 +8044,7 @@
       "signature": "endpoint_id, as_json",
       "rust": "cli::endpoint::Options::execute_with_clock / releases",
       "status": "adapted",
-      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md."
+      "note": "Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell completion is tracked separately; log workflows are covered by cli::logs. See reviews/endpoint-cli.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8053,8 +8053,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, worker_ids, follow, source, tail, since, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::command and Options::read (endpoint-id)",
+      "status": "adapted",
+      "note": "Native finite/follow log commands reuse the SDK SSE reader. Preserves worker filtering/discovery, cursor retries, snapshot cutoff/raw timestamp ordering, output modes, disappearing workers and cancellation. Owned streams replace asyncio tasks; RFC3339 timestamps, native transport errors and compact UTF-8 JSON are documented adaptations. See reviews/cli-logs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8261,8 +8262,9 @@
       "kind": "function",
       "public": false,
       "signature": "pod_id, endpoint_id, worker_ids, follow, source, tail, since, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::Options::show",
+      "status": "adapted",
+      "note": "Native finite/follow log commands reuse the SDK SSE reader. Preserves worker filtering/discovery, cursor retries, snapshot cutoff/raw timestamp ordering, output modes, disappearing workers and cancellation. Owned streams replace asyncio tasks; RFC3339 timestamps, native transport errors and compact UTF-8 JSON are documented adaptations. See reviews/cli-logs.md."
     },
     {
       "file": "runpod/rp_cli/logs.py",
@@ -8271,8 +8273,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id=None, *, endpoint_id=None, worker_ids=(), follow=False, source=None, tail=100, since=None, as_json=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::Options::execute",
+      "status": "adapted",
+      "note": "Native finite/follow log commands reuse the SDK SSE reader. Preserves worker filtering/discovery, cursor retries, snapshot cutoff/raw timestamp ordering, output modes, disappearing workers and cancellation. Owned streams replace asyncio tasks; RFC3339 timestamps, native transport errors and compact UTF-8 JSON are documented adaptations. See reviews/cli-logs.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8961,8 +8964,9 @@
       "kind": "function",
       "public": true,
       "signature": "pod_id, follow, tail, source, since, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::command and Options::read (pod-id)",
+      "status": "adapted",
+      "note": "Native finite/follow log commands reuse the SDK SSE reader. Preserves worker filtering/discovery, cursor retries, snapshot cutoff/raw timestamp ordering, output modes, disappearing workers and cancellation. Owned streams replace asyncio tasks; RFC3339 timestamps, native transport errors and compact UTF-8 JSON are documented adaptations. See reviews/cli-logs.md."
     },
     {
       "file": "runpod/rp_cli/pod.py",

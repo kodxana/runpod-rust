@@ -1,11 +1,12 @@
 //! Native `rp` and `runpod` command entry points.
 //!
-//! Implements catalog, volume and endpoint resource commands. Remaining commands are pending.
+//! Implements catalog, volume, endpoint commands and pod logs. Remaining commands are pending.
 mod api;
 mod catalog;
 mod editor;
 mod endpoint;
 mod interaction;
+mod logs;
 mod output;
 mod streams;
 mod volume;
@@ -50,6 +51,13 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
         .arg_required_else_help(true)
         .subcommand(catalog::command())
         .subcommand(volume::command())
+        .subcommand(
+            clap::Command::new("pod")
+                .about("Pod commands (logs available)")
+                .subcommand_required(true)
+                .arg_required_else_help(true)
+                .subcommand(logs::command("pod-id")),
+        )
         .subcommand(endpoint::command());
     let matches = match command.try_get_matches_from(args) {
         Ok(matches) => matches,
@@ -93,6 +101,12 @@ async fn dispatch(
     streams: &mut streams::Streams<'_>,
 ) -> CliResult<String> {
     match matches.subcommand() {
+        Some(("pod", args)) => {
+            if let Some(args) = args.subcommand_matches("logs") {
+                logs::Options::read(args, "pod-id").execute(streams).await?;
+            }
+            Ok(String::new())
+        }
         Some(("catalog", args)) => Ok(catalog::Options::read(args)
             .map_err(CliError::Usage)?
             .execute()
@@ -104,6 +118,12 @@ async fn dispatch(
                 .await
         }
         Some(("endpoint", args)) => {
+            if let Some(args) = args.subcommand_matches("logs") {
+                logs::Options::read(args, "endpoint-id")
+                    .execute(streams)
+                    .await?;
+                return Ok(String::new());
+            }
             if let Some(args) = args.subcommand_matches("run") {
                 endpoint::RunOptions::read(args)?.execute(streams).await?;
                 return Ok(String::new());

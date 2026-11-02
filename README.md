@@ -28,7 +28,10 @@ The native `rp` and `runpod` commands support catalog search and network/global 
 listing, inspection, creation, renaming, expansion, and deletion. Endpoint resource
 commands support configuration, editing, scaling, deletion, workers, releases and rollout
 tracking, with JSON and terminal interaction. Job commands inspect, wait, stream, cancel and retry jobs;
-queue purge confirms before removing queued jobs. Other CLI commands remain pending.
+queue purge confirms before removing queued jobs. `endpoint run` supports queue submission
+and load-balancer requests. `pod logs` and `endpoint logs` show snapshots or follow live SSE
+output, with cursor resumption, worker selection, source filters and JSON lines.
+Other pod commands and the remaining CLI groups remain pending.
 `configuration` provides typed container, scaling, and endpoint options; async and
 blocking clients resolve selections into creation/update payloads. Editable JSON
 documents support validation and minimal patches. These helpers return payloads
@@ -260,6 +263,9 @@ rp endpoint run ENDPOINT_ID --input request.json
 rp endpoint run ENDPOINT_ID --input request.json --async
 rp endpoint run ENDPOINT_ID --input - --stream
 rp endpoint run LB_ENDPOINT_ID --path /v1/models
+rp pod logs POD_ID --tail 100
+rp endpoint logs ENDPOINT_ID --worker WORKER_ID --source container
+rp endpoint logs ENDPOINT_ID --follow --json
 ```
 
 `edit` uses `$VISUAL` or `$EDITOR`, validates JSON, shows the patch, and asks before
@@ -272,8 +278,12 @@ chunks, prints incremental output and retains failed-job details. Ctrl-C leaves 
 running and prints a resume command. `endpoint run` accepts inline `--data`, a file or stdin;
 queue requests submit jobs and load-balancer requests use the endpoint URL and requested
 path/method. `--timeout` starts after queue submission and bounds result observation.
-Endpoint log and shell-completion commands remain
-in progress. See [job observation notes](PORTING.md#native-job-waiting-and-streaming).
+Log snapshots request up to 5,000 backfill lines per worker and sort the returned timestamp
+strings. `--follow` reconnects with the last event cursor and discovers new workers;
+Ctrl-C closes the streams and exits successfully. `--since` passes an earliest timestamp
+to the API. Shell completion remains in progress.
+See [job observation notes](PORTING.md#native-job-waiting-and-streaming) and
+[log command notes](PORTING.md#native-pod-and-endpoint-log-commands).
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults

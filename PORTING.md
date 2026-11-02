@@ -49,7 +49,8 @@ by Python; the complete port remains in progress.
 | `rp_cli.endpoint` resource commands, formatting, editor and rollout/worker observation | native `rp endpoint` / `runpod endpoint`, private options, views, clock and streaming-output helpers |
 | `rp_cli.endpoint` job inspection, cancellation, retry, queue purge and data-plane errors | native `endpoint job get/cancel/retry`, `endpoint purge`, private `cli::endpoint::jobs` |
 | `rp_cli.endpoint` job waiting, streaming and final output | native `endpoint job wait/stream`, private `cli::endpoint::job_follow::Follow` |
-| `rp_cli.endpoint` request-body loading, submission and load-balancer calls | native `endpoint run`, private `cli::endpoint::run::RunOptions`; log commands and completers remain pending |
+| `rp_cli.endpoint` request-body loading, submission and load-balancer calls | native `endpoint run`, private `cli::endpoint::run::RunOptions` |
+| `rp_cli.logs::{_show_logs,show_logs}`, `rp_cli.endpoint.logs`, `rp_cli.pod.logs` | native `endpoint logs` / `pod logs`, private `cli::logs::Options` and SDK `LogsClient` |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -88,9 +89,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 373 adapted symbols, and 830 upstream
+This milestone maps 397 implemented symbols, 377 adapted symbols, and 844 upstream
 test functions; other entries remain pending.
-The test mapping includes 764 ported tests and 66 explicitly adapted tests.
+The test mapping includes 778 ported tests and 66 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1223,7 +1224,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,106 SDK differential cases**.
+additional runtime fixtures, separate from the **2,120 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1265,7 +1266,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,106 differential cases.
+separate from the SDK symbol inventory and its 2,120 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1558,9 +1559,8 @@ rollout Ctrl-C and JSON worker watch
 against loopback mocks. No real Runpod resource is created or modified.
 See [reviews/endpoint-cli.md](reviews/endpoint-cli.md).
 
-The remaining endpoint log and completion workflows are still part of
-the full goal. Their mappings and tests remain pending rather than being inferred from
-the resource-command implementation.
+Endpoint log workflows are covered by the later shared log command milestone below.
+Shell completion remains pending rather than being inferred from the resource commands.
 
 ## Native job inspection and control
 
@@ -1675,9 +1675,54 @@ The ledger adds three adapted symbols and eleven ported source test functions. T
 differential total is **2,106**. Further run timeout/interrupt fault-injection source tests
 remain explicitly pending. See [reviews/endpoint-run.md](reviews/endpoint-run.md).
 
+## Native pod and endpoint log commands
+
+`rp pod logs POD_ID` and `rp endpoint logs ENDPOINT_ID` share the SDK's SSE reader.
+Both support `--follow` / `-f`, `--source container|system`, `--tail 0..5000` (default 100),
+`--since` and `--json`. Endpoints additionally accept repeated `--worker` filters. Worker
+discovery and stream URLs encode IDs independently, and requests retain Bearer auth.
+Without a source filter, the commands request both REST sources rather than HAPI `all`.
+
+Snapshots capture the start instant before worker discovery, collect backfill until the
+first event at or after that instant, and end established streams after three idle seconds.
+Connection establishment and authentication are not shortened by that idle deadline.
+Collected records are stably sorted by their original timestamp strings, as in Python,
+even when offsets make that ordering differ from chronological ordering. A failed snapshot
+prints no buffered backfill. Human endpoint output pads worker IDs using Unicode character
+counts; JSON lines add a worker field, with an event's existing worker field taking priority.
+An empty endpoint prints `no workers`, or nothing in JSON mode.
+
+Follow mode emits records immediately, reconnects after one second using the SDK event-ID
+observer, and refreshes worker discovery every five seconds. Existing streams continue
+during discovery requests. IDs attach once; a completed/disappeared worker can attach again
+on the next refresh. Width grows when longer worker IDs appear. Initially empty endpoints
+print `waiting for workers ...` in human mode. Endpoint worker 404s end that worker silently;
+pod 404s and authentication failures propagate. HTTP 429/5xx, connection/request failures
+and timeouts retry only in follow mode, including a disconnect before headers. Payload/
+decoder errors propagate. Fatal worker errors propagate at the next discovery tick.
+
+Owned streams replace Python tasks: dropping the observer, errors and Ctrl-C cancel the
+active HTTP bodies without detached work. Ctrl-C returns success, without job-resume text.
+Native snapshots parse RFC3339 timestamps with explicit offsets. Python's additional ISO
+date forms and malformed non-string source/line fields are not emulated. Native transport
+errors retain status and causes rather than aiohttp text. JSON lines use compact UTF-8
+serialization, preserving values and field order instead of Python's spaces/ASCII escapes.
+The public SDK API and dependencies are unchanged. Other pod commands remain pending.
+
+`tools/cli_log_fixtures.py` runs **39 unchanged parameterized source cases** across shared
+log behavior and both command routers, then captures **14 deterministic snapshots**. Native
+processes compare their requests, output and exit status against those captures. Named unit
+counterparts cover all eleven shared-log source functions and both option routers. Virtual
+time keeps discovery/retry tests deterministic; real TCP/SSE checks verify cursor reuse,
+HTTP failures and closure on cancellation, idle timeout and the snapshot cutoff. The ledger
+adds four adapted symbols and fourteen ported source tests, bringing the SDK differential
+total to **2,120**. See [reviews/cli-logs.md](reviews/cli-logs.md).
+The final local suite passes **818 tests**, zero failures and three ignored child entry
+points exercised by parent tests. Build, strict Clippy, formatting and rustdoc pass.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live
-dispatcher, discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
+dispatcher, Apps discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
 fault-injection coverage are also pending.
 All remain part of the requested full port, not exclusions from its scope.

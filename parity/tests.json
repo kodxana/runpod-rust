@@ -6552,8 +6552,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, capsys, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_pod_snapshot_uses_sdk_reader",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6562,8 +6563,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_worker_snapshot_is_sorted_and_filterable",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6572,8 +6574,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, capsys, empty",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_snapshot_closes_idle_or_live_stream",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6582,8 +6585,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_empty_workers",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6592,8 +6596,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_snapshot_propagates_connection_timeout",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6602,8 +6607,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_snapshot_surfaces_delayed_authentication_failure",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6612,8 +6618,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, endpoint_id, status, raises",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_stream_errors_do_not_hide_auth_failures",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6622,8 +6629,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_follow_resumes_and_cancels_streams",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6632,8 +6640,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, capsys",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_follow_attaches_new_workers",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6642,8 +6651,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, capsys, endpoint_id, status",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_follow_retries_transient_http_errors",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_logs.py",
@@ -6652,8 +6662,9 @@
       "kind": "function",
       "public": true,
       "signature": "monkeypatch, endpoint_id, follow, status",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_http_errors_that_must_surface",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_cli_options.py",
@@ -8344,8 +8355,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_logs_routes_options_to_shared_streamer",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -9520,8 +9532,9 @@
       "kind": "function",
       "public": true,
       "signature": "args, expected",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::logs::tests::test_logs_forward_options",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",
@@ -9530,8 +9543,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_logs::test_logs_reject_tail_above_api_limit",
+      "status": "ported",
+      "note": "Named Rust counterpart; 39 unchanged parameterized source cases pass. Deterministic stream/timing tests preserve source assertions, including companion-first ordering. Fourteen captured snapshot cases replay through native processes and HTTP/SSE mocks; additional real socket tests verify cursor reconnect and stream closure."
     },
     {
       "file": "tests/test_cli/test_pod_command.py",

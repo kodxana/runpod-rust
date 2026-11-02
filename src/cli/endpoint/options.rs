@@ -148,6 +148,7 @@ pub(in crate::cli) fn command() -> Command {
     .subcommand_required(true)
     .arg_required_else_help(true)
     .subcommand(job_command())
+    .subcommand(super::super::logs::command("endpoint-id"))
     .subcommand(
         id(
             base("run", "Send a request to a queue or load-balancer endpoint"),

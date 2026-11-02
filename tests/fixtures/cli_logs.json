@@ -1,0 +1,524 @@
+[
+  {
+    "name": "pod_snapshot",
+    "args": [
+      "pod",
+      "logs",
+      "pod/space ?",
+      "--tail",
+      "7",
+      "--since",
+      "2025-01-01T00:00:00Z"
+    ],
+    "events": {
+      "pod/space ?": [
+        {
+          "source": "container",
+          "line": "hello \ud83e\udd80",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [],
+    "calls": [
+      {
+        "worker": "pod/space ?",
+        "endpoint_id": null,
+        "log_type": null,
+        "tail": 7,
+        "since": "2025-01-01T00:00:00Z",
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "[container] hello \ud83e\udd80\n",
+    "as_json": false
+  },
+  {
+    "name": "worker_sorted_filtered",
+    "args": [
+      "endpoint",
+      "logs",
+      "ep/space ?",
+      "--worker",
+      "a",
+      "--worker",
+      "longer",
+      "--source",
+      "system"
+    ],
+    "events": {
+      "a": [
+        {
+          "source": "container",
+          "line": "a",
+          "ts": "2026-01-01T00:00:02Z"
+        }
+      ],
+      "longer": [
+        {
+          "source": "container",
+          "line": "b",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [
+      "a",
+      "longer",
+      "ignored"
+    ],
+    "calls": [
+      {
+        "worker": "a",
+        "endpoint_id": "ep/space ?",
+        "log_type": "system",
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      },
+      {
+        "worker": "longer",
+        "endpoint_id": "ep/space ?",
+        "log_type": "system",
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "longer [container] b\na      [container] a\n",
+    "as_json": false
+  },
+  {
+    "name": "empty_workers",
+    "args": [
+      "endpoint",
+      "logs",
+      "ep/space ?"
+    ],
+    "events": {},
+    "workers": [],
+    "calls": [],
+    "stdout": "no workers\n",
+    "as_json": false
+  },
+  {
+    "name": "cutoff",
+    "args": [
+      "pod",
+      "logs",
+      "pod/space ?"
+    ],
+    "events": {
+      "pod/space ?": [
+        {
+          "source": "container",
+          "line": "backfill",
+          "ts": "2026-01-01T00:00:00Z"
+        },
+        {
+          "source": "container",
+          "line": "live",
+          "ts": "2999-01-01T00:00:00Z"
+        },
+        {
+          "source": "container",
+          "line": "not printed",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [],
+    "calls": [
+      {
+        "worker": "pod/space ?",
+        "endpoint_id": null,
+        "log_type": null,
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "[container] backfill\n",
+    "as_json": false
+  },
+  {
+    "name": "raw_sort_and_worker_override",
+    "args": [
+      "endpoint",
+      "logs",
+      "ep/space ?"
+    ],
+    "events": {
+      "a": [
+        {
+          "source": "container",
+          "line": "offset",
+          "ts": "2026-01-01T01:00:00+02:00",
+          "worker": "override"
+        },
+        {
+          "source": "container",
+          "line": "lexically first",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [
+      "a",
+      "a"
+    ],
+    "calls": [
+      {
+        "worker": "a",
+        "endpoint_id": "ep/space ?",
+        "log_type": null,
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "a [container] lexically first\na [container] offset\n",
+    "as_json": false
+  },
+  {
+    "name": "pod_snapshot",
+    "args": [
+      "pod",
+      "logs",
+      "pod/space ?",
+      "--tail",
+      "7",
+      "--since",
+      "2025-01-01T00:00:00Z",
+      "--json"
+    ],
+    "events": {
+      "pod/space ?": [
+        {
+          "source": "container",
+          "line": "hello \ud83e\udd80",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [],
+    "calls": [
+      {
+        "worker": "pod/space ?",
+        "endpoint_id": null,
+        "log_type": null,
+        "tail": 7,
+        "since": "2025-01-01T00:00:00Z",
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "{\"source\": \"container\", \"line\": \"hello \\ud83e\\udd80\", \"ts\": \"2026-01-01T00:00:00Z\"}\n",
+    "as_json": true
+  },
+  {
+    "name": "worker_sorted_filtered",
+    "args": [
+      "endpoint",
+      "logs",
+      "ep/space ?",
+      "--worker",
+      "a",
+      "--worker",
+      "longer",
+      "--source",
+      "system",
+      "--json"
+    ],
+    "events": {
+      "a": [
+        {
+          "source": "container",
+          "line": "a",
+          "ts": "2026-01-01T00:00:02Z"
+        }
+      ],
+      "longer": [
+        {
+          "source": "container",
+          "line": "b",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [
+      "a",
+      "longer",
+      "ignored"
+    ],
+    "calls": [
+      {
+        "worker": "a",
+        "endpoint_id": "ep/space ?",
+        "log_type": "system",
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      },
+      {
+        "worker": "longer",
+        "endpoint_id": "ep/space ?",
+        "log_type": "system",
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "{\"worker\": \"longer\", \"source\": \"container\", \"line\": \"b\", \"ts\": \"2026-01-01T00:00:00Z\"}\n{\"worker\": \"a\", \"source\": \"container\", \"line\": \"a\", \"ts\": \"2026-01-01T00:00:02Z\"}\n",
+    "as_json": true
+  },
+  {
+    "name": "empty_workers",
+    "args": [
+      "endpoint",
+      "logs",
+      "ep/space ?",
+      "--json"
+    ],
+    "events": {},
+    "workers": [],
+    "calls": [],
+    "stdout": "",
+    "as_json": true
+  },
+  {
+    "name": "cutoff",
+    "args": [
+      "pod",
+      "logs",
+      "pod/space ?",
+      "--json"
+    ],
+    "events": {
+      "pod/space ?": [
+        {
+          "source": "container",
+          "line": "backfill",
+          "ts": "2026-01-01T00:00:00Z"
+        },
+        {
+          "source": "container",
+          "line": "live",
+          "ts": "2999-01-01T00:00:00Z"
+        },
+        {
+          "source": "container",
+          "line": "not printed",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [],
+    "calls": [
+      {
+        "worker": "pod/space ?",
+        "endpoint_id": null,
+        "log_type": null,
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "{\"source\": \"container\", \"line\": \"backfill\", \"ts\": \"2026-01-01T00:00:00Z\"}\n",
+    "as_json": true
+  },
+  {
+    "name": "raw_sort_and_worker_override",
+    "args": [
+      "endpoint",
+      "logs",
+      "ep/space ?",
+      "--json"
+    ],
+    "events": {
+      "a": [
+        {
+          "source": "container",
+          "line": "offset",
+          "ts": "2026-01-01T01:00:00+02:00",
+          "worker": "override"
+        },
+        {
+          "source": "container",
+          "line": "lexically first",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [
+      "a",
+      "a"
+    ],
+    "calls": [
+      {
+        "worker": "a",
+        "endpoint_id": "ep/space ?",
+        "log_type": null,
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "{\"worker\": \"a\", \"source\": \"container\", \"line\": \"lexically first\", \"ts\": \"2026-01-01T00:00:00Z\"}\n{\"worker\": \"override\", \"source\": \"container\", \"line\": \"offset\", \"ts\": \"2026-01-01T01:00:00+02:00\"}\n",
+    "as_json": true
+  },
+  {
+    "name": "stable_equal_timestamps",
+    "args": [
+      "pod",
+      "logs",
+      "pod/space ?"
+    ],
+    "events": {
+      "pod/space ?": [
+        {
+          "source": "container",
+          "line": "one",
+          "ts": "2026-01-01T00:00:00Z"
+        },
+        {
+          "source": "container",
+          "line": "two",
+          "ts": "2026-01-01T00:00:00Z"
+        },
+        {
+          "source": "container",
+          "line": "three",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ]
+    },
+    "workers": [],
+    "calls": [
+      {
+        "worker": "pod/space ?",
+        "endpoint_id": null,
+        "log_type": null,
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "[container] one\n[container] two\n[container] three\n",
+    "as_json": false
+  },
+  {
+    "name": "unicode_width",
+    "args": [
+      "endpoint",
+      "logs",
+      "ep/space ?"
+    ],
+    "events": {
+      "\u754c": [
+        {
+          "source": "container",
+          "line": "one",
+          "ts": "2026-01-01T00:00:00Z"
+        }
+      ],
+      "abc": [
+        {
+          "source": "container",
+          "line": "two",
+          "ts": "2026-01-01T00:00:01Z"
+        }
+      ]
+    },
+    "workers": [
+      "\u754c",
+      "abc"
+    ],
+    "calls": [
+      {
+        "worker": "\u754c",
+        "endpoint_id": "ep/space ?",
+        "log_type": null,
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      },
+      {
+        "worker": "abc",
+        "endpoint_id": "ep/space ?",
+        "log_type": null,
+        "tail": 100,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "\u754c   [container] one\nabc [container] two\n",
+    "as_json": false
+  },
+  {
+    "name": "tail_zero",
+    "args": [
+      "pod",
+      "logs",
+      "pod/space ?",
+      "--tail",
+      "0"
+    ],
+    "events": {
+      "pod/space ?": []
+    },
+    "workers": [],
+    "calls": [
+      {
+        "worker": "pod/space ?",
+        "endpoint_id": null,
+        "log_type": null,
+        "tail": 0,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "",
+    "as_json": false
+  },
+  {
+    "name": "tail_limit",
+    "args": [
+      "pod",
+      "logs",
+      "pod/space ?",
+      "--tail",
+      "5000"
+    ],
+    "events": {
+      "pod/space ?": []
+    },
+    "workers": [],
+    "calls": [
+      {
+        "worker": "pod/space ?",
+        "endpoint_id": null,
+        "log_type": null,
+        "tail": 5000,
+        "since": null,
+        "last_event_id": null,
+        "idle_timeout": 3
+      }
+    ],
+    "stdout": "",
+    "as_json": false
+  }
+]
