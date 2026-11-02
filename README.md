@@ -27,7 +27,8 @@ cleanup after failure or cancellation. Advanced worker utilities and the CLI rem
 The native `rp` and `runpod` commands support catalog search and network/global volume
 listing, inspection, creation, renaming, expansion, and deletion. Endpoint resource
 commands support configuration, editing, scaling, deletion, workers, releases and rollout
-tracking, with JSON and terminal interaction. Other CLI commands remain pending.
+tracking, with JSON and terminal interaction. Job commands inspect, cancel and retry jobs;
+queue purge confirms before removing queued jobs. Other CLI commands remain pending.
 `configuration` provides typed container, scaling, and endpoint options; async and
 blocking clients resolve selections into creation/update payloads. Editable JSON
 documents support validation and minimal patches. These helpers return payloads
@@ -249,6 +250,10 @@ rp endpoint edit ENDPOINT_ID --file config.json --yes
 rp endpoint scale ENDPOINT_ID --min-workers 0 --max-workers 4
 rp endpoint workers ENDPOINT_ID --watch --json
 rp endpoint releases ENDPOINT_ID
+rp endpoint job get ENDPOINT_ID JOB_ID --json
+rp endpoint job cancel ENDPOINT_ID JOB_ID
+rp endpoint job retry ENDPOINT_ID JOB_ID
+rp endpoint purge ENDPOINT_ID --yes
 ```
 
 `edit` uses `$VISUAL` or `$EDITOR`, validates JSON, shows the patch, and asks before
@@ -256,7 +261,7 @@ applying it. `--file -` reads stdin. Updates can follow the new release with `--
 Ctrl-C detaches while the remote rollout continues. With `--json`, update results go
 to stdout and rollout progress goes to stderr. Worker watch emits one JSON document
 per refresh. See `rp endpoint --help` and the [endpoint CLI notes](PORTING.md#native-endpoint-resource-cli).
-Endpoint log, run, job, purge and shell-completion commands remain in progress.
+Endpoint log, run, job wait/stream and shell-completion commands remain in progress.
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults

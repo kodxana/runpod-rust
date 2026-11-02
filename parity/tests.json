@@ -8514,8 +8514,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_jobs::test_job_get",
+      "status": "ported",
+      "note": "Named native process counterpart using captured unchanged upstream invocations. Compares HTTP path/method/headers/body, exit codes, fields, JSON values and success messages. Five additional groups cover realistic output/error/ID/confirmation edges."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8544,8 +8545,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_jobs::test_job_cancel_and_retry",
+      "status": "ported",
+      "note": "Named native process counterpart using captured unchanged upstream invocations. Compares HTTP path/method/headers/body, exit codes, fields, JSON values and success messages. Five additional groups cover realistic output/error/ID/confirmation edges."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8554,8 +8556,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_jobs::test_purge",
+      "status": "ported",
+      "note": "Named native process counterpart using captured unchanged upstream invocations. Compares HTTP path/method/headers/body, exit codes, fields, JSON values and success messages. Five additional groups cover realistic output/error/ID/confirmation edges."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",

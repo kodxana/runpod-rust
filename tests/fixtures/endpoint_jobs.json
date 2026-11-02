@@ -1,0 +1,1052 @@
+[
+  {
+    "name": "test_job_get",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "delayTime": 1500,
+          "executionTime": 2000,
+          "workerId": "w1",
+          "output": {
+            "a": 1
+          }
+        }
+      }
+    ],
+    "fields": [
+      [
+        [
+          "id",
+          "job1"
+        ],
+        [
+          "status",
+          "completed"
+        ],
+        [
+          "delay",
+          "1.5s"
+        ],
+        [
+          "execution",
+          "2s"
+        ],
+        [
+          "worker",
+          "w1"
+        ],
+        [
+          "error",
+          null
+        ],
+        [
+          "output",
+          "{\"a\": 1}"
+        ]
+      ]
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "id         job1     \nstatus     completed\ndelay      1.5s     \nexecution  2s       \nworker     w1       \nerror      -        \noutput     {\"a\": 1} \n",
+    "stderr": ""
+  },
+  {
+    "name": "test_job_get",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "delayTime": 1500,
+          "executionTime": 2000,
+          "workerId": "w1",
+          "output": {
+            "a": 1
+          }
+        }
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"delayTime\": 1500,\n  \"executionTime\": 2000,\n  \"workerId\": \"w1\",\n  \"output\": {\n    \"a\": 1\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_job_cancel_and_retry",
+    "args": [
+      "job",
+      "cancel",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/cancel/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "CANCELLED"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "job job1 CANCELLED"
+    ],
+    "code": 0,
+    "stdout": "\u2713 job job1 CANCELLED\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_job_cancel_and_retry",
+    "args": [
+      "job",
+      "cancel",
+      "ep1",
+      "job1",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/cancel/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "CANCELLED"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"CANCELLED\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_job_cancel_and_retry",
+    "args": [
+      "job",
+      "retry",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/retry/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "job job1 IN_QUEUE"
+    ],
+    "code": 0,
+    "stdout": "\u2713 job job1 IN_QUEUE\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_job_cancel_and_retry",
+    "args": [
+      "job",
+      "retry",
+      "ep1",
+      "job1",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/retry/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_purge",
+    "args": [
+      "purge",
+      "ep1"
+    ],
+    "requests": [],
+    "fields": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint purge [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint purge --help' for help.\n\nError: pass --yes to confirm in a non-interactive shell\n"
+  },
+  {
+    "name": "test_purge",
+    "args": [
+      "purge",
+      "ep1",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/purge-queue",
+        "body": null,
+        "status": 200,
+        "response": {
+          "removed": 3,
+          "status": "completed"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "purged 3 queued jobs from ep1"
+    ],
+    "code": 0,
+    "stdout": "\u2713 purged 3 queued jobs from ep1\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_purge",
+    "args": [
+      "purge",
+      "ep1",
+      "--yes",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/purge-queue",
+        "body": null,
+        "status": 200,
+        "response": {
+          "removed": 3,
+          "status": "completed"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"removed\": 3,\n  \"status\": \"completed\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_output_values",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "delayTime": 0,
+          "executionTime": -1250,
+          "output": null,
+          "error": "kept visible"
+        }
+      }
+    ],
+    "fields": [
+      [
+        [
+          "id",
+          "job1"
+        ],
+        [
+          "status",
+          "failed"
+        ],
+        [
+          "delay",
+          null
+        ],
+        [
+          "execution",
+          "-1.25s"
+        ],
+        [
+          "worker",
+          null
+        ],
+        [
+          "error",
+          "kept visible"
+        ],
+        [
+          "output",
+          null
+        ]
+      ]
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "id         job1        \nstatus     failed      \ndelay      -           \nexecution  -1.25s      \nworker     -           \nerror      kept visible\noutput     -           \n",
+    "stderr": ""
+  },
+  {
+    "name": "job_output_values",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "delayTime": 0,
+          "executionTime": -1250,
+          "output": "",
+          "error": "kept visible"
+        }
+      }
+    ],
+    "fields": [
+      [
+        [
+          "id",
+          "job1"
+        ],
+        [
+          "status",
+          "failed"
+        ],
+        [
+          "delay",
+          null
+        ],
+        [
+          "execution",
+          "-1.25s"
+        ],
+        [
+          "worker",
+          null
+        ],
+        [
+          "error",
+          "kept visible"
+        ],
+        [
+          "output",
+          ""
+        ]
+      ]
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "id         job1        \nstatus     failed      \ndelay      -           \nexecution  -1.25s      \nworker     -           \nerror      kept visible\noutput     -           \n",
+    "stderr": ""
+  },
+  {
+    "name": "job_output_values",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "delayTime": 0,
+          "executionTime": -1250,
+          "output": "done",
+          "error": "kept visible"
+        }
+      }
+    ],
+    "fields": [
+      [
+        [
+          "id",
+          "job1"
+        ],
+        [
+          "status",
+          "failed"
+        ],
+        [
+          "delay",
+          null
+        ],
+        [
+          "execution",
+          "-1.25s"
+        ],
+        [
+          "worker",
+          null
+        ],
+        [
+          "error",
+          "kept visible"
+        ],
+        [
+          "output",
+          "done"
+        ]
+      ]
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "id         job1        \nstatus     failed      \ndelay      -           \nexecution  -1.25s      \nworker     -           \nerror      kept visible\noutput     done        \n",
+    "stderr": ""
+  },
+  {
+    "name": "job_output_values",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "delayTime": 0,
+          "executionTime": -1250,
+          "output": false,
+          "error": "kept visible"
+        }
+      }
+    ],
+    "fields": [
+      [
+        [
+          "id",
+          "job1"
+        ],
+        [
+          "status",
+          "failed"
+        ],
+        [
+          "delay",
+          null
+        ],
+        [
+          "execution",
+          "-1.25s"
+        ],
+        [
+          "worker",
+          null
+        ],
+        [
+          "error",
+          "kept visible"
+        ],
+        [
+          "output",
+          "false"
+        ]
+      ]
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "id         job1        \nstatus     failed      \ndelay      -           \nexecution  -1.25s      \nworker     -           \nerror      kept visible\noutput     false       \n",
+    "stderr": ""
+  },
+  {
+    "name": "job_output_values",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "delayTime": 0,
+          "executionTime": -1250,
+          "output": [
+            1,
+            "two"
+          ],
+          "error": "kept visible"
+        }
+      }
+    ],
+    "fields": [
+      [
+        [
+          "id",
+          "job1"
+        ],
+        [
+          "status",
+          "failed"
+        ],
+        [
+          "delay",
+          null
+        ],
+        [
+          "execution",
+          "-1.25s"
+        ],
+        [
+          "worker",
+          null
+        ],
+        [
+          "error",
+          "kept visible"
+        ],
+        [
+          "output",
+          "[1, \"two\"]"
+        ]
+      ]
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "id         job1        \nstatus     failed      \ndelay      -           \nexecution  -1.25s      \nworker     -           \nerror      kept visible\noutput     [1, \"two\"]  \n",
+    "stderr": ""
+  },
+  {
+    "name": "job_output_values",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "delayTime": 0,
+          "executionTime": -1250,
+          "output": {
+            "answer": "caf\u00e9",
+            "ok": true
+          },
+          "error": "kept visible"
+        }
+      }
+    ],
+    "fields": [
+      [
+        [
+          "id",
+          "job1"
+        ],
+        [
+          "status",
+          "failed"
+        ],
+        [
+          "delay",
+          null
+        ],
+        [
+          "execution",
+          "-1.25s"
+        ],
+        [
+          "worker",
+          null
+        ],
+        [
+          "error",
+          "kept visible"
+        ],
+        [
+          "output",
+          "{\"answer\": \"caf\\u00e9\", \"ok\": true}"
+        ]
+      ]
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "id         job1                               \nstatus     failed                             \ndelay      -                                  \nexecution  -1.25s                             \nworker     -                                  \nerror      kept visible                       \noutput     {\"answer\": \"caf\\u00e9\", \"ok\": true}\n",
+    "stderr": ""
+  },
+  {
+    "name": "encoded_job_ids",
+    "args": [
+      "job",
+      "get",
+      "ep /?#%\u00e9",
+      "job /?#%\u00e9",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep%20%2F%3F%23%25%C3%A9/status/job%20%2F%3F%23%25%C3%A9",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "new1",
+          "status": "IN_QUEUE",
+          "unknown": [
+            1,
+            false
+          ]
+        }
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"new1\",\n  \"status\": \"IN_QUEUE\",\n  \"unknown\": [\n    1,\n    false\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "encoded_job_ids",
+    "args": [
+      "job",
+      "cancel",
+      "ep /?#%\u00e9",
+      "job /?#%\u00e9",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep%20%2F%3F%23%25%C3%A9/cancel/job%20%2F%3F%23%25%C3%A9",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "new1",
+          "status": "IN_QUEUE",
+          "unknown": [
+            1,
+            false
+          ]
+        }
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"new1\",\n  \"status\": \"IN_QUEUE\",\n  \"unknown\": [\n    1,\n    false\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "encoded_job_ids",
+    "args": [
+      "job",
+      "retry",
+      "ep /?#%\u00e9",
+      "job /?#%\u00e9",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep%20%2F%3F%23%25%C3%A9/retry/job%20%2F%3F%23%25%C3%A9",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "new1",
+          "status": "IN_QUEUE",
+          "unknown": [
+            1,
+            false
+          ]
+        }
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"new1\",\n  \"status\": \"IN_QUEUE\",\n  \"unknown\": [\n    1,\n    false\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "encoded_job_ids",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "",
+      "--json"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status",
+        "body": null,
+        "status": 200,
+        "response": {}
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 0,
+    "stdout": "{}\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_response_fallbacks",
+    "args": [
+      "job",
+      "retry",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/retry/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "new1",
+          "status": "IN_QUEUE"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "job new1 IN_QUEUE"
+    ],
+    "code": 0,
+    "stdout": "\u2713 job new1 IN_QUEUE\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_response_fallbacks",
+    "args": [
+      "job",
+      "retry",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/retry/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": ""
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "job job1 None"
+    ],
+    "code": 0,
+    "stdout": "\u2713 job job1 None\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_response_fallbacks",
+    "args": [
+      "job",
+      "cancel",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/cancel/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "new1"
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "job job1 None"
+    ],
+    "code": 0,
+    "stdout": "\u2713 job job1 None\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_response_fallbacks",
+    "args": [
+      "purge",
+      "ep1",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/purge-queue",
+        "body": null,
+        "status": 200,
+        "response": {}
+      }
+    ],
+    "fields": [],
+    "success": [
+      "purged 0 queued jobs from ep1"
+    ],
+    "code": 0,
+    "stdout": "\u2713 purged 0 queued jobs from ep1\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_response_fallbacks",
+    "args": [
+      "purge",
+      "ep1",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/purge-queue",
+        "body": null,
+        "status": 200,
+        "response": {
+          "removed": null
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "purged None queued jobs from ep1"
+    ],
+    "code": 0,
+    "stdout": "\u2713 purged None queued jobs from ep1\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_response_fallbacks",
+    "args": [
+      "purge",
+      "ep1",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/purge-queue",
+        "body": null,
+        "status": 200,
+        "response": {
+          "removed": 0
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "purged 0 queued jobs from ep1"
+    ],
+    "code": 0,
+    "stdout": "\u2713 purged 0 queued jobs from ep1\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_response_fallbacks",
+    "args": [
+      "purge",
+      "ep1",
+      "--yes"
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "ep1/purge-queue",
+        "body": null,
+        "status": 200,
+        "response": {
+          "removed": -3
+        }
+      }
+    ],
+    "fields": [],
+    "success": [
+      "purged -3 queued jobs from ep1"
+    ],
+    "code": 0,
+    "stdout": "\u2713 purged -3 queued jobs from ep1\n",
+    "stderr": ""
+  },
+  {
+    "name": "job_http_errors",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 404,
+        "raw": " job not found \n"
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: 404 job not found\n"
+  },
+  {
+    "name": "job_http_errors",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 503,
+        "raw": ""
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: 503 Service Unavailable\n"
+  },
+  {
+    "name": "job_http_errors",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 500,
+        "raw": "{\"detail\":\"unavailable\"}"
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: 500 {\"detail\":\"unavailable\"}\n"
+  },
+  {
+    "name": "job_http_errors",
+    "args": [
+      "job",
+      "get",
+      "ep1",
+      "job1"
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 401,
+        "raw": "ignored unauthorized body"
+      }
+    ],
+    "fields": [],
+    "success": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: 401 Unauthorized | Make sure Runpod API key is set and valid.\n"
+  },
+  {
+    "name": "job_confirmation_precedes_credentials",
+    "args": [
+      "purge",
+      "ep1"
+    ],
+    "requests": [],
+    "fields": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint purge [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint purge --help' for help.\n\nError: pass --yes to confirm in a non-interactive shell\n"
+  }
+]

@@ -46,7 +46,8 @@ by Python; the complete port remains in progress.
 | `rp_cli.options::{parse_env,container_fields}` | `configuration::parse_env`, async/blocking `Client::container_fields` |
 | `rp_cli.endpoint_config::{_gpu,_cpu,config_body}` | private hardware selection and async/blocking `Client::{create_endpoint_config,update_endpoint_config}` |
 | `rp_cli.endpoint_config::{scale_patch,mutable,_kind,validate,patch}` | `configuration::{scale_patch,mutable_endpoint,validate_endpoint_document,endpoint_patch}` and native type labels |
-| `rp_cli.endpoint` resource commands, formatting, editor and rollout/worker observation | native `rp endpoint` / `runpod endpoint`, private options, views, clock and streaming-output helpers; job/log commands and completers remain pending |
+| `rp_cli.endpoint` resource commands, formatting, editor and rollout/worker observation | native `rp endpoint` / `runpod endpoint`, private options, views, clock and streaming-output helpers |
+| `rp_cli.endpoint` job inspection, cancellation, retry, queue purge and data-plane errors | native `endpoint job get/cancel/retry`, `endpoint purge`, private `cli::endpoint::jobs`; job wait/stream, run/log commands and completers remain pending |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -85,9 +86,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 357 adapted symbols, and 814 upstream
+This milestone maps 397 implemented symbols, 366 adapted symbols, and 817 upstream
 test functions; other entries remain pending.
-The test mapping includes 748 ported tests and 66 explicitly adapted tests.
+The test mapping includes 751 ported tests and 66 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1220,7 +1221,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **1,977 SDK differential cases**.
+additional runtime fixtures, separate from the **2,008 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1262,7 +1263,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 1,977 differential cases.
+separate from the SDK symbol inventory and its 2,008 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1555,9 +1556,39 @@ rollout Ctrl-C and JSON worker watch
 against loopback mocks. No real Runpod resource is created or modified.
 See [reviews/endpoint-cli.md](reviews/endpoint-cli.md).
 
-The remaining endpoint log, run, job, purge and completion workflows are still part of
+The remaining endpoint log, run, job wait/stream and completion workflows are still part of
 the full goal. Their mappings and tests remain pending rather than being inferred from
 the resource-command implementation.
+
+## Native job inspection and control
+
+`rp endpoint job get`, `cancel` and `retry` address the queue data plane directly, with
+no control-plane endpoint lookup. IDs are encoded independently as URL path segments;
+an empty job ID retains the source's omitted suffix. Each request has the source runner's
+ten-second deadline. POST requests send no body. `endpoint purge` confirms before loading
+credentials or making a request, so a noninteractive invocation requires `--yes` first.
+
+Job fields retain their source order, lowercase status, milliseconds-to-seconds conversion,
+and string/JSON output distinction. Raw JSON preserves unknown response fields. Cancellation
+messages keep the requested ID; retry messages prefer the returned ID and fall back to the
+requested ID. Purge distinguishes an absent removed count (zero) from explicit null (`None`).
+HTTP errors retain the numeric status and trimmed raw body, including JSON error text;
+empty bodies use a standard reason phrase, and 401 keeps the runner's authentication message.
+
+The native client retains the documented no-redirect/no-implicit-replay policy and owned
+environment/profile credential lookup. Reqwest/Serde diagnostics replace Python exception
+wording; custom HTTP reason phrases are replaced by standard reason phrases. JSON displayed
+inside a human-readable output cell uses native compact spacing and Unicode spelling.
+These formatting changes preserve the decoded value and do not affect raw JSON results.
+
+`tools/endpoint_job_fixtures.py` passes three unchanged upstream test functions and captures
+**31 actual Python invocations** across eight groups. Eight native process tests compare
+methods, encoded paths, authorization/content headers, absent request bodies, exit codes,
+JSON values, field values and success messages. Additional groups exercise output shapes,
+ID encoding, missing-field fallbacks, HTTP errors and confirmation without credentials.
+Fixtures regenerate byte-identically; all requests use loopback mocks. The ledger adds
+nine adapted symbols and three ported source tests, taking the SDK differential total to
+**2,008**. See [reviews/endpoint-jobs.md](reviews/endpoint-jobs.md).
 
 ## Remaining work
 

@@ -1,3 +1,4 @@
+mod jobs;
 mod options;
 #[cfg(test)]
 mod tests;
@@ -14,6 +15,7 @@ use crate::{
     client::{required_str, truthy},
     configuration, json,
 };
+pub(super) use jobs::execute as execute_job;
 use options::Document;
 pub(super) use options::{Options, command};
 use std::io::Read;

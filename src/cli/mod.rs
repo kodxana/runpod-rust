@@ -102,6 +102,10 @@ async fn dispatch(
                 .await
         }
         Some(("endpoint", args)) => {
+            if matches!(args.subcommand_name(), Some("job" | "purge")) {
+                endpoint::execute_job(args, &mut interaction::Terminal, streams).await?;
+                return Ok(String::new());
+            }
             let options = endpoint::Options::read(args)?;
             options.validate_interaction(&interaction::Terminal)?;
             options

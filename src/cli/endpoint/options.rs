@@ -102,6 +102,23 @@ fn id(command: Command, required: bool) -> Command {
 fn timeout(command: Command) -> Command {
     command.arg(text("timeout").value_parser(finite).default_value("600"))
 }
+fn job_command() -> Command {
+    let mut command = base("job", "Inspect and control queue jobs")
+        .subcommand_required(true)
+        .arg_required_else_help(true);
+    for (name, about) in [
+        ("get", "Show a job's status and output"),
+        ("cancel", "Cancel a queued or running job"),
+        ("retry", "Requeue a failed or timed-out job"),
+    ] {
+        command = command.subcommand(
+            id(base(name, about), true)
+                .arg(Arg::new("job-id").value_name("JOB_ID").required(true))
+                .arg(flag("json")),
+        );
+    }
+    command
+}
 pub(in crate::cli) fn command() -> Command {
     base(
         "endpoint",
@@ -109,6 +126,15 @@ pub(in crate::cli) fn command() -> Command {
     )
     .subcommand_required(true)
     .arg_required_else_help(true)
+    .subcommand(job_command())
+    .subcommand(
+        id(
+            base("purge", "Remove queued jobs, leaving running jobs intact"),
+            true,
+        )
+        .arg(flag("yes").short('y'))
+        .arg(flag("json")),
+    )
     .subcommand(
         base("list", "List endpoints")
             .arg(text("name"))

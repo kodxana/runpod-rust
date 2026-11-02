@@ -7866,8 +7866,9 @@
       "kind": "function",
       "public": false,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::jobs::request and cli::CliError",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -7876,8 +7877,9 @@
       "kind": "function",
       "public": false,
       "signature": "endpoint_id: str, action: str, job_id: Optional[str]=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::jobs::request path assembly",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8067,8 +8069,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::options::job_command",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8077,8 +8080,9 @@
       "kind": "function",
       "public": false,
       "signature": "name: str",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::options::job_command",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8087,8 +8091,9 @@
       "kind": "function",
       "public": false,
       "signature": "record: dict",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::view::job output selection",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8097,8 +8102,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, job_id, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::jobs::execute / Action::Get",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8127,8 +8133,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, job_id, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::jobs::execute / Action::Cancel",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8137,8 +8144,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, job_id, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::jobs::execute / Action::Retry",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint.py",
@@ -8147,8 +8155,9 @@
       "kind": "function",
       "public": true,
       "signature": "endpoint_id, yes, as_json",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::jobs::execute / Action::Purge",
+      "status": "adapted",
+      "note": "Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md."
     },
     {
       "file": "runpod/rp_cli/endpoint_config.py",

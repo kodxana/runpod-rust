@@ -259,6 +259,34 @@ pub(super) fn scale(record: &Value, id: &str) -> Result<String> {
         ("scaling", scaling(record, false)?),
     ]))
 }
+pub(super) fn job(record: &Value) -> Result<String> {
+    let duration = |key: &str| -> Result<Value> {
+        let value = &record[key];
+        let milliseconds = if truthy(value) { number(value)? } else { 0.0 };
+        seconds(&json!(milliseconds / 1000.0))
+    };
+    let output = match &record["output"] {
+        Value::Null => Value::Null,
+        Value::String(value) => value.clone().into(),
+        value => serde_json::to_string(value)?.into(),
+    };
+    Ok(fields(vec![
+        ("id", record["id"].clone()),
+        (
+            "status",
+            record["status"]
+                .as_str()
+                .unwrap_or_default()
+                .to_lowercase()
+                .into(),
+        ),
+        ("delay", duration("delayTime")?),
+        ("execution", duration("executionTime")?),
+        ("worker", record["workerId"].clone()),
+        ("error", record["error"].clone()),
+        ("output", output),
+    ]))
+}
 pub(super) fn rollout(state: &Value) -> String {
     let rollout = &state["rollout"];
     let phase = if truthy(&rollout["inProgress"]) {
