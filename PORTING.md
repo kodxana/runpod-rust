@@ -1988,6 +1988,78 @@ The complete Windows suite passes **930 tests**, with no failures and four ignor
 entry points exercised by parents. Formatting, locked build, strict Clippy and rustdoc
 pass; focused tests and strict Clippy were repeated after review fixes.
 
+## Native deployed queue adapter
+
+The separately maintained worker runtime at commit
+`14f70227008c1ec317e3fe1865a4688b14f5d432` now has a native counterpart for its
+deployed function adapter. `FunctionHandle::queue_worker(WorkerConfig)` snapshots the
+registered body and init hook, finishes initialization, and returns an initialized
+`serverless::Worker`. No intake or heartbeat occurs during initialization. Reusing that
+worker does not rerun init; constructing another worker initializes again. Native
+initialization errors preserve their typed cause, and cancelled async initialization
+drops its owned future without starting a worker.
+
+`FunctionHandle::start_queue_worker` runs init before parsing core configuration, then
+uses the existing production/local/realtime startup path. `RUNPOD_MAX_CONCURRENCY`
+defaults to one, floors at one, and falls back to one for invalid strings. Values above
+one install a constant concurrency modifier, leaving the initial core capacity unchanged.
+Explicit `queue_worker` configuration controls its own concurrency and reads no environment.
+Both paths force aggregation for streaming bodies while preserving other caller settings.
+
+| Runtime Python function | Native counterpart |
+| --- | --- |
+| `_job_kwargs` | `apps::worker::job_kwargs` |
+| `_make_deployed_handler` | `apps::worker::deployed_handler` |
+| `_run_init` | initialization before `FunctionHandle::queue_worker` / `start_queue_worker` |
+| `_max_concurrency`, `_worker_config` | `apps::worker::max_concurrency`, `config_from_values`, aggregation in preparation/startup |
+| deployed serving portion of `main` | `FunctionHandle::start_queue_worker`; resource loading/bootstrap remains pending |
+
+Preserved behavior: job input becomes keyword arguments with no positional arguments;
+missing/null/falsey input becomes an empty map; `__empty` is removed regardless of its
+value without changing the remaining keyword order. Sync and async single-result bodies return raw values. Streams remain incremental,
+send each chunk through the existing worker transport, and finish with an aggregate.
+An empty stream produces an empty aggregate. Errors after partial output keep already
+sent chunks and finish with the core's failure response. Returned `error` fields retain
+the existing core's interpretation rather than introducing a function-response envelope.
+
+Native adaptations: owned compiled functions replace interpreter callables. Synchronous
+bodies and init hooks use Tokio's blocking pool; already-running blocking calls cannot
+be cancelled by dropping their future. Async functions/streams stay on the caller's
+runtime. Native streaming init hooks follow `NativeFunction`'s collection semantics;
+Python's `_run_init` does not iterate a returned generator. Truthy job input must be a
+JSON object: Python's incidental `dict()` coercion of arrays of pairs is not emulated.
+JSON values retain serde_json's numeric domain. Concurrency uses trimmed Rust `usize`
+parsing; Python digit underscores, Unicode decimal digits and unbounded positive integers
+are not supported and use the invalid-value fallback. Native errors use the existing
+typed error/core traceback adaptation. Native argument validation belongs to the closure
+or its typed decoder; Python function-signature reflection is not introduced.
+
+`tools/apps_queue_fixtures.py ../assets/sdk-runtime` records **35 deterministic runtime
+cases** (22 calls, nine concurrency inputs and four init cases). Native tests compare
+outputs, streaming classification, failure occurrence, parsed limits, modifier presence,
+and init effects. Error-class/message spelling is a native adaptation. A child process
+proves that the environment-installed modifier actually runs three jobs concurrently,
+with exact partial/final webhook bodies. Additional tests cover initialization gating,
+typed failure, cancellation, ownership after handle drop, local startup and incremental
+delivery before a generator resumes. Seventeen unchanged source tests pass and each has
+a named native counterpart. See [parity/runtime-queue.json](parity/runtime-queue.json)
+for the mapping and [reviews/apps-queue-worker.md](reviews/apps-queue-worker.md) for review.
+
+These runtime contracts are separate from the pinned Python SDK inventory, so SDK
+coverage remains **818/1,135 symbols (72.1%)**, **928/1,659 upstream test functions** and
+**2,328 SDK differential fixtures**. Manifest-based function selection, automatic mounts,
+native binary packaging/deployment, and the queue live-source executor remain pending.
+The example performs discovery export before entering the worker; the caller must select
+the compiled function and supply any owned mount bindings.
+
+Validation: the complete Windows suite passes **958 tests**, with zero failures and four
+ignored child entry points exercised by parents. Locked build, formatting, strict
+all-target/all-feature Clippy and rustdoc pass. Review found and fixed a keyword-order
+regression: serde_json's ordinary removal swaps the last entry into the removed position;
+`shift_remove` now matches Python's order-preserving `pop`. The new source fixture failed
+before that fix and passes afterward. Focused unit/integration/process tests and strict
+Clippy were repeated after review fixes.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live

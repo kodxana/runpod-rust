@@ -5,6 +5,10 @@ use runpod::{
 use std::{collections::BTreeMap, process::Stdio, time::Duration};
 use wiremock::{Mock, MockServer, ResponseTemplate, matchers::path};
 
+#[path = "worker_process/apps_queue.rs"]
+mod apps_queue;
+use apps_queue::apps_queue_child;
+
 async fn child(mode: &str, server: Option<&str>) -> std::process::Output {
     let mut command = tokio::process::Command::new(std::env::current_exe().unwrap());
     command
@@ -244,6 +248,10 @@ fn worker_process_child() {
     };
     std::panic::set_hook(Box::new(|_| eprintln!("original panic hook")));
     tracing::subscriber::set_global_default(LogToStderr).unwrap();
+    if mode.starts_with("apps-queue") {
+        apps_queue_child(&mode);
+        return;
+    }
     if mode == "http" {
         let mut api = runpod::serverless::WorkerApi::new(
             WorkerConfig::default(),

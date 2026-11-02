@@ -55,7 +55,7 @@ impl FunctionHandle {
             options: json!({}),
         }
     }
-    fn registration(&self) -> Result<RegisteredFunction> {
+    pub(super) fn registration(&self) -> Result<RegisteredFunction> {
         self.app.function(self.index)
     }
 
@@ -113,6 +113,43 @@ impl FunctionHandle {
             hook.call(FunctionArgs::default()).await?;
         }
         Ok(())
+    }
+
+    /// Initializes this function once and constructs a platform queue worker.
+    ///
+    /// Job input becomes keyword arguments, with the `__empty` marker removed. Streaming
+    /// functions send partial results and retain a final aggregate. The supplied worker
+    /// configuration controls concurrency; this method does not read environment settings.
+    /// Initialization finishes before any intake, heartbeat, or job handling can begin.
+    /// Run the returned worker with an owned shutdown future or its signal-aware runner.
+    /// Reusing that worker does not rerun init; constructing another worker does.
+    /// This also accepts task functions, as the Python queue adapter does; it does not
+    /// implement the dedicated task HTTP protocol or dynamic source loading.
+    ///
+    /// # Errors
+    /// Returns initialization, registration, or worker configuration errors.
+    pub async fn queue_worker(
+        &self,
+        config: crate::serverless::WorkerConfig,
+    ) -> Result<crate::serverless::Worker> {
+        super::worker::queue_worker(self.registration()?, config).await
+    }
+
+    /// Initializes this function and starts the queue worker from platform environment.
+    ///
+    /// `RUNPOD_MAX_CONCURRENCY` sets the fixed job limit (default/minimum one). The core
+    /// worker selects platform queue, realtime HTTP, or local `test_input.json` mode.
+    /// Production mode runs fitness checks and installs panic logging and signal handling.
+    /// Call the discovery export helper and return before this method in discoverable apps.
+    /// Native artifact packaging, resource selection, and mount binding are caller-owned.
+    ///
+    /// # Errors
+    /// Returns initialization, registration, configuration, startup, or transport errors.
+    ///
+    /// # Panics
+    /// Production startup cannot install its panic hook while this thread is unwinding.
+    pub async fn start_queue_worker(&self) -> Result<()> {
+        super::worker::start(self.registration()?).await
     }
 
     /// Records a nonempty cron expression; deployment remains gated by backend schedule support.

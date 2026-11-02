@@ -21,4 +21,5 @@ pub use prestart::{
 pub use scaling::{ConcurrencyModifier, WorkerControl};
 pub use state::{JobsProgress, WorkerJob};
 pub use transport::{ResultKind, WorkerConfig, WorkerTransport};
+pub(crate) use worker::start_with_config;
 pub use worker::{Worker, start, start_with_fitness};

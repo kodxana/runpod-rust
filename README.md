@@ -138,6 +138,16 @@ Native function bodies are compiled Rust code. Source-based live/task calls stil
 explicit Python source understood by the existing remote worker; shipping native Rust binaries
 is a remaining part of the port. `App::definition` returns deployment metadata without serializing closures.
 
+Registered functions can serve platform queue jobs with `FunctionHandle::start_queue_worker`.
+It runs the init hook before core startup, uses `RUNPOD_MAX_CONCURRENCY`, and selects the
+core worker's queue, realtime HTTP, or local `test_input.json` mode. Job input is keyword
+arguments; `__empty` is removed. Streaming functions send partial results and a final
+aggregate. For explicit configuration and shutdown, await `queue_worker(WorkerConfig)`
+then call `Worker::run`. Apps initialization completes before intake, independently of
+the core worker's later prestart hooks. See [examples/queue_worker.rs](examples/queue_worker.rs).
+Native artifact deployment, manifest selection, mount bootstrap and live source loading
+remain pending; this adapter runs the compiled function selected by the caller.
+
 For synchronous registered functions/APIs, construct `blocking::apps::App` outside Tokio,
 or wrap existing declarations with `::from_app`. Register resources with the same inputs.
 Returned handles, jobs, and iterators retain the runtime after the app is dropped. Use

@@ -1,0 +1,379 @@
+{
+  "repository": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "calls": [
+    {
+      "name": "sync sum",
+      "function": "add",
+      "job": {
+        "input": {
+          "a": 1,
+          "b": 2
+        }
+      },
+      "outputs": [
+        {
+          "sum": 3
+        }
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "async double",
+      "function": "double",
+      "job": {
+        "input": {
+          "x": 5
+        }
+      },
+      "outputs": [
+        10
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "missing input",
+      "function": "echo",
+      "job": {},
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "marker",
+      "function": "echo",
+      "job": {
+        "input": {
+          "__empty": true
+        }
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "marker removed regardless of value",
+      "function": "echo",
+      "job": {
+        "input": {
+          "__empty": false,
+          "x": [
+            1,
+            null
+          ]
+        }
+      },
+      "outputs": [
+        {
+          "x": [
+            1,
+            null
+          ]
+        }
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "marker removal retains keyword order",
+      "function": "keys",
+      "job": {
+        "input": {
+          "first": 1,
+          "__empty": true,
+          "second": 2,
+          "third": 3
+        }
+      },
+      "outputs": [
+        [
+          "first",
+          "second",
+          "third"
+        ]
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "sync generator",
+      "function": "sequence",
+      "job": {
+        "input": {
+          "n": 3
+        }
+      },
+      "outputs": [
+        0,
+        1,
+        2
+      ],
+      "error": false,
+      "streaming": true
+    },
+    {
+      "name": "async generator",
+      "function": "async_sequence",
+      "job": {
+        "input": {
+          "n": 2
+        }
+      },
+      "outputs": [
+        0,
+        1
+      ],
+      "error": false,
+      "streaming": true
+    },
+    {
+      "name": "empty generator",
+      "function": "sequence",
+      "job": {
+        "input": {
+          "n": 0
+        }
+      },
+      "outputs": [],
+      "error": false,
+      "streaming": true
+    },
+    {
+      "name": "body failure",
+      "function": "failure",
+      "job": {
+        "input": {}
+      },
+      "outputs": [],
+      "error": true,
+      "streaming": false
+    },
+    {
+      "name": "partial failure",
+      "function": "stream_failure",
+      "job": {
+        "input": {}
+      },
+      "outputs": [
+        "first"
+      ],
+      "error": true,
+      "streaming": true
+    },
+    {
+      "name": "falsey input None",
+      "function": "echo",
+      "job": {
+        "input": null
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "falsey input False",
+      "function": "echo",
+      "job": {
+        "input": false
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "falsey input 0",
+      "function": "echo",
+      "job": {
+        "input": 0
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "falsey input 0.0",
+      "function": "echo",
+      "job": {
+        "input": 0.0
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "falsey input ''",
+      "function": "echo",
+      "job": {
+        "input": ""
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "falsey input []",
+      "function": "echo",
+      "job": {
+        "input": []
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "falsey input {}",
+      "function": "echo",
+      "job": {
+        "input": {}
+      },
+      "outputs": [
+        {}
+      ],
+      "error": false,
+      "streaming": false
+    },
+    {
+      "name": "invalid input True",
+      "function": "echo",
+      "job": {
+        "input": true
+      },
+      "outputs": [],
+      "error": true,
+      "streaming": false
+    },
+    {
+      "name": "invalid input 3",
+      "function": "echo",
+      "job": {
+        "input": 3
+      },
+      "outputs": [],
+      "error": true,
+      "streaming": false
+    },
+    {
+      "name": "invalid input 'bad'",
+      "function": "echo",
+      "job": {
+        "input": "bad"
+      },
+      "outputs": [],
+      "error": true,
+      "streaming": false
+    },
+    {
+      "name": "invalid input [1]",
+      "function": "echo",
+      "job": {
+        "input": [
+          1
+        ]
+      },
+      "outputs": [],
+      "error": true,
+      "streaming": false
+    }
+  ],
+  "concurrency": [
+    {
+      "value": null,
+      "maximum": 1,
+      "modified": null
+    },
+    {
+      "value": "8",
+      "maximum": 8,
+      "modified": [
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "value": "banana",
+      "maximum": 1,
+      "modified": null
+    },
+    {
+      "value": "0",
+      "maximum": 1,
+      "modified": null
+    },
+    {
+      "value": "-2",
+      "maximum": 1,
+      "modified": null
+    },
+    {
+      "value": "  +4 ",
+      "maximum": 4,
+      "modified": [
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "value": "1",
+      "maximum": 1,
+      "modified": null
+    },
+    {
+      "value": "1.5",
+      "maximum": 1,
+      "modified": null
+    },
+    {
+      "value": "",
+      "maximum": 1,
+      "modified": null
+    }
+  ],
+  "init": [
+    {
+      "kind": "none",
+      "events": [],
+      "error": false
+    },
+    {
+      "kind": "sync",
+      "events": [
+        "init"
+      ],
+      "error": false
+    },
+    {
+      "kind": "async",
+      "events": [
+        "init"
+      ],
+      "error": false
+    },
+    {
+      "kind": "failure",
+      "events": [
+        "init"
+      ],
+      "error": true
+    }
+  ]
+}

@@ -42,6 +42,7 @@ mod stubs;
 pub mod targets;
 pub mod tasks;
 pub mod volume;
+mod worker;
 pub use api::AppsApiClient;
 pub use api_handle::{ApiHandle, NativeApi};
 pub use app::{App, AppConfig, AppRegistry, dev_endpoint_name};

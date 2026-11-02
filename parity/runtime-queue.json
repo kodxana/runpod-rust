@@ -1,0 +1,53 @@
+{
+  "upstream": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "file": "src/runpod_sdk_runtime/queue/worker.py",
+  "scope": "Deployed queue function adapter, separate from the runpod-python inventory",
+  "fixtures": "tests/fixtures/apps_queue.json",
+  "fixture_cases": 35,
+  "fixture_sha256": "5be7a3146f89f98d8f9c374549033320c7507f031a35cf078217a5f04da109d5",
+  "source_tests": "tests/test_queue_worker.py",
+  "native_unit_tests": "src/apps/worker/tests.rs",
+  "test_mapping": {
+    "TestDeployedHandler.test_sync_function": "test_sync_function",
+    "TestDeployedHandler.test_async_function": "test_async_function",
+    "TestDeployedHandler.test_empty_marker_stripped": "test_empty_marker_stripped",
+    "TestDeployedHandler.test_no_input": "test_no_input",
+    "TestDeployedHandler.test_sync_generator": "test_sync_generator",
+    "TestDeployedHandler.test_async_generator": "test_async_generator",
+    "TestInitHook.test_no_init": "test_no_init",
+    "TestInitHook.test_sync_init": "test_sync_init",
+    "TestInitHook.test_async_init": "test_async_init",
+    "TestConcurrency.test_default": "test_default",
+    "TestConcurrency.test_env_value": "test_env_value",
+    "TestConcurrency.test_invalid_value": "test_invalid_value",
+    "TestConcurrency.test_floor_of_one": "test_floor_of_one",
+    "TestConcurrency.test_worker_config_single": "test_worker_config_single",
+    "TestConcurrency.test_worker_config_concurrent": "test_worker_config_concurrent + apps_queue_start_uses_environment_concurrency_and_aggregate_protocol",
+    "TestConcurrency.test_worker_config_plain_handler": "test_worker_config_plain_handler",
+    "TestConcurrency.test_worker_config_generator_handler": "test_worker_config_generator_handler"
+  },
+  "integration_tests": ["tests/apps_queue_worker.rs", "tests/worker_process/apps_queue.rs"],
+  "verified_contracts": [
+    "Initialization precedes core configuration, intake and heartbeat; once per constructed worker",
+    "Keyword job input, missing/falsey input and __empty removal preserving keyword order",
+    "Sync, async and streaming native bodies",
+    "Incremental delivery, aggregate results and terminal failure after partial output",
+    "Environment concurrency applied to actual worker batch intake and concurrent execution",
+    "Local startup, typed init failure and cancellation before worker construction"
+  ],
+  "native_adaptations": [
+    "Explicit compiled FunctionHandle replaces runtime imports and reflection",
+    "Truthy input requires a JSON object rather than Python dict coercion of pairs",
+    "usize concurrency parsing; unsupported exotic/overflow inputs use one",
+    "Synchronous work uses the blocking pool; already-running blocking calls finish after cancellation",
+    "Native streaming init hooks are collected, following existing NativeFunction semantics",
+    "Typed native errors, serde_json values and closure-owned state"
+  ],
+  "pending_contracts": [
+    "Resource/manifest loading and deployed/live selection",
+    "Automatic runtime mount initialization",
+    "Native binary packaging and deployment",
+    "Live-source request executor and serialization"
+  ]
+}

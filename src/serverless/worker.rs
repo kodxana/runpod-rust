@@ -450,6 +450,14 @@ pub async fn start(handler: Handler) -> Result<()> {
 /// Production startup cannot install its panic hook while the calling thread is unwinding.
 pub async fn start_with_fitness(handler: Handler, fitness: &mut FitnessChecks) -> Result<()> {
     let config = WorkerConfig::from_values(fitness.environment())?;
+    start_with_config(handler, fitness, config).await
+}
+
+pub(crate) async fn start_with_config(
+    handler: Handler,
+    fitness: &mut FitnessChecks,
+    config: WorkerConfig,
+) -> Result<()> {
     let env = fitness.environment();
     let port = env
         .get("RUNPOD_REALTIME_PORT")
