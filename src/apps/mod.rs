@@ -3,6 +3,7 @@ pub mod api;
 mod api_handle;
 mod app;
 pub mod auth;
+pub mod bootstrap;
 pub mod build;
 pub mod catalog;
 mod context;

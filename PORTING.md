@@ -2060,6 +2060,84 @@ regression: serde_json's ordinary removal swaps the last entry into the removed 
 before that fix and passes afterward. Focused unit/integration/process tests and strict
 Clippy were repeated after review fixes.
 
+## Artifact bootstrap location and attachment
+
+`apps::bootstrap` ports the artifact-loading phases from sdk-runtime commit
+`14f70227008c1ec317e3fe1865a4688b14f5d432`. The native package format can now be read back
+without a Python interpreter. This is a prerequisite for full native deployment startup;
+it does not claim the remaining bootstrap orchestration or native artifact launch.
+
+| Runtime Python function | Rust counterpart |
+| --- | --- |
+| `PhaseError` | `apps::bootstrap::PhaseError`, wrapped by `Error::Bootstrap` |
+| `_error_payload` | `PhaseError::payload` |
+| artifact path/wait globals, `_locate` | owned `BootstrapConfig`, `from_env`/`from_values`, `locate` |
+| `_attach` | `dependency_paths` |
+| `_manifest` | `read_manifest` |
+
+Prebuilt directories take priority over markers and artifacts. A marker is trusted solely
+because it is a file; its contents, age and artifact version are not revalidated. Missing
+artifacts are polled every two seconds, with existence checked before the deadline. The
+returned path retains the configured spelling. Extraction keeps archive order, later
+duplicate files replace earlier files, and a later failure leaves already-extracted files
+in place. A successful extraction writes the timestamp marker. A marker directory is not
+a warm marker and causes the final marker write to fail.
+
+One source quirk is deliberately preserved: an artifact member named `.rp-unpacked` can
+leave a marker behind even when a later member fails, so a subsequent boot may trust that
+partial tree. The capture suite records this behavior instead of silently changing it.
+Manifest loading accepts every valid JSON value, including null, arrays and scalars;
+resource shape validation belongs to dispatch. Dependency paths place an existing `env`
+directory before the source tree and do not mutate process search paths.
+
+Tar, gzip, bzip2 and xz are detected from bytes, independently of the filename. The latter
+two codecs were already locked/transitive ZIP dependencies; exposing them directly adds
+no resolved package or version. Native artifacts accept regular files/directories and
+GNU/PAX long names. Relative names are checked before extraction; existing destination
+ancestors must resolve inside the app directory. Links, special members, absolute paths,
+parent traversal, backslashes and colon-containing paths are rejected. This uses the
+link-free portable format produced by the SDK packager. Python 3.12+ data filtering can
+accept some safe links and strip leading slashes; those incidental tar inputs are a
+documented native restriction, not claimed as equivalent. File extraction cannot silently
+skip a regular member named `.` and then mark the tree complete.
+
+Unix file modes follow the source data filter: high privilege bits and group/other write
+bits are removed; owner read/write is retained; executable bits require owner execute.
+Directory modes/ownership are not applied. Windows files are writable after extraction.
+Filesystem metadata/errors use native platform behavior. Blocking extraction is not
+cancelled by dropping a task waiting for its result, and callers must not extract
+concurrently into the same tree.
+
+Native differences: bootstrap paths and waits are owned values rather than import-time
+globals. Wait parsing uses trimmed signed 64-bit Rust integers; negative waits become
+zero-duration waits (the timeout diagnostic consequently says `0s`). Python underscore
+digits, Unicode digits and unbounded integers are not emulated. Native EOF and marker/
+directory filesystem failures are wrapped in locate-phase errors with their typed cause;
+the source lets some of those exceptions escape its phase wrapper. Interpreter-specific
+exception spelling and logging are not compared as identical. Phase identifiers remain
+strings, including caller-defined phases, and structured error payloads match exactly.
+
+Ten unchanged source tests pass. `tools/bootstrap_fixtures.py ../assets/sdk-runtime`
+produces **33 deterministic cases**: twenty-two location cases, seven manifest values and
+four error payloads. Native tests compare success/failure, source phase when present,
+paths, extracted contents and marker state. Two cases record source exceptions without
+a phase; the native typed wrapping is explicit. Further tests round-trip an actual SDK
+artifact with source and dependency files, wait for a platform-published artifact, and
+check malformed/native-only archive members. Unix-only tests verify permission filtering
+and rejection of an existing symlink pointing outside the extraction root. See
+[parity/runtime-bootstrap.json](parity/runtime-bootstrap.json) and
+[reviews/apps-bootstrap.md](reviews/apps-bootstrap.md).
+
+This separate runtime coverage does not change the SDK inventory: **818/1,135 symbols
+(72.1%)**, **928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
+Native binary packaging/launch, manifest resource selection, automatic mount setup,
+system dependency installation, and bootstrap error-serving orchestration remain pending.
+
+The complete Windows suite passes **974 tests**, with zero failures and four ignored child
+entry points exercised by their parents. Formatting, locked build, strict Clippy and
+rustdoc pass. Focused bootstrap tests and strict Clippy were repeated after review changes.
+Unix-only extraction tests run in CI; local Windows checks do not prove Unix permissions.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live

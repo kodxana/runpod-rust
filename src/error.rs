@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// Application worker artifact preparation failed during a named phase.
+    #[error(transparent)]
+    Bootstrap(#[from] crate::apps::bootstrap::PhaseError),
     /// Native application discovery, compilation or declaration export failed.
     #[error(transparent)]
     Discovery(#[from] crate::apps::discovery::DiscoveryError),

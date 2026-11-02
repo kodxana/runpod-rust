@@ -1,0 +1,48 @@
+{
+  "upstream": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "file": "src/runpod_sdk_runtime/bootstrap.py",
+  "scope": "Artifact location, extraction, attachment and phase errors; separate from the Python SDK inventory",
+  "fixtures": "tests/fixtures/bootstrap.json",
+  "fixture_cases": 33,
+  "fixture_sha256": "1b4b7d03de2ae16be9fe27962329a6d7223019e6f98f1a85a64c59e657419d02",
+  "source_tests": "tests/test_bootstrap.py",
+  "native_tests": "tests/bootstrap.rs",
+  "test_mapping": {
+    "TestLocatePhase.test_missing_artifact_fails_with_phase": "test_missing_artifact_fails_with_phase",
+    "TestLocatePhase.test_extracts_artifact": "test_extracts_artifact",
+    "TestLocatePhase.test_unpack_happens_once": "test_unpack_happens_once",
+    "TestLocatePhase.test_prebuilt_dir_skips_unpack": "test_prebuilt_dir_skips_unpack",
+    "TestLocatePhase.test_rejects_traversal": "test_rejects_traversal",
+    "TestAttachPhase.test_env_dir_leads_path_order": "test_env_dir_leads_path_order",
+    "TestAttachPhase.test_no_env_dir_falls_back_to_source_only": "test_no_env_dir_falls_back_to_source_only",
+    "TestAttachPhase.test_manifest_read": "test_manifest_read",
+    "TestAttachPhase.test_manifest_missing_fails_with_phase": "test_manifest_missing_fails_with_phase",
+    "TestErrorSurface.test_error_payload_shape": "test_error_payload_shape"
+  },
+  "verified_contracts": [
+    "Prebuilt-directory and marker precedence, artifact wait, unpack-once behavior",
+    "Raw tar, gzip, bzip2 and xz contents and archive-order overwrites",
+    "Partial extraction on failure, including the embedded-marker quirk",
+    "Manifest JSON values and source phase errors",
+    "Dependency/source path ordering without interpreter state",
+    "Exact structured BootstrapError payloads",
+    "Native SDK package round trip including vendored files",
+    "Relative path boundaries and rejected links/special entries",
+    "Unix executable permission filtering and existing symlink escape rejection"
+  ],
+  "native_adaptations": [
+    "Owned configuration and blocking library operations replace module globals",
+    "Portable link-free archives match SDK packaging; some Python data-filter tar inputs are restricted",
+    "Native causes are retained, including EOF/marker IO errors that escape source PhaseError handling",
+    "Sized integer wait parsing; negative values normalize to zero",
+    "Platform filesystem metadata, timestamp precision and diagnostics"
+  ],
+  "pending_contracts": [
+    "System dependencies and excluded-package verification",
+    "Live runtime dependency setup",
+    "Native binary packaging/launch and manifest resource selection",
+    "Automatic runtime mounts",
+    "Bootstrap error queue/HTTP responders and full main orchestration"
+  ]
+}

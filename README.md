@@ -148,6 +148,12 @@ the core worker's later prestart hooks. See [examples/queue_worker.rs](examples/
 Native artifact deployment, manifest selection, mount bootstrap and live source loading
 remain pending; this adapter runs the compiled function selected by the caller.
 
+`apps::bootstrap::BootstrapConfig` prepares a platform-mounted artifact before worker
+startup. `locate` prefers a prebuilt tree or warm unpack marker, otherwise waits for and
+extracts tar/gzip/bzip2/xz content. `read_manifest` reads its JSON and `dependency_paths`
+returns vendored-environment/source order. These are blocking operations; use a blocking
+executor from async code. They do not yet select or launch a native resource.
+
 For synchronous registered functions/APIs, construct `blocking::apps::App` outside Tokio,
 or wrap existing declarations with `::from_app`. Register resources with the same inputs.
 Returned handles, jobs, and iterators retain the runtime after the app is dropped. Use

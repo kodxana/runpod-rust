@@ -14,6 +14,7 @@ async-stream = "0.3"
 axum = { version = "0.8.9", default-features = false, features = ["http1", "json", "tokio"] }
 aws-sdk-s3 = { version = "1.156.0", default-features = false, features = ["rt-tokio", "default-https-client", "http-1x"] }
 base64 = "0.22"
+bzip2 = "0.6"
 chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
 clap = "4.6"
 csv = "1"
@@ -25,6 +26,7 @@ getrandom = { version = "0.3", features = ["std"] }
 glob = "0.3"
 ignore = "0.4"
 libc = "0.2"
+lzma-rust2 = { version = "0.23", default-features = false, features = ["std", "xz"] }
 md-5 = "0.10"
 percent-encoding = "2"
 pep508_rs = "0.9"
