@@ -8415,8 +8415,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::command",
+      "status": "adapted",
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8425,8 +8426,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::Operation::execute (List)",
+      "status": "adapted",
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8435,8 +8437,9 @@
       "kind": "function",
       "public": true,
       "signature": "app_name",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::Operation::execute (Get)",
+      "status": "adapted",
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8445,8 +8448,9 @@
       "kind": "function",
       "public": true,
       "signature": "app_name, yes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::Operation::execute (Delete)",
+      "status": "adapted",
+      "note": "Native flash app list/get/delete with SDK management calls, exact data output, ordered cleanup failures and confirmation before credentials. Plain progress lines, native terminal prompts and typed malformed-response errors adapt Click/Rich. Discovery, deployment and Rich console classes remain pending; see reviews/app-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",

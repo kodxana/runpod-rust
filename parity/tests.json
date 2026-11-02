@@ -8741,8 +8741,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::tests::test_list_empty",
+      "status": "ported",
+      "note": "Unchanged source tests captured and replayed with exact management calls, confirmation, output and exit/error assertions. Fifteen transport characterizations additionally test both executables, cleanup ordering and partial failure; see reviews/app-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8751,8 +8752,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::tests::test_list",
+      "status": "ported",
+      "note": "Unchanged source tests captured and replayed with exact management calls, confirmation, output and exit/error assertions. Fifteen transport characterizations additionally test both executables, cleanup ordering and partial failure; see reviews/app-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8761,8 +8763,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::tests::test_get",
+      "status": "ported",
+      "note": "Unchanged source tests captured and replayed with exact management calls, confirmation, output and exit/error assertions. Fifteen transport characterizations additionally test both executables, cleanup ordering and partial failure; see reviews/app-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8771,8 +8774,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::tests::test_get_error",
+      "status": "ported",
+      "note": "Unchanged source tests captured and replayed with exact management calls, confirmation, output and exit/error assertions. Fifteen transport characterizations additionally test both executables, cleanup ordering and partial failure; see reviews/app-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8781,8 +8785,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::tests::test_delete_confirmed",
+      "status": "ported",
+      "note": "Unchanged source tests captured and replayed with exact management calls, confirmation, output and exit/error assertions. Fifteen transport characterizations additionally test both executables, cleanup ordering and partial failure; see reviews/app-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8791,8 +8796,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::tests::test_delete_aborts_without_confirmation",
+      "status": "ported",
+      "note": "Unchanged source tests captured and replayed with exact management calls, confirmation, output and exit/error assertions. Fifteen transport characterizations additionally test both executables, cleanup ordering and partial failure; see reviews/app-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8801,8 +8807,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::flash::tests::test_delete_failures_keep_app",
+      "status": "ported",
+      "note": "Unchanged source tests captured and replayed with exact management calls, confirmation, output and exit/error assertions. Fifteen transport characterizations additionally test both executables, cleanup ordering and partial failure; see reviews/app-cli.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",

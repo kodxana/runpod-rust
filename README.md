@@ -334,6 +334,20 @@ Omitted passwords and secret values use hidden terminal prompts. Scripts can sup
 Lists show names and metadata, without secret values. See the
 [credential command notes](PORTING.md#native-registry-and-secret-commands).
 
+Inspect and delete deployed applications:
+
+```sh
+rp flash app list
+rp flash app get demo
+rp flash app delete demo --yes
+```
+
+Deletion cleans up each environment's endpoints before removing the environment and
+app. Failures are reported in order; failed child cleanup retains its parent. Ctrl-C
+stops further requests; completed deletions are not rolled back. Local discovery and
+deployment commands remain in progress. See the
+[app command notes](PORTING.md#native-app-management-commands).
+
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults
 use `/runpod-volume` and `RUNPOD_ENDPOINT_ID`. `hydrate` restores files, `sync_inline`

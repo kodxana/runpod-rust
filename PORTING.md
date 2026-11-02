@@ -54,6 +54,7 @@ by Python; the complete port remains in progress.
 | `rp_cli.pod` resource commands, selection, payloads and readiness | native `pod list/get/create/update/start/stop/restart/terminate/delete`, private `cli::pod` modules |
 | `rp_cli.main` registry/secret groups and add/list/delete commands | native `registry` / `secret`, private `cli::credentials::{Kind,Operation}` |
 | `rp_cli.main.login` | native `rp login` / `runpod login`, private `cli::login::Options` and SDK auth/storage helpers |
+| `rp_cli.main` app group and list/get/delete commands | native `flash app`, private `cli::flash` and existing `apps::manage` helpers |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -92,9 +93,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 408 adapted symbols, and 913 upstream
+This milestone maps 397 implemented symbols, 412 adapted symbols, and 920 upstream
 test functions; other entries remain pending.
-The test mapping includes 846 ported tests and 67 explicitly adapted tests.
+The test mapping includes 853 ported tests and 67 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1227,7 +1228,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,282 SDK differential cases**.
+additional runtime fixtures, separate from the **2,304 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1269,7 +1270,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,282 differential cases.
+separate from the SDK symbol inventory and its 2,304 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1880,6 +1881,47 @@ SDK differential fixtures total **2,282**. See [reviews/login-cli.md](reviews/lo
 The Windows suite passes **902 tests**, zero failures and three ignored child entry
 points exercised by parents. Formatting, locked build, strict all-target/all-feature
 Clippy and rustdoc pass. Pedantic review is recorded with the native review report.
+
+## Native app management commands
+
+`rp flash app` and `runpod flash app` provide `list`, `get APP_NAME`, and
+`delete APP_NAME [--yes/-y]`. They use the existing native `apps::manage` lifecycle.
+Lists sort names stably and show environment names in server order, with `-` for none.
+Inspection retains environment order and truncates active build IDs to twelve Unicode
+characters, with `no build` for absent or falsey IDs. Empty lists, spacing and final
+success/failure messages match the captured source output.
+
+Deletion confirms before loading credentials or making requests. It attempts later
+endpoints after a deletion failure, retains an environment if one of its endpoints
+failed, and attempts subsequent environments. Any collected failure retains the app.
+Lookup failures stop immediately. Failures print in order and return exit 1 with
+`undeploy incomplete; app kept`. As in Python, non-raising false mutation confirmations
+count as completed deletions; the CLI does not silently reinterpret that source quirk.
+Ctrl-C drops the operation and stops later requests, returning `Aborted!` and exit 1.
+Completed or already submitted remote mutations are not rolled back.
+
+Native adaptations: confirmations use the existing terminal interaction layer and
+require `--yes` in a noninteractive shell. Cleanup events print plain progress lines
+instead of Rich spinners; the separate console classes remain pending. Output is plain
+text without Rich markup interpretation or automatic wrapping. Malformed response
+metadata returns typed errors rather than Python indexing/type exceptions. A private
+management boundary permits source-test replay; no public SDK API or dependency is added.
+
+`python tools/app_cli_fixtures.py` runs all **seven unchanged source tests** and records
+**15 transport characterizations**, yielding **22 deterministic fixtures**. Each original
+test has a named Rust counterpart. Process tests replay the complete request sequence
+through both executables, including Unicode build IDs, absent apps, lookup errors,
+multiple endpoint failures, environment/app failures and false deletion confirmations.
+Windows terminal checks exercise accepted/declined confirmation and interruption during
+an in-flight deletion: declining sends no requests and interruption sends no later
+deletions. Tests use synthetic keys and loopback servers only.
+
+The ledger maps **809/1,135 API symbols (71.3%)** and **920/1,659 test functions**.
+SDK differential fixtures total **2,304**. The broader `flash` group, discovery and
+deployment commands remain pending. See [reviews/app-cli.md](reviews/app-cli.md).
+The Windows suite passes **912 tests**, with no failures and three ignored child
+entry points exercised by parents. Formatting, locked build, strict Clippy and rustdoc
+pass; test-only lint fixes were followed by focused tests and strict Clippy.
 
 ## Remaining work
 
