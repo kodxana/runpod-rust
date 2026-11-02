@@ -147,7 +147,7 @@ fn special_header(path: &std::path::Path) -> io::Result<tar::Header> {
     // Reuse its platform metadata construction, then let the caller replace the
     // absolute path with the correct relative member name. No file data is read.
     let mut special = tar::Builder::new(Vec::new());
-    special.preserve_absolute_paths(true);
+    special.preserve_absolute(true);
     special.append_path(path)?;
     let bytes = special.into_inner()?;
     let mut source = tar::Archive::new(bytes.as_slice());

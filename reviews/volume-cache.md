@@ -104,3 +104,5 @@ name. No FIFO/device data is opened. Sockets are omitted, matching Python, so
 their presence cannot discard regular members. Regression tests inspect FIFO
 and device names/types and restore a regular member alongside a socket. Unix
 execution is verified by the corrective commit's CI, not the Windows test run.
+The follow-up build also caught a misspelled builder method in that Unix-only
+branch; it now uses `preserve_absolute`, verified against locked tar 0.4.46.
