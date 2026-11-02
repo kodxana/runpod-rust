@@ -304,6 +304,21 @@ Restart observation rejects stale pre-action runtime data. Termination identifie
 pod before asking for confirmation; `--yes` skips that lookup and prompt.
 See [pod command notes](PORTING.md#native-pod-resource-commands).
 
+Registry credentials and platform secrets have native `add`, `list`, and `delete` commands:
+
+```sh
+rp registry add dockerhub --username my-user
+rp registry list
+rp secret add API_TOKEN --description "Upstream API token"
+rp secret list
+rp secret delete API_TOKEN --yes
+```
+
+Omitted passwords and secret values use hidden terminal prompts. Scripts can supply
+`--password` or `--value`; deletion requires `--yes` outside an interactive terminal.
+Lists show names and metadata, without secret values. See the
+[credential command notes](PORTING.md#native-registry-and-secret-commands).
+
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults
 use `/runpod-volume` and `RUNPOD_ENDPOINT_ID`. `hydrate` restores files, `sync_inline`

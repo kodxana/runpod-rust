@@ -8454,8 +8454,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Kind::command",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8464,8 +8465,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, username, password",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Operation::{read,execute}",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8474,8 +8476,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Operation::{read,execute}",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8484,8 +8487,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, yes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Operation::{read,execute}",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8494,8 +8498,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Kind::command",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8504,8 +8509,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, value, description",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Operation::{read,execute}",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8514,8 +8520,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Operation::{read,execute}",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8524,8 +8531,9 @@
       "kind": "function",
       "public": true,
       "signature": "name, yes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credentials::Operation::{read,execute}",
+      "status": "adapted",
+      "note": "Native registry/secret CLI using existing Apps transports, hidden prompts, sorted output and exact first-name deletion after confirmation. Explicit empty values and false secretDelete success are preserved. Terminal prompts, plain rendering and typed diagnostics are native adaptations; see reviews/credential-cli.md."
     },
     {
       "file": "runpod/rp_cli/main.py",

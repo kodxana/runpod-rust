@@ -1,8 +1,11 @@
 //! Native `rp` and `runpod` command entry points.
 //!
-//! Implements catalog, volume, pod resource and endpoint commands. Remaining commands are pending.
+//! Implements catalog, volume, pod, endpoint, registry and secret commands. Remaining commands are pending.
 mod api;
 mod catalog;
+#[cfg(test)]
+mod credential_tests;
+mod credentials;
 mod editor;
 mod endpoint;
 mod interaction;
@@ -53,6 +56,8 @@ pub async fn run(args: impl IntoIterator<Item = OsString>) -> ExitCode {
         .subcommand(catalog::command())
         .subcommand(volume::command())
         .subcommand(pod::command())
+        .subcommand(credentials::Kind::Registry.command())
+        .subcommand(credentials::Kind::Secret.command())
         .subcommand(endpoint::command());
     let matches = match command.try_get_matches_from(args) {
         Ok(matches) => matches,
@@ -96,6 +101,16 @@ async fn dispatch(
     streams: &mut streams::Streams<'_>,
 ) -> CliResult<String> {
     match matches.subcommand() {
+        Some((name @ ("registry" | "secret"), args)) => {
+            let kind = if name == "registry" {
+                credentials::Kind::Registry
+            } else {
+                credentials::Kind::Secret
+            };
+            let operation = credentials::Operation::read(kind, args, &mut interaction::Terminal)?;
+            let api = crate::apps::AppsApiClient::new(crate::Client::from_env()?)?;
+            operation.execute(&api).await
+        }
         Some(("pod", args)) => {
             pod::execute(args, streams).await?;
             Ok(String::new())

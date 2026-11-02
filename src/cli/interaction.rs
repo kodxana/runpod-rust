@@ -8,6 +8,7 @@ pub(super) trait Interaction {
     fn select(&mut self, message: &str, labels: &[String]) -> CliResult<Option<usize>>;
     fn confirm_prompt(&mut self, message: &str) -> CliResult<bool>;
     fn text_prompt(&mut self, message: &str) -> CliResult<String>;
+    fn hidden_prompt(&mut self, message: &str) -> CliResult<String>;
     fn edit(&mut self, text: &str) -> CliResult<Option<String>>;
     fn retry_edit(&mut self) -> CliResult<bool>;
 
@@ -53,6 +54,16 @@ pub(super) trait Interaction {
 
 pub(super) struct Terminal;
 impl Interaction for Terminal {
+    fn hidden_prompt(&mut self, message: &str) -> CliResult<String> {
+        let term = dialoguer::console::Term::stdout();
+        term.write_str(&format!("{message}: "))
+            .map_err(crate::Error::from)?;
+        term.flush().map_err(crate::Error::from)?;
+        // The raw key API returns Ctrl-C instead of terminating the Windows process.
+        let result = hidden_line(|| term.read_key_raw());
+        term.write_line("").map_err(crate::Error::from)?;
+        result
+    }
     fn text_prompt(&mut self, message: &str) -> CliResult<String> {
         Ok(dialoguer::Input::new()
             .with_prompt(message)
@@ -91,9 +102,71 @@ impl Interaction for Terminal {
     }
 }
 
+fn hidden_line(
+    mut read: impl FnMut() -> std::io::Result<dialoguer::console::Key>,
+) -> CliResult<String> {
+    use dialoguer::console::Key;
+    let mut value = String::new();
+    loop {
+        let key = read().map_err(|error| {
+            if error.kind() == std::io::ErrorKind::Interrupted {
+                CliError::Aborted
+            } else {
+                crate::Error::from(error).into()
+            }
+        })?;
+        match key {
+            Key::CtrlC | Key::Char('\u{4}') => return Err(CliError::Aborted),
+            Key::Enter if !value.is_empty() => return Ok(value),
+            Key::Backspace => {
+                value.pop();
+            }
+            Key::Char(ch) if !ch.is_control() => value.push(ch),
+            _ => {}
+        }
+    }
+}
+
 #[cfg(test)]
 pub(super) mod tests {
     use super::*;
+
+    #[test]
+    fn hidden_input_supports_unicode_backspace_and_rejects_empty_lines() {
+        use dialoguer::console::Key;
+        let mut keys = [
+            Key::Enter,
+            Key::Backspace,
+            Key::Char('é'),
+            Key::Char('界'),
+            Key::Backspace,
+            Key::Char('😀'),
+            Key::ArrowLeft,
+            Key::Enter,
+        ]
+        .into_iter();
+        assert_eq!(
+            hidden_line(|| Ok(keys.next().expect("key sequence ends with Enter"))).unwrap(),
+            "é😀"
+        );
+    }
+
+    #[test]
+    fn hidden_input_interrupts_without_reading_further() {
+        use dialoguer::console::Key;
+        for key in [Key::CtrlC, Key::Char('\u{4}')] {
+            let mut keys = [Key::Char('x'), key, Key::Enter].into_iter();
+            assert!(matches!(
+                hidden_line(|| Ok(keys.next().unwrap())),
+                Err(CliError::Aborted)
+            ));
+            assert_eq!(keys.next(), Some(Key::Enter));
+        }
+        assert!(matches!(
+            hidden_line(|| Err(std::io::ErrorKind::Interrupted.into())),
+            Err(CliError::Aborted)
+        ));
+    }
 
     pub(crate) struct Fake {
         pub interactive: bool,
@@ -106,6 +179,7 @@ pub(super) mod tests {
         pub edit_inputs: Vec<String>,
         pub retries: std::collections::VecDeque<bool>,
         pub texts: std::collections::VecDeque<String>,
+        pub prompts: Vec<(String, bool)>,
     }
     impl Default for Fake {
         fn default() -> Self {
@@ -120,11 +194,17 @@ pub(super) mod tests {
                 edit_inputs: Vec::new(),
                 retries: std::collections::VecDeque::new(),
                 texts: std::collections::VecDeque::new(),
+                prompts: Vec::new(),
             }
         }
     }
     impl Interaction for Fake {
-        fn text_prompt(&mut self, _: &str) -> CliResult<String> {
+        fn text_prompt(&mut self, message: &str) -> CliResult<String> {
+            self.prompts.push((message.into(), false));
+            self.texts.pop_front().ok_or(CliError::Aborted)
+        }
+        fn hidden_prompt(&mut self, message: &str) -> CliResult<String> {
+            self.prompts.push((message.into(), true));
             self.texts.pop_front().ok_or(CliError::Aborted)
         }
         fn edit(&mut self, text: &str) -> CliResult<Option<String>> {

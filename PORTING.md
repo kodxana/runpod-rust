@@ -52,6 +52,7 @@ by Python; the complete port remains in progress.
 | `rp_cli.endpoint` request-body loading, submission and load-balancer calls | native `endpoint run`, private `cli::endpoint::run::RunOptions` |
 | `rp_cli.logs::{_show_logs,show_logs}`, `rp_cli.endpoint.logs`, `rp_cli.pod.logs` | native `endpoint logs` / `pod logs`, private `cli::logs::Options` and SDK `LogsClient` |
 | `rp_cli.pod` resource commands, selection, payloads and readiness | native `pod list/get/create/update/start/stop/restart/terminate/delete`, private `cli::pod` modules |
+| `rp_cli.main` registry/secret groups and add/list/delete commands | native `registry` / `secret`, private `cli::credentials::{Kind,Operation}` |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -90,9 +91,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 399 adapted symbols, and 892 upstream
+This milestone maps 397 implemented symbols, 407 adapted symbols, and 902 upstream
 test functions; other entries remain pending.
-The test mapping includes 826 ported tests and 66 explicitly adapted tests.
+The test mapping includes 836 ported tests and 66 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1225,7 +1226,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,209 SDK differential cases**.
+additional runtime fixtures, separate from the **2,253 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1267,7 +1268,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,209 differential cases.
+separate from the SDK symbol inventory and its 2,253 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1783,6 +1784,51 @@ during restart observation. The ledger adds 22 adapted symbols and 48 ported tes
 differential captures total **2,209**. See [reviews/pod-cli.md](reviews/pod-cli.md).
 The final local suite passes **872 tests**, zero failures and three ignored child entry
 points exercised by parent tests. Build, strict Clippy, formatting and rustdoc pass.
+
+## Native registry and secret commands
+
+The `rp registry` and `rp secret` groups implement `add`, `list` and `delete`. They reuse
+`AppsApiClient` directly: registry operations use REST and secrets retain the source
+GraphQL contracts. Input prompts and deletion confirmation happen before credential
+loading or API requests. Missing names/usernames prompt normally; passwords and secret
+values use the existing console library's raw key reader without echo. A small input
+loop handles Unicode backspace, nonempty submission and cancellation. The higher-level
+password prompt terminated the Windows process on Ctrl-C; raw keys allow a clean
+`Aborted!` exit 1 before any request. No dependency or public SDK API was added.
+
+Lists sort names case-sensitively and stably. Registry output includes IDs; secret output
+includes descriptions, with names padded to the longest Unicode character count. Values
+are never displayed. Deletion looks up an exact name and deletes the first matching ID;
+it does not accept IDs as an alternative or reject duplicate names. Registry IDs are URL
+encoded by the existing transport. Explicit empty options are sent unchanged and do not
+trigger prompts. Values beginning with dashes are accepted, and repeated scalar options
+use the last value, as in Click. Creation responses are ignored. The source's successful
+message after a false `secretDelete` response is also preserved.
+
+Native adaptations: text is unstyled and unwrapped, markup-like names are literal,
+metadata descriptions are strings, parser/transport failures have typed diagnostics,
+and terminal interaction uses dialoguer. Piped input is not an interactive terminal:
+scripts supply fields explicitly and use `--yes`, receiving usage exit 2 for omitted
+input/confirmation before credentials are read. An interactive refusal exits 1 without
+any request. Python Click accepts piped prompt input; this remains an explicit CLI
+adaptation, consistent with the existing resource commands.
+
+`tools/credential_cli_fixtures.py` runs all **10 unchanged upstream registry/secret tests**
+and **34 additional source characterizations**. It executes the actual Python SDK methods
+against stubbed transports to capture request bodies and response envelopes. The resulting
+44 fixtures regenerate byte-identically. Ten named Rust counterparts and one edge-case
+test replay every fixture; two executable tests replay 31 noninteractive cases through
+both aliases and verify missing inputs fail before credentials. Real Windows terminal
+checks verify hidden password/value entry, backspace, and cancellation before any request. All requests
+use loopback servers and synthetic values.
+
+The ledger adds **8 adapted API symbols and 10 ported test functions**, bringing mapped
+API coverage to **804/1,135 (70.8%)** and test mappings to **902/1,659**. SDK differential
+fixtures total **2,253**. See [reviews/credential-cli.md](reviews/credential-cli.md).
+The final Windows suite passes **887 tests**, zero failures and three ignored child
+entry points exercised by parents. Locked build, formatting, strict all-target/all-feature
+Clippy and rustdoc pass. Pedantic review leaves only test-harness length advisories in
+the new code; string assembly and assertion advisories were fixed.
 
 ## Remaining work
 

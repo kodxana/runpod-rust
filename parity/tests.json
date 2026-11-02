@@ -8882,8 +8882,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_secret_add",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8892,8 +8893,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_secret_add_prompts",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8902,8 +8904,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_secret_list",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8912,8 +8915,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_secret_list_empty",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8922,8 +8926,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_secret_delete",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8932,8 +8937,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_secret_delete_unknown",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8942,8 +8948,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_registry_add",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8952,8 +8959,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_registry_list",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8962,8 +8970,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_registry_delete",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8972,8 +8981,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::credential_tests::test_registry_delete_unknown",
+      "status": "ported",
+      "note": "Named native counterpart replaying captured API requests, output, prompts and confirmation. Ten unchanged source tests plus 34 source characterizations yield 44 invocations; 31 also replay through the native executables. Hidden-input and confirmation terminal checks use loopback APIs and synthetic values."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
