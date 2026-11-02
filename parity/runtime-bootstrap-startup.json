@@ -35,7 +35,7 @@
     "Extraction runs on the blocking pool and cannot be interrupted once running; package-manager descendants follow their own lifecycle"
   ],
   "pending_contracts": [
-    "Native deployment payloads and automatic platform launch (compiled-worker packaging is tracked in native-artifact.json)",
+    "Native task launch and live Runpod/container validation (queue/API wiring tracked in native-deploy.json)",
     "Live-source bootstrap and executor integration",
     "Python-compatible runtime installation and excluded-package repair"
   ]

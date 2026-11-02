@@ -41,7 +41,7 @@
   "pending_contracts": [
     "Python-compatible excluded-package verification (native system packages are tracked in runtime-bootstrap-startup.json)",
     "Live runtime dependency setup",
-    "Automatic native platform launch (packaging is tracked in native-artifact.json; manifest selection and mounts in runtime-loading.json)",
+    "Native task launch and live Runpod/container validation (queue/API wiring tracked in native-deploy.json)",
     "Live main orchestration (native deployed startup is tracked in runtime-bootstrap-startup.json)"
   ]
 }

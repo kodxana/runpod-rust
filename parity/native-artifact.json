@@ -38,7 +38,7 @@
   ],
   "pending_contracts": [
     "Cargo build/cross-compilation integration and native CLI build/deploy commands",
-    "Native upload, container image selection and automatic worker launch",
+    "Live Runpod/container validation (queue/API upload, image selection and launcher wiring tracked in native-deploy.json)",
     "Native task deployment through the coordinator"
   ]
 }

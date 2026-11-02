@@ -46,7 +46,7 @@
   ],
   "pending_contracts": [
     "Live startup orchestration (native deployed startup is tracked in runtime-bootstrap-startup.json)",
-    "Native deployment and automatic platform launch (packaging is tracked in native-artifact.json)",
+    "Native task launch and live Runpod/container validation (queue/API wiring tracked in native-deploy.json)",
     "Live-source request executor and serialization"
   ]
 }

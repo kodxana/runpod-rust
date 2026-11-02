@@ -30,6 +30,7 @@ pub mod manage;
 mod model;
 pub mod monitor;
 mod native_artifact;
+mod native_deploy;
 mod package;
 pub mod placement;
 pub mod protocol;

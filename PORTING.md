@@ -311,8 +311,8 @@ python tools/verify_pickle.py
 - Rust has no runtime function signature/source reflection. FunctionDefinition supplies
   parameter names, and FunctionSource supplies complete module text or a file to re-read.
   Source passed to an existing Python worker must be source that worker understands;
-  this does not yet provide native Rust function deployment. Native queue/task registration
-  and local execution are available; native artifact/runtime integration remains pending.
+  that source path does not deploy compiled Rust functions. Native queue/API deployment
+  uses `deploy_native_app`; native task deployment and live source dispatch remain pending.
   JSON argument types enforce the queue boundary.
 - FunctionResponse fields enforce their declared types; malformed non-boolean success
   or non-string error/result fields return decoding errors. Load-balancer endpoint IDs
@@ -2397,9 +2397,10 @@ explicit output remains caller-owned. The normal compressed artifact-size limit 
 
 No compiler, pip process or remote API is invoked. Callers supply the correct worker binary
 and keep its inputs stable while packaging. Binary OS, architecture and dynamic-library
-requirements are not inferred or validated here. Platform upload, image selection and
-automatic launch remain pending; this archive alone does not establish coordinator support
-for native tasks or make a host executable run in a Linux container.
+requirements are not inferred or validated here. Queue/API upload, image selection and
+automatic launch are now connected by `deploy_native_app` as described below; this archive
+alone does not establish coordinator support for native tasks or make a host executable
+run in a Linux container.
 
 Six native tests cover archive bytes/permissions/order, assets, reserved paths, credential
 filters, output ownership, preflight failures and source ignore fixtures. A real compiled
@@ -2414,9 +2415,51 @@ See [parity/native-artifact.json](parity/native-artifact.json) and
 behavior for already-mapped SDK functions, so inventory remains **818/1,135 symbols**,
 **928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
 
+## Native queue/API deployment
+
+`apps::deploy::deploy_native_app` reuses the existing upload, finalization, activation and
+endpoint reconciliation pipeline for a compiled worker and assets. Preflight validates
+resource symbols and rejects native task resources; packaging validates a Linux x86_64
+ELF header before remote mutations. The header check is intentionally not a full binary
+or dynamic-library validator. Explicit secrets are validated before packaging. Blocking
+work owns its inputs/artifact; cancellation prevents later remote calls while already
+running filesystem work finishes. Completed remote mutations are not rolled back.
+
+The standalone native packager still omits interpreter fields. Deployment retains the
+coordinator v1 `pythonVersion` image-family hint (`3.12`) and finalizes exactly the manifest
+uploaded in the tarball. Existing built-in images supply the OS and libraries; their
+Python command is replaced by a native launcher for both queue and API endpoints.
+Custom images retain their name and need compatible libraries, POSIX tools and a command-
+compatible entrypoint. `RUNPOD_RUNTIME_KIND` is authoritative for native endpoint startup.
+No new coordinator fields, native backend support or Python execution are assumed.
+
+The launcher prefers an existing prebuilt directory, then a warm unpack marker, otherwise
+waits for the mounted gzip artifact. It extracts only `runpod-native/worker` to a separate
+`runpod-native/bootstrap`, chmods and executes it, forwarding literal arguments. Rust's
+`start_deployed` performs the full validated extraction and loads the selected resource.
+The separate copy avoids overwriting the running executable (`ETXTBSY`) during extraction.
+Tar reads stdin so colons in local paths cannot select remote-host syntax. A missing worker
+in a chosen prebuilt/warm tree fails instead of silently falling back. Failures before
+native execution are stderr/exit diagnostics; worker error responders are available later.
+
+Local HTTP tests inspect actual uploaded bytes, finalized manifest identity, mutation order,
+secret and target preflight, failure boundaries, endpoint image/command/environment and
+omission of Python vendoring. POSIX process tests cover cold/warm/prebuilt selection,
+missing artifacts, malformed waits, missing members, delayed mounts and literal arguments.
+Linux CI additionally deploys its real compiled test worker to the mock backend, invokes
+the resulting endpoint command against the uploaded archive, and reads a bundled asset
+through the native API. Live Runpod/container compatibility remains unverified; no paid
+resources were created. Seven unchanged source deployment/manifest/endpoint tests pass.
+
+See [parity/native-deploy.json](parity/native-deploy.json) and
+[reviews/apps-native-deploy.md](reviews/apps-native-deploy.md). These extend already-mapped
+SDK functions, so counts remain **818/1,135 symbols**, **928/1,659 source test functions**,
+and **2,328 SDK differential fixtures**.
+
 ## Remaining work
 
-The current milestone does not implement native binary deployment, the Apps HTTP live
-dispatcher, full live-handle Apps discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
+The current milestone does not implement native task deployment, Cargo/cross-compilation
+or native CLI build/deploy commands, the Apps HTTP live dispatcher, full live-handle Apps
+discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
 fault-injection coverage are also pending.
 All remain part of the requested full port, not exclusions from its scope.

@@ -88,7 +88,8 @@ fixes the fixture without changing the production installer or assertions. A loc
 under Git's POSIX shell reproduced the wrong zero exit before the fix; all six combinations
 of normal/update-failure/install-failure mode and update/install now return their expected
 statuses, command log and stderr. Cross-platform CI is rerun by the correction commit.
-# Windows CI fixture readiness correction
+
+## Windows CI fixture readiness correction
 
 The Windows job for `0db913e` failed at the package-manager fixture's five-second
 startup deadline, before cancellation was exercised. Other concurrent PowerShell

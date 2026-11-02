@@ -69,7 +69,7 @@ fresh verifier/challenge per attempt. Callbacks handle UI and code input; keys a
 without opening a browser or saving credentials automatically.
 `apps::entrypoint` provides an owned local-entrypoint registry and async execution, with
 `blocking::apps::run_entrypoint` for synchronous callers.
-Native binary deployment and live HTTP runtime integration remain in progress.
+Native task deployment, native CLI commands and live HTTP runtime integration remain in progress.
 See [PORTING.md](PORTING.md) for behavior details and verification.
 
 ```rust,no_run
@@ -135,8 +135,8 @@ async bodies, `::sync` for synchronous bodies, and `::streaming` for stream fact
 These methods are async, and synchronous bodies execute on Tokio's blocking pool. Local
 calls never run startup hooks automatically; worker startup calls `::initialize` explicitly.
 Native function bodies are compiled Rust code. Source-based live/task calls still require
-explicit Python source understood by the existing remote worker; shipping native Rust binaries
-is a remaining part of the port. `App::definition` returns deployment metadata without serializing closures.
+explicit Python source understood by the existing remote worker. Native queue/API deployment
+accepts a compiled Linux worker; native task deployment remains in progress. `App::definition` returns deployment metadata without serializing closures.
 
 Registered functions can serve platform queue jobs with `FunctionHandle::start_queue_worker`.
 It runs the init hook before core startup, uses `RUNPOD_MAX_CONCURRENCY`, and selects the
@@ -145,13 +145,13 @@ arguments; `__empty` is removed. Streaming functions send partial results and a 
 aggregate. For explicit configuration and shutdown, await `queue_worker(WorkerConfig)`
 then call `Worker::run`. Apps initialization completes before intake, independently of
 the core worker's later prestart hooks. See [examples/queue_worker.rs](examples/queue_worker.rs).
-Native artifact deployment and live source loading remain in progress.
+Native task deployment and live source loading remain in progress.
 
 `apps::bootstrap::BootstrapConfig` prepares a platform-mounted artifact before worker
 startup. `locate` prefers a prebuilt tree or warm unpack marker, otherwise waits for and
 extracts tar/gzip/bzip2/xz content. `read_manifest` reads its JSON and `dependency_paths`
 returns vendored-environment/source order. These are blocking operations; use a blocking
-executor from async code. Native platform deployment and automatic launch remain in progress.
+executor from async code. `deploy_native_app` connects this to native queue/API startup.
 
 `apps::bootstrap::start_deployed` connects preparation to a native queue, API or task worker.
 Pass a loader that accepts the manifest module and a `DeployedContext`; use `context.app_dir()`
@@ -168,9 +168,22 @@ packages an already-compiled worker at `runpod-native/worker`, project assets an
 It uses the existing source ignore rules, additionally excludes the root `target/` build
 directory, and gives the archived worker executable permissions. Supply a binary built for
 the intended container OS, architecture and libraries; packaging does not cross-compile it.
-An unpacked artifact can be run through that worker's `start_deployed` entry point. Native
-upload, container-image selection and automatic launch are still being connected; the
-existing `deploy_app` path continues to build Python-compatible artifacts.
+An unpacked artifact can be run through that worker's `start_deployed` entry point.
+
+`apps::deploy::deploy_native_app(client, app, project_root, executable, environment, events)`
+packages and uploads a compiled worker, activates the build and configures queue/API
+endpoints to execute it. It requires a Linux x86_64 ELF header and explicit resource symbols.
+Compile against the selected container's libraries; header validation does not verify those
+libraries or the entire executable. Built-in images retain their existing `py3.12` image tag
+and manifest image-version field, while the startup command executes the native binary.
+Custom images need `sh`, `tar` (gzip/stdout extraction), `mkdir`, `chmod`, `sleep`, compatible
+libraries and an entrypoint that accepts the generated command. The launcher honors prebuilt
+trees and warm markers; cold starts extract a separate bootstrap copy before Rust prepares
+the full archive. Prelaunch failures appear on stderr; structured error reporting starts
+inside the worker. This path is covered by local HTTP and process tests; live Runpod
+compatibility still needs validation. Native task resources are rejected before mutations
+until coordinator task launch is wired. Cargo/cross-compilation and native CLI commands
+remain pending. `deploy_app` continues to build Python-compatible artifacts.
 
 `apps::runtime::DeployedContext` reads the worker identity and validates `RUNPOD_MOUNTS`
 before loading application declarations. `load_queue` and `load_api` select the first
@@ -201,8 +214,8 @@ See [examples/deployed_task.rs](examples/deployed_task.rs).
 For embedded hosting, `TaskRunner::serve` takes a listener, initializer, deletion callback
 and shutdown future; it returns `TaskExit` instead of exiting the process. Response stdout
 uses `serverless::capture::stdout()` or `TeeWriter`, including synchronous functions and
-streams. Ordinary `println!` is not intercepted. Native artifact packaging/deployment and
-live-source dispatch remain in progress.
+streams. Ordinary `println!` is not intercepted. Native task deployment and live-source
+dispatch remain in progress.
 
 For synchronous registered functions/APIs, construct `blocking::apps::App` outside Tokio,
 or wrap existing declarations with `::from_app`. Register resources with the same inputs.
@@ -429,7 +442,7 @@ declarations and require one unique app name. Native projects register their app
 `AppRegistry`, call `apps::discovery::export_if_requested`, and return before local
 entrypoints when discovery is requested; [examples/discovery.rs](examples/discovery.rs)
 shows the pattern. `--app` bypasses discovery. The discovery API returns metadata and
-executable paths; live-handle discovery and native deployment remain in progress.
+executable paths; live-handle discovery and native CLI deployment remain in progress.
 See the [environment and discovery notes](PORTING.md#native-environments-and-compiled-discovery).
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a

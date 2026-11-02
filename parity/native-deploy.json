@@ -1,0 +1,43 @@
+{
+  "upstream": "https://github.com/runpod/runpod-python",
+  "commit": "ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5",
+  "file": "runpod/apps/deploy.py",
+  "scope": "Native compiled-worker deployment adaptation of already-mapped SDK functions; no additional inventory credit",
+  "api_mapping": {
+    "deploy_app": "apps::deploy::deploy_native_app",
+    "_endpoint_input": "shared endpoint formatter with native command selection",
+    "build_manifest": "coordinator v1 shape retained, pythonVersion used only for existing image family"
+  },
+  "native_tests": [
+    "tests/apps_deploy_pipeline.rs",
+    "tests/native_launcher.rs",
+    "tests/native_artifact.rs"
+  ],
+  "unchanged_source_validation": {
+    "TestDeployPipeline": 4,
+    "TestManifest": 2,
+    "TestEndpointInput": 1
+  },
+  "verified_contracts": [
+    "Same uploaded and finalized manifest, existing lookup/upload/activate/reconcile ordering, anonymous upload",
+    "Resource symbols, explicit secrets and Linux x86_64 target preflight before remote mutations",
+    "Queue/API endpoint images, native command, authoritative runtime kind and selected environment",
+    "Native task preflight rejection before mutation until coordinator task launch is wired",
+    "Prebuilt/warm/cold launcher selection, delayed mount, missing worker/member, malformed wait and literal argument forwarding",
+    "Cold launcher extracts to a separate bootstrap copy; stdin tar input avoids remote colon-path syntax"
+  ],
+  "linux_ci_contract": "Actual uploaded ELF worker executes the generated endpoint command, fully extracts via Rust bootstrap and serves its bundled asset; Linux x86_64 only",
+  "native_adaptations": [
+    "Caller compiles a Linux x86_64 executable; header check does not validate full ELF or dynamic libraries",
+    "Built-in Python-version image tags provide existing OS images; no Python interpreter or installer runs",
+    "Custom images require POSIX utilities, compatible libraries and a command-compatible entrypoint",
+    "Prelaunch errors use stderr/exit; structured bootstrap error responders require the worker to start",
+    "Blocking packaging finishes if already running at cancellation; later cloud calls do not run"
+  ],
+  "pending_contracts": [
+    "Live Runpod/container validation",
+    "Native coordinator task launch",
+    "Cargo/cross-compilation and native CLI build/deploy commands",
+    "Native live source loading and worker dispatch"
+  ]
+}

@@ -1,7 +1,7 @@
 //! Archives a compiled worker and project assets without constructing a Python environment.
 use super::{
     AppError,
-    deploy::{AppDefinition, Artifact, build_manifest},
+    deploy::{AppDefinition, Artifact, PreparedArtifact, build_manifest},
     events::{EventSink, emit},
 };
 use crate::{Error, Result, json};
@@ -38,8 +38,15 @@ pub fn build_native_artifact(
     output: Option<&Path>,
     events: Option<&EventSink>,
 ) -> Result<Artifact> {
+    Ok(prepare_native_artifact(app, project_root, executable, output, None, events)?.artifact)
+}
+
+pub(super) fn native_manifest(
+    app: &AppDefinition,
+    image_version: Option<&str>,
+) -> Result<crate::Value> {
     app.validate()?;
-    let mut manifest = build_manifest(app, "", &[])?;
+    let mut manifest = build_manifest(app, image_version.unwrap_or_default(), &[])?;
     for resource in &app.resources {
         if resource.symbol.as_ref().is_none_or(|symbol| {
             symbol.module.trim().is_empty() || symbol.qualname.trim().is_empty()
@@ -50,10 +57,24 @@ pub fn build_native_artifact(
             )));
         }
     }
-    // Native workers consume the same resource records without a Python interpreter field.
-    if let Some(object) = manifest.as_object_mut() {
+    // Standalone archives omit the interpreter field; deployment keeps the image-family hint.
+    if image_version.is_none()
+        && let Some(object) = manifest.as_object_mut()
+    {
         object.remove("pythonVersion");
     }
+    Ok(manifest)
+}
+
+pub(super) fn prepare_native_artifact(
+    app: &AppDefinition,
+    project_root: &Path,
+    executable: &Path,
+    output: Option<&Path>,
+    image_version: Option<&str>,
+    events: Option<&EventSink>,
+) -> Result<PreparedArtifact> {
+    let manifest = native_manifest(app, image_version)?;
     if !std::fs::metadata(project_root)?.is_dir() {
         return Err(Error::InvalidInput(format!(
             "native project root must be a directory: {}",
@@ -71,5 +92,9 @@ pub fn build_native_artifact(
         )).into());
     }
     tracing::info!(app=%app.name, size_bytes=size, "packaged native application artifact");
-    Ok(artifact)
+    Ok(PreparedArtifact {
+        artifact,
+        manifest,
+        size,
+    })
 }

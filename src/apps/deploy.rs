@@ -1,5 +1,6 @@
 //! Deployment manifests and reconciliation of application endpoints.
 pub use super::native_artifact::{NATIVE_WORKER_PATH, build_native_artifact};
+pub use super::native_deploy::deploy_native_app;
 pub use super::package::{
     Artifact, DEFAULT_IGNORES, ENV_DIR_NAME, PROTECTED_IGNORES, PackageOptions, package_project,
 };
@@ -129,11 +130,13 @@ pub struct DeploymentConfig {
     /// Unknown keys are ignored; an empty tag still selects an empty image suffix.
     pub runtime_overrides: BTreeMap<String, String>,
     worker_api_key: String,
+    native_worker: bool,
 }
 impl fmt::Debug for DeploymentConfig {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("DeploymentConfig")
             .field("python_version", &self.python_version)
+            .field("native_worker", &self.native_worker)
             .field(
                 "runtime_override_keys",
                 &self.runtime_overrides.keys().collect::<Vec<_>>(),
@@ -156,6 +159,7 @@ impl Default for DeploymentConfig {
                 .filter_map(|key| std::env::var(key).ok().map(|value| ((*key).into(), value)))
                 .collect(),
             worker_api_key: String::new(),
+            native_worker: false,
         }
     }
 }
@@ -172,6 +176,14 @@ impl DeploymentConfig {
     #[must_use]
     pub fn from_client(client: &Client) -> Self {
         Self::new(client.config.api_key.clone())
+    }
+    pub(super) fn native(client: &Client) -> Self {
+        let mut config = Self::from_client(client);
+        config.native_worker = true;
+        config
+            .runtime_overrides
+            .retain(|key, _| key == "RUNPOD_RUNTIME_TAG");
+        config
     }
     fn images(&self) -> RuntimeImages {
         RuntimeImages {
@@ -219,10 +231,10 @@ pub struct DeployOptions {
     pub artifact: ArtifactOptions,
 }
 
-struct PreparedArtifact {
-    artifact: Artifact,
-    manifest: Value,
-    size: u64,
+pub(super) struct PreparedArtifact {
+    pub(super) artifact: Artifact,
+    pub(super) manifest: Value,
+    pub(super) size: u64,
 }
 
 fn phase(events: Option<&super::events::EventSink>, name: &str, detail: &str) {
@@ -353,6 +365,17 @@ pub async fn deploy_app(
         )
     })
     .await??;
+    deploy_prepared(&api, app, prepared, environment_name, &config, events).await
+}
+
+pub(super) async fn deploy_prepared(
+    api: &AppsApiClient,
+    app: &AppDefinition,
+    prepared: PreparedArtifact,
+    environment_name: &str,
+    config: &DeploymentConfig,
+    events: Option<&super::events::EventSink>,
+) -> Result<DeployResult> {
     phase(
         events,
         "upload",
@@ -405,7 +428,7 @@ pub async fn deploy_app(
     let build_id = required_str(&build, "id")?;
     api.deploy_build(environment_id, build_id).await?;
     phase(events, "endpoints", "");
-    let endpoints = reconcile_endpoints(&api, app, &environment, build_id, &config).await?;
+    let endpoints = reconcile_endpoints(api, app, &environment, build_id, config).await?;
     for (name, id) in &endpoints {
         super::events::emit(events, "endpoint_ready", &[json!(name), json!(id)]);
     }
@@ -525,12 +548,17 @@ pub fn deployed_endpoint_input(
         env.insert("PORT".into(), json!("80"));
         env.insert("PORT_HEALTH".into(), json!("80"));
     }
+    if config.native_worker {
+        env.insert("RUNPOD_RUNTIME_KIND".into(), json!(spec.kind));
+    }
     let workers = normalize_workers(spec.workers)?;
     let mut env = env
         .into_iter()
         .map(|(key, value)| json!({"key":key,"value":value}))
         .collect::<Vec<_>>();
-    let command = if spec.image.as_ref().is_some_and(|s| !s.is_empty()) {
+    let command = if config.native_worker {
+        super::shim::native_runtime_launcher()
+    } else if spec.image.as_ref().is_some_and(|s| !s.is_empty()) {
         env.push(json!({"key":"RUNPOD_RUNTIME_KIND","value":spec.kind}));
         super::shim::runtime_launcher(spec.kind)
     } else {

@@ -37,7 +37,7 @@
     "Non-Unicode environment values are treated as absent"
   ],
   "pending_contracts": [
-    "Automatic native platform launch (packaging is tracked in native-artifact.json)",
+    "Native task launch and live Runpod/container validation (queue/API wiring tracked in native-deploy.json)",
     "Live source dispatch and runtime dependency setup",
     "Live task source dispatch (deployed HTTP/policy/lifecycle are tracked in runtime-task-runner.json)",
     "Live bootstrap orchestration and Python-compatible dependency repair (native deployed startup/error responders are tracked in runtime-bootstrap-startup.json and runtime-bootstrap-reporting.json)"
