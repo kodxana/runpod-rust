@@ -25,6 +25,8 @@ pub(super) fn command() -> Command {
         .about("Manage Runpod applications")
         .subcommand_required(true)
         .arg_required_else_help(true)
+        .subcommand(super::environment::command())
+        .subcommand(super::environment::undeploy_command())
         .subcommand(
             Command::new("app")
                 .about("Manage deployed apps")
@@ -102,6 +104,9 @@ impl Operation {
 }
 
 pub(super) async fn execute(args: &ArgMatches, streams: &mut Streams<'_>) -> CliResult<()> {
+    if matches!(args.subcommand_name(), Some("env" | "undeploy")) {
+        return super::environment::execute(args, streams).await;
+    }
     let operation = Operation::read(args, &mut super::interaction::Terminal)?;
     let mut api = AppsApiClient::new(crate::Client::from_env()?)?;
     tokio::select! {
@@ -140,6 +145,17 @@ async fn delete(
     api: &mut impl Backend,
     streams: &mut Streams<'_>,
 ) -> CliResult<UndeployResult> {
+    cleanup(
+        streams,
+        |events| async move { api.delete(name, &events).await },
+    )
+    .await
+}
+
+pub(super) async fn cleanup<T, Fut: Future<Output = crate::Result<T>>>(
+    streams: &mut Streams<'_>,
+    operation: impl FnOnce(EventSink) -> Fut,
+) -> CliResult<T> {
     // Keep output on this task; the SDK observer owns only a channel sender.
     let (sender, mut receiver) = tokio::sync::mpsc::unbounded_channel();
     let events = EventSink::new(move |event, args| {
@@ -152,7 +168,7 @@ async fn delete(
         let _ = sender.send(message);
         Ok(())
     });
-    let deletion = api.delete(name, &events);
+    let deletion = operation(events);
     tokio::pin!(deletion);
     let result = loop {
         tokio::select! {

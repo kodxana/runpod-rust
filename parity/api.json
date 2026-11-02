@@ -2428,8 +2428,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "apps::discovery::DiscoveryError",
+      "status": "adapted",
+      "note": "Native typed discovery errors separate invalid targets, process/metadata failures and interruption, preserving source errors when wrapped."
     },
     {
       "file": "runpod/apps/discovery.py",
@@ -2439,7 +2440,8 @@
       "public": false,
       "signature": "target: Path",
       "rust": null,
-      "status": "pending"
+      "status": "pending",
+      "note": "Compiled Cargo metadata discovery is available for CLI name resolution. Full source discovery remains pending: live callable handles, import/module identity and cache-invalidation semantics are not covered by metadata export. See reviews/environment-discovery.md."
     },
     {
       "file": "runpod/apps/discovery.py",
@@ -2449,7 +2451,8 @@
       "public": false,
       "signature": "path: Path",
       "rust": null,
-      "status": "pending"
+      "status": "pending",
+      "note": "Compiled Cargo metadata discovery is available for CLI name resolution. Full source discovery remains pending: live callable handles, import/module identity and cache-invalidation semantics are not covered by metadata export. See reviews/environment-discovery.md."
     },
     {
       "file": "runpod/apps/discovery.py",
@@ -2459,7 +2462,8 @@
       "public": false,
       "signature": "before: set, root: Path",
       "rust": null,
-      "status": "pending"
+      "status": "pending",
+      "note": "Compiled Cargo metadata discovery is available for CLI name resolution. Full source discovery remains pending: live callable handles, import/module identity and cache-invalidation semantics are not covered by metadata export. See reviews/environment-discovery.md."
     },
     {
       "file": "runpod/apps/discovery.py",
@@ -2469,7 +2473,8 @@
       "public": false,
       "signature": "path: Path",
       "rust": null,
-      "status": "pending"
+      "status": "pending",
+      "note": "Compiled Cargo metadata discovery is available for CLI name resolution. Full source discovery remains pending: live callable handles, import/module identity and cache-invalidation semantics are not covered by metadata export. See reviews/environment-discovery.md."
     },
     {
       "file": "runpod/apps/discovery.py",
@@ -2479,7 +2484,8 @@
       "public": true,
       "signature": "target: Path",
       "rust": null,
-      "status": "pending"
+      "status": "pending",
+      "note": "Compiled Cargo metadata discovery is available for CLI name resolution. Full source discovery remains pending: live callable handles, import/module identity and cache-invalidation semantics are not covered by metadata export. See reviews/environment-discovery.md."
     },
     {
       "file": "runpod/apps/discovery_state.py",
@@ -8405,8 +8411,9 @@
       "kind": "function",
       "public": false,
       "signature": "value",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::timestamp",
+      "status": "implemented",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8547,8 +8554,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::command",
+      "status": "adapted",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8557,8 +8565,9 @@
       "kind": "function",
       "public": false,
       "signature": "app_name",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::resolve_app_name",
+      "status": "adapted",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8567,8 +8576,9 @@
       "kind": "function",
       "public": true,
       "signature": "app_name",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::Operation::execute (List)",
+      "status": "adapted",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8577,8 +8587,9 @@
       "kind": "function",
       "public": true,
       "signature": "env_name, app_name",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::Operation::execute (Get)",
+      "status": "adapted",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8587,8 +8598,9 @@
       "kind": "function",
       "public": true,
       "signature": "env_name, app_name",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::Operation::execute (Add)",
+      "status": "adapted",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8597,8 +8609,9 @@
       "kind": "function",
       "public": true,
       "signature": "env_name, app_name, yes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::Operation::execute (Delete)",
+      "status": "adapted",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",
@@ -8607,8 +8620,9 @@
       "kind": "function",
       "public": true,
       "signature": "app_name, env_name, yes",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::Operation::execute (Undeploy)",
+      "status": "adapted",
+      "note": "Native environment inspection/create/delete and undeploy, with explicit names or unique Cargo-project metadata discovery. Ordered SDK cleanup, source output and error behavior are covered. Native terminal/progress/link rendering and compiled declarations adapt Click/Rich/imports; see reviews/environment-discovery.md."
     },
     {
       "file": "runpod/rp_cli/main.py",

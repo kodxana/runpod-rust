@@ -1,0 +1,2570 @@
+[
+  {
+    "name": "TestEnvCommands.test_list",
+    "args": [
+      "flash",
+      "env",
+      "list",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_app",
+        "args": [
+          "demo"
+        ],
+        "result": {
+          "flashEnvironments": [
+            {
+              "name": "default",
+              "activeBuildId": "build123456789",
+              "createdAt": "2026-01-02T03:04:05Z"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "",
+      "  default build1234567, 2026-01-02",
+      ""
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\n  default build1234567, 2026-01-02\n\n",
+    "stderr": ""
+  },
+  {
+    "name": "TestEnvCommands.test_list_empty",
+    "args": [
+      "flash",
+      "env",
+      "list",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_app",
+        "args": [
+          "demo"
+        ],
+        "result": {
+          "flashEnvironments": []
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "\n  no environments in demo. run rp flash deploy\n"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\n  no environments in demo. run rp flash deploy\n\n",
+    "stderr": ""
+  },
+  {
+    "name": "TestEnvCommands.test_get",
+    "args": [
+      "flash",
+      "env",
+      "get",
+      "prod",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "name": "prod",
+          "activeBuildId": "build123456789",
+          "endpoints": [
+            {
+              "name": "chat",
+              "id": "ep1"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "",
+      "  demo/prod build build1234567",
+      "    chat  ep1 \u2197",
+      ""
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\n  demo/prod build build1234567\n    chat  ep1 \u2197\n\n",
+    "stderr": ""
+  },
+  {
+    "name": "TestEnvCommands.test_add",
+    "args": [
+      "flash",
+      "env",
+      "add",
+      "staging",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_app",
+        "args": [
+          "demo"
+        ],
+        "result": {
+          "id": "app1"
+        }
+      },
+      {
+        "operation": "create_environment",
+        "args": [
+          "app1",
+          "staging"
+        ],
+        "result": {
+          "id": "env1"
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "\u2713 created demo/staging"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 created demo/staging\n",
+    "stderr": ""
+  },
+  {
+    "name": "TestEnvCommands.test_delete",
+    "args": [
+      "flash",
+      "env",
+      "delete",
+      "prod",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "endpoints_deleted": 1,
+          "environment_deleted": false,
+          "app_deleted": false,
+          "failures": []
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2713 deleted demo/prod 1 endpoints removed"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 deleted demo/prod 1 endpoints removed\n",
+    "stderr": ""
+  },
+  {
+    "name": "TestEnvCommands.test_resolve_app_name_fails_without_unique_app",
+    "args": [
+      "flash",
+      "env",
+      "list"
+    ],
+    "calls": [],
+    "events": [],
+    "messages": [],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: pass --app <name> (no unique app found in the current directory)\n"
+  },
+  {
+    "name": "TestUndeploy.test_undeploy",
+    "args": [
+      "flash",
+      "undeploy",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "default"
+        ],
+        "result": {
+          "endpoints_deleted": 3,
+          "environment_deleted": false,
+          "app_deleted": false,
+          "failures": []
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2713 undeployed demo/default 3 endpoints removed"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 undeployed demo/default 3 endpoints removed\n",
+    "stderr": ""
+  },
+  {
+    "name": "TestUndeploy.test_undeploy_failures",
+    "args": [
+      "flash",
+      "undeploy",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "default"
+        ],
+        "result": {
+          "endpoints_deleted": 0,
+          "environment_deleted": false,
+          "app_deleted": false,
+          "failures": [
+            "boom"
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2717 boom"
+    ],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "\u2717 boom\n",
+    "stderr": "Error: undeploy incomplete\n"
+  },
+  {
+    "name": "wire.list_empty",
+    "args": [
+      "flash",
+      "env",
+      "list",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_app",
+        "args": [
+          "demo"
+        ],
+        "result": {
+          "id": "app1",
+          "name": "demo",
+          "flashEnvironments": []
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "\n  no environments in demo. run rp flash deploy\n"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\n  no environments in demo. run rp flash deploy\n\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": []
+            }
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.list_order",
+    "args": [
+      "flash",
+      "env",
+      "list",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_app",
+        "args": [
+          "demo"
+        ],
+        "result": {
+          "id": "app1",
+          "name": "demo",
+          "flashEnvironments": [
+            {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            },
+            {
+              "name": "default",
+              "activeBuildId": null,
+              "createdAt": null
+            }
+          ]
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "",
+      "  prod    \u00e9\u4e2d\ud83d\ude00abcdefghi, 2026-01-02",
+      "  default -, -",
+      ""
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\n  prod    \u00e9\u4e2d\ud83d\ude00abcdefghi, 2026-01-02\n  default -, -\n\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.get_empty",
+    "args": [
+      "flash",
+      "env",
+      "get",
+      "prod",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": null
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "",
+      "  demo/prod build \u00e9\u4e2d\ud83d\ude00abcdefghi",
+      ""
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\n  demo/prod build \u00e9\u4e2d\ud83d\ude00abcdefghi\n\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": null
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": null
+            }
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.get_endpoints",
+    "args": [
+      "flash",
+      "env",
+      "get",
+      "prod",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "",
+      "  demo/prod build \u00e9\u4e2d\ud83d\ude00abcdefghi",
+      "    first   ep/one \u2197",
+      "    second  ep2 \u2197",
+      ""
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\n  demo/prod build \u00e9\u4e2d\ud83d\ude00abcdefghi\n    first   ep/one \u2197\n    second  ep2 \u2197\n\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.get_missing",
+    "args": [
+      "flash",
+      "env",
+      "get",
+      "prod",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "error": "no environment 'prod' in app 'demo'."
+      }
+    ],
+    "events": [],
+    "messages": [],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: no environment 'prod' in app 'demo'.\n",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": null
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.get_lookup_error",
+    "args": [
+      "flash",
+      "env",
+      "get",
+      "prod",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "error": "lookup failed"
+      }
+    ],
+    "events": [],
+    "messages": [],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: lookup failed\n",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "errors": [
+            {
+              "message": "lookup failed"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.add",
+    "args": [
+      "flash",
+      "env",
+      "add",
+      "staging",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_app",
+        "args": [
+          "demo"
+        ],
+        "result": {
+          "id": "app1",
+          "name": "demo",
+          "flashEnvironments": [
+            {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            },
+            {
+              "name": "default",
+              "activeBuildId": null,
+              "createdAt": null
+            }
+          ]
+        }
+      },
+      {
+        "operation": "create_environment",
+        "args": [
+          "app1",
+          "staging"
+        ],
+        "result": {
+          "id": "new-env",
+          "name": "staging"
+        }
+      }
+    ],
+    "events": [],
+    "messages": [
+      "\u2713 created demo/staging"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 created demo/staging\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation createFlashEnvironment($input: CreateFlashEnvironmentInput!) {\n    createFlashEnvironment(input: $input) { id name }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "staging"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "createFlashEnvironment": {
+              "id": "new-env",
+              "name": "staging"
+            }
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.add_error",
+    "args": [
+      "flash",
+      "env",
+      "add",
+      "staging",
+      "--app",
+      "demo"
+    ],
+    "calls": [
+      {
+        "operation": "get_app",
+        "args": [
+          "demo"
+        ],
+        "result": {
+          "id": "app1",
+          "name": "demo",
+          "flashEnvironments": [
+            {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            },
+            {
+              "name": "default",
+              "activeBuildId": null,
+              "createdAt": null
+            }
+          ]
+        }
+      },
+      {
+        "operation": "create_environment",
+        "args": [
+          "app1",
+          "staging"
+        ],
+        "error": "creation failed"
+      }
+    ],
+    "events": [],
+    "messages": [],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: creation failed\n",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation createFlashEnvironment($input: CreateFlashEnvironmentInput!) {\n    createFlashEnvironment(input: $input) { id name }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "staging"
+            }
+          }
+        },
+        "response": {
+          "errors": [
+            {
+              "message": "creation failed"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.delete",
+    "args": [
+      "flash",
+      "env",
+      "delete",
+      "prod",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "endpoints_deleted": 2,
+          "environment_deleted": true,
+          "app_deleted": false,
+          "failures": []
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          2
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2713 deleted demo/prod 2 endpoints removed"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 deleted demo/prod 2 endpoints removed\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fone",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep2",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashEnvironment($flashEnvironmentId: String!) {\n    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)\n}\n",
+          "variables": {
+            "flashEnvironmentId": "env1"
+          }
+        },
+        "response": {
+          "data": {
+            "deleteFlashEnvironment": true
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.delete_empty",
+    "args": [
+      "flash",
+      "env",
+      "delete",
+      "prod",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "endpoints_deleted": 0,
+          "environment_deleted": true,
+          "app_deleted": false,
+          "failures": []
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": null
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          0
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2713 deleted demo/prod 0 endpoints removed"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 deleted demo/prod 0 endpoints removed\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": null
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": null
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashEnvironment($flashEnvironmentId: String!) {\n    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)\n}\n",
+          "variables": {
+            "flashEnvironmentId": "env1"
+          }
+        },
+        "response": {
+          "data": {
+            "deleteFlashEnvironment": true
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.delete_endpoint_failure",
+    "args": [
+      "flash",
+      "env",
+      "delete",
+      "prod",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "endpoints_deleted": 1,
+          "environment_deleted": false,
+          "app_deleted": false,
+          "failures": [
+            "endpoint first: endpoint stuck"
+          ]
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          2
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "delete_failed",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2717 endpoint first: endpoint stuck"
+    ],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "\u2717 endpoint first: endpoint stuck\n",
+    "stderr": "Error: undeploy incomplete; environment kept\n",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fone",
+        "body": null,
+        "response": {
+          "detail": "endpoint stuck"
+        },
+        "status": 400
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep2",
+        "body": null,
+        "response": null,
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.delete_environment_failure",
+    "args": [
+      "flash",
+      "env",
+      "delete",
+      "prod",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "endpoints_deleted": 2,
+          "environment_deleted": false,
+          "app_deleted": false,
+          "failures": [
+            "environment prod: environment stuck"
+          ]
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          2
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2717 environment prod: environment stuck"
+    ],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "\u2717 environment prod: environment stuck\n",
+    "stderr": "Error: undeploy incomplete; environment kept\n",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fone",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep2",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashEnvironment($flashEnvironmentId: String!) {\n    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)\n}\n",
+          "variables": {
+            "flashEnvironmentId": "env1"
+          }
+        },
+        "response": {
+          "errors": [
+            {
+              "message": "environment stuck"
+            }
+          ]
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.undeploy_default",
+    "args": [
+      "flash",
+      "undeploy",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "default"
+        ],
+        "result": {
+          "endpoints_deleted": 2,
+          "environment_deleted": true,
+          "app_deleted": false,
+          "failures": []
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "default"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          2
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2713 undeployed demo/default 2 endpoints removed"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 undeployed demo/default 2 endpoints removed\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "default"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fone",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep2",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashEnvironment($flashEnvironmentId: String!) {\n    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)\n}\n",
+          "variables": {
+            "flashEnvironmentId": "env1"
+          }
+        },
+        "response": {
+          "data": {
+            "deleteFlashEnvironment": true
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.undeploy_custom",
+    "args": [
+      "flash",
+      "undeploy",
+      "--app",
+      "demo",
+      "--yes",
+      "--env",
+      "prod"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "endpoints_deleted": 2,
+          "environment_deleted": true,
+          "app_deleted": false,
+          "failures": []
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          2
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2713 undeployed demo/prod 2 endpoints removed"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 undeployed demo/prod 2 endpoints removed\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fone",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep2",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashEnvironment($flashEnvironmentId: String!) {\n    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)\n}\n",
+          "variables": {
+            "flashEnvironmentId": "env1"
+          }
+        },
+        "response": {
+          "data": {
+            "deleteFlashEnvironment": true
+          }
+        },
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.undeploy_failure",
+    "args": [
+      "flash",
+      "undeploy",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "default"
+        ],
+        "result": {
+          "endpoints_deleted": 1,
+          "environment_deleted": false,
+          "app_deleted": false,
+          "failures": [
+            "endpoint first: endpoint stuck"
+          ]
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "default"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          2
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "delete_failed",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2717 endpoint first: endpoint stuck"
+    ],
+    "confirmations": [],
+    "code": 1,
+    "stdout": "\u2717 endpoint first: endpoint stuck\n",
+    "stderr": "Error: undeploy incomplete\n",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "default"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fone",
+        "body": null,
+        "response": {
+          "detail": "endpoint stuck"
+        },
+        "status": 400
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep2",
+        "body": null,
+        "response": null,
+        "status": 200
+      }
+    ]
+  },
+  {
+    "name": "wire.delete_false_confirmation",
+    "args": [
+      "flash",
+      "env",
+      "delete",
+      "prod",
+      "--app",
+      "demo",
+      "--yes"
+    ],
+    "calls": [
+      {
+        "operation": "undeploy_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "endpoints_deleted": 2,
+          "environment_deleted": true,
+          "app_deleted": false,
+          "failures": []
+        }
+      },
+      {
+        "operation": "get_environment",
+        "args": [
+          "demo",
+          "prod"
+        ],
+        "result": {
+          "id": "env1",
+          "name": "prod",
+          "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+          "createdAt": "2026-01-02T03:04:05Z",
+          "endpoints": [
+            {
+              "id": "ep/one",
+              "name": "first"
+            },
+            {
+              "id": "ep2",
+              "name": "second"
+            }
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "event": "cleanup_started",
+        "args": [
+          2
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "first"
+        ]
+      },
+      {
+        "event": "deleting",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "deleted",
+        "args": [
+          "second"
+        ]
+      },
+      {
+        "event": "close",
+        "args": []
+      }
+    ],
+    "messages": [
+      "\u2713 deleted demo/prod 2 endpoints removed"
+    ],
+    "confirmations": [],
+    "code": 0,
+    "stdout": "\u2713 deleted demo/prod 2 endpoints removed\n",
+    "stderr": "",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashAppByName($flashAppName: String!) {\n    flashAppByName(flashAppName: $flashAppName) {\n        id\n        name\n        flashEnvironments {\n            id\n            name\n            state\n            activeBuildId\n            endpoints { id name }\n        }\n    }\n}\n",
+          "variables": {
+            "flashAppName": "demo"
+          }
+        },
+        "response": {
+          "data": {
+            "flashAppByName": {
+              "id": "app1",
+              "name": "demo",
+              "flashEnvironments": [
+                {
+                  "id": "env1",
+                  "name": "prod",
+                  "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+                  "createdAt": "2026-01-02T03:04:05Z",
+                  "endpoints": [
+                    {
+                      "id": "ep/one",
+                      "name": "first"
+                    },
+                    {
+                      "id": "ep2",
+                      "name": "second"
+                    }
+                  ]
+                },
+                {
+                  "name": "default",
+                  "activeBuildId": null,
+                  "createdAt": null
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nquery getFlashEnvironmentByName($input: FlashEnvironmentByNameInput!) {\n    flashEnvironmentByName(input: $input) {\n        id\n        name\n        state\n        activeBuildId\n        createdAt\n        endpoints { id name }\n        networkVolumes { id name }\n    }\n}\n",
+          "variables": {
+            "input": {
+              "flashAppId": "app1",
+              "name": "prod"
+            }
+          }
+        },
+        "response": {
+          "data": {
+            "flashEnvironmentByName": {
+              "id": "env1",
+              "name": "prod",
+              "activeBuildId": "\u00e9\u4e2d\ud83d\ude00abcdefghijklm",
+              "createdAt": "2026-01-02T03:04:05Z",
+              "endpoints": [
+                {
+                  "id": "ep/one",
+                  "name": "first"
+                },
+                {
+                  "id": "ep2",
+                  "name": "second"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep%2Fone",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "DELETE",
+        "path": "/v2/serverless/ep2",
+        "body": null,
+        "response": null,
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+          "query": "\nmutation deleteFlashEnvironment($flashEnvironmentId: String!) {\n    deleteFlashEnvironment(flashEnvironmentId: $flashEnvironmentId)\n}\n",
+          "variables": {
+            "flashEnvironmentId": "env1"
+          }
+        },
+        "response": {
+          "data": {
+            "deleteFlashEnvironment": false
+          }
+        },
+        "status": 200
+      }
+    ]
+  }
+]

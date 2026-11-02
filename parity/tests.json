@@ -8818,8 +8818,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_list",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8828,8 +8829,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_list_empty",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8838,8 +8840,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_get",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8848,8 +8851,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_add",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8858,8 +8862,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_delete",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8868,8 +8873,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_resolve_app_name_fails_without_unique_app",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8878,8 +8884,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_undeploy",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",
@@ -8888,8 +8895,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::environment::tests::test_undeploy_failures",
+      "status": "ported",
+      "note": "Eight unchanged source tests replayed with management calls, output and failures; sixteen wire cases check both CLI executables. Actual Cargo projects cover automatic unique-name selection, ambiguity and bypass with --app. See reviews/environment-discovery.md."
     },
     {
       "file": "tests/test_cli/test_management_commands.py",

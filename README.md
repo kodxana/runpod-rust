@@ -348,6 +348,24 @@ stops further requests; completed deletions are not rolled back. Local discovery
 deployment commands remain in progress. See the
 [app command notes](PORTING.md#native-app-management-commands).
 
+Manage environments and undeploy their endpoints while retaining the app and build history:
+
+```sh
+rp flash env list --app demo
+rp flash env get prod --app demo
+rp flash env add staging --app demo
+rp flash env delete staging --app demo --yes
+rp flash undeploy --app demo --env default --yes
+```
+
+Without `--app`, these commands build and inspect the current Cargo project's binary
+declarations and require one unique app name. Native projects register their apps in an
+`AppRegistry`, call `apps::discovery::export_if_requested`, and return before local
+entrypoints when discovery is requested; [examples/discovery.rs](examples/discovery.rs)
+shows the pattern. `--app` bypasses discovery. The discovery API returns metadata and
+executable paths; live-handle discovery and native deployment remain in progress.
+See the [environment and discovery notes](PORTING.md#native-environments-and-compiled-discovery).
+
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a
 mounted volume. Construct it with `[local_directory]` and `VolumeCacheConfig`; defaults
 use `/runpod-volume` and `RUNPOD_ENDPOINT_ID`. `hydrate` restores files, `sync_inline`

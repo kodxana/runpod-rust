@@ -8,6 +8,7 @@ pub mod catalog;
 mod context;
 pub mod deploy;
 pub mod dev;
+pub mod discovery;
 mod endpoint_input;
 pub mod entrypoint;
 mod errors;

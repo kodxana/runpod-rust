@@ -8,6 +8,9 @@ pub type Result<T> = std::result::Result<T, Error>;
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum Error {
+    /// Native application discovery, compilation or declaration export failed.
+    #[error(transparent)]
+    Discovery(#[from] crate::apps::discovery::DiscoveryError),
     /// A hardware, region, or CUDA selection did not resolve.
     #[error(transparent)]
     Compute(#[from] crate::compute::ResolutionError),

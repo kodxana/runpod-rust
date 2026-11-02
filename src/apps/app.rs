@@ -25,6 +25,7 @@ pub struct AppConfig {
     /// Explicit connection pool; absent resolves credentials only when a remote call needs them.
     pub client: Option<Client>,
     /// Fixed routing snapshot; absent reads current environment at each invocation.
+    /// The process discovery guard still takes precedence over explicit routing.
     pub context: Option<ExecutionContext>,
     /// Dedicated-pod runtime and runner connection settings.
     pub task: TaskConfig,
@@ -409,6 +410,8 @@ impl App {
             .context
             .clone()
             .unwrap_or_else(ExecutionContext::from_env);
+        // A discovery child must not invoke resources even with explicit routing settings.
+        context.discovery |= super::in_discovery();
         if context.kind == Context::Local && self.inner.development_active.load(Ordering::Acquire) {
             context.kind = Context::Dev;
         }

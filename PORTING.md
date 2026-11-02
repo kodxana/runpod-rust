@@ -55,6 +55,7 @@ by Python; the complete port remains in progress.
 | `rp_cli.main` registry/secret groups and add/list/delete commands | native `registry` / `secret`, private `cli::credentials::{Kind,Operation}` |
 | `rp_cli.main.login` | native `rp login` / `runpod login`, private `cli::login::Options` and SDK auth/storage helpers |
 | `rp_cli.main` app group and list/get/delete commands | native `flash app`, private `cli::flash` and existing `apps::manage` helpers |
+| `rp_cli.main` environment commands, undeploy, timestamp formatting and app-name resolution | native `flash env` / `flash undeploy`, private `cli::environment` and compiled metadata discovery |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -93,9 +94,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 412 adapted symbols, and 920 upstream
+This milestone maps 398 implemented symbols, 420 adapted symbols, and 928 upstream
 test functions; other entries remain pending.
-The test mapping includes 853 ported tests and 67 explicitly adapted tests.
+The test mapping includes 861 ported tests and 67 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1228,7 +1229,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,304 SDK differential cases**.
+additional runtime fixtures, separate from the **2,328 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1270,7 +1271,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,304 differential cases.
+separate from the SDK symbol inventory and its 2,328 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1923,9 +1924,73 @@ The Windows suite passes **912 tests**, with no failures and three ignored child
 entry points exercised by parents. Formatting, locked build, strict Clippy and rustdoc
 pass; test-only lint fixes were followed by focused tests and strict Clippy.
 
+## Native environments and compiled discovery
+
+`rp flash env` / `runpod flash env` support `list`, `get`, `add` and `delete`, with
+`--app/-a`; `flash undeploy` accepts `--app/-a`, `--env/-e` (default `default`) and
+`--yes/-y`. Both destructive commands delete endpoints and their environment while
+retaining the app and build history. Endpoint failures are collected in order and retain
+the environment. False mutation confirmations preserve the source's success behavior.
+Declined confirmation exits 1; noninteractive confirmation requires `--yes` and exits 2
+before credentials or network requests. `env delete` and `undeploy` retain their distinct
+source confirmation, success and incomplete-cleanup messages.
+
+Environment and endpoint order is preserved. Build IDs truncate at twelve Unicode
+characters; dates truncate at ten. Falsey missing values use the source `-` fallback.
+Endpoint references print their IDs and arrow as plain text; Rich hyperlinks, wrapping,
+styles and progress animations remain native rendering adaptations.
+
+An explicit nonempty `--app` bypasses directory lookup and discovery. Otherwise, the CLI
+requires exactly one unique app name from a Cargo project. `apps::discovery::discover_apps`
+uses versioned Cargo metadata and compiler-artifact output to locate and build binary
+targets, then launches each executable with a private declaration-export path. The
+project registers apps and calls `export_if_requested` before local entrypoints; see
+`examples/discovery.rs`. App definitions are validated before any target's exports are
+accepted. A failed process, missing export or invalid declaration cannot return a partial
+app. Directory scans tolerate failed targets when another exports apps; individual source
+or manifest targets are strict. Targets are sorted by source path, and first-name wins
+deduplication preserves declaration order. No shared import registry or parent environment
+is modified. A process discovery guard overrides even explicit app routing settings.
+
+Cargo's normal build directory and freshness rules are used. The caller needs a host
+toolchain and host-runnable binaries. Cancellation terminates and waits for the active
+child, rejects partial exports and stops later targets. Dropping the async future uses
+Tokio's kill-on-drop behavior for the direct child. The SDK does not promise control of
+arbitrary subprocess trees created by user declarations or build scripts.
+
+**This is metadata discovery, not the completed port of Python's live discovery API.**
+It returns `DiscoveredApp` definitions and executable/source/project paths, not imported
+live callable handles. Source locations identify the Cargo binary entry; declarations
+may reside in other compiled modules. Python module identity, package rollback, arbitrary
+module-file imports and forced cache invalidation (including preserved-mtime edits) are
+not claimed. The five discovery implementation entries and all five upstream discovery
+test functions remain pending. The error class alone maps to the native typed enum.
+
+`tools/env_cli_fixtures.py` passes eight unchanged source tests and records sixteen wire
+characterizations: **24 deterministic fixtures** replayed by named unit tests and both
+executables. Real Cargo test projects verify unique/ambiguous/empty app resolution and
+explicit-name bypass. Native discovery tests cover failed/invalid exports, retries,
+deduplication, interruption, guard enforcement and process isolation. A real consumer
+project using this SDK passed Cargo build, `AppRegistry` export, CLI resolution and a
+loopback environment query without running its local entrypoint. Windows terminal
+interruption rejected an in-flight partial export and never ran the later binary.
+
+`tools/discovery_fixtures.py` passes all six parameterized Python discovery cases and
+records nine reference observations. These are not counted as Rust differential fixtures
+or mapped source tests while live-handle semantics remain pending. Cargo integration
+follows the [metadata format](https://doc.rust-lang.org/cargo/commands/cargo-metadata.html)
+and [artifact messages](https://doc.rust-lang.org/cargo/reference/external-tools.html#artifact-messages).
+
+The ledger maps **818/1,135 API symbols (72.1%)** and **928/1,659 test functions**.
+SDK differential fixtures total **2,328**. See
+[reviews/environment-discovery.md](reviews/environment-discovery.md).
+The complete Windows suite passes **930 tests**, with no failures and four ignored child
+entry points exercised by parents. Formatting, locked build, strict Clippy and rustdoc
+pass; focused tests and strict Clippy were repeated after review fixes.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live
-dispatcher, Apps discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
+dispatcher, full live-handle Apps discovery or the remaining CLI commands. Debugger integration and remaining cache/platform
 fault-injection coverage are also pending.
 All remain part of the requested full port, not exclusions from its scope.

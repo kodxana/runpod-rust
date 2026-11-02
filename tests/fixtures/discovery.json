@@ -1,0 +1,167 @@
+[
+  {
+    "test": "test_failed_module_does_not_return_partial_app",
+    "single_file": false,
+    "before": [
+      "existing"
+    ],
+    "guard_before": null,
+    "apps": [
+      {
+        "name": "healthy",
+        "source": "healthy.py",
+        "resources": []
+      }
+    ],
+    "after": [
+      "existing",
+      "healthy"
+    ],
+    "guard_after": null
+  },
+  {
+    "test": "test_failed_package_import_can_be_retried_without_orphaned_app",
+    "single_file": true,
+    "before": [
+      "existing"
+    ],
+    "guard_before": null,
+    "error": "DiscoveryError",
+    "after": [
+      "existing"
+    ],
+    "guard_after": null
+  },
+  {
+    "test": "test_failed_package_import_can_be_retried_without_orphaned_app",
+    "single_file": true,
+    "before": [
+      "existing"
+    ],
+    "guard_before": null,
+    "apps": [
+      {
+        "name": "recovered",
+        "source": "main.py",
+        "resources": []
+      }
+    ],
+    "after": [
+      "existing",
+      "recovered"
+    ],
+    "guard_after": null
+  },
+  {
+    "test": "test_package_relative_imports_preserve_local_handle_identity",
+    "single_file": false,
+    "before": [
+      "outside-discovery"
+    ],
+    "guard_before": null,
+    "apps": [
+      {
+        "name": "package",
+        "source": "__init__.py",
+        "resources": [
+          "double"
+        ]
+      }
+    ],
+    "after": [
+      "outside-discovery",
+      "package"
+    ],
+    "guard_after": null
+  },
+  {
+    "test": "test_package_relative_imports_preserve_local_handle_identity",
+    "single_file": false,
+    "before": [
+      "outside-discovery",
+      "package"
+    ],
+    "guard_before": null,
+    "apps": [
+      {
+        "name": "package",
+        "source": "__init__.py",
+        "resources": [
+          "double"
+        ]
+      }
+    ],
+    "after": [
+      "outside-discovery",
+      "package"
+    ],
+    "guard_after": null
+  },
+  {
+    "test": "test_package_relative_imports_preserve_local_handle_identity",
+    "single_file": true,
+    "before": [
+      "outside-discovery"
+    ],
+    "guard_before": null,
+    "apps": [
+      {
+        "name": "package",
+        "source": "main.py",
+        "resources": [
+          "double"
+        ]
+      }
+    ],
+    "after": [
+      "outside-discovery",
+      "package"
+    ],
+    "guard_after": null
+  },
+  {
+    "test": "test_package_relative_imports_preserve_local_handle_identity",
+    "single_file": true,
+    "before": [
+      "outside-discovery",
+      "package"
+    ],
+    "guard_before": null,
+    "apps": [
+      {
+        "name": "package",
+        "source": "main.py",
+        "resources": [
+          "double"
+        ]
+      }
+    ],
+    "after": [
+      "outside-discovery",
+      "package"
+    ],
+    "guard_after": null
+  },
+  {
+    "test": "test_discovery_restores_existing_invocation_guard",
+    "single_file": true,
+    "before": [],
+    "guard_before": "outer-scan",
+    "error": "DiscoveryError",
+    "after": [],
+    "guard_after": "outer-scan"
+  },
+  {
+    "test": "test_interrupt_aborts_discovery_and_rolls_back_partial_import",
+    "single_file": false,
+    "before": [
+      "existing"
+    ],
+    "guard_before": null,
+    "error": "KeyboardInterrupt",
+    "after": [
+      "existing"
+    ],
+    "guard_after": null
+  }
+]

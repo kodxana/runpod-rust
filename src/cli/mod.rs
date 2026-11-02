@@ -1,6 +1,6 @@
 //! Native `rp` and `runpod` command entry points.
 //!
-//! Implements login, catalog, volume, pod, endpoint, registry, secret and flash app commands.
+//! Implements login, catalog, volume, pod, endpoint, registry, secret and flash management commands.
 //! Remaining commands are pending.
 mod api;
 mod catalog;
@@ -9,6 +9,7 @@ mod credential_tests;
 mod credentials;
 mod editor;
 mod endpoint;
+mod environment;
 mod flash;
 mod interaction;
 mod login;
