@@ -78,3 +78,13 @@ were introduced. Scoped pedantic review found no new warnings.
   warnings reference the changed startup, installer, runtime helpers, tests or example.
 - Both source checkouts retain their pinned revisions with no tracked/index modifications.
   SDK inventory counts remain unchanged; this runtime coverage is accounted for separately.
+
+## CI follow-up
+
+Run 41523333260 exposed a POSIX fixture error on stable Linux and MSRV: the ungrouped
+`&&`/`||` chain required the final install predicate even for update-failure mode. The
+installer tests correctly rejected that false success. Grouping each mode/subcommand pair
+fixes the fixture without changing the production installer or assertions. A local run
+under Git's POSIX shell reproduced the wrong zero exit before the fix; all six combinations
+of normal/update-failure/install-failure mode and update/install now return their expected
+statuses, command log and stderr. Cross-platform CI is rerun by the correction commit.

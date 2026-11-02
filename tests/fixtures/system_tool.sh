@@ -11,7 +11,7 @@ if [ "$mode" = hang ]; then
     printf '%s' "$$" > "$scratch/pid"
     exec sleep 60
 fi
-if [ "$mode" = update-fail ] && [ "$1" = update ] || [ "$mode" = install-fail ] && [ "$1" = install ]; then
+if { [ "$mode" = update-fail ] && [ "$1" = update ]; } || { [ "$mode" = install-fail ] && [ "$1" = install ]; }; then
     i=0
     while [ "$i" -lt 2100 ]; do printf x >&2; i=$((i + 1)); done
     printf TAIL >&2
