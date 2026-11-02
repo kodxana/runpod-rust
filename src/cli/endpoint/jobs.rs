@@ -41,6 +41,18 @@ pub(in crate::cli) async fn execute(
     ui: &mut impl Interaction,
     streams: &mut Streams<'_>,
 ) -> CliResult<()> {
+    if let Some(("job", args)) = args.subcommand()
+        && let Some((operation @ ("wait" | "stream"), args)) = args.subcommand()
+    {
+        let follow = super::job_follow::Follow {
+            endpoint_id: argument(args, "endpoint-id")?,
+            job_id: argument(args, "job-id")?,
+            stream: operation == "stream",
+            as_json: args.get_flag("json"),
+            timeout: args.try_get_one::<f64>("timeout").ok().flatten().copied(),
+        };
+        return follow.run(&Client::from_env()?, streams).await;
+    }
     let (action, args) = match args.subcommand() {
         Some(("purge", args)) => (Action::Purge, args),
         Some(("job", args)) => match args.subcommand() {
@@ -61,7 +73,20 @@ pub(in crate::cli) async fn execute(
     } else {
         Some(argument(args, "job-id")?)
     };
-    let record = request(&Client::from_env()?, action, endpoint_id, job_id).await?;
+    let method = if matches!(action, Action::Get) {
+        reqwest::Method::GET
+    } else {
+        reqwest::Method::POST
+    };
+    let record = request(
+        &Client::from_env()?,
+        method,
+        action.route(),
+        endpoint_id,
+        job_id,
+        Duration::from_secs(10),
+    )
+    .await?;
     let text = if args.get_flag("json") {
         output::json(&record)?
     } else {
@@ -84,22 +109,19 @@ pub(in crate::cli) async fn execute(
     streams.write(Destination::Out, &text)
 }
 
-async fn request(
+pub(super) async fn request(
     client: &Client,
-    action: Action,
+    method: reqwest::Method,
+    operation: &str,
     endpoint_id: &str,
     job_id: Option<&str>,
+    timeout: Duration,
 ) -> crate::Result<Value> {
-    let mut path = format!("{}/{}", segment(endpoint_id), action.route());
+    let mut path = format!("{}/{operation}", segment(endpoint_id));
     if let Some(id) = job_id.filter(|id| !id.is_empty()) {
         path.push('/');
         path.push_str(&segment(id));
     }
-    let method = if matches!(action, Action::Get) {
-        reqwest::Method::GET
-    } else {
-        reqwest::Method::POST
-    };
     let response = client
         .http
         .request(
@@ -109,7 +131,7 @@ async fn request(
                 client.config.endpoint_base_url.trim_end_matches('/')
             ),
         )
-        .timeout(Duration::from_secs(10))
+        .timeout(timeout)
         .send()
         .await?;
     let status = response.status();

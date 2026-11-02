@@ -28,7 +28,7 @@ count=0
 for entry in data["entries"]:
     if entry["file"]=="runpod/rp_cli/endpoint.py" and entry["name"] in mapping:
         entry.update(rust=mapping[entry["name"]],status="adapted",
-                     note="Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Shell-completion callbacks, logs and data-plane/job commands remain pending in their own mappings. See reviews/endpoint-cli.md.")
+                     note="Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion, log and submission workflows are tracked separately. See reviews/endpoint-cli.md.")
         count+=1
 assert count==32,count
 path.write_text(json.dumps(data,indent=2)+"\n")

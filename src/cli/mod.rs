@@ -20,6 +20,8 @@ use std::{
 enum CliError {
     #[error("{0}")]
     Usage(String),
+    #[error("{0}")]
+    Failed(String),
     #[error(transparent)]
     Api(#[from] crate::Error),
     #[error(transparent)]

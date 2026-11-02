@@ -1,3 +1,4 @@
+mod job_follow;
 mod jobs;
 mod options;
 #[cfg(test)]

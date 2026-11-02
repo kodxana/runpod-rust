@@ -47,7 +47,8 @@ by Python; the complete port remains in progress.
 | `rp_cli.endpoint_config::{_gpu,_cpu,config_body}` | private hardware selection and async/blocking `Client::{create_endpoint_config,update_endpoint_config}` |
 | `rp_cli.endpoint_config::{scale_patch,mutable,_kind,validate,patch}` | `configuration::{scale_patch,mutable_endpoint,validate_endpoint_document,endpoint_patch}` and native type labels |
 | `rp_cli.endpoint` resource commands, formatting, editor and rollout/worker observation | native `rp endpoint` / `runpod endpoint`, private options, views, clock and streaming-output helpers |
-| `rp_cli.endpoint` job inspection, cancellation, retry, queue purge and data-plane errors | native `endpoint job get/cancel/retry`, `endpoint purge`, private `cli::endpoint::jobs`; job wait/stream, run/log commands and completers remain pending |
+| `rp_cli.endpoint` job inspection, cancellation, retry, queue purge and data-plane errors | native `endpoint job get/cancel/retry`, `endpoint purge`, private `cli::endpoint::jobs` |
+| `rp_cli.endpoint` job waiting, streaming and final output | native `endpoint job wait/stream`, private `cli::endpoint::job_follow::Follow`; run/log commands and completers remain pending |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -86,9 +87,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 366 adapted symbols, and 817 upstream
+This milestone maps 397 implemented symbols, 370 adapted symbols, and 819 upstream
 test functions; other entries remain pending.
-The test mapping includes 751 ported tests and 66 explicitly adapted tests.
+The test mapping includes 753 ported tests and 66 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1221,7 +1222,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,008 SDK differential cases**.
+additional runtime fixtures, separate from the **2,055 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1263,7 +1264,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,008 differential cases.
+separate from the SDK symbol inventory and its 2,055 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1556,7 +1557,7 @@ rollout Ctrl-C and JSON worker watch
 against loopback mocks. No real Runpod resource is created or modified.
 See [reviews/endpoint-cli.md](reviews/endpoint-cli.md).
 
-The remaining endpoint log, run, job wait/stream and completion workflows are still part of
+The remaining endpoint log, run and completion workflows are still part of
 the full goal. Their mappings and tests remain pending rather than being inferred from
 the resource-command implementation.
 
@@ -1589,6 +1590,44 @@ ID encoding, missing-field fallbacks, HTTP errors and confirmation without crede
 Fixtures regenerate byte-identically; all requests use loopback mocks. The ledger adds
 nine adapted symbols and three ported source tests, taking the SDK differential total to
 **2,008**. See [reviews/endpoint-jobs.md](reviews/endpoint-jobs.md).
+
+## Native job waiting and streaming
+
+`endpoint job wait` prints final output, with optional positive finite `--timeout` seconds.
+Each status request is bounded by ten seconds and the remaining observation deadline.
+`endpoint job stream` prints chunks immediately with a sixty-second request bound, retrying
+read timeouts while the last observed status remains nonterminal. Missing, null and empty
+chunk lists permit polling or fallback to the final status request. Empty polls sleep one
+second for wait and half a second for stream; polls with chunks do not sleep.
+
+Once a response has a terminal status, the deadline no longer prevents draining chunks or
+fetching a final result. Successful streamed output is not duplicated by a final status
+request. Failed streams drain partial output before fetching failure details. Strings join
+without added newlines until required by a JSON chunk or the final output boundary. JSON
+mode emits individual JSON chunk values; a failed final result is printed before exit 1.
+
+Ctrl-C while polling or sleeping prints a resume command and exits 1 without cancelling the
+job. The source's subsequent empty `Error:` line is intentionally retained: Click's Abort
+inherits RuntimeError and is caught by the source data-plane wrapper. The fallback status
+read sits outside `_follow_job`'s interrupt handler; an interrupt there prints a newline
+and `Aborted!`, with no resume hint. This distinction is captured in Python fixtures.
+
+Native async request deadlines bound the whole request, including response-body reads;
+they are not Python's socket read-idle deadlines. Reqwest timeout classification separates
+connection timeouts from other timeout failures, retaining native causes. Native JSON
+spacing/Unicode spellings preserve decoded values. The native wait command emits final
+output without the source's Rich terminal spinner. Required status/chunk fields produce
+typed malformed-response errors instead of Python key/type exceptions.
+
+`tools/job_follow_fixtures.py` runs two unchanged upstream tests and captures **47 actual
+Python observer invocations** in sixteen groups. Named Rust counterparts and additional
+fixture groups compare request order/timeouts, sleeps, output values and exact stderr/exit
+behavior. Three executable tests verify routing, argument validation before credentials,
+and a real delayed HTTP response bounded by the wait deadline. Real Windows terminal tests
+interrupt both wait and stream against loopback servers. The ledger adds four adapted
+symbols and two ported source tests; the SDK differential total is **2,055**. Run-specific
+upstream tests remain pending until endpoint submission is ported.
+See [reviews/job-follow.md](reviews/job-follow.md).
 
 ## Remaining work
 

@@ -117,6 +117,26 @@ fn job_command() -> Command {
                 .arg(flag("json")),
         );
     }
+    let wait = id(base("wait", "Wait for a job and print its output"), true)
+        .arg(Arg::new("job-id").value_name("JOB_ID").required(true))
+        .arg(text("timeout").value_parser(|value: &str| {
+            finite(value).and_then(|seconds| {
+                if seconds > 0.0 {
+                    Ok(seconds)
+                } else {
+                    Err("timeout must be positive".into())
+                }
+            })
+        }))
+        .arg(flag("json"));
+    command = command.subcommand(wait).subcommand(
+        id(
+            base("stream", "Print streamed job output as it arrives"),
+            true,
+        )
+        .arg(Arg::new("job-id").value_name("JOB_ID").required(true))
+        .arg(flag("json")),
+    );
     command
 }
 pub(in crate::cli) fn command() -> Command {

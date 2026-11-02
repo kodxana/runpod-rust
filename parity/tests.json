@@ -8525,8 +8525,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::job_follow::tests::test_job_wait_and_stream",
+      "status": "ported",
+      "note": "Named Rust counterpart using actual pinned Python observer fixtures; separate executable tests verify dispatch, credential-independent argument validation and in-flight HTTP deadlines. Windows terminal smoke checks cover real Ctrl-C. Run-specific tests remain pending until run orchestration is ported."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8535,8 +8536,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli::endpoint::job_follow::tests::test_job_stream_interrupt",
+      "status": "ported",
+      "note": "Named Rust counterpart using actual pinned Python observer fixtures; separate executable tests verify dispatch, credential-independent argument validation and in-flight HTTP deadlines. Windows terminal smoke checks cover real Ctrl-C. Run-specific tests remain pending until run orchestration is ported."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",

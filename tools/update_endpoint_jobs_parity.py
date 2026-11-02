@@ -21,7 +21,7 @@ count = 0
 for entry in data["entries"]:
     if entry["file"] == "runpod/rp_cli/endpoint.py" and entry["name"] in mapping:
         entry.update(status="adapted", rust=mapping[entry["name"]],
-                     note="Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/wait/stream/logs remain pending separately. See reviews/endpoint-jobs.md.")
+                     note="Native job get/cancel/retry and queue purge; encoded data-plane paths, typed transport failures, JSON/field output and confirmation before credentials. JSON cell spacing, native transport diagnostics and credential lookup are documented adaptations. Run/logs remain pending separately. See reviews/endpoint-jobs.md.")
         count += 1
 assert count == 9, count
 path.write_text(json.dumps(data, indent=2) + "\n")

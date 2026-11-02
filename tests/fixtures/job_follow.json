@@ -1,0 +1,1385 @@
+[
+  {
+    "name": "test_job_wait_and_stream",
+    "stream": false,
+    "as_json": false,
+    "timeout": 30,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "test_job_wait_and_stream",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": [
+            {
+              "output": "chunk"
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "chunk\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "test_job_stream_interrupt",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "failure": "interrupt"
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "\njob job1 keeps running. resume with: rp endpoint job stream ep1 job1\nError: \n",
+    "code": 1
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": null
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "null\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": null
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": null\n}\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": ""
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": ""
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": \"\"\n}\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": \"done\"\n}\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done\n"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "done\n\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done\n"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": \"done\\n\"\n}\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": {
+            "ok": true,
+            "text": "caf\u00e9"
+          }
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"ok\": true,\n  \"text\": \"caf\\u00e9\"\n}\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": {
+            "ok": true,
+            "text": "caf\u00e9"
+          }
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": {\n    \"ok\": true,\n    \"text\": \"caf\\u00e9\"\n  }\n}\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": [
+            1,
+            false
+          ]
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "[\n  1,\n  false\n]\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "final_output_shapes",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": [
+            1,
+            false
+          ]
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": [\n    1,\n    false\n  ]\n}\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "failed_final_outputs",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 failed: worker failed\n",
+    "code": 1
+  },
+  {
+    "name": "failed_final_outputs",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"FAILED\",\n  \"error\": \"worker failed\"\n}\n",
+    "stderr": "Error: job job1 failed: worker failed\n",
+    "code": 1
+  },
+  {
+    "name": "failed_final_outputs",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "CANCELLED",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 cancelled: worker failed\n",
+    "code": 1
+  },
+  {
+    "name": "failed_final_outputs",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "CANCELLED",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"CANCELLED\",\n  \"error\": \"worker failed\"\n}\n",
+    "stderr": "Error: job job1 cancelled: worker failed\n",
+    "code": 1
+  },
+  {
+    "name": "failed_final_outputs",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "TIMED_OUT",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 timed_out: worker failed\n",
+    "code": 1
+  },
+  {
+    "name": "failed_final_outputs",
+    "stream": false,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "TIMED_OUT",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"TIMED_OUT\",\n  \"error\": \"worker failed\"\n}\n",
+    "stderr": "Error: job job1 timed_out: worker failed\n",
+    "code": 1
+  },
+  {
+    "name": "mixed_chunks",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_PROGRESS",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_PROGRESS",
+          "stream": [
+            {
+              "output": "hel"
+            },
+            {
+              "output": "lo"
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": [
+            {
+              "output": {
+                "done": true
+              }
+            },
+            {
+              "output": "caf\u00e9"
+            },
+            {
+              "output": null
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      }
+    ],
+    "sleeps": [
+      0.5
+    ],
+    "stdout": "hello\n{\"done\": true}\ncaf\u00e9\nnull\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "failed_stream",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "stream": [
+            {
+              "output": "partial"
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "error": "oom"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "partial\n",
+    "stderr": "Error: job job1 failed: oom\n",
+    "code": 1
+  },
+  {
+    "name": "mixed_chunks",
+    "stream": true,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_PROGRESS",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_PROGRESS",
+          "stream": [
+            {
+              "output": "hel"
+            },
+            {
+              "output": "lo"
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": [
+            {
+              "output": {
+                "done": true
+              }
+            },
+            {
+              "output": "caf\u00e9"
+            },
+            {
+              "output": null
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      }
+    ],
+    "sleeps": [
+      0.5
+    ],
+    "stdout": "\"hel\"\n\"lo\"\n{\"done\": true}\n\"caf\\u00e9\"\nnull\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "failed_stream",
+    "stream": true,
+    "as_json": true,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "stream": [
+            {
+              "output": "partial"
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "error": "oom"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "\"partial\"\n{\n  \"id\": \"job1\",\n  \"status\": \"FAILED\",\n  \"error\": \"oom\"\n}\n",
+    "stderr": "Error: job job1 failed: oom\n",
+    "code": 1
+  },
+  {
+    "name": "missing_chunks_fallback",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED"
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [
+      0.5
+    ],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "missing_chunks_fallback",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "stream": null
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": null
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [
+      0.5
+    ],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "missing_chunks_fallback",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [
+      0.5
+    ],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "chunk_newlines",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": [
+            {
+              "output": "x\n"
+            },
+            {
+              "output": ""
+            },
+            {
+              "output": 2
+            }
+          ]
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "x\n\n2\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "read_timeout_retry",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "failure": "read"
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "deadline_while_pending",
+    "stream": false,
+    "as_json": false,
+    "timeout": 2.5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 2.5,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 1.5,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 0.5,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      }
+    ],
+    "sleeps": [
+      1,
+      1,
+      0.5
+    ],
+    "stdout": "",
+    "stderr": "Error: job job1 is still IN_QUEUE after 2.5s. resume with: rp endpoint job wait ep1 job1\n",
+    "code": 1
+  },
+  {
+    "name": "sleep_interrupt",
+    "stream": false,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": 1,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "IN_PROGRESS"
+        }
+      }
+    ],
+    "sleeps": [
+      1
+    ],
+    "stdout": "",
+    "stderr": "\njob job1 keeps running. resume with: rp endpoint job wait ep1 job1\nError: \n",
+    "code": 1
+  },
+  {
+    "name": "request_timeout_at_deadline",
+    "stream": false,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 5.0,
+        "failure": "read",
+        "elapsed": 5
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 is still pending after 5s. resume with: rp endpoint job wait ep1 job1\n",
+    "code": 1
+  },
+  {
+    "name": "request_timeout_before_deadline",
+    "stream": false,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 5.0,
+        "failure": "read"
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: read timed out\n",
+    "code": 1
+  },
+  {
+    "name": "request_timeout_at_deadline",
+    "stream": false,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 5.0,
+        "failure": "connect",
+        "elapsed": 5
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 is still pending after 5s. resume with: rp endpoint job wait ep1 job1\n",
+    "code": 1
+  },
+  {
+    "name": "request_timeout_before_deadline",
+    "stream": false,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/status/job1",
+        "timeout": 5.0,
+        "failure": "connect"
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: connect timed out\n",
+    "code": 1
+  },
+  {
+    "name": "deadline_while_pending",
+    "stream": true,
+    "as_json": false,
+    "timeout": 2.5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 2.5,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 2.0,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 1.5,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 1.0,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 0.5,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      }
+    ],
+    "sleeps": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "stdout": "",
+    "stderr": "Error: job job1 is still IN_QUEUE after 2.5s. resume with: rp endpoint job stream ep1 job1\n",
+    "code": 1
+  },
+  {
+    "name": "sleep_interrupt",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": 1,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "IN_PROGRESS"
+        }
+      }
+    ],
+    "sleeps": [
+      0.5
+    ],
+    "stdout": "",
+    "stderr": "\njob job1 keeps running. resume with: rp endpoint job stream ep1 job1\nError: \n",
+    "code": 1
+  },
+  {
+    "name": "request_timeout_at_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "failure": "read",
+        "elapsed": 5
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 is still pending after 5s. resume with: rp endpoint job stream ep1 job1\n",
+    "code": 1
+  },
+  {
+    "name": "request_timeout_before_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "failure": "read"
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED"
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "request_timeout_at_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "failure": "connect",
+        "elapsed": 5
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 is still pending after 5s. resume with: rp endpoint job stream ep1 job1\n",
+    "code": 1
+  },
+  {
+    "name": "request_timeout_before_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "failure": "connect"
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: connect timed out\n",
+    "code": 1
+  },
+  {
+    "name": "retry_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "failure": "read",
+        "elapsed": 2
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 3.0,
+        "failure": "read",
+        "elapsed": 2
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 1.0,
+        "failure": "read",
+        "elapsed": 1
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 is still pending after 5s. resume with: rp endpoint job stream ep1 job1\n",
+    "code": 1
+  },
+  {
+    "name": "terminal_drains_after_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": [
+            {
+              "output": "done"
+            }
+          ]
+        },
+        "elapsed": 5.1
+      },
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "terminal_drains_after_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        },
+        "elapsed": 5.1
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "done\n",
+    "stderr": "",
+    "code": 0
+  },
+  {
+    "name": "terminal_drains_after_deadline",
+    "stream": true,
+    "as_json": false,
+    "timeout": 5,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 5.0,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "stream": []
+        },
+        "elapsed": 5.1
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "output": "done",
+          "error": "worker failed"
+        }
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "Error: job job1 failed: worker failed\n",
+    "code": 1
+  },
+  {
+    "name": "fallback_interrupt",
+    "stream": true,
+    "as_json": false,
+    "timeout": null,
+    "interrupt_sleep": null,
+    "requests": [
+      {
+        "path": "ep1/stream/job1",
+        "timeout": 60,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "stream": []
+        }
+      },
+      {
+        "path": "ep1/status/job1",
+        "timeout": 10,
+        "failure": "interrupt"
+      }
+    ],
+    "sleeps": [],
+    "stdout": "",
+    "stderr": "\nAborted!\n",
+    "code": 1
+  }
+]
