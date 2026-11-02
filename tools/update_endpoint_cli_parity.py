@@ -1,4 +1,4 @@
-"""Map endpoint resource commands and observation helpers; retain pending job/log work."""
+"""Map endpoint resource commands and observation helpers independently of other CLI work."""
 import json
 from collections import Counter
 from pathlib import Path
@@ -28,7 +28,7 @@ count=0
 for entry in data["entries"]:
     if entry["file"]=="runpod/rp_cli/endpoint.py" and entry["name"] in mapping:
         entry.update(rust=mapping[entry["name"]],status="adapted",
-                     note="Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion, log and submission workflows are tracked separately. See reviews/endpoint-cli.md.")
+                     note="Native resource CLI, typed options, owned editor files, incremental stdout/stderr, interruptible rollout/worker observation and native terminal rendering. Remaining shell-completion and log workflows are tracked separately. See reviews/endpoint-cli.md.")
         count+=1
 assert count==32,count
 path.write_text(json.dumps(data,indent=2)+"\n")

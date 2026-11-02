@@ -48,7 +48,8 @@ by Python; the complete port remains in progress.
 | `rp_cli.endpoint_config::{scale_patch,mutable,_kind,validate,patch}` | `configuration::{scale_patch,mutable_endpoint,validate_endpoint_document,endpoint_patch}` and native type labels |
 | `rp_cli.endpoint` resource commands, formatting, editor and rollout/worker observation | native `rp endpoint` / `runpod endpoint`, private options, views, clock and streaming-output helpers |
 | `rp_cli.endpoint` job inspection, cancellation, retry, queue purge and data-plane errors | native `endpoint job get/cancel/retry`, `endpoint purge`, private `cli::endpoint::jobs` |
-| `rp_cli.endpoint` job waiting, streaming and final output | native `endpoint job wait/stream`, private `cli::endpoint::job_follow::Follow`; run/log commands and completers remain pending |
+| `rp_cli.endpoint` job waiting, streaming and final output | native `endpoint job wait/stream`, private `cli::endpoint::job_follow::Follow` |
+| `rp_cli.endpoint` request-body loading, submission and load-balancer calls | native `endpoint run`, private `cli::endpoint::run::RunOptions`; log commands and completers remain pending |
 | `rp_volume_cache.VolumeCache` | `utils::VolumeCache` / `serverless::VolumeCache`, `VolumeCacheConfig`, and owned scope/background guards |
 | `apps.Model`, `Secret`, environment rendering | `apps::Model`, `Secret`, `render_env`, `secret_names` |
 | `apps.spec.ResourceSpec`, `ResourceKind`, `RouteSpec`, workers | `apps::ResourceSpec`, `ResourceKind`, `RouteSpec`, `Workers` |
@@ -87,9 +88,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 397 implemented symbols, 370 adapted symbols, and 819 upstream
+This milestone maps 397 implemented symbols, 373 adapted symbols, and 830 upstream
 test functions; other entries remain pending.
-The test mapping includes 753 ported tests and 66 explicitly adapted tests.
+The test mapping includes 764 ported tests and 66 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -1222,7 +1223,7 @@ from the pinned runtime. Real TCP tests compare response status/body, Allow/Loca
 handler calls, and the full generated OpenAPI document. Additional tests cover startup
 gating/failure/cancellation, shutdown draining, invalid route patterns, escaped docs,
 large bodies, streams, and calls through the SDK's actual `ApiHandle` client. These are
-additional runtime fixtures, separate from the **2,055 SDK differential cases**.
+additional runtime fixtures, separate from the **2,106 SDK differential cases**.
 See [reviews/apps-http.md](reviews/apps-http.md) for verification and limitations.
 
 ### Raw responses and native factories
@@ -1264,7 +1265,7 @@ continues to describe separately supplied Python worker code.
 including repeated cookies, health ownership, and lifecycle events. Seven native integration
 tests also cover startup gating/failure/cancellation, real Axum extractors, request/body
 draining, typed cleanup errors, and streaming transport failures. These fixtures remain
-separate from the SDK symbol inventory and its 2,055 differential cases.
+separate from the SDK symbol inventory and its 2,106 differential cases.
 See [reviews/apps-http-responses.md](reviews/apps-http-responses.md).
 
 ## Directory volume cache
@@ -1486,7 +1487,7 @@ finite. Python's arbitrary-size integers, Unicode count digits, and nonstandard 
 Infinity JSON are not emulated. JSON parser diagnostics use Serde's wording. Malformed
 response records return typed errors rather than Python lookup/type exceptions. Helper
 APIs do not enforce CLI-required image/name flags or CLI numeric ranges. The native
-endpoint resource CLI applies those constraints as described below; job/log orchestration
+endpoint resource CLI applies those constraints as described below; log orchestration
 remains pending in the ledger.
 
 `tools/endpoint_config_fixtures.py` captures **102 actual pinned Python cases**, bringing
@@ -1557,7 +1558,7 @@ rollout Ctrl-C and JSON worker watch
 against loopback mocks. No real Runpod resource is created or modified.
 See [reviews/endpoint-cli.md](reviews/endpoint-cli.md).
 
-The remaining endpoint log, run and completion workflows are still part of
+The remaining endpoint log and completion workflows are still part of
 the full goal. Their mappings and tests remain pending rather than being inferred from
 the resource-command implementation.
 
@@ -1625,9 +1626,54 @@ fixture groups compare request order/timeouts, sleeps, output values and exact s
 behavior. Three executable tests verify routing, argument validation before credentials,
 and a real delayed HTTP response bounded by the wait deadline. Real Windows terminal tests
 interrupt both wait and stream against loopback servers. The ledger adds four adapted
-symbols and two ported source tests; the SDK differential total is **2,055**. Run-specific
-upstream tests remain pending until endpoint submission is ported.
+symbols and two ported source tests; the SDK differential total is **2,055** at this stage.
+Additional run-specific fault-injection tests remain separately tracked in the test ledger.
 See [reviews/job-follow.md](reviews/job-follow.md).
+
+## Native endpoint submission and load-balancer calls
+
+`endpoint run` reads a file, stdin (`--input -`) or inline `--data` JSON before loading
+credentials. File options open before callback-level flag checks. Async and streaming modes
+are mutually exclusive; a private enum represents the parsed choice. Invalid JSON and
+conflicting inputs fail before endpoint lookup. Valid requests read endpoint metadata to
+choose queue submission or a load-balancer HTTP call; mode-specific checks then follow the
+source order. Whole-body JSON null is treated as no body, so it fails for queue endpoints.
+
+Queue payloads preserve an existing `input` key even when its value is null, false or empty.
+Otherwise the whole JSON value is wrapped as input. Webhook and policy overrides retain
+unrelated values; execution timeout and TTL are converted from seconds to milliseconds.
+An empty/falsy policy remains unchanged unless an override adds fields. Async submission
+prints the raw result or the job ID and resume command. Waiting and streaming reuse the
+tested observer, and the wait deadline begins after submission. Human streaming prints
+the job ID on stderr before chunks; JSON streaming omits that announcement. Failed reads
+or observation deadlines do not resubmit the job.
+
+Load-balancer requests select the metadata base URL or `https://<id>.api.runpod.ai`, trim
+joining slashes and preserve the requested query. Method defaults to POST with a body and
+GET otherwise; an explicit method is uppercased. Requests use Bearer credentials and JSON
+Accept, with Content-Type only when a JSON body exists. The default deadline is 600 seconds.
+Responses preserve structured JSON, plain JSON strings and non-JSON text. JSON mode quotes
+plain text; error messages include method, URL, status and trimmed raw response text,
+including 401 errors. Queue-only flags are rejected for load-balancer endpoints.
+
+Native adaptations retain owned environment/profile credentials, no implicit redirects or
+request replay, total HTTP deadlines and UTF-8 input files. Durations use checked `u64`
+milliseconds; nonfinite CLI timeouts and nonstandard JSON numbers are rejected. Truthy
+policies must be JSON objects; Python's coercion of pair lists or other non-record values
+into dictionaries is not emulated. Native parser, filesystem and transport diagnostics
+replace Python exception spelling. Non-object endpoint metadata fails before submission.
+
+`tools/endpoint_run_fixtures.py` runs **22 unchanged parameterized upstream cases** and
+captures **51 actual invocations** across sixteen groups, including envelope/policy edges,
+encoded endpoint IDs, URL joining, HTTP errors and load-balancer response shapes. Process
+tests compare the complete control/data-plane request sequence, payloads, auth/content
+headers, exit codes and outputs. Load-balancer origins are substituted with loopback URLs;
+a separate native test compares original and fallback URL construction to the same Python
+fixtures. Additional process checks verify preflight ordering, request-bounded observation
+after delayed submission, and rejection of malformed metadata before any mutation.
+The ledger adds three adapted symbols and eleven ported source test functions. The SDK
+differential total is **2,106**. Further run timeout/interrupt fault-injection source tests
+remain explicitly pending. See [reviews/endpoint-run.md](reviews/endpoint-run.md).
 
 ## Remaining work
 

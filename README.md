@@ -256,6 +256,10 @@ rp endpoint job stream ENDPOINT_ID JOB_ID --json
 rp endpoint job cancel ENDPOINT_ID JOB_ID
 rp endpoint job retry ENDPOINT_ID JOB_ID
 rp endpoint purge ENDPOINT_ID --yes
+rp endpoint run ENDPOINT_ID --input request.json
+rp endpoint run ENDPOINT_ID --input request.json --async
+rp endpoint run ENDPOINT_ID --input - --stream
+rp endpoint run LB_ENDPOINT_ID --path /v1/models
 ```
 
 `edit` uses `$VISUAL` or `$EDITOR`, validates JSON, shows the patch, and asks before
@@ -265,7 +269,10 @@ to stdout and rollout progress goes to stderr. Worker watch emits one JSON docum
 per refresh. See `rp endpoint --help` and the [endpoint CLI notes](PORTING.md#native-endpoint-resource-cli).
 Job waiting bounds each HTTP request by the remaining deadline. Streaming drains terminal
 chunks, prints incremental output and retains failed-job details. Ctrl-C leaves the job
-running and prints a resume command. Endpoint log, run and shell-completion commands remain
+running and prints a resume command. `endpoint run` accepts inline `--data`, a file or stdin;
+queue requests submit jobs and load-balancer requests use the endpoint URL and requested
+path/method. `--timeout` starts after queue submission and bounds result observation.
+Endpoint log and shell-completion commands remain
 in progress. See [job observation notes](PORTING.md#native-job-waiting-and-streaming).
 
 `serverless::VolumeCache` (also `utils::VolumeCache`) keeps local cache directories on a

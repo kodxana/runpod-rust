@@ -40,6 +40,15 @@ fn interval(text: &str) -> Result<f64, String> {
         }
     })
 }
+fn positive(text: &str) -> Result<f64, String> {
+    finite(text).and_then(|seconds| {
+        if seconds > 0.0 {
+            Ok(seconds)
+        } else {
+            Err("timeout must be positive".into())
+        }
+    })
+}
 fn scale(command: Command) -> Command {
     command
         .arg(uint("min-workers", 0))
@@ -119,15 +128,7 @@ fn job_command() -> Command {
     }
     let wait = id(base("wait", "Wait for a job and print its output"), true)
         .arg(Arg::new("job-id").value_name("JOB_ID").required(true))
-        .arg(text("timeout").value_parser(|value: &str| {
-            finite(value).and_then(|seconds| {
-                if seconds > 0.0 {
-                    Ok(seconds)
-                } else {
-                    Err("timeout must be positive".into())
-                }
-            })
-        }))
+        .arg(text("timeout").value_parser(positive))
         .arg(flag("json"));
     command = command.subcommand(wait).subcommand(
         id(
@@ -147,6 +148,24 @@ pub(in crate::cli) fn command() -> Command {
     .subcommand_required(true)
     .arg_required_else_help(true)
     .subcommand(job_command())
+    .subcommand(
+        id(
+            base("run", "Send a request to a queue or load-balancer endpoint"),
+            true,
+        )
+        .arg(text("input"))
+        .arg(text("data"))
+        .arg(flag("async"))
+        .arg(flag("stream"))
+        .arg(flag("json"))
+        .arg(text("webhook"))
+        .arg(uint("execution-timeout", 1))
+        .arg(uint("ttl", 1))
+        .arg(flag("low-priority"))
+        .arg(text("timeout").value_parser(positive))
+        .arg(text("path"))
+        .arg(text("method")),
+    )
     .subcommand(
         id(
             base("purge", "Remove queued jobs, leaving running jobs intact"),

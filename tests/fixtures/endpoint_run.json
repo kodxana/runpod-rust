@@ -1,0 +1,2852 @@
+[
+  {
+    "name": "test_run_waits_for_output",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{\"prompt\": \"hello\"}",
+      "--webhook",
+      "https://hook",
+      "--execution-timeout",
+      "60",
+      "--ttl",
+      "120",
+      "--low-priority"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {
+            "prompt": "hello"
+          },
+          "webhook": "https://hook",
+          "policy": {
+            "executionTimeout": 60000,
+            "ttl": 120000,
+            "lowPriority": true
+          }
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_PROGRESS"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": {
+            "text": "hi"
+          }
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"text\": \"hi\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_reads_input_file_and_stdin",
+    "args": [
+      "run",
+      "ep1",
+      "--input",
+      "{document}"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {
+            "a": 1
+          },
+          "policy": {
+            "ttl": 5
+          }
+        },
+        "status": 200,
+        "response": {
+          "id": "job1"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "plain"
+        }
+      }
+    ],
+    "success": [],
+    "document": "{\"input\": {\"a\": 1}, \"policy\": {\"ttl\": 5}}",
+    "code": 0,
+    "stdout": "plain\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_reads_input_file_and_stdin",
+    "args": [
+      "run",
+      "ep1",
+      "--input",
+      "-",
+      "--json"
+    ],
+    "input": "[1, 2]",
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": [
+            1,
+            2
+          ]
+        },
+        "status": 200,
+        "response": {
+          "id": "job1"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "plain"
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": \"plain\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_async",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--async"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      }
+    ],
+    "success": [
+      "submitted job job1 IN_QUEUE"
+    ],
+    "code": 0,
+    "stdout": "\u2713 submitted job job1 IN_QUEUE\nrp endpoint job wait ep1 job1\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_async",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_failed_job_exits_nonzero",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "error": "boom"
+        }
+      }
+    ],
+    "success": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: job job1 failed: boom\n"
+  },
+  {
+    "name": "test_stream_responses_can_omit_chunks",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--stream",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "COMPLETED"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": \"done\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_stream_responses_can_omit_chunks",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--stream",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "IN_QUEUE",
+          "stream": null
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "COMPLETED",
+          "stream": null
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "COMPLETED",
+          "output": "done"
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"COMPLETED\",\n  \"output\": \"done\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_job_timeouts_must_be_positive_before_requests",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--timeout",
+      "0"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: Invalid value for '--timeout': 0.0 is not in the range x>0.\n"
+  },
+  {
+    "name": "test_job_timeouts_must_be_positive_before_requests",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--timeout",
+      "-1"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: Invalid value for '--timeout': -1.0 is not in the range x>0.\n"
+  },
+  {
+    "name": "test_job_timeouts_must_be_positive_before_requests",
+    "args": [
+      "run",
+      "lb1",
+      "--data",
+      "{}",
+      "--timeout",
+      "0"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: Invalid value for '--timeout': 0.0 is not in the range x>0.\n"
+  },
+  {
+    "name": "test_job_timeouts_must_be_positive_before_requests",
+    "args": [
+      "run",
+      "lb1",
+      "--data",
+      "{}",
+      "--timeout",
+      "-1"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: Invalid value for '--timeout': -1.0 is not in the range x>0.\n"
+  },
+  {
+    "name": "test_job_timeouts_must_be_positive_before_requests",
+    "args": [
+      "job",
+      "wait",
+      "ep1",
+      "job1",
+      "--timeout",
+      "0"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint job wait [OPTIONS] ENDPOINT_ID JOB_ID\nTry 'cli endpoint job wait --help' for help.\n\nError: Invalid value for '--timeout': 0.0 is not in the range x>0.\n"
+  },
+  {
+    "name": "test_job_timeouts_must_be_positive_before_requests",
+    "args": [
+      "job",
+      "wait",
+      "ep1",
+      "job1",
+      "--timeout",
+      "-1"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint job wait [OPTIONS] ENDPOINT_ID JOB_ID\nTry 'cli endpoint job wait --help' for help.\n\nError: Invalid value for '--timeout': -1.0 is not in the range x>0.\n"
+  },
+  {
+    "name": "test_run_stream",
+    "args": [
+      "run",
+      "ep1",
+      "--input",
+      "-",
+      "--stream"
+    ],
+    "input": "{\"p\": 1}",
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {
+            "p": 1
+          }
+        },
+        "status": 200,
+        "response": {
+          "id": "job1"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "IN_PROGRESS",
+          "stream": []
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "IN_PROGRESS",
+          "stream": [
+            {
+              "output": "hel"
+            },
+            {
+              "output": "lo"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "COMPLETED",
+          "stream": [
+            {
+              "output": {
+                "done": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "COMPLETED",
+          "stream": []
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "hello\n{\"done\": true}\n",
+    "stderr": "job job1\n"
+  },
+  {
+    "name": "test_run_stream_failure_and_json",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--stream",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "FAILED",
+          "stream": [
+            {
+              "output": "partial"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/stream/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "status": "FAILED",
+          "stream": []
+        }
+      },
+      {
+        "kind": "data",
+        "method": "GET",
+        "path": "ep1/status/job1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "FAILED",
+          "error": "oom"
+        }
+      }
+    ],
+    "success": [],
+    "code": 1,
+    "stdout": "\"partial\"\n{\n  \"id\": \"job1\",\n  \"status\": \"FAILED\",\n  \"error\": \"oom\"\n}\n",
+    "stderr": "Error: job job1 failed: oom\n"
+  },
+  {
+    "name": "test_run_rejects_bad_flags",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--async",
+      "--stream"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: use either --async or --stream\n"
+  },
+  {
+    "name": "test_run_rejects_bad_flags",
+    "args": [
+      "run",
+      "ep1"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      }
+    ],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: pass --input FILE or --data JSON\n"
+  },
+  {
+    "name": "test_run_rejects_bad_flags",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{bad"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: request body is not valid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\n"
+  },
+  {
+    "name": "test_run_rejects_bad_flags",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--input",
+      "-"
+    ],
+    "input": null,
+    "requests": [],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: use either --input or --data\n"
+  },
+  {
+    "name": "test_run_rejects_bad_flags",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--path",
+      "/x"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "name": "llama-prod",
+          "type": "QUEUE",
+          "image": "ghcr.io/acme/llama:latest",
+          "args": "",
+          "env": {
+            "A": "1",
+            "B": "2"
+          },
+          "disk": 10,
+          "ports": [],
+          "gpu": {
+            "pools": [
+              "ADA_80_PRO"
+            ],
+            "excludedTypes": [
+              "NVIDIA A100 80GB PCIe"
+            ],
+            "count": 1,
+            "allowedCudaVersions": [],
+            "minCudaVersion": null
+          },
+          "workers": {
+            "min": 0,
+            "max": 3,
+            "idleTimeout": 5
+          },
+          "scaling": {
+            "type": "QUEUE_DELAY",
+            "queueDelay": 4
+          },
+          "timeout": 300000,
+          "flashboot": "FLASHBOOT",
+          "dataCenterIds": [
+            "EU-RO-1"
+          ],
+          "networkVolumes": [
+            "vol1"
+          ],
+          "mounts": {
+            "network": [
+              {
+                "volumeId": "vol1"
+              }
+            ],
+            "global": []
+          },
+          "requestUrls": {
+            "run": "https://api.runpod.ai/v2/ep1/run"
+          },
+          "createdAt": "2026-07-10T22:38:43Z"
+        }
+      }
+    ],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: --path and --method apply to load-balancer endpoints\n"
+  },
+  {
+    "name": "test_run_rejects_bad_flags",
+    "args": [
+      "run",
+      "lb1",
+      "--data",
+      "{}",
+      "--async"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "name": "openai-api",
+          "type": "LOAD_BALANCER",
+          "image": "ghcr.io/acme/openai-server:latest",
+          "gpu": {
+            "pools": [
+              "ADA_24"
+            ],
+            "excludedTypes": [],
+            "count": 2,
+            "allowedCudaVersions": [],
+            "minCudaVersion": "12.4"
+          },
+          "workers": {
+            "min": 1,
+            "max": 10
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 4
+          },
+          "timeout": 0,
+          "flashboot": "PRIORITY_FLASHBOOT",
+          "dataCenterIds": [],
+          "mounts": {
+            "network": [],
+            "global": []
+          },
+          "requestUrls": {
+            "base": "https://lb1.api.runpod.ai",
+            "health": "x"
+          },
+          "createdAt": "2026-07-12T00:00:00Z"
+        }
+      }
+    ],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: load-balancer endpoints take --path, --method, and a body; job options apply to queue endpoints\n"
+  },
+  {
+    "name": "test_load_balancer_plain_text_json",
+    "args": [
+      "run",
+      "lb1",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "name": "openai-api",
+          "type": "LOAD_BALANCER",
+          "image": "ghcr.io/acme/openai-server:latest",
+          "gpu": {
+            "pools": [
+              "ADA_24"
+            ],
+            "excludedTypes": [],
+            "count": 2,
+            "allowedCudaVersions": [],
+            "minCudaVersion": "12.4"
+          },
+          "workers": {
+            "min": 1,
+            "max": 10
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 4
+          },
+          "timeout": 0,
+          "flashboot": "PRIORITY_FLASHBOOT",
+          "dataCenterIds": [],
+          "mounts": {
+            "network": [],
+            "global": []
+          },
+          "requestUrls": {
+            "base": "https://lb1.api.runpod.ai",
+            "health": "x"
+          },
+          "createdAt": "2026-07-12T00:00:00Z"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://lb1.api.runpod.ai/",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "raw": "pong"
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "\"pong\"\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_load_balancer",
+    "args": [
+      "run",
+      "lb1",
+      "--path",
+      "/v1/chat",
+      "--data",
+      "{\"m\": 1}"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "name": "openai-api",
+          "type": "LOAD_BALANCER",
+          "image": "ghcr.io/acme/openai-server:latest",
+          "gpu": {
+            "pools": [
+              "ADA_24"
+            ],
+            "excludedTypes": [],
+            "count": 2,
+            "allowedCudaVersions": [],
+            "minCudaVersion": "12.4"
+          },
+          "workers": {
+            "min": 1,
+            "max": 10
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 4
+          },
+          "timeout": 0,
+          "flashboot": "PRIORITY_FLASHBOOT",
+          "dataCenterIds": [],
+          "mounts": {
+            "network": [],
+            "global": []
+          },
+          "requestUrls": {
+            "base": "https://lb1.api.runpod.ai",
+            "health": "x"
+          },
+          "createdAt": "2026-07-12T00:00:00Z"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "POST",
+        "url": "https://lb1.api.runpod.ai/v1/chat",
+        "body": {
+          "m": 1
+        },
+        "timeout": 600,
+        "status": 200,
+        "response": {
+          "data": [
+            1
+          ]
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"data\": [\n    1\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_load_balancer",
+    "args": [
+      "run",
+      "lb1",
+      "--path",
+      "ping"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "name": "openai-api",
+          "type": "LOAD_BALANCER",
+          "image": "ghcr.io/acme/openai-server:latest",
+          "gpu": {
+            "pools": [
+              "ADA_24"
+            ],
+            "excludedTypes": [],
+            "count": 2,
+            "allowedCudaVersions": [],
+            "minCudaVersion": "12.4"
+          },
+          "workers": {
+            "min": 1,
+            "max": 10
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 4
+          },
+          "timeout": 0,
+          "flashboot": "PRIORITY_FLASHBOOT",
+          "dataCenterIds": [],
+          "mounts": {
+            "network": [],
+            "global": []
+          },
+          "requestUrls": {
+            "base": "https://lb1.api.runpod.ai",
+            "health": "x"
+          },
+          "createdAt": "2026-07-12T00:00:00Z"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://lb1.api.runpod.ai/ping",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "raw": "pong"
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "pong\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_load_balancer",
+    "args": [
+      "run",
+      "lb1",
+      "--method",
+      "put",
+      "--timeout",
+      "5"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "name": "openai-api",
+          "type": "LOAD_BALANCER",
+          "image": "ghcr.io/acme/openai-server:latest",
+          "gpu": {
+            "pools": [
+              "ADA_24"
+            ],
+            "excludedTypes": [],
+            "count": 2,
+            "allowedCudaVersions": [],
+            "minCudaVersion": "12.4"
+          },
+          "workers": {
+            "min": 1,
+            "max": 10
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 4
+          },
+          "timeout": 0,
+          "flashboot": "PRIORITY_FLASHBOOT",
+          "dataCenterIds": [],
+          "mounts": {
+            "network": [],
+            "global": []
+          },
+          "requestUrls": {
+            "base": "https://lb1.api.runpod.ai",
+            "health": "x"
+          },
+          "createdAt": "2026-07-12T00:00:00Z"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "PUT",
+        "url": "https://lb1.api.runpod.ai/",
+        "body": null,
+        "timeout": 5.0,
+        "status": 200,
+        "response": "a string"
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "a string\n",
+    "stderr": ""
+  },
+  {
+    "name": "test_run_load_balancer",
+    "args": [
+      "run",
+      "lb1"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "name": "openai-api",
+          "type": "LOAD_BALANCER",
+          "image": "ghcr.io/acme/openai-server:latest",
+          "gpu": {
+            "pools": [
+              "ADA_24"
+            ],
+            "excludedTypes": [],
+            "count": 2,
+            "allowedCudaVersions": [],
+            "minCudaVersion": "12.4"
+          },
+          "workers": {
+            "min": 1,
+            "max": 10
+          },
+          "scaling": {
+            "type": "REQUEST_COUNT",
+            "requestCount": 4
+          },
+          "timeout": 0,
+          "flashboot": "PRIORITY_FLASHBOOT",
+          "dataCenterIds": [],
+          "mounts": {
+            "network": [],
+            "global": []
+          },
+          "requestUrls": {
+            "base": "https://lb1.api.runpod.ai",
+            "health": "x"
+          },
+          "createdAt": "2026-07-12T00:00:00Z"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://lb1.api.runpod.ai/",
+        "body": null,
+        "timeout": 600,
+        "status": 500,
+        "raw": "kaput"
+      }
+    ],
+    "success": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: GET https://lb1.api.runpod.ai/ returned 500: kaput\n"
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "null",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      }
+    ],
+    "success": [],
+    "code": 2,
+    "stdout": "",
+    "stderr": "Usage: cli endpoint run [OPTIONS] ENDPOINT_ID\nTry 'cli endpoint run --help' for help.\n\nError: pass --input FILE or --data JSON\n"
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "false",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": false
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "0",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": 0
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "\"\"",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": ""
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "[]",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": []
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{}",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{\"input\": null}",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": null
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{\"input\": false}",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": false
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{\"input\": {}}",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_envelope_edges",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{\"input\": [], \"policy\": null}",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": [],
+          "policy": null
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_policy_merge",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{\"input\":{},\"webhook\":\"old\",\"policy\":{\"ttl\":5,\"keep\":1}}",
+      "--webhook",
+      "new",
+      "--ttl",
+      "2",
+      "--execution-timeout",
+      "3",
+      "--low-priority",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {},
+          "webhook": "new",
+          "policy": {
+            "ttl": 2000,
+            "keep": 1,
+            "executionTimeout": 3000,
+            "lowPriority": true
+          }
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "queue_policy_merge",
+    "args": [
+      "run",
+      "ep1",
+      "--data",
+      "{\"input\":{},\"policy\":{}}",
+      "--webhook",
+      "",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep1/run",
+        "body": {
+          "input": {},
+          "policy": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "encoded_run_id",
+    "args": [
+      "run",
+      "ep /?#%\u00e9",
+      "--data",
+      "{}",
+      "--async",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/ep%20%2F%3F%23%25%C3%A9",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "ep1",
+          "type": "QUEUE"
+        }
+      },
+      {
+        "kind": "data",
+        "method": "POST",
+        "path": "ep%20%2F%3F%23%25%C3%A9/run",
+        "body": {
+          "input": {}
+        },
+        "status": 200,
+        "response": {
+          "id": "job1",
+          "status": "IN_QUEUE",
+          "extra": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"id\": \"job1\",\n  \"status\": \"IN_QUEUE\",\n  \"extra\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_body_and_url",
+    "args": [
+      "run",
+      "lb1",
+      "--path",
+      "///ping?q=1",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER",
+          "requestUrls": {
+            "base": "https://alternate.example/base/"
+          }
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://alternate.example/base/ping?q=1",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "response": {
+          "ok": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"ok\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_body_and_url",
+    "args": [
+      "run",
+      "lb1",
+      "--path",
+      "///ping?q=1",
+      "--json",
+      "--data",
+      "null"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER",
+          "requestUrls": {
+            "base": "https://alternate.example/base/"
+          }
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://alternate.example/base/ping?q=1",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "response": {
+          "ok": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"ok\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_body_and_url",
+    "args": [
+      "run",
+      "lb1",
+      "--path",
+      "///ping?q=1",
+      "--json",
+      "--data",
+      "false"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER",
+          "requestUrls": {
+            "base": "https://alternate.example/base/"
+          }
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "POST",
+        "url": "https://alternate.example/base/ping?q=1",
+        "body": false,
+        "timeout": 600,
+        "status": 200,
+        "response": {
+          "ok": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"ok\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_body_and_url",
+    "args": [
+      "run",
+      "lb1",
+      "--path",
+      "///ping?q=1",
+      "--json",
+      "--data",
+      "[]"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER",
+          "requestUrls": {
+            "base": "https://alternate.example/base/"
+          }
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "POST",
+        "url": "https://alternate.example/base/ping?q=1",
+        "body": [],
+        "timeout": 600,
+        "status": 200,
+        "response": {
+          "ok": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"ok\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_body_and_url",
+    "args": [
+      "run",
+      "lb1",
+      "--path",
+      "///ping?q=1",
+      "--json",
+      "--data",
+      "{\"input\":null}"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER",
+          "requestUrls": {
+            "base": "https://alternate.example/base/"
+          }
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "POST",
+        "url": "https://alternate.example/base/ping?q=1",
+        "body": {
+          "input": null
+        },
+        "timeout": 600,
+        "status": 200,
+        "response": {
+          "ok": true
+        }
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "{\n  \"ok\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_response_values",
+    "args": [
+      "run",
+      "lb1",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://lb1.api.runpod.ai/",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "response": null
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "null\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_response_values",
+    "args": [
+      "run",
+      "lb1",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://lb1.api.runpod.ai/",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "response": false
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "false\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_response_values",
+    "args": [
+      "run",
+      "lb1",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://lb1.api.runpod.ai/",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "response": []
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "[]\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_response_values",
+    "args": [
+      "run",
+      "lb1",
+      "--json"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER"
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://lb1.api.runpod.ai/",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "response": "caf\u00e9"
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "\"caf\\u00e9\"\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_response_values",
+    "args": [
+      "run",
+      "lb1"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER",
+          "requestUrls": {
+            "base": "https://alternate.example/base/"
+          }
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://alternate.example/base/",
+        "body": null,
+        "timeout": 600,
+        "status": 200,
+        "raw": "plain\n"
+      }
+    ],
+    "success": [],
+    "code": 0,
+    "stdout": "plain\n\n",
+    "stderr": ""
+  },
+  {
+    "name": "load_balancer_response_values",
+    "args": [
+      "run",
+      "lb1"
+    ],
+    "input": null,
+    "requests": [
+      {
+        "kind": "control",
+        "method": "GET",
+        "path": "/v2/serverless/lb1",
+        "body": null,
+        "status": 200,
+        "response": {
+          "id": "lb1",
+          "type": "LOAD_BALANCER",
+          "requestUrls": {
+            "base": "https://alternate.example/base/"
+          }
+        }
+      },
+      {
+        "kind": "lb",
+        "method": "GET",
+        "url": "https://alternate.example/base/",
+        "body": null,
+        "timeout": 600,
+        "status": 401,
+        "response": {
+          "detail": "failed"
+        },
+        "raw": " {\"detail\":\"failed\"} \n"
+      }
+    ],
+    "success": [],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Error: GET https://alternate.example/base/ returned 401: {\"detail\":\"failed\"}\n"
+  }
+]

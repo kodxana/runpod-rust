@@ -84,6 +84,7 @@ pub(in crate::cli) async fn execute(
         action.route(),
         endpoint_id,
         job_id,
+        None,
         Duration::from_secs(10),
     )
     .await?;
@@ -115,6 +116,7 @@ pub(super) async fn request(
     operation: &str,
     endpoint_id: &str,
     job_id: Option<&str>,
+    body: Option<&Value>,
     timeout: Duration,
 ) -> crate::Result<Value> {
     let mut path = format!("{}/{operation}", segment(endpoint_id));
@@ -122,7 +124,7 @@ pub(super) async fn request(
         path.push('/');
         path.push_str(&segment(id));
     }
-    let response = client
+    let mut request = client
         .http
         .request(
             method.clone(),
@@ -131,9 +133,11 @@ pub(super) async fn request(
                 client.config.endpoint_base_url.trim_end_matches('/')
             ),
         )
-        .timeout(timeout)
-        .send()
-        .await?;
+        .timeout(timeout);
+    if let Some(body) = body {
+        request = request.json(body);
+    }
+    let response = request.send().await?;
     let status = response.status();
     if status == reqwest::StatusCode::UNAUTHORIZED {
         return Err(Error::Authentication(

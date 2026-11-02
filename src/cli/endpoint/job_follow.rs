@@ -59,6 +59,7 @@ impl JobReader for HttpReader<'_> {
             operation,
             self.endpoint,
             Some(self.job),
+            None,
             timeout,
         )
         .await

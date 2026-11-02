@@ -8354,8 +8354,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_waits_for_output",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8364,8 +8365,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client, tmp_path",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_reads_input_file_and_stdin",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8374,8 +8376,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_async",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8384,8 +8387,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_failed_job_exits_nonzero",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8414,8 +8418,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client, empty_stream",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_stream_responses_can_omit_chunks",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8444,8 +8449,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client, timeout, args",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_job_timeouts_must_be_positive_before_requests",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8454,8 +8460,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_stream",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8474,8 +8481,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_stream_failure_and_json",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8484,8 +8492,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, client, args, message",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_rejects_bad_flags",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8494,8 +8503,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_load_balancer_plain_text_json",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8504,8 +8514,9 @@
       "kind": "function",
       "public": true,
       "signature": "api, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "cli_endpoint_run::test_run_load_balancer",
+      "status": "ported",
+      "note": "Named native process counterpart using unchanged source tests and captured request/response sequences. Loopback tests preserve payloads, routing, credentials, headers, output and errors. Separate URL tests verify original/default load-balancer bases; process mocks substitute only the HTTP origin. Additional timing/fault-injection source tests remain pending separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8527,7 +8538,7 @@
       "signature": "api, client",
       "rust": "cli::endpoint::job_follow::tests::test_job_wait_and_stream",
       "status": "ported",
-      "note": "Named Rust counterpart using actual pinned Python observer fixtures; separate executable tests verify dispatch, credential-independent argument validation and in-flight HTTP deadlines. Windows terminal smoke checks cover real Ctrl-C. Run-specific tests remain pending until run orchestration is ported."
+      "note": "Named Rust counterpart using actual pinned Python observer fixtures; separate executable tests verify dispatch, credential-independent argument validation and in-flight HTTP deadlines. Windows terminal smoke checks cover real Ctrl-C. Remaining run-specific fault-injection tests are tracked separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",
@@ -8538,7 +8549,7 @@
       "signature": "api, client",
       "rust": "cli::endpoint::job_follow::tests::test_job_stream_interrupt",
       "status": "ported",
-      "note": "Named Rust counterpart using actual pinned Python observer fixtures; separate executable tests verify dispatch, credential-independent argument validation and in-flight HTTP deadlines. Windows terminal smoke checks cover real Ctrl-C. Run-specific tests remain pending until run orchestration is ported."
+      "note": "Named Rust counterpart using actual pinned Python observer fixtures; separate executable tests verify dispatch, credential-independent argument validation and in-flight HTTP deadlines. Windows terminal smoke checks cover real Ctrl-C. Remaining run-specific fault-injection tests are tracked separately."
     },
     {
       "file": "tests/test_cli/test_endpoint_command.py",

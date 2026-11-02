@@ -1,6 +1,7 @@
 mod job_follow;
 mod jobs;
 mod options;
+mod run;
 #[cfg(test)]
 mod tests;
 mod view;
@@ -19,6 +20,7 @@ use crate::{
 pub(super) use jobs::execute as execute_job;
 use options::Document;
 pub(super) use options::{Options, command};
+pub(super) use run::RunOptions;
 use std::io::Read;
 
 fn path(id: &str, parts: &[&str]) -> String {
