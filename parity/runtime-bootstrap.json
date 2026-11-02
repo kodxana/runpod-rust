@@ -39,9 +39,9 @@
     "Platform filesystem metadata, timestamp precision and diagnostics"
   ],
   "pending_contracts": [
-    "System dependencies and excluded-package verification",
+    "Python-compatible excluded-package verification (native system packages are tracked in runtime-bootstrap-startup.json)",
     "Live runtime dependency setup",
     "Native binary packaging/launch (manifest selection and mounts are tracked in runtime-loading.json)",
-    "Full main orchestration (error responders are tracked in runtime-bootstrap-reporting.json)"
+    "Live main orchestration (native deployed startup is tracked in runtime-bootstrap-startup.json)"
   ]
 }

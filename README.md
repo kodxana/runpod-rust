@@ -153,6 +153,16 @@ extracts tar/gzip/bzip2/xz content. `read_manifest` reads its JSON and `dependen
 returns vendored-environment/source order. These are blocking operations; use a blocking
 executor from async code. Native binary packaging and automatic launch remain in progress.
 
+`apps::bootstrap::start_deployed` connects preparation to a native queue, API or task worker.
+Pass a loader that accepts the manifest module and a `DeployedContext`; use `context.app_dir()`
+for bundled assets and `context.mounts()` for volume bindings. It validates task identity,
+extracts or reuses the artifact, installs the selected resource's system packages, and starts
+the worker with its existing initialization and error behavior. It does not modify the
+process environment or working directory. See [examples/bootstrap_queue.rs](examples/bootstrap_queue.rs)
+for app `greetings`, resource `hello`, module `bootstrap_queue`, with a mount named `data`.
+Use `RUNPOD_PREBUILT_APP_DIR` for an already-unpacked tree or `FLASH_BUILD_ARTIFACT_PATH`
+and `RUNPOD_APP_DIR` for extraction. Native crate dependencies are resolved during compilation.
+
 `apps::runtime::DeployedContext` reads the worker identity and validates `RUNPOD_MOUNTS`
 before loading application declarations. `load_queue` and `load_api` select the first
 matching handle from an explicit compiled-module callback; start it with the queue or

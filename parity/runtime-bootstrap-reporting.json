@@ -34,7 +34,7 @@
     "Non-Unicode environment values are treated as absent; native port parsing is limited to u16"
   ],
   "pending_contracts": [
-    "Complete bootstrap startup orchestration, including dependency setup and verification",
+    "Live bootstrap orchestration and Python-compatible dependency verification (native deployed startup is tracked in runtime-bootstrap-startup.json)",
     "Native binary packaging and automatic platform launch",
     "Live source resolution and executor integration"
   ]

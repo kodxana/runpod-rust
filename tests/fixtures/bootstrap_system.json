@@ -1,0 +1,298 @@
+{
+  "repository": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "cases": [
+    {
+      "name": "no resources",
+      "manifest": {
+        "resources": []
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [],
+      "error": null
+    },
+    {
+      "name": "no field",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q"
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [],
+      "error": null
+    },
+    {
+      "name": "empty",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": []
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [],
+      "error": null
+    },
+    {
+      "name": "null",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": null
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [],
+      "error": null
+    },
+    {
+      "name": "other resource",
+      "manifest": {
+        "resources": [
+          {
+            "name": "other",
+            "systemDependencies": [
+              "git"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [],
+      "error": null
+    },
+    {
+      "name": "one",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": [
+              "ffmpeg"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [
+        {
+          "args": [
+            "update",
+            "-qq"
+          ],
+          "frontend": "noninteractive"
+        },
+        {
+          "args": [
+            "install",
+            "-y",
+            "-qq",
+            "--no-install-recommends",
+            "ffmpeg"
+          ],
+          "frontend": "noninteractive"
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "multiple and literal arguments",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": [
+              "ffmpeg",
+              "sox=1",
+              "lib name;$HOME"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [
+        {
+          "args": [
+            "update",
+            "-qq"
+          ],
+          "frontend": "noninteractive"
+        },
+        {
+          "args": [
+            "install",
+            "-y",
+            "-qq",
+            "--no-install-recommends",
+            "ffmpeg",
+            "sox=1",
+            "lib name;$HOME"
+          ],
+          "frontend": "noninteractive"
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "first duplicate",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": [
+              "first"
+            ]
+          },
+          {
+            "name": "q",
+            "systemDependencies": [
+              "second"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [
+        {
+          "args": [
+            "update",
+            "-qq"
+          ],
+          "frontend": "noninteractive"
+        },
+        {
+          "args": [
+            "install",
+            "-y",
+            "-qq",
+            "--no-install-recommends",
+            "first"
+          ],
+          "frontend": "noninteractive"
+        }
+      ],
+      "error": null
+    },
+    {
+      "name": "first duplicate empty",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q"
+          },
+          {
+            "name": "q",
+            "systemDependencies": [
+              "second"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "ok",
+      "calls": [],
+      "error": null
+    },
+    {
+      "name": "missing",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": [
+              "ffmpeg"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "missing",
+      "calls": [],
+      "error": {
+        "phase": "system",
+        "detail": "system dependencies ['ffmpeg'] requested but apt-get is not available in this image; use a debian-based image or bake them in"
+      }
+    },
+    {
+      "name": "update-fail",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": [
+              "ffmpeg"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "update-fail",
+      "calls": [
+        {
+          "args": [
+            "update",
+            "-qq"
+          ],
+          "frontend": "noninteractive"
+        }
+      ],
+      "error": {
+        "phase": "system",
+        "detail": "apt-get update failed: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxTAIL"
+      }
+    },
+    {
+      "name": "install-fail",
+      "manifest": {
+        "resources": [
+          {
+            "name": "q",
+            "systemDependencies": [
+              "ffmpeg"
+            ]
+          }
+        ]
+      },
+      "resource": "q",
+      "mode": "install-fail",
+      "calls": [
+        {
+          "args": [
+            "update",
+            "-qq"
+          ],
+          "frontend": "noninteractive"
+        },
+        {
+          "args": [
+            "install",
+            "-y",
+            "-qq",
+            "--no-install-recommends",
+            "ffmpeg"
+          ],
+          "frontend": "noninteractive"
+        }
+      ],
+      "error": {
+        "phase": "system",
+        "detail": "failed to install system dependencies ['ffmpeg']: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxTAIL"
+      }
+    }
+  ]
+}

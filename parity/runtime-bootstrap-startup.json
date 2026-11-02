@@ -1,0 +1,42 @@
+{
+  "upstream": "https://github.com/runpod-workers/sdk-runtime",
+  "commit": "14f70227008c1ec317e3fe1865a4688b14f5d432",
+  "file": "src/runpod_sdk_runtime/bootstrap.py",
+  "scope": "Native deployed bootstrap orchestration and system packages; separate from SDK inventory",
+  "fixtures": "tests/fixtures/bootstrap_system.json",
+  "fixture_cases": 12,
+  "fixture_sha256": "05d1ce8020c14c4f50030446f9fc5490bb57df402ee7bb6e238a790e99c5747a",
+  "native_tests": ["tests/bootstrap_system.rs", "tests/bootstrap_startup.rs", "src/apps/bootstrap/startup/tests.rs"],
+  "test_mapping": {
+    "test_bootstrap.py::TestSystemPhase.test_no_system_deps_no_op": "test_no_system_deps_no_op",
+    "test_bootstrap.py::TestSystemPhase.test_missing_apt_fails_with_phase": "test_missing_apt_fails_with_phase",
+    "test_bootstrap.py::TestSystemPhase.test_installs_resource_system_deps": "test_installs_resource_system_deps",
+    "test_bootstrap.py::TestSystemPhase.test_other_resources_deps_ignored": "test_other_resources_deps_ignored",
+    "test_bootstrap.py::TestMain.test_deployed_path_serves": "test_deployed_path_serves_queue_from_prebuilt_directory",
+    "test_bootstrap.py::TestMain.test_phase_error_reports": "test_phase_error_reports_before_loading_application",
+    "test_deployed_task.py::test_malformed_manifest_reports_bootstrap_error": "test_phase_error_reports_before_loading_application"
+  },
+  "source_validation": {"unchanged_passed_cases": 9},
+  "verified_contracts": [
+    "Task identity before artifact location; task manifest selection before system installation",
+    "First matching resource selects system packages; update precedes install; literal argv and noninteractive environment",
+    "System-phase failures retain 2000-character stderr tails and prevent application loading",
+    "Prebuilt/extracted app directory reaches the native loader, bundled assets and mount bindings without environment mutation",
+    "Real queue/API/task startup, initialization, execution and task deadline deletion",
+    "Preparation failures enter queue/API/task error responders without invoking user registration",
+    "Cancelling installation kills the direct package-manager process"
+  ],
+  "native_adaptations": [
+    "Compiled Rust dependencies replace Python import probes, sys.path attachment and pip repair; excludedPackages has no native import meaning",
+    "start_deployed requires a named deployed resource; live-source startup remains separate and pending",
+    "Owned context carries resolved paths; no execve, process-global path or environment mutation",
+    "System declarations require string arrays; malformed untyped declarations receive typed system-phase diagnostics",
+    "Native diagnostic quoting, UTF-8 loss handling, missing-command causes and entry-time configuration validation",
+    "Extraction runs on the blocking pool and cannot be interrupted once running; package-manager descendants follow their own lifecycle"
+  ],
+  "pending_contracts": [
+    "Native binary packaging, deployment payloads and automatic platform launch",
+    "Live-source bootstrap and executor integration",
+    "Python-compatible runtime installation and excluded-package repair"
+  ]
+}

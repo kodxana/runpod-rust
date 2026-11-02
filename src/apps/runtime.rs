@@ -10,7 +10,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-const TASK_IDENTITY: [&str; 4] = [
+pub(super) const TASK_IDENTITY: [&str; 4] = [
     "FLASH_APP_NAME",
     "FLASH_ENVIRONMENT",
     "FLASH_RESOURCE_NAME",
@@ -82,6 +82,11 @@ impl DeployedContext {
     #[must_use]
     pub fn app_dir(&self) -> &Path {
         &self.app_dir
+    }
+
+    pub(super) fn with_app_dir(mut self, path: PathBuf) -> Self {
+        self.app_dir = path;
+        self
     }
 
     /// Returns the Flash resource name, falling back to the Runpod resource name when empty.
@@ -196,20 +201,13 @@ impl DeployedContext {
         &self,
         loader: impl FnOnce(&str, &MountBindings) -> Result<AppRegistry>,
     ) -> Result<FunctionHandle> {
-        if self.runtime_kind != "task" {
-            return Err(PhaseError::new("identity", "RUNPOD_RUNTIME_KIND must be task").into());
-        }
-        for (key, value) in TASK_IDENTITY.iter().zip(&self.task_identity) {
-            if value.trim().is_empty() {
-                return Err(PhaseError::new(
-                    "identity",
-                    format!("{key} is required for deployed tasks"),
-                )
-                .into());
-            }
-        }
+        validate_task_identity(
+            &self.runtime_kind,
+            self.task_identity.each_ref().map(String::as_str),
+        )?;
         let manifest = read_manifest(&self.app_dir)?;
-        let (module, qualname) = self.task_symbol(&manifest)?;
+        let (module, qualname) =
+            task_symbol(&manifest, &self.task_identity[0], &self.resource_name)?;
         let registry = loader(module, &self.mounts)?;
         let mut selected = None;
         for (index, app) in registry.apps().iter().enumerate() {
@@ -243,37 +241,57 @@ impl DeployedContext {
         handle.initialize().await?;
         Ok(handle)
     }
+}
 
-    fn task_symbol<'a>(&self, manifest: &'a Value) -> Result<(&'a str, &'a str)> {
-        let attach = |detail| PhaseError::new("attach", detail);
-        if !manifest.is_object() {
-            return Err(attach("manifest must be an object").into());
-        }
-        if manifest.get("app").and_then(Value::as_str) != Some(&self.task_identity[0]) {
-            return Err(attach("manifest app does not match FLASH_APP_NAME").into());
-        }
-        let resources = manifest
-            .get("resources")
-            .and_then(Value::as_array)
-            .filter(|resources| resources.iter().all(Value::is_object))
-            .ok_or_else(|| attach("manifest resources must be an array of objects"))?;
-        let mut matches = resources
-            .iter()
-            .filter(|entry| entry.get("name").and_then(Value::as_str) == Some(&self.resource_name));
-        let entry = matches
-            .next()
-            .filter(|entry| entry.get("kind").and_then(Value::as_str) == Some("task"))
-            .filter(|_| matches.next().is_none())
-            .ok_or_else(|| attach("manifest must contain exactly one matching task"))?;
-        let symbol = |key| {
-            entry
-                .get(key)
-                .and_then(Value::as_str)
-                .filter(|value| !value.trim().is_empty())
-                .ok_or_else(|| attach("task module and qualname are required"))
-        };
-        Ok((symbol("module")?, symbol("qualname")?))
+pub(super) fn validate_task_identity(kind: &str, identity: [&str; 4]) -> Result<()> {
+    if kind != "task" {
+        return Err(PhaseError::new("identity", "RUNPOD_RUNTIME_KIND must be task").into());
     }
+    for (key, value) in TASK_IDENTITY.into_iter().zip(identity) {
+        if value.trim().is_empty() {
+            return Err(PhaseError::new(
+                "identity",
+                format!("{key} is required for deployed tasks"),
+            )
+            .into());
+        }
+    }
+    Ok(())
+}
+
+pub(super) fn task_symbol<'a>(
+    manifest: &'a Value,
+    app_name: &str,
+    resource_name: &str,
+) -> Result<(&'a str, &'a str)> {
+    let attach = |detail| PhaseError::new("attach", detail);
+    if !manifest.is_object() {
+        return Err(attach("manifest must be an object").into());
+    }
+    if manifest.get("app").and_then(Value::as_str) != Some(app_name) {
+        return Err(attach("manifest app does not match FLASH_APP_NAME").into());
+    }
+    let resources = manifest
+        .get("resources")
+        .and_then(Value::as_array)
+        .filter(|resources| resources.iter().all(Value::is_object))
+        .ok_or_else(|| attach("manifest resources must be an array of objects"))?;
+    let mut matches = resources
+        .iter()
+        .filter(|entry| entry.get("name").and_then(Value::as_str) == Some(resource_name));
+    let entry = matches
+        .next()
+        .filter(|entry| entry.get("kind").and_then(Value::as_str) == Some("task"))
+        .filter(|_| matches.next().is_none())
+        .ok_or_else(|| attach("manifest must contain exactly one matching task"))?;
+    let symbol = |key| {
+        entry
+            .get(key)
+            .and_then(Value::as_str)
+            .filter(|value| !value.trim().is_empty())
+            .ok_or_else(|| attach("task module and qualname are required"))
+    };
+    Ok((symbol("module")?, symbol("qualname")?))
 }
 
 fn task_handle_error() -> Error {

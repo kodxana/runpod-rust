@@ -2293,8 +2293,8 @@ Runtime coverage remains separate: SDK inventory stays **818/1,135 symbols (72.1
 `apps::bootstrap::QueueErrorReporter`, `serve_api_error` and `report_error` port the
 pinned runtime's `_queue_error_loop`, `_api_error_server` and `_report_error` contracts.
 They can report a startup failure before application declarations or normal worker
-initialization. Artifact location, native resource selection and task serving remain
-separate operations; full startup orchestration and native deployment are still pending.
+initialization. The subsequent startup milestone connects artifact location, native
+resource selection and serving. Native deployment and live startup remain pending.
 
 Queue reporting preserves raw `RUNPOD_AI_API_KEY` authorization, both webhook settings,
 all `$ID` replacements and the nested JSON error string. The POST's content type remains
@@ -2329,6 +2329,55 @@ regenerate identically with explicit LF output. See
 
 Runtime coverage is tracked separately; SDK inventory remains **818/1,135 symbols**,
 **928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
+
+## Native deployed bootstrap startup
+
+`apps::bootstrap::start_deployed` connects the deployed branch of runtime `bootstrap.main`
+to native worker execution. It captures relevant settings, validates task identity before
+artifact work, locates the prebuilt/extracted tree, reads the manifest, validates the task
+entry and installs the selected resource's system dependencies. Shared task validation
+helpers preserve the existing direct-loader contract. Preparation phase failures enter
+the queue/API/task responder; unexpected preparation errors are surfaced as task bootstrap
+errors in task mode and propagate otherwise.
+
+The loader receives a module name and `DeployedContext`, including the actual app directory
+and validated mounts. It can read bundled assets and clone paths/bindings into handlers.
+No process environment or working-directory change is required. Queue and API selection
+retain first-match behavior; tasks require exact app/name/kind/qualified-name identity.
+The selected worker owns initialization and serving. Queue/API load or init failures retain
+their existing behavior; task failures remain private until authenticated. APIs use `PORT`,
+tasks their configured task port, and queues their core worker environment.
+
+`SystemPackageInstaller` ports `_resource_entry` / `_install_system`: the first matching
+resource supplies packages, even when later duplicate entries request more. Missing, null
+or empty package lists do nothing. The installer passes literal arguments to `apt-get
+update -qq`, then `apt-get install -y -qq --no-install-recommends` with packages in declaration
+order, setting `DEBIAN_FRONTEND=noninteractive` only in the child. Failed update prevents
+installation; failed exits retain the final 2,000 Unicode scalar values of stderr. Missing
+commands and process I/O errors retain a system phase and native cause. Tests use explicit
+fake commands, including literal shell metacharacters; no host packages are installed.
+
+Native differences: crate dependencies are resolved when compiling the worker binary, so
+Python import probes, sys.path mutation and excluded-package pip repair do not run in this
+entry point. `excludedPackages` describes Python artifacts and has no native import meaning.
+Python-compatible repair and live bootstrap remain pending, not silently delegated to the
+Python SDK. This deployed entry point requires a nonempty resource name. Configuration is
+validated at entry rather than Python module import; malformed system declarations require
+typed string-array diagnostics. Native quoting, process I/O details and invalid-UTF-8 loss
+handling differ. The async installer kills its direct child on cancellation; descendants
+follow the package manager's lifecycle. Location/extraction uses the blocking pool and
+continues if already running when the caller cancels, but no worker is started afterward.
+
+Nine unchanged source cases pass, mapping seven source functions. Twelve system-package
+captures check command order, argument values, environment, selection and failures. Native
+subprocess tests exercise all three worker kinds, asset access after extraction/prebuilt
+selection, mounts, initialization, authenticated task results, deadline deletion and early
+failure reporting without loading user code. The queue example demonstrates the complete
+native startup entry point. See [parity/runtime-bootstrap-startup.json](parity/runtime-bootstrap-startup.json)
+and [reviews/apps-bootstrap-startup.md](reviews/apps-bootstrap-startup.md).
+
+SDK inventory remains **818/1,135 symbols**, **928/1,659 source test functions** and
+**2,328 SDK differential fixtures**; this additional runtime coverage is tracked separately.
 
 ## Remaining work
 

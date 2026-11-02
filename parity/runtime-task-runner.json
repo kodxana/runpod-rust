@@ -49,6 +49,6 @@
   "pending_contracts": [
     "Live task request source resolution, dependency installation and pickle execution",
     "Native binary artifact packaging and automatic platform launch",
-    "Full bootstrap startup orchestration and dependency verification (failure dispatch is tracked in runtime-bootstrap-reporting.json)"
+    "Live startup orchestration and Python-compatible dependency verification (native startup is tracked in runtime-bootstrap-startup.json)"
   ]
 }

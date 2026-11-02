@@ -1,11 +1,14 @@
-//! Artifact location, attachment and startup failure reporting for application workers.
+//! Artifact preparation, deployed startup and failure reporting for application workers.
 //!
-//! These blocking filesystem operations prepare the platform artifact; they do not
-//! install packages, import source, select a registered function, or start a worker.
+//! [`BootstrapConfig`] and [`read_manifest`] provide blocking filesystem preparation.
+//! [`start_deployed`] connects preparation, system packages and native resource serving.
 //! [`report_error`] starts the appropriate queue/API/task responder after a bootstrap failure.
 use crate::{Error, Value, json};
 mod reporting;
+mod startup;
+mod system;
 pub use reporting::{QueueErrorReporter, report_error, serve_api_error};
+pub use startup::start_deployed;
 use std::{
     collections::BTreeMap,
     fs::{self, File},
@@ -13,6 +16,7 @@ use std::{
     path::{Component, Path, PathBuf},
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
+pub use system::SystemPackageInstaller;
 
 /// Artifact manifest consumed by the coordinator and deployed workers.
 pub const MANIFEST_NAME: &str = "runpod_manifest.json";
