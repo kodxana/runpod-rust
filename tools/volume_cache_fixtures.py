@@ -36,7 +36,7 @@ def main():
                          ([("huge", 2**64-1)], 2**64-1)]:
         records = [SimpleNamespace(src=name, size=size) for name, size in files]
         ranges.append({"files": files, "chunk": chunk, "ranges": list(_iter_ranges(records, chunk))})
-    with tempfile.TemporaryDirectory(prefix="runpod-cache-characterization-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="runpod-cache-characterization-", dir=ROOT) as temporary:
         root = pathlib.Path(temporary).resolve()
         local, volume = root / "local", root / "volume"
         local.mkdir()

@@ -9,7 +9,8 @@ struct Fixture {
 }
 impl Fixture {
     fn new() -> Self {
-        let root = tempfile::tempdir().unwrap();
+        // Python's root-relative archive format requires the current filesystem drive.
+        let root = tempfile::tempdir_in(std::env::current_dir().unwrap()).unwrap();
         let local = root.path().join("local");
         let volume = root.path().join("volume");
         fs::create_dir(&local).unwrap();

@@ -16,7 +16,7 @@ def run(mode, local, volume):
     return int(result.stdout.strip())
 
 
-with tempfile.TemporaryDirectory(prefix="runpod-cache-interop-") as temporary:
+with tempfile.TemporaryDirectory(prefix="runpod-cache-interop-", dir=ROOT) as temporary:
     root = Path(temporary).resolve()
     local, volume = root / "cache", root / "volume"
     local.mkdir()

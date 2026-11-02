@@ -14,7 +14,7 @@ struct Fixture {
 }
 impl Fixture {
     fn new() -> Self {
-        let root = tempfile::tempdir().unwrap();
+        let root = tempfile::tempdir_in(std::env::current_dir().unwrap()).unwrap();
         let local = root.path().join("cache");
         let volume = root.path().join("volume");
         fs::create_dir(&local).unwrap();

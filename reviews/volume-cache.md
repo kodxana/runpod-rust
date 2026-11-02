@@ -106,3 +106,7 @@ and device names/types and restore a regular member alongside a socket. Unix
 execution is verified by the corrective commit's CI, not the Windows test run.
 The follow-up build also caught a misspelled builder method in that Unix-only
 branch; it now uses `preserve_absolute`, verified against locked tar 0.4.46.
+Linux MSRV CI then passed. Windows CI revealed that its default temporary directory
+and checkout use different drives. Cache/archive fixtures and interoperability tools
+now create owned temporary directories under the checkout, satisfying the preserved
+same-drive contract. The explicit cross-drive rejection test remains in place.
