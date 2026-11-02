@@ -184,9 +184,13 @@ fn append_source(
     root: &Path,
     output: &Path,
     env: Option<&Path>,
+    worker: Option<&NativeWorker>,
 ) -> Result<()> {
     let runpod = load_ignores(root, ".runpodignore")?;
     let protected = patterns(root, PROTECTED_IGNORES)?;
+    let native_protected = worker
+        .map(|_| patterns(root, &["/target", "/runpod-native"]))
+        .transpose()?;
     let mut scopes = vec![IgnoreScope {
         directory: root.into(),
         matcher: patterns(root, DEFAULT_IGNORES)?,
@@ -216,6 +220,12 @@ fn append_source(
             if kind.is_symlink()
                 || (!kind.is_file() && !kind.is_dir())
                 || path == output
+                || worker.is_some_and(|worker| path == worker.source)
+                || native_protected.as_ref().is_some_and(|matcher| {
+                    matcher
+                        .matched_path_or_any_parents(&path, is_dir)
+                        .is_ignore()
+                })
                 || (is_dir && env == Some(path.as_path()))
                 || protected
                     .matched_path_or_any_parents(&path, is_dir)
@@ -277,6 +287,59 @@ pub fn package_project(
     manifest: &Value,
     options: &PackageOptions,
 ) -> Result<Artifact> {
+    package(project_root, manifest, options, None)
+}
+
+struct NativeWorker {
+    source: PathBuf,
+    file: fs::File,
+}
+
+pub(super) fn package_native_project(
+    root: &Path,
+    manifest: &Value,
+    executable: &Path,
+    output: Option<&Path>,
+) -> Result<Artifact> {
+    let file = fs::File::open(executable).map_err(|error| crate::Error::Context {
+        message: format!("cannot read native worker {}", executable.display()),
+        source: Box::new(error.into()),
+    })?;
+    let metadata = file.metadata()?;
+    if !metadata.is_file() || metadata.len() == 0 {
+        return Err(crate::Error::InvalidInput(format!(
+            "native worker must be a nonempty regular file: {}",
+            executable.display()
+        )));
+    }
+    if let Some(output) = output
+        && output.try_exists()?
+        && same_file::is_same_file(executable, output)?
+    {
+        return Err(crate::Error::InvalidInput(
+            "native artifact output must not overwrite its executable".into(),
+        ));
+    }
+    package(
+        root,
+        manifest,
+        &PackageOptions {
+            output: output.map(Path::to_owned),
+            env_dir: None,
+        },
+        Some(NativeWorker {
+            source: fs::canonicalize(executable)?,
+            file,
+        }),
+    )
+}
+
+fn package(
+    project_root: &Path,
+    manifest: &Value,
+    options: &PackageOptions,
+    mut worker: Option<NativeWorker>,
+) -> Result<Artifact> {
     let scratch = if options.output.is_none() {
         Some(tempfile::tempdir()?)
     } else {
@@ -309,9 +372,26 @@ pub fn package_project(
     let mut archive = tar::Builder::new(GzEncoder::new(file, Compression::default()));
     archive.follow_symlinks(false);
     archive.sparse(false);
-    append_source(&mut archive, &root, &output_resolved, env.as_deref())?;
+    append_source(
+        &mut archive,
+        &root,
+        &output_resolved,
+        env.as_deref(),
+        worker.as_ref(),
+    )?;
     if let Some(env) = env.as_ref().filter(|p| p.is_dir()) {
         append_environment(&mut archive, env, &output_resolved)?;
+    }
+    if let Some(worker) = &mut worker {
+        let mut header = tar::Header::new_gnu();
+        header.set_size(worker.file.metadata()?.len());
+        header.set_mode(0o755);
+        header.set_mtime(0);
+        archive.append_data(
+            &mut header,
+            super::native_artifact::NATIVE_WORKER_PATH,
+            &mut worker.file,
+        )?;
     }
     let data = serde_json::to_vec_pretty(manifest)?;
     let mut header = tar::Header::new_gnu();

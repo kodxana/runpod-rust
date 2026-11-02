@@ -37,9 +37,9 @@
     "Non-Unicode environment values are treated as absent"
   ],
   "pending_contracts": [
-    "Native binary artifact packaging and automatic launch",
+    "Automatic native platform launch (packaging is tracked in native-artifact.json)",
     "Live source dispatch and runtime dependency setup",
     "Live task source dispatch (deployed HTTP/policy/lifecycle are tracked in runtime-task-runner.json)",
-    "Full bootstrap orchestration and error responders"
+    "Live bootstrap orchestration and Python-compatible dependency repair (native deployed startup/error responders are tracked in runtime-bootstrap-startup.json and runtime-bootstrap-reporting.json)"
   ]
 }

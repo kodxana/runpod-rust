@@ -27,8 +27,7 @@
   ],
   "pending_contracts": [
     "Live dispatcher source synchronization and execution",
-    "Native binary artifact loading and manifest-based resource selection",
-    "Automatic runtime mount initialization before native application loading"
+    "Automatic native platform launch (packaging, manifest selection, mounts and deployed startup are tracked in native-artifact.json, runtime-loading.json and runtime-bootstrap-startup.json)"
   ],
   "fixtures": "tests/fixtures/apps_http.json",
   "fixture_scenarios": 18,

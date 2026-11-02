@@ -35,7 +35,7 @@
   ],
   "pending_contracts": [
     "Live bootstrap orchestration and Python-compatible dependency verification (native deployed startup is tracked in runtime-bootstrap-startup.json)",
-    "Native binary packaging and automatic platform launch",
+    "Native deployment and automatic platform launch (packaging is tracked in native-artifact.json)",
     "Live source resolution and executor integration"
   ]
 }

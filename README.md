@@ -151,7 +151,7 @@ Native artifact deployment and live source loading remain in progress.
 startup. `locate` prefers a prebuilt tree or warm unpack marker, otherwise waits for and
 extracts tar/gzip/bzip2/xz content. `read_manifest` reads its JSON and `dependency_paths`
 returns vendored-environment/source order. These are blocking operations; use a blocking
-executor from async code. Native binary packaging and automatic launch remain in progress.
+executor from async code. Native platform deployment and automatic launch remain in progress.
 
 `apps::bootstrap::start_deployed` connects preparation to a native queue, API or task worker.
 Pass a loader that accepts the manifest module and a `DeployedContext`; use `context.app_dir()`
@@ -162,6 +162,15 @@ process environment or working directory. See [examples/bootstrap_queue.rs](exam
 for app `greetings`, resource `hello`, module `bootstrap_queue`, with a mount named `data`.
 Use `RUNPOD_PREBUILT_APP_DIR` for an already-unpacked tree or `FLASH_BUILD_ARTIFACT_PATH`
 and `RUNPOD_APP_DIR` for extraction. Native crate dependencies are resolved during compilation.
+
+`apps::deploy::build_native_artifact(&app.definition()?, project_root, executable, output, events)`
+packages an already-compiled worker at `runpod-native/worker`, project assets and a manifest.
+It uses the existing source ignore rules, additionally excludes the root `target/` build
+directory, and gives the archived worker executable permissions. Supply a binary built for
+the intended container OS, architecture and libraries; packaging does not cross-compile it.
+An unpacked artifact can be run through that worker's `start_deployed` entry point. Native
+upload, container-image selection and automatic launch are still being connected; the
+existing `deploy_app` path continues to build Python-compatible artifacts.
 
 `apps::runtime::DeployedContext` reads the worker identity and validates `RUNPOD_MOUNTS`
 before loading application declarations. `load_queue` and `load_api` select the first

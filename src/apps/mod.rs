@@ -29,6 +29,7 @@ pub mod lookup;
 pub mod manage;
 mod model;
 pub mod monitor;
+mod native_artifact;
 mod package;
 pub mod placement;
 pub mod protocol;

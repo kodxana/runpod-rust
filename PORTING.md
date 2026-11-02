@@ -2379,6 +2379,41 @@ and [reviews/apps-bootstrap-startup.md](reviews/apps-bootstrap-startup.md).
 SDK inventory remains **818/1,135 symbols**, **928/1,659 source test functions** and
 **2,328 SDK differential fixtures**; this additional runtime coverage is tracked separately.
 
+## Native compiled-worker artifacts
+
+`apps::deploy::build_native_artifact` adapts the source `build_artifact` packaging step to
+an already-compiled Rust worker. It validates the app and explicit module/qualified names,
+packages assets with the existing ignore rules, and appends the worker at
+`runpod-native/worker` with mode 0755 followed by `runpod_manifest.json`. Resource order,
+settings and symbol metadata are retained; the native manifest omits `pythonVersion` and
+`excludedPackages`. The existing Python-compatible builder and archive format are unchanged.
+
+The native path reserves root `target/` and `runpod-native/` even against re-inclusion rules,
+and omits the selected executable at its original source path. Other build directories
+should be listed in `.runpodignore`. Explicit output cannot alias the input executable,
+including through a hard link. Invalid root/worker/symbol input leaves an existing output
+untouched. Automatic artifacts retain the existing owned-temporary-storage contract;
+explicit output remains caller-owned. The normal compressed artifact-size limit applies.
+
+No compiler, pip process or remote API is invoked. Callers supply the correct worker binary
+and keep its inputs stable while packaging. Binary OS, architecture and dynamic-library
+requirements are not inferred or validated here. Platform upload, image selection and
+automatic launch remain pending; this archive alone does not establish coordinator support
+for native tasks or make a host executable run in a Linux container.
+
+Six native tests cover archive bytes/permissions/order, assets, reserved paths, credential
+filters, output ownership, preflight failures and source ignore fixtures. A real compiled
+test worker is packaged, extracted with `BootstrapConfig`, then serves its bundled asset
+through `start_deployed` and the API worker. All nineteen Windows source-packager tests also
+pass after sharing the archive implementation. Eight unchanged Python manifest/packaging
+cases pass; the source symlink case cannot run here because Windows denies symlink creation
+with error 1314. Its existing Rust counterpart runs on Unix CI.
+
+See [parity/native-artifact.json](parity/native-artifact.json) and
+[reviews/apps-native-artifact.md](reviews/apps-native-artifact.md). This extends native
+behavior for already-mapped SDK functions, so inventory remains **818/1,135 symbols**,
+**928/1,659 source test functions**, and **2,328 SDK differential fixtures**.
+
 ## Remaining work
 
 The current milestone does not implement native binary deployment, the Apps HTTP live

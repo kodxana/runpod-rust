@@ -1,0 +1,44 @@
+{
+  "upstream": "https://github.com/runpod/runpod-python",
+  "commit": "ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5",
+  "file": "runpod/apps/deploy.py",
+  "scope": "Native compiled-worker packaging adaptation of already-mapped SDK functions; no additional inventory credit",
+  "api_mapping": {
+    "build_artifact": "apps::deploy::build_native_artifact",
+    "package_project": "shared apps::package archive implementation",
+    "build_manifest": "resource records retained; Python-only top-level fields omitted"
+  },
+  "native_tests": ["tests/native_artifact.rs"],
+  "source_validation": {
+    "unchanged_passed_cases": 8,
+    "unavailable_case": "TestPackaging.test_symlinks_cannot_escape_source_or_dependencies: Windows error 1314 before packaging; Unix Rust coverage retained"
+  },
+  "reused_source_captures": {
+    "file": "tests/fixtures/package.json",
+    "cases": ["protected_cannot_be_unignored", "nested_precedence", "root_anchoring", "unicode_and_order"]
+  },
+  "test_mapping": {
+    "TestPackaging.test_tarball_contains_source_and_manifest": "native_tarball_contains_worker_assets_and_manifest",
+    "TestPackaging.test_ignores_and_non_overridable_credentials": "native_source_ignores_keep_existing_package_contracts",
+    "TestPackaging.test_project_ignore_precedence": "native_source_ignores_keep_existing_package_contracts"
+  },
+  "verified_contracts": [
+    "Byte-for-byte compiled worker at runpod-native/worker with executable mode 0755",
+    "Project-relative assets, existing source ignore precedence and credential exclusions",
+    "Root target and native namespace cannot be re-included; original executable path omitted",
+    "Explicit output cannot overwrite its worker through a path or hard-link alias",
+    "Invalid root/worker/symbol input leaves existing output intact; automatic artifact storage is owned",
+    "Real compiled worker starts from its extracted archive and serves bundled assets"
+  ],
+  "native_adaptations": [
+    "Caller supplies a compiled executable; no dependency installation or compilation runs",
+    "Native manifest omits Python interpreter/excluded-package fields",
+    "Binary format, target OS/architecture and dynamic libraries remain caller-selected",
+    "No platform mutation or coordinator compatibility is implied by packaging"
+  ],
+  "pending_contracts": [
+    "Cargo build/cross-compilation integration and native CLI build/deploy commands",
+    "Native upload, container image selection and automatic worker launch",
+    "Native task deployment through the coordinator"
+  ]
+}

@@ -45,8 +45,8 @@
     "Typed native errors, serde_json values and closure-owned state"
   ],
   "pending_contracts": [
-    "Automatic deployed/live startup orchestration (loading and mounts are tracked in runtime-loading.json)",
-    "Native binary packaging and deployment",
+    "Live startup orchestration (native deployed startup is tracked in runtime-bootstrap-startup.json)",
+    "Native deployment and automatic platform launch (packaging is tracked in native-artifact.json)",
     "Live-source request executor and serialization"
   ]
 }

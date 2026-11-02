@@ -48,7 +48,7 @@
   ],
   "pending_contracts": [
     "Live task request source resolution, dependency installation and pickle execution",
-    "Native binary artifact packaging and automatic platform launch",
+    "Native deployment and automatic platform launch (packaging is tracked in native-artifact.json)",
     "Live startup orchestration and Python-compatible dependency verification (native startup is tracked in runtime-bootstrap-startup.json)"
   ]
 }

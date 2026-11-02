@@ -1,4 +1,5 @@
 //! Deployment manifests and reconciliation of application endpoints.
+pub use super::native_artifact::{NATIVE_WORKER_PATH, build_native_artifact};
 pub use super::package::{
     Artifact, DEFAULT_IGNORES, ENV_DIR_NAME, PROTECTED_IGNORES, PackageOptions, package_project,
 };
