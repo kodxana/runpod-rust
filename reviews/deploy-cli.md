@@ -78,6 +78,10 @@ in the changed files (`clippy::doc_markdown`, `unreadable_literal`, `map_unwrap_
 - Locked build, fmt check, strict all-target/all-feature Clippy, rustdoc and focused tests
   after the review edits all pass. Pedantic output is reviewed only for this
   diff; unrelated pre-existing warnings are not silently classified as new problems.
+- CI run 41536688956 passed MSRV but exposed a macOS test helper assumption: rustc
+  need not exist under HOME/.cargo/bin. The helper now uses the compiler beside the
+  Cargo executable selected at test compilation, while respecting an explicit RUSTC.
+  All eighteen discovery/deployment integration tests pass locally after this correction.
 
 Reproduce captures with `tools/deploy_cli_fixtures.py` using the pinned SDK/runtime on
 `PYTHONPATH`; regenerate mappings with `tools/update_deploy_cli_parity.py`.
