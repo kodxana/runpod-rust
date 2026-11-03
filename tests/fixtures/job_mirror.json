@@ -1,0 +1,84 @@
+[
+  {
+    "capacity": 65536,
+    "inputs": [
+      null,
+      "",
+      "job_a,job_b",
+      null
+    ],
+    "outputs": [
+      null,
+      null,
+      "job_a,job_b",
+      null
+    ]
+  },
+  {
+    "capacity": 32,
+    "inputs": [
+      "id00000000,id00000001,id00000002,id00000003,id00000004,id00000005,id00000006,id00000007,id00000008,id00000009",
+      "short"
+    ],
+    "outputs": [
+      "id00000000,id00000001",
+      "short"
+    ]
+  },
+  {
+    "capacity": 8,
+    "inputs": [
+      "abcdefgh",
+      "ab,cdefgh",
+      "abc,def",
+      "abc,defg"
+    ],
+    "outputs": [
+      "abcdefg",
+      "ab",
+      "abc,def",
+      "abc"
+    ]
+  },
+  {
+    "capacity": 4,
+    "inputs": [
+      "\u00e9\u00e9",
+      "a,\u00e9",
+      "x\u0000y",
+      "ok"
+    ],
+    "outputs": [
+      null,
+      "a",
+      "x",
+      "ok"
+    ]
+  },
+  {
+    "capacity": 1,
+    "inputs": [
+      "one",
+      "",
+      null
+    ],
+    "outputs": [
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "capacity": 0,
+    "inputs": [
+      "hello",
+      "",
+      null
+    ],
+    "outputs": [
+      null,
+      null,
+      null
+    ]
+  }
+]

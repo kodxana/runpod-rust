@@ -10,6 +10,12 @@ cursor pagination, serverless endpoint clients, job polling, cancellation, strea
 and a synchronous endpoint facade. The native worker now supports single/streaming handlers,
 concurrent intake, startup hooks, heartbeats, stop signals, and progress updates. Credential
 profiles, validation, cleanup, CUDA probing, and model-cache helpers are also available.
+`serverless::PingJobMirror` provides a bounded job-ID snapshot shared by explicit clones.
+Attach one with `JobsProgress::set_mirror(Some(mirror.clone()))` to publish current jobs
+and subsequent add/remove/clear updates. Independent trackers never share state implicitly.
+The mirror preserves Python's byte truncation, embedded-NUL and invalid-UTF-8 behavior.
+It shares memory across native threads; independent heartbeat execution/retry wiring is
+still pending, and the current worker heartbeat uses the caller's async executor.
 `serverless::WorkerApi` hosts the development `/run`, `/runsync`, `/status`, and `/stream`
 routes, optional endpoint-specific realtime calls, and interactive API documentation.
 The development `/run` route stores a job; polling `/status` or `/stream` executes it.

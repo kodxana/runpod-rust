@@ -11180,8 +11180,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_singleton_identity",
+      "status": "adapted",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11190,8 +11191,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_add_remove_clear_and_list",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11200,8 +11202,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_writes_nothing_to_disk",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11210,8 +11213,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, tmp_path, monkeypatch",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_two_workers_do_not_share_jobs",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11220,8 +11224,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_set_mirror_pushes_current_state",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11230,8 +11235,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_add_and_remove_sync_the_mirror",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11240,8 +11246,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_clear_syncs_the_mirror",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11250,8 +11257,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_mutation_without_mirror_does_not_raise",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11260,8 +11268,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_set_get_roundtrip",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11270,8 +11279,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_empty_is_none",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11280,8 +11290,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_overflow_truncates_without_raising",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11290,8 +11301,9 @@
       "kind": "function",
       "public": true,
       "signature": "method",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_mirror_roundtrip_across_threads",
+      "status": "adapted",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_integration_worker_state.py",
@@ -11300,8 +11312,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "worker_state::test_capacity_default",
+      "status": "ported",
+      "note": "Named native counterpart; explicit clones replace singleton identity and a native thread replaces the Python IPC child. A real process verifies no writes in its cwd. Six captured mirror sequences cover byte boundaries. See reviews/job-mirror.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_fastapi.py",

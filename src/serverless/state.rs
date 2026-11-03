@@ -1,3 +1,4 @@
+use super::PingJobMirror;
 use crate::Value;
 use serde::{Deserialize, Serialize};
 use std::{
@@ -53,60 +54,133 @@ impl fmt::Display for WorkerJob {
 /// Shared in-process tracker whose clones observe the same running jobs.
 #[derive(Debug, Clone, Default)]
 pub struct JobsProgress {
-    jobs: Arc<Mutex<BTreeMap<String, WorkerJob>>>,
+    state: Arc<Mutex<State>>,
+}
+#[derive(Debug, Default)]
+struct State {
+    jobs: BTreeMap<String, WorkerJob>,
+    mirror: Option<PingJobMirror>,
+}
+impl State {
+    fn job_list(&self) -> Option<String> {
+        (!self.jobs.is_empty()).then(|| {
+            self.jobs
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>()
+                .join(",")
+        })
+    }
+    fn notify_mirror(&self) -> Option<super::mirror::Publication> {
+        self.mirror
+            .as_ref()
+            .map(|mirror| mirror.publish(self.job_list().as_deref()))
+    }
 }
 impl JobsProgress {
     /// Creates an independent worker's tracker.
+    #[must_use]
     pub fn new() -> Self {
         Self::default()
     }
+    /// Attaches or detaches the heartbeat snapshot, immediately publishing current jobs.
+    /// Clones of this tracker share the attachment. Replacing it leaves the old mirror
+    /// with its last snapshot, matching the source SDK.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
+    pub fn set_mirror(&self, mirror: Option<PingJobMirror>) {
+        let mut state = self.state.lock().expect("job tracker lock poisoned");
+        state.mirror = mirror;
+        let publication = state.notify_mirror();
+        drop(state);
+        if let Some(publication) = publication {
+            publication.report();
+        }
+    }
     /// Registers a job; duplicate IDs preserve the original job.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
     pub fn add(&self, job: WorkerJob) {
-        self.jobs
-            .lock()
-            .expect("job tracker lock poisoned")
-            .entry(job.id.clone())
-            .or_insert(job);
+        let mut state = self.state.lock().expect("job tracker lock poisoned");
+        state.jobs.entry(job.id.clone()).or_insert(job);
+        // Publish under the same lock so a slower mutation cannot overwrite a newer one.
+        // Mirror operations never acquire this tracker lock.
+        let publication = state.notify_mirror();
+        drop(state);
+        if let Some(publication) = publication {
+            publication.report();
+        }
     }
     /// Removes a job if present.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
     pub fn remove(&self, id: &str) {
-        self.jobs
-            .lock()
-            .expect("job tracker lock poisoned")
-            .remove(id);
+        let mut state = self.state.lock().expect("job tracker lock poisoned");
+        state.jobs.remove(id);
+        let publication = state.notify_mirror();
+        drop(state);
+        if let Some(publication) = publication {
+            publication.report();
+        }
     }
     /// Removes every tracked job.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
     pub fn clear(&self) {
-        self.jobs.lock().expect("job tracker lock poisoned").clear();
+        let mut state = self.state.lock().expect("job tracker lock poisoned");
+        state.jobs.clear();
+        let publication = state.notify_mirror();
+        drop(state);
+        if let Some(publication) = publication {
+            publication.report();
+        }
     }
     /// Retrieves a snapshot of a job by identifier.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
+    #[must_use]
     pub fn get(&self, id: &str) -> Option<WorkerJob> {
-        self.jobs
+        self.state
             .lock()
             .expect("job tracker lock poisoned")
+            .jobs
             .get(id)
             .cloned()
     }
     /// Returns the number of tracked jobs.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
+    #[must_use]
     pub fn get_job_count(&self) -> usize {
-        self.jobs.lock().expect("job tracker lock poisoned").len()
+        self.state
+            .lock()
+            .expect("job tracker lock poisoned")
+            .jobs
+            .len()
     }
     /// Tests whether the tracker is empty.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.get_job_count() == 0
     }
     /// Returns comma-separated job IDs, or None when empty.
+    ///
+    /// # Panics
+    /// Panics if an earlier internal panic poisoned the tracker lock.
+    #[must_use]
     pub fn get_job_list(&self) -> Option<String> {
-        let jobs = self.jobs.lock().expect("job tracker lock poisoned");
-        if jobs.is_empty() {
-            None
-        } else {
-            Some(
-                jobs.keys()
-                    .map(String::as_str)
-                    .collect::<Vec<_>>()
-                    .join(","),
-            )
-        }
+        self.state
+            .lock()
+            .expect("job tracker lock poisoned")
+            .job_list()
     }
 }

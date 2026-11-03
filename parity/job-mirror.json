@@ -1,0 +1,57 @@
+{
+  "upstream": "https://github.com/runpod/runpod-python",
+  "commit": "ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5",
+  "file": "runpod/serverless/modules/worker_state.py",
+  "api_mapping": {
+    "JobsProgress": "serverless::JobsProgress",
+    "JobsProgress.__new__": "serverless::JobsProgress::{new,clone}",
+    "JobsProgress.__init__": "serverless::JobsProgress::new",
+    "JobsProgress.set_mirror": "serverless::JobsProgress::set_mirror",
+    "JobsProgress._notify_mirror": "serverless::state::State::notify_mirror",
+    "PingJobMirror": "serverless::PingJobMirror",
+    "PingJobMirror.__init__": "serverless::PingJobMirror::{new,with_capacity}",
+    "PingJobMirror.set": "serverless::PingJobMirror::set",
+    "PingJobMirror.get": "serverless::PingJobMirror::get"
+  },
+  "test_mapping": {
+    "TestJobsProgressInMemory.test_singleton_identity": "worker_state::test_singleton_identity",
+    "TestJobsProgressInMemory.test_add_remove_clear_and_list": "worker_state::test_add_remove_clear_and_list",
+    "TestJobsProgressInMemory.test_writes_nothing_to_disk": "worker_state::test_writes_nothing_to_disk",
+    "TestJobsProgressInMemory.test_two_workers_do_not_share_jobs": "worker_state::test_two_workers_do_not_share_jobs",
+    "TestJobsProgressMirrorSync.test_set_mirror_pushes_current_state": "worker_state::test_set_mirror_pushes_current_state",
+    "TestJobsProgressMirrorSync.test_add_and_remove_sync_the_mirror": "worker_state::test_add_and_remove_sync_the_mirror",
+    "TestJobsProgressMirrorSync.test_clear_syncs_the_mirror": "worker_state::test_clear_syncs_the_mirror",
+    "TestJobsProgressMirrorSync.test_mutation_without_mirror_does_not_raise": "worker_state::test_mutation_without_mirror_does_not_raise",
+    "TestPingJobMirror.test_set_get_roundtrip": "worker_state::test_set_get_roundtrip",
+    "TestPingJobMirror.test_empty_is_none": "worker_state::test_empty_is_none",
+    "TestPingJobMirror.test_overflow_truncates_without_raising": "worker_state::test_overflow_truncates_without_raising",
+    "test_mirror_roundtrip_across_process": "worker_state::test_mirror_roundtrip_across_threads",
+    "test_capacity_default": "worker_state::test_capacity_default"
+  },
+  "capture": {
+    "file": "tests/fixtures/job_mirror.json",
+    "sequences": 6,
+    "sha256": "384939ab79a8436aadcf7ed7b39e27709beaf92409560b1de9d444ec471e84e0",
+    "generator": "tools/job_mirror_fixtures.py"
+  },
+  "adaptations": [
+    "Owned tracker identity and explicit clones replace global singleton membership",
+    "Native heartbeat design uses a thread-shared buffer, not OS process-shared memory",
+    "Tracker IDs have deterministic lexical order; Python set iteration is unspecified",
+    "Best-effort poisoned-lock failures use native diagnostics; zero capacity always reads empty",
+    "Mutation and mirror publication share one lock, preventing stale concurrent publication"
+  ],
+  "preserved_quirks": [
+    "Reserve one NUL byte",
+    "Overflow cuts at the last available comma, even after a complete ID",
+    "No comma means a possibly partial ID or UTF-8 prefix",
+    "Invalid UTF-8 reads None",
+    "Embedded NUL ends visible text",
+    "Duplicate add and missing remove still notify",
+    "Replaced/detached mirrors retain their last snapshot"
+  ],
+  "pending": [
+    "Heartbeat independent execution and retries",
+    "Process-shared mirror API is adapted to native threads"
+  ]
+}

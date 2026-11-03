@@ -10463,8 +10463,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10473,8 +10474,9 @@
       "kind": "function",
       "public": false,
       "signature": "cls",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::{new,clone}",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10483,8 +10485,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::new",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10503,8 +10506,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mirror",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::JobsProgress::set_mirror",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10513,8 +10517,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::state::State::notify_mirror",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10583,8 +10588,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PingJobMirror",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10593,8 +10599,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, capacity: int=PING_MIRROR_CAPACITY, ctx=None",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PingJobMirror::{new,with_capacity}",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10603,8 +10610,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, job_ids: Optional[str]",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PingJobMirror::set",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10613,8 +10621,9 @@
       "kind": "function",
       "public": true,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::PingJobMirror::get",
+      "status": "adapted",
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/utils/rp_cleanup.py",

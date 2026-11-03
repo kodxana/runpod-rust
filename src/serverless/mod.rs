@@ -3,6 +3,7 @@ pub mod capture;
 mod handler;
 pub mod health;
 mod http;
+mod mirror;
 mod prestart;
 mod scaling;
 mod state;
@@ -15,6 +16,7 @@ pub use handler::{
     run_job_generator_with_capture, run_job_with_capture,
 };
 pub use http::{WorkerApi, send_webhook};
+pub use mirror::{PING_MIRROR_CAPACITY, PingJobMirror};
 pub use prestart::{
     PrestartError, PrestartHooks, build_prestart_cancelled_payload, build_prestart_failed_payload,
 };

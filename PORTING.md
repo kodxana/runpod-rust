@@ -30,6 +30,7 @@ by Python; the complete port remains in progress.
 | `rp_prestart` failure/cancellation payloads and paused progress | `build_prestart_failed_payload`, `build_prestart_cancelled_payload`, and scoped progress exclusion |
 | `rp_job.run_job_generator` | `run_job_generator`, `run_job_generator_with_capture` using native `Handler` streams |
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
+| `worker_state.PingJobMirror`, tracker mirror attachment/publication | thread-shared `PingJobMirror` and `JobsProgress::set_mirror` |
 | `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule` |
 | `JobScaler.start`, uncaught-exception logging, prestart process exit | `Worker::start`, native panic hook, and `Worker::start_local`; lower-level runs retain typed errors |
 | `_health.gpu` parsing, configuration, allocation binary, and nvidia-smi fallback | `serverless::health::{GpuChecks, GpuConfig, GpuTestOutput, HealthError, parse_gpu_test_output}` |
@@ -95,9 +96,9 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 398 implemented symbols, 434 adapted symbols, and 943 upstream
+This milestone maps 398 implemented symbols, 443 adapted symbols, and 956 upstream
 test functions; other entries remain pending.
-The test mapping includes 866 ported tests and 77 explicitly adapted tests.
+The test mapping includes 877 ported tests and 79 explicitly adapted tests.
 
 ## Test mapping and reproduction
 
@@ -279,8 +280,9 @@ python tools/verify_pickle.py
   currently use JSON formatting rather than Python repr; this remains tracked work.
 - Blocking clients own a Tokio runtime and must be constructed/used outside async tasks.
 - Worker state and startup registries are owned values instead of Python singletons.
-  Async handlers and heartbeats share the caller's executor; no multiprocessing mirror
-  or Python GIL is needed. Synchronous CPU work must be scheduled by the caller.
+  Async handlers and heartbeats currently share the caller's executor. The bounded mirror
+  now supports native thread sharing; independent heartbeat execution remains pending.
+  Synchronous handler bodies use the blocking pool; async bodies must yield cooperatively.
 - Worker handler failures carry Rust error type/backtrace information. Rust panics are
   not converted into Python exceptions. Direct output delivery failures propagate to callers;
   the worker dispatcher logs individual delivery failures and continues sibling jobs.
@@ -2510,10 +2512,41 @@ The current SDK ledger is **832/1,135 symbols (73.3%)**, **943/1,659 source test
 and **2,337 SDK differential fixtures**. Counts in earlier milestone sections record their
 historical state; separate runtime tests do not increase SDK inventory credit.
 
+## Bounded worker job snapshots
+
+`serverless::PingJobMirror` ports the source's bounded heartbeat job-ID buffer. It uses
+owned thread-shared memory instead of Python multiprocessing shared memory. Independent
+constructors are isolated; clones explicitly share a buffer or tracker. The default
+capacity is 65,536 bytes with one byte reserved for NUL. Overflow truncates at the last
+comma in the available prefix, or retains that prefix without a comma. An incomplete
+UTF-8 suffix reads as None, and an embedded NUL ends the visible text. Zero capacity
+stores no text. These quirks are preserved in captured source sequences.
+
+`JobsProgress::set_mirror` immediately publishes current state. Add/remove/clear publish
+again, including duplicate additions and missing removals. Publication shares the mutation
+lock so concurrent writers cannot leave an older snapshot last. The mirror has no reverse
+lock path. Poisoned mirror locks are best effort and do not break job processing. Replaced
+or detached mirrors retain their last value. Tracker order remains lexical rather than
+Python's unspecified set order; this was already the native tracker convention.
+
+Six differential sequences and thirteen named source test counterparts cover snapshot
+behavior, thread sharing, tracker isolation and zero filesystem writes. Additional tests
+cover concurrent mutation, stale overwrite prevention, detachment and lock poisoning.
+Snapshot diagnostics run only after releasing tracker and mirror locks; a regression
+test verifies that logging subscribers can inspect job counts without deadlocking.
+Unchanged Python state/mirror/scaler/heartbeat tests pass 49 cases, with Windows fork
+skipped; only thirteen mirror integration functions receive new test credit. Heartbeat
+execution isolation and retry behavior remain pending and are not implied by these tests.
+
+See [parity/job-mirror.json](parity/job-mirror.json) and
+[reviews/job-mirror.md](reviews/job-mirror.md). Current SDK coverage is
+**841/1,135 symbols (74.1%)**, **956/1,659 source test functions** and **2,343 differential
+fixtures**. Earlier sections retain historical milestone counts.
+
 ## Remaining work
 
 The current milestone does not implement native coordinator task deployment, the Apps
 HTTP live dispatcher, full live-handle Apps discovery or the remaining CLI commands.
 Live Runpod/container compatibility, debugger integration and remaining cache/platform
-fault-injection coverage are also pending.
+fault-injection coverage are also pending. Worker heartbeat isolation/retry parity is next.
 All remain part of the requested full port, not exclusions from its scope.

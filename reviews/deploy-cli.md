@@ -82,6 +82,7 @@ in the changed files (`clippy::doc_markdown`, `unreadable_literal`, `map_unwrap_
   need not exist under HOME/.cargo/bin. The helper now uses the compiler beside the
   Cargo executable selected at test compilation, while respecting an explicit RUSTC.
   All eighteen discovery/deployment integration tests pass locally after this correction.
+  Correction b0e7ecf passed all four CI jobs in run 41593775473 (MSRV, Linux, Windows, macOS).
 
 Reproduce captures with `tools/deploy_cli_fixtures.py` using the pinned SDK/runtime on
 `PYTHONPATH`; regenerate mappings with `tools/update_deploy_cli_parity.py`.
