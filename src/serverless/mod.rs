@@ -2,6 +2,7 @@
 pub mod capture;
 mod handler;
 pub mod health;
+mod heartbeat;
 mod http;
 mod mirror;
 mod prestart;
@@ -15,6 +16,7 @@ pub use handler::{
     Handler, HandlerKind, normalize_output, run_job, run_job_generator,
     run_job_generator_with_capture, run_job_with_capture,
 };
+pub use heartbeat::{Heartbeat, HeartbeatHandle, HeartbeatOptions};
 pub use http::{WorkerApi, send_webhook};
 pub use mirror::{PING_MIRROR_CAPACITY, PingJobMirror};
 pub use prestart::{

@@ -31,6 +31,7 @@ by Python; the complete port remains in progress.
 | `rp_job.run_job_generator` | `run_job_generator`, `run_job_generator_with_capture` using native `Handler` streams |
 | `worker_state.Job`, `JobsProgress` | `WorkerJob`, `JobsProgress` |
 | `worker_state.PingJobMirror`, tracker mirror attachment/publication | thread-shared `PingJobMirror` and `JobsProgress::set_mirror` |
+| `rp_ping.Heartbeat`, initialization, child startup, loop and request | `Heartbeat::{new,with_options,start_ping,ping_loop,run_once,send_ping}` and owned `HeartbeatHandle` |
 | `rp_scale.JobScaler` concurrency, intake, dispatch, stop, shutdown, and startup coordination | `Worker`, `WorkerControl`, `ConcurrencyModifier`, and private `IntakeSchedule` |
 | `JobScaler.start`, uncaught-exception logging, prestart process exit | `Worker::start`, native panic hook, and `Worker::start_local`; lower-level runs retain typed errors |
 | `_health.gpu` parsing, configuration, allocation binary, and nvidia-smi fallback | `serverless::health::{GpuChecks, GpuConfig, GpuTestOutput, HealthError, parse_gpu_test_output}` |
@@ -96,7 +97,7 @@ The detailed symbol and test ledgers are [parity/api.json](parity/api.json) and
 [parity/tests.json](parity/tests.json). Pending entries must not be interpreted as
 implemented merely because a broad Rust module exists.
 The ledger labels serialization/reflection and runtime-lifecycle adaptations explicitly.
-This milestone maps 398 implemented symbols, 443 adapted symbols, and 956 upstream
+This milestone maps 398 implemented symbols, 449 adapted symbols, and 972 upstream
 test functions; other entries remain pending.
 The test mapping includes 877 ported tests and 79 explicitly adapted tests.
 
@@ -280,8 +281,8 @@ python tools/verify_pickle.py
   currently use JSON formatting rather than Python repr; this remains tracked work.
 - Blocking clients own a Tokio runtime and must be constructed/used outside async tasks.
 - Worker state and startup registries are owned values instead of Python singletons.
-  Async handlers and heartbeats currently share the caller's executor. The bounded mirror
-  now supports native thread sharing; independent heartbeat execution remains pending.
+  Queue/HTTP heartbeats own an independent thread/runtime and read a bounded shared mirror.
+  Dropping a worker future signals cancellation; normal shutdown awaits heartbeat cleanup.
   Synchronous handler bodies use the blocking pool; async bodies must yield cooperatively.
 - Worker handler failures carry Rust error type/backtrace information. Rust panics are
   not converted into Python exceptions. Direct output delivery failures propagate to callers;
@@ -2543,10 +2544,50 @@ See [parity/job-mirror.json](parity/job-mirror.json) and
 **841/1,135 symbols (74.1%)**, **956/1,659 source test functions** and **2,343 differential
 fixtures**. Earlier sections retain historical milestone counts.
 
+## Independent heartbeat execution and retries
+
+The six `rp_ping.Heartbeat` symbols now map to native APIs. Queue and hosted HTTP workers
+attach the same bounded mirror to their tracker and independent heartbeat executor before
+prestart. Their owned guard cancels requests, retry waits and interval sleeps on shutdown;
+normal return waits for the private runtime and HTTP resources to be released. Dropping
+the worker future signals cancellation without blocking. Fitness still precedes startup.
+
+The source's GET retry policy is preserved: three additional attempts, statuses
+429/500/502/503/504, exponential waits of 0/2/4 seconds, and `Retry-After` precedence.
+HTTP 413 retries only with that header and remaining budget. Other HTTP error responses
+are accepted. Each logical ping retains one job snapshot through retries. The interval
+sleep happens after the request finishes. Environment milliseconds floor to whole seconds;
+explicit native `Duration` values support subsecond intervals. Subsecond environment
+values are rejected when constructing a heartbeat instead of failing in requests later.
+
+The Python child reconstructs default pool/retry options, ignoring its parent's overrides;
+native `start_ping` preserves this quirk. Explicit `send_ping`/`ping_loop` honor configured
+options. `run_once` replaces the source's boolean test mode. One start per owned instance
+replaces the process-global start flag. Low-level send errors are returned, while periodic
+loops log them and continue. Native connection-pool, TLS, proxy and user-agent details are
+documented adaptations, as is the native SDK version in the wire query.
+
+All 15 named Python heartbeat tests have native counterparts. Nine real Python HTTP/retry
+captures use the pinned SDK and urllib3 2.8.0; wire replay compares paths, authorization,
+query values, attempt counts, failure outcomes and minimum backoff durations. Additional
+tests block queue and realtime handlers on single-thread runtimes, verify continuing
+pings with their job IDs, and check shutdown, cancellation and source option-reset behavior.
+The unchanged Python tests pass all 15 cases. See [parity/heartbeat.json](parity/heartbeat.json)
+and [reviews/heartbeat.md](reviews/heartbeat.md) for adaptations and native verification.
+
+Native verification completes all 91 integration-test targets, unit tests and doctests:
+1,138 passed, zero failed and nine intentional skips. After interruption of the original
+full-suite process, its 75 completed targets were combined with individually completed
+remaining targets on unchanged source. Build, formatting, strict Clippy and documentation
+checks pass. The scoped pedantic review has no new library warnings.
+
+Current SDK coverage is **847/1,135 symbols (74.6%)**, **972/1,659 source test functions**,
+and **2,352 differential fixtures**. Earlier sections retain historical milestone counts.
+
 ## Remaining work
 
 The current milestone does not implement native coordinator task deployment, the Apps
 HTTP live dispatcher, full live-handle Apps discovery or the remaining CLI commands.
 Live Runpod/container compatibility, debugger integration and remaining cache/platform
-fault-injection coverage are also pending. Worker heartbeat isolation/retry parity is next.
+fault-injection coverage are also pending.
 All remain part of the requested full port, not exclusions from its scope.

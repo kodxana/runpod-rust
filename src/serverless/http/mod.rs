@@ -157,15 +157,7 @@ impl WorkerApi {
             transport,
             hooks,
         } = self;
-        let progress = state.progress.clone();
-        let heartbeat = async {
-            loop {
-                if let Err(error) = transport.ping(&progress).await {
-                    tracing::warn!(%error, "worker heartbeat failed");
-                }
-                tokio::time::sleep(transport.config().ping_interval).await;
-            }
-        };
+        let heartbeat = super::heartbeat::start_worker(transport.config(), &state.progress).await?;
         let server = async {
             let config = transport.config();
             let captured = Capture::new();
@@ -194,7 +186,16 @@ impl WorkerApi {
                 .await?;
             Ok(())
         };
-        tokio::select! {result = server => result, () = heartbeat => unreachable!("heartbeat loops until dropped")}
+        let result = server.await;
+        if let Some(heartbeat) = heartbeat
+            && let Err(error) = heartbeat.stop().await
+        {
+            if result.is_ok() {
+                return Err(error);
+            }
+            tracing::warn!(%error, "heartbeat cleanup failed after server error");
+        }
+        result
     }
 }
 

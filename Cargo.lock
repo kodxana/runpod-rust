@@ -2157,6 +2157,7 @@ dependencies = [
  "futures-util",
  "getrandom 0.3.4",
  "glob",
+ "httpdate",
  "ignore",
  "libc",
  "lzma-rust2",

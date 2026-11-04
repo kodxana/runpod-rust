@@ -1,0 +1,68 @@
+{
+  "upstream": "https://github.com/runpod/runpod-python",
+  "commit": "ba938cfa4e9486a2dc2c1d3264334a1f689c7ea5",
+  "api_mapping": {
+    "Heartbeat": "serverless::Heartbeat",
+    "Heartbeat.__init__": "serverless::Heartbeat::{new,with_options}",
+    "Heartbeat.process_loop": "serverless::Heartbeat::start_ping (private owned thread/runtime)",
+    "Heartbeat.start_ping": "serverless::Heartbeat::start_ping",
+    "Heartbeat.ping_loop": "serverless::Heartbeat::{ping_loop,run_once}",
+    "Heartbeat._send_ping": "serverless::Heartbeat::send_ping"
+  },
+  "test_mapping": {
+    "TestHeartbeat.test_heartbeat_initialization": "heartbeat::test_heartbeat_initialization",
+    "TestHeartbeat.test_heartbeat_initialization_defaults": "heartbeat::test_heartbeat_initialization_defaults",
+    "TestHeartbeat.test_start_ping_missing_api_key": "heartbeat::test_start_ping_missing_api_key",
+    "TestHeartbeat.test_start_ping_missing_pod_id": "heartbeat::test_start_ping_missing_pod_id",
+    "TestHeartbeat.test_start_ping_missing_webhook_url": "heartbeat::test_start_ping_missing_webhook_url",
+    "TestHeartbeat.test_start_ping_success": "heartbeat::test_start_ping_success",
+    "TestHeartbeat.test_start_ping_already_started": "heartbeat::test_start_ping_already_started",
+    "TestHeartbeat.test_process_loop": "heartbeat::test_process_loop",
+    "TestHeartbeat.test_ping_loop_test_mode": "heartbeat::test_ping_loop_test_mode",
+    "TestHeartbeat.test_ping_loop_continuous": "heartbeat::test_ping_loop_continuous",
+    "TestHeartbeat.test_send_ping_success": "heartbeat::test_send_ping_success",
+    "TestHeartbeat.test_send_ping_no_jobs": "heartbeat::test_send_ping_no_jobs",
+    "TestHeartbeat.test_send_ping_request_exception": "heartbeat::test_send_ping_request_exception",
+    "TestHeartbeat.test_custom_pool_connections": "heartbeat::test_custom_pool_connections",
+    "TestHeartbeat.test_http_adapter_configuration": "heartbeat::test_http_adapter_configuration",
+    "test_run_worker_attaches_one_shared_mirror": "heartbeat_runtime::queue_heartbeat_survives_stalled_async_handler_and_stops_with_worker"
+  },
+  "capture": {
+    "file": "tests/fixtures/heartbeat.json",
+    "cases": 9,
+    "sha256": "eaab44d65784cd3c9efd7b162c3ec989dc1d5456d802f4ff3b1e36b8d2e10642",
+    "generator": "tools/heartbeat_fixtures.py",
+    "urllib3": "2.8.0"
+  },
+  "preserved_quirks": [
+    "Environment milliseconds floor to whole seconds; explicit native durations retain their precision",
+    "Ordinary nonretryable HTTP errors are accepted without raising",
+    "One snapshot is held across every attempt in a logical ping",
+    "First retry is immediate, then exponential delays of 2 and 4 seconds by default",
+    "Retry-After takes priority; 413 retries only with that header and remaining budget",
+    "Background startup reconstructs default pool/retry settings, discarding parent overrides",
+    "The interval sleep follows request completion, including single-iteration mode"
+  ],
+  "adaptations": [
+    "Owned native thread and Tokio runtime replace a Python daemon process",
+    "One start per Heartbeat instance replaces global process-wide suppression",
+    "Drop signals nonblocking cancellation; stop awaits runtime cleanup",
+    "Low-level send returns typed errors; periodic loops log and continue",
+    "Native maximum idle connections per host replaces requests host-pool caching limits",
+    "Subsecond environment values produce an early typed error instead of requests zero-timeout failure",
+    "WorkerConfig::from_values disables ping_url without a nonempty deployment ID",
+    "Native TLS/proxy/user-agent behavior and rare malformed body/redirect failures remain reqwest behavior",
+    "Retry-After uses HTTP-standard date parsing and the captured urllib3 2.8 six-hour cap",
+    "The native SDK version is reported instead of the Python SDK version"
+  ],
+  "verification": [
+    "Fifteen named source tests",
+    "Nine captured local HTTP scenarios",
+    "Stalled queue and realtime handler tests",
+    "Request/backoff/sleep cancellation tests",
+    "Dropped worker future and child-option reset tests"
+  ],
+  "pending": [
+    "Live Runpod/container validation"
+  ]
+}

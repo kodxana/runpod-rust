@@ -13666,8 +13666,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_heartbeat_initialization",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13676,8 +13677,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_heartbeat_initialization_defaults",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13686,8 +13688,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_logger, mock_worker_id",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_start_ping_missing_api_key",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13696,8 +13699,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_logger, mock_worker_id",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_start_ping_missing_pod_id",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13706,8 +13710,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_logger, mock_worker_id",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_start_ping_missing_webhook_url",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13716,8 +13721,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_session_class, mock_process_class",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_start_ping_success",
+      "status": "adapted",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13726,8 +13732,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_start_ping_already_started",
+      "status": "adapted",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13736,8 +13743,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_process_loop",
+      "status": "adapted",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13746,8 +13754,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_ping_loop_test_mode",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13756,8 +13765,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_ping_loop_continuous",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13766,8 +13776,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session, mock_mirror, mock_logger",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_send_ping_success",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13776,8 +13787,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session, mock_logger",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_send_ping_no_jobs",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13786,8 +13798,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session, mock_mirror, mock_logger",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_send_ping_request_exception",
+      "status": "adapted",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13796,8 +13809,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_env, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_custom_pool_connections",
+      "status": "adapted",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_ping.py",
@@ -13806,8 +13820,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mock_adapter, mock_env, mock_worker_id, mock_session",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat::test_http_adapter_configuration",
+      "status": "ported",
+      "note": "Named native counterpart; owned lifecycle, native pool accounting and typed send errors are documented adaptations. HTTP fixtures exercise the real pinned source session. See parity/heartbeat.json and reviews/heartbeat.md."
     },
     {
       "file": "tests/test_serverless/test_modules/test_progress.py",
@@ -14989,8 +15004,9 @@
       "kind": "function",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "heartbeat_runtime::queue_heartbeat_survives_stalled_async_handler_and_stops_with_worker",
+      "status": "adapted",
+      "note": "End-to-end worker test proves tracker mutations reach the independent heartbeat through the shared mirror."
     },
     {
       "file": "tests/test_serverless/test_utils/test_cleanup.py",

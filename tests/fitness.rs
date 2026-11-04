@@ -408,7 +408,7 @@ fn worker_configuration_uses_the_fitness_registrys_owned_environment() {
     use runpod::serverless::WorkerConfig;
     let mut values = environment();
     values.insert("RUNPOD_POD_ID".into(), "owned-worker".into());
-    values.insert("RUNPOD_PING_INTERVAL".into(), "25".into());
+    values.insert("RUNPOD_PING_INTERVAL".into(), "5250".into());
     values.insert(
         "RUNPOD_WEBHOOK_GET_JOB".into(),
         "https://example.invalid/job".into(),
@@ -416,6 +416,6 @@ fn worker_configuration_uses_the_fitness_registrys_owned_environment() {
     let registry = FitnessChecks::new(values);
     let config = WorkerConfig::from_values(registry.environment()).unwrap();
     assert_eq!(config.worker_id, "owned-worker");
-    assert_eq!(config.ping_interval, Duration::from_millis(25));
+    assert_eq!(config.ping_interval, Duration::from_secs(5));
     assert!(config.job_get_url.is_some());
 }

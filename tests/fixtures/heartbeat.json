@@ -1,0 +1,391 @@
+{
+  "urllib3": "2.8.0",
+  "cases": [
+    {
+      "name": "ok",
+      "responses": [
+        [
+          200,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [],
+      "failed": false,
+      "interval": 5
+    },
+    {
+      "name": "ordinary_client_error",
+      "responses": [
+        [
+          400,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [],
+      "failed": false,
+      "interval": 5
+    },
+    {
+      "name": "rate_limit",
+      "responses": [
+        [
+          429,
+          null
+        ],
+        [
+          200,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [],
+      "failed": false,
+      "interval": 5
+    },
+    {
+      "name": "exhausted",
+      "responses": [
+        [
+          503,
+          null
+        ],
+        [
+          503,
+          null
+        ],
+        [
+          503,
+          null
+        ],
+        [
+          503,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [
+        2.0,
+        4.0
+      ],
+      "failed": true,
+      "interval": 5
+    },
+    {
+      "name": "server_recovery",
+      "responses": [
+        [
+          500,
+          null
+        ],
+        [
+          502,
+          null
+        ],
+        [
+          504,
+          null
+        ],
+        [
+          200,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [
+        2.0,
+        4.0
+      ],
+      "failed": false,
+      "interval": 5
+    },
+    {
+      "name": "retry_after",
+      "responses": [
+        [
+          503,
+          "1"
+        ],
+        [
+          200,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [
+        1
+      ],
+      "failed": false,
+      "interval": 5
+    },
+    {
+      "name": "payload_retry_after_zero",
+      "responses": [
+        [
+          413,
+          "0"
+        ],
+        [
+          200,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        },
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [],
+      "failed": false,
+      "interval": 5
+    },
+    {
+      "name": "payload_without_header",
+      "responses": [
+        [
+          413,
+          null
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [],
+      "failed": false,
+      "interval": 5
+    },
+    {
+      "name": "unlisted_with_header",
+      "responses": [
+        [
+          418,
+          "1"
+        ]
+      ],
+      "requests": [
+        {
+          "path": "/ping/worker",
+          "query": {
+            "job_id": [
+              "job 1,job/2"
+            ],
+            "runpod_version": [
+              "VERSION"
+            ]
+          },
+          "authorization": "test-key"
+        }
+      ],
+      "delays": [],
+      "failed": false,
+      "interval": 5
+    }
+  ]
+}

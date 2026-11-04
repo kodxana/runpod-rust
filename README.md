@@ -14,8 +14,10 @@ profiles, validation, cleanup, CUDA probing, and model-cache helpers are also av
 Attach one with `JobsProgress::set_mirror(Some(mirror.clone()))` to publish current jobs
 and subsequent add/remove/clear updates. Independent trackers never share state implicitly.
 The mirror preserves Python's byte truncation, embedded-NUL and invalid-UTF-8 behavior.
-It shares memory across native threads; independent heartbeat execution/retry wiring is
-still pending, and the current worker heartbeat uses the caller's async executor.
+Queue and HTTP workers automatically attach a mirror and start heartbeats on an owned
+thread with its own runtime. Pings continue through stalled async handlers and stop with
+the worker. `Heartbeat` also exposes explicit single-ping/loop APIs, with GET retries,
+exponential backoff and `Retry-After` support; see [heartbeat parity](parity/heartbeat.json).
 `serverless::WorkerApi` hosts the development `/run`, `/runsync`, `/status`, and `/stream`
 routes, optional endpoint-specific realtime calls, and interactive API documentation.
 The development `/run` route stores a job; polling `/status` or `/stream` executes it.

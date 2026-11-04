@@ -102,7 +102,9 @@ impl WorkerConfig {
             job_get_url: value("RUNPOD_WEBHOOK_GET_JOB"),
             job_done_url: value("RUNPOD_WEBHOOK_POST_OUTPUT"),
             job_stream_url: value("RUNPOD_WEBHOOK_POST_STREAM"),
-            ping_url: value("RUNPOD_WEBHOOK_PING"),
+            // Python's start_ping requires a deployment ID even when a URL is set.
+            ping_url: value("RUNPOD_WEBHOOK_PING")
+                .filter(|_| values.get("RUNPOD_POD_ID").is_some_and(|id| !id.is_empty())),
             capture_mode: values
                 .get("RUNPOD_LOG_CAPTURE")
                 .map(|value| CaptureMode::from(value.as_str()))
@@ -113,7 +115,7 @@ impl WorkerConfig {
             let ms = ms.parse::<u64>().map_err(|_| {
                 Error::InvalidInput("RUNPOD_PING_INTERVAL must be milliseconds".into())
             })?;
-            config.ping_interval = Duration::from_millis(ms);
+            config.ping_interval = Duration::from_secs(ms / 1000);
         }
         Ok(config)
     }
@@ -360,21 +362,11 @@ impl WorkerTransport {
     /// # Errors
     /// Returns transport errors; absent configuration makes this a no-op.
     pub async fn ping(&self, progress: &JobsProgress) -> Result<()> {
-        let Some(template) = &self.config.ping_url else {
-            return Ok(());
-        };
-        if self.config.api_key.is_empty() {
-            return Ok(());
-        }
-        let mut request = self
-            .http
-            .get(self.worker_url(template))
-            .query(&[("runpod_version", env!("CARGO_PKG_VERSION"))])
-            .timeout(self.config.ping_interval.saturating_mul(2));
-        if let Some(ids) = progress.get_job_list() {
-            request = request.query(&[("job_id", ids)]);
-        }
-        request.send().await?.error_for_status()?;
+        let mirror = super::PingJobMirror::new();
+        mirror.set(progress.get_job_list().as_deref());
+        super::Heartbeat::new(self.config.clone())?
+            .send_ping(Some(&mirror))
+            .await?;
         Ok(())
     }
 }

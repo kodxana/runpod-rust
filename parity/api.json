@@ -9857,8 +9857,9 @@
       "kind": "class",
       "public": true,
       "signature": "",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Heartbeat",
+      "status": "adapted",
+      "note": "Owned native thread/runtime and cancellation guard replace the daemon process and global started flag. Queue/HTTP workers share a bounded snapshot with the heartbeat. GET retries, backoff, Retry-After, interval flooring and parent-option reset are preserved. Explicit send returns errors; periodic loops log and continue. See reviews/heartbeat.md."
     },
     {
       "file": "runpod/serverless/modules/rp_ping.py",
@@ -9867,8 +9868,9 @@
       "kind": "function",
       "public": false,
       "signature": "self, pool_connections=10, retries=3",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Heartbeat::{new,with_options}",
+      "status": "adapted",
+      "note": "Owned native thread/runtime and cancellation guard replace the daemon process and global started flag. Queue/HTTP workers share a bounded snapshot with the heartbeat. GET retries, backoff, Retry-After, interval flooring and parent-option reset are preserved. Explicit send returns errors; periodic loops log and continue. See reviews/heartbeat.md."
     },
     {
       "file": "runpod/serverless/modules/rp_ping.py",
@@ -9877,8 +9879,9 @@
       "kind": "function",
       "public": true,
       "signature": "mirror=None, test=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Heartbeat::start_ping (private owned thread/runtime)",
+      "status": "adapted",
+      "note": "Owned native thread/runtime and cancellation guard replace the daemon process and global started flag. Queue/HTTP workers share a bounded snapshot with the heartbeat. GET retries, backoff, Retry-After, interval flooring and parent-option reset are preserved. Explicit send returns errors; periodic loops log and continue. See reviews/heartbeat.md."
     },
     {
       "file": "runpod/serverless/modules/rp_ping.py",
@@ -9887,8 +9890,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, mirror=None, test=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Heartbeat::start_ping",
+      "status": "adapted",
+      "note": "Owned native thread/runtime and cancellation guard replace the daemon process and global started flag. Queue/HTTP workers share a bounded snapshot with the heartbeat. GET retries, backoff, Retry-After, interval flooring and parent-option reset are preserved. Explicit send returns errors; periodic loops log and continue. See reviews/heartbeat.md."
     },
     {
       "file": "runpod/serverless/modules/rp_ping.py",
@@ -9897,8 +9901,9 @@
       "kind": "function",
       "public": true,
       "signature": "self, test=False",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Heartbeat::{ping_loop,run_once}",
+      "status": "adapted",
+      "note": "Owned native thread/runtime and cancellation guard replace the daemon process and global started flag. Queue/HTTP workers share a bounded snapshot with the heartbeat. GET retries, backoff, Retry-After, interval flooring and parent-option reset are preserved. Explicit send returns errors; periodic loops log and continue. See reviews/heartbeat.md."
     },
     {
       "file": "runpod/serverless/modules/rp_ping.py",
@@ -9907,8 +9912,9 @@
       "kind": "function",
       "public": false,
       "signature": "self",
-      "rust": null,
-      "status": "pending"
+      "rust": "serverless::Heartbeat::send_ping",
+      "status": "adapted",
+      "note": "Owned native thread/runtime and cancellation guard replace the daemon process and global started flag. Queue/HTTP workers share a bounded snapshot with the heartbeat. GET retries, backoff, Retry-After, interval flooring and parent-option reset are preserved. Explicit send returns errors; periodic loops log and continue. See reviews/heartbeat.md."
     },
     {
       "file": "runpod/serverless/modules/rp_prestart.py",
@@ -10465,7 +10471,7 @@
       "signature": "",
       "rust": "serverless::JobsProgress",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10476,7 +10482,7 @@
       "signature": "cls",
       "rust": "serverless::JobsProgress::{new,clone}",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10487,7 +10493,7 @@
       "signature": "self",
       "rust": "serverless::JobsProgress::new",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10508,7 +10514,7 @@
       "signature": "self, mirror",
       "rust": "serverless::JobsProgress::set_mirror",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10519,7 +10525,7 @@
       "signature": "self",
       "rust": "serverless::state::State::notify_mirror",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10590,7 +10596,7 @@
       "signature": "",
       "rust": "serverless::PingJobMirror",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10601,7 +10607,7 @@
       "signature": "self, capacity: int=PING_MIRROR_CAPACITY, ctx=None",
       "rust": "serverless::PingJobMirror::{new,with_capacity}",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10612,7 +10618,7 @@
       "signature": "self, job_ids: Optional[str]",
       "rust": "serverless::PingJobMirror::set",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/modules/worker_state.py",
@@ -10623,7 +10629,7 @@
       "signature": "self",
       "rust": "serverless::PingJobMirror::get",
       "status": "adapted",
-      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Heartbeat execution/retries remain separate and pending. See reviews/job-mirror.md."
+      "note": "Owned trackers replace a process singleton; explicit clones share one tracker. Bounded thread-shared mirror retains source byte truncation, NUL and invalid UTF-8 semantics. Attach/add/remove/clear publish ordered snapshots under the mutation lock. Independent heartbeat execution/retries are covered by parity/heartbeat.json. See reviews/job-mirror.md."
     },
     {
       "file": "runpod/serverless/utils/rp_cleanup.py",

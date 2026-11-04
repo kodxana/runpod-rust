@@ -51,7 +51,7 @@
     "Replaced/detached mirrors retain their last snapshot"
   ],
   "pending": [
-    "Heartbeat independent execution and retries",
     "Process-shared mirror API is adapted to native threads"
-  ]
+  ],
+  "heartbeat": "parity/heartbeat.json"
 }

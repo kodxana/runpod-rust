@@ -165,6 +165,21 @@ impl Worker {
     /// Individual job delivery failures are logged and do not stop sibling jobs.
     pub async fn run(&self, shutdown: impl Future<Output = ()>) -> Result<()> {
         let _guard = self.control.begin()?;
+        let heartbeat =
+            super::heartbeat::start_worker(self.transport.config(), &self.progress).await?;
+        let result = self.run_loop(shutdown).await;
+        if let Some(heartbeat) = heartbeat
+            && let Err(error) = heartbeat.stop().await
+        {
+            if result.is_ok() {
+                return Err(error);
+            }
+            tracing::warn!(%error, "heartbeat cleanup failed after worker error");
+        }
+        result
+    }
+
+    async fn run_loop(&self, shutdown: impl Future<Output = ()>) -> Result<()> {
         let config = self.transport.config();
         let mut queue = VecDeque::<WorkerJob>::new();
         let mut running = FuturesUnordered::new();
@@ -185,8 +200,7 @@ impl Worker {
             tokio::select! { _ = shutdown => {}, _ = stopping.wait_for(|stop| *stop) => {} }
         }
         .fuse();
-        let pings = self.ping_loop().fuse();
-        futures_util::pin_mut!(shutdown, pings);
+        futures_util::pin_mut!(shutdown);
         loop {
             while running.len() < self.control.current_concurrency() {
                 let Some(job) = queue.pop_front() else {
@@ -291,7 +305,6 @@ impl Worker {
                     }
                     stop=self.poll_stops(delay).boxed();
                 },
-                _ = &mut pings => {},
                 _ = async {if let Some(deadline)=deadline {tokio::time::sleep_until(deadline).await} else {std::future::pending().await}}, if !shutting_down && take.is_none() => {},
             }
         }
@@ -362,14 +375,6 @@ impl Worker {
         }
         tokio::time::sleep(delay).await;
         self.transport.get_stop_signals().await
-    }
-    async fn ping_loop(&self) {
-        loop {
-            if let Err(error) = self.transport.ping(&self.progress).await {
-                tracing::warn!(%error,"worker heartbeat failed");
-            }
-            tokio::time::sleep(self.transport.config().ping_interval).await;
-        }
     }
     /// Processes and delivers a single job using this worker's result protocol.
     ///
